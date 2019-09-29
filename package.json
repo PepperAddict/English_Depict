@@ -1,0 +1,56 @@
+{
+  "name": "english_depict",
+  "description": "A place to help exercise your English skills.",
+  "version": "0.0.0",
+  "homepage": "",
+  "author": {
+    "name": "Pepper",
+    "email": "jenearly@gmail.com"
+  },
+  "scripts": {
+    "build": "webpack --config src/config/webpack.config.js",
+    "start": "SET NODE_ENV=development&& webpack --config src/config/webpack.config.js && node server/index.js"
+  },
+  "dependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.6.2",
+    "apollo-boost": "^0.4.4",
+    "babel-loader": "^8.0.6",
+    "brotli-webpack-plugin": "^1.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "compression-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.4",
+    "core-js": "^3.2.1",
+    "css-loader": "^3.2.0",
+    "dotenv-webpack": "^1.7.0",
+    "express": "^4.17.1",
+    "express-static-gzip": "^2.0.5",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-loader": "^3.0.0",
+    "react": "^16.10.1",
+    "react-apollo": "^3.1.1",
+    "react-dom": "^16.10.1",
+    "react-hot-loader": "^4.12.14",
+    "react-router-dom": "^5.1.1",
+    "regenerator-runtime": "^0.13.3",
+    "responsive-loader": "^1.2.0",
+    "style-loader": "^1.0.0",
+    "stylus-loader": "^3.0.2",
+    "terser-webpack-plugin": "^2.1.2",
+    "url-loader": "^2.1.0",
+    "webpack": "^4.41.0",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-hot-middleware": "^2.25.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.9"
+  }
+}
