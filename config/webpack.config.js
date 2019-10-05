@@ -18,14 +18,14 @@ const isDev = (process.env.NODE_ENV === 'development');
 
 
 module.exports = {
-  entry: path.resolve(__dirname, "../index.js"),
+  entry: path.resolve(__dirname, "../src/index.js"),
   resolve: {
     extensions: ['*', '.js', '.jsx']
   },
   mode: 'none',
   output: {
     filename: '[name]-script-bundle.js',
-    path: path.resolve(__dirname, '../../dist/'),
+    path: path.resolve(__dirname, '../dist/'),
     publicPath: '/',
     hotUpdateChunkFilename: 'hot-update.js',
     hotUpdateMainFilename: 'hot-update.json'
@@ -40,8 +40,9 @@ module.exports = {
   },
   devServer: {
     publicPath: '/',
-    contentBase: path.resolve(__dirname, '../../dist'),
+    contentBase: path.resolve(__dirname, '../dist'),
     index: 'index.html',
+    historyApiFallback: true,
     writeToDisk: true,
     overlay: true,
     host: process.env.HOST || '0.0.0.0',
@@ -183,8 +184,8 @@ module.exports = {
         chunkFilename: '[id].css'
       }),
       new HTMLWebpackPlugin({
-        template: path.resolve(__dirname, '../index.html'),
-        filename: path.resolve(__dirname, '../../dist/index.html')
+        template: path.resolve(__dirname, '../src/index.html'),
+        filename: path.resolve(__dirname, '../dist/index.html')
       }),
       new CleanWebpackPlugin(),
       // new CopyPlugin([

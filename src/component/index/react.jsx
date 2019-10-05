@@ -2,27 +2,39 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import  ApolloClient from 'apollo-boost';
 import { ApolloProvider, Query } from 'react-apollo';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 const client = new ApolloClient({
-  uri: process.env.HASURA_URL,
+  uri: 'http://54.146.144.37/v1/graphql',
   headers: {
-    'x-hasura-admin-secret': process.env.HASURA_KEY,
+    'x-hasura-admin-secret': 'candy',
   },
-  cache,
   credentials: 'include'
 });
-const cache = new InMemoryCache({
-  cacheRedirects: {
-    Query: {
-      users: (_, {id }, { getCacheKey }) => getCacheKey({ id, __typename: 'User'})
-    }
-  },
-});
+
+// components
+import Welcome from './Welcome.jsx';
+import Login from './Login.jsx';
+import Register from './Register.jsx';
+
+
 
 const App = () => (
   <ApolloProvider client={client}>
-    <div>hello again!</div>
+    <Router>
+      <div>
+        <Route exact path="/">
+          <Welcome />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+      </div>
+    </Router>
+    
+    
   </ApolloProvider>
 )
 ReactDOM.render(

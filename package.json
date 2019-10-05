@@ -9,7 +9,9 @@
   },
   "scripts": {
     "build": "webpack --config src/config/webpack.config.js",
-    "start": "SET NODE_ENV=development&& webpack --config src/config/webpack.config.js && node server/index.js"
+    "start": "SET NODE_ENV=development&& node server/index.js",
+    "server": "nodemon server/index.js --delay 1",
+    "graphql": "node server/graphql.js"
   },
   "dependencies": {
     "@babel/core": "^7.6.2",
@@ -20,19 +22,30 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.6.2",
     "apollo-boost": "^0.4.4",
+    "apollo-server-core": "^2.9.5",
     "babel-loader": "^8.0.6",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
     "brotli-webpack-plugin": "^1.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.0.4",
     "core-js": "^3.2.1",
+    "cross-env": "^6.0.0",
     "css-loader": "^3.2.0",
+    "dotenv": "^8.1.0",
     "dotenv-webpack": "^1.7.0",
     "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "express-jwt": "^5.3.1",
     "express-static-gzip": "^2.0.5",
+    "graphql-tag": "^2.10.1",
+    "graphql-yoga": "^1.18.3",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "lodash-es": "^4.17.15",
     "mini-css-extract-plugin": "^0.8.0",
+    "nodemon": "^1.19.3",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
     "react": "^16.10.1",
@@ -42,6 +55,7 @@
     "react-router-dom": "^5.1.1",
     "regenerator-runtime": "^0.13.3",
     "responsive-loader": "^1.2.0",
+    "semantic-ui-react": "^0.88.1",
     "style-loader": "^1.0.0",
     "stylus-loader": "^3.0.2",
     "terser-webpack-plugin": "^2.1.2",
@@ -51,6 +65,7 @@
     "webpack-hot-middleware": "^2.25.0"
   },
   "devDependencies": {
+    "jsonwebtoken": "^8.5.1",
     "webpack-cli": "^3.3.9"
   }
 }
