@@ -5,24 +5,24 @@ const {
   GraphQLNonNull
 } = require('graphql')
 const { verifyJwt } = require('../../utils')
-const pgdb = require('../../models')
+const pgdb = require('../../models/pgdb')
 const UsersType = require('../types/users')
-const VisitedInputType = new GraphQLInputObjectType({
-  name: 'AddPost',
+const PostInputType = new GraphQLInputObjectType({
+  name: 'PostInput',
   fields: {
     userId: { type: GraphQLNonNull(GraphQLID) },
-    place: { type: GraphQLNonNull(GraphQLString) }
+    content: { type: GraphQLNonNull(GraphQLString) }
   }
 })
 module.exports = {
   type: UsersType,
   description: 'This mutation will add a new post',
   args: {
-    input: { type: new GraphQLNonNull(VisitedInputType) }
+    input: { type: new GraphQLNonNull(PostInputType) }
   },
-  resolve: async (obj, { input }, { pgPool, req }) => {
+  resolve: async (source, { input }, { pgPool, req }) => {
     await verifyJwt(req)
-    await pgdb(pgPool).addNewVisitedPlace(input)
+    await pgdb(pgPool).addNewPost(input)
     return pgdb(pgPool).getUserById(input.userId)
   }
 }

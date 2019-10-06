@@ -4,7 +4,7 @@ const GetUser = require('./queries/getUser');
 const GetUserByEmail = require('./queries/getUserByEmail')
 const GetAllUsers = require('./queries/getAllUsers')
 const AddNewUserMutation = require('./mutations/addUser')
-const AddVisitedPlaceMutation = require('./mutations/addVisitedPlace')
+const AddPostsMutation = require('./mutations/addPosts')
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
   fields: () => ({
@@ -17,7 +17,7 @@ const RootMutationType = new GraphQLObjectType({
   name: 'RootMutation',
   fields: () => ({
     AddUser: AddNewUserMutation,
-    AddVisitedPlace: AddVisitedPlaceMutation
+    AddPosts: AddPostsMutation
   })
 })
 const schema = new GraphQLSchema({

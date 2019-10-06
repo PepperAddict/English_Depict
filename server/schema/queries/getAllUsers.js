@@ -1,5 +1,5 @@
 const { GraphQLID, GraphQLNonNull, GraphQLInt, GraphQLList } = require('graphql')
-const UserType = require('../types/users')
+const UserType = require('../types/me')
 const pgdb = require('../../models/pgdb')
 module.exports = {
   type: new GraphQLNonNull(new GraphQLList(UserType)),

@@ -7,7 +7,7 @@ const PostType = new GraphQLObjectType({
   name: 'Posts',
   fields: () => {
     return {
-      post: { type: GraphQLNonNull(GraphQLString) }
+      content: { type: GraphQLNonNull(GraphQLString) }
     }
   }
 })
