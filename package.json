@@ -9,9 +9,8 @@
   },
   "scripts": {
     "build": "webpack --config src/config/webpack.config.js",
-    "start": "SET NODE_ENV=development&& node server/index.js",
-    "server": "nodemon server/index.js --delay 1",
-    "graphql": "node server/graphql.js"
+    "start": "SET NODE_ENV=development&& nodemon server/index.js",
+    "server": "nodemon server/index.js --delay 1"
   },
   "dependencies": {
     "@babel/core": "^7.6.2",
@@ -31,6 +30,7 @@
     "compression-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.0.4",
     "core-js": "^3.2.1",
+    "cors": "^2.8.5",
     "cross-env": "^6.0.0",
     "css-loader": "^3.2.0",
     "dotenv": "^8.1.0",
@@ -47,6 +47,7 @@
     "mini-css-extract-plugin": "^0.8.0",
     "nodemon": "^1.19.3",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "pg": "^7.12.1",
     "postcss-loader": "^3.0.0",
     "react": "^16.10.1",
     "react-apollo": "^3.1.1",
