@@ -5,16 +5,14 @@ const privateKey = fs.readFileSync(path.resolve(__dirname,'../private.pem'), 'ut
 
 const signToken = str => {
   return new Promise(resolve => {
-    resolve(jwt.sign({
-      "token": str
-    }, privateKey, {algorithm: 'HS256'}))
+    resolve(jwt.sign({"token": str}, privateKey, {algorithm: 'HS256'}))
   })
 }
 
 const verifyJwt = req => {
   let token;
-  if (req.query && req.query.hasOwnProperty('access_token')) {
-    token = req.query.access_token
+  if (req.query && req.query.hasOwnProperty('token')) {
+    token = req.query.token
   } else if (req.headers.authorization && req.headers.authorization.includes('Bearer')) {
     token = req.headers.authorization.split(' ')[1]
   }

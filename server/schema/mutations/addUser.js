@@ -9,7 +9,8 @@ const UserInputType = new GraphQLInputObjectType({
   name: 'UserInput',
   fields: {
     email: { type: GraphQLNonNull(GraphQLString) },
-    username: { type: GraphQLNonNull(GraphQLString)}
+    username: { type: GraphQLNonNull(GraphQLString)},
+    apiKey: {type: GraphQLString}
   }
 })
 module.exports = {
@@ -18,7 +19,7 @@ module.exports = {
   args: {
     input: { type: new GraphQLNonNull(UserInputType) }
   },
-  resolve: async (obj, { input }, { pgPool }) => {
+  resolve: async (source, { input }, { pgPool }) => {
     return pgdb(pgPool).addNewUser(input)
   }
 }

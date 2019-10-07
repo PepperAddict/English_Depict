@@ -1,62 +1,82 @@
-const { signToken } = require('../utils')
+const {
+  signToken
+} = require('../utils')
 module.exports = pgPool => {
   return {
-    addNewUser ({ username, email}) {
-      return pgPool.query(`
-        insert into users (username, email)
-        values ($1, $2) returning *
-      `, [username, email])
-      .then(res => {
+    addNewUser({
+      username,
+      email
+    }) {
+      const userAdd = signToken(username + email).then((e) => {
+        return pgPool.query(`
+        insert into users (username, email, token)
+        values ($1, $2, $3) returning *
+      `, [username, email, e])
+      }).then(res => {
         const user = res.rows[0]
-        user.apiKey = signToken(user)
+        user.apiKey = user.token
         return user
       })
+      return userAdd
     },
-    addNewVisitedPlace ({ userId, place }) {
+    addNewPost({
+      userId,
+      content
+    }) {
       return pgPool.query(`
-        insert into visitedplaces (user_id, place)
+        insert into posts (user_id, content)
         values ($1, $2) returning *
-      `, [userId, place])
-      .then(res => {
-        return res.rows[0]
-      })
+      `, [userId, content])
+        .then(res => {
+          return res.rows[0]
+        })
     },
-    getUserById (userId) {
+    getUserById(userId) {
       return pgPool.query(`
         select * from users where id = $1
       `, [userId])
-      .then(res => {
-        return res.rows[0]
-      })
+        .then(res => {
+          return res.rows[0]
+        })
     },
-    getUserByEmail (email) {
+    getUserByEmail(email) {
       return pgPool.query(`
         select * from users where email = $1
       `, [email])
-      .then(res => {
-        return res.rows[0]
-      })
+        .then(res => {
+          return res.rows
+        })
     },
-    getAllUsers (limit) {
+    getAllUsers(limit) {
       return pgPool.query(`
         select * from users limit $1
       `, [limit])
-      .then(res => {
-        return res.rows
-      })
+        .then(res => {
+          return res.rows
+        })
     },
-    getUsers () {
-      return pgPool.query(`select * from users`).then(res => {
-        return res.rows
-      })
-    },
-    getVisitedPlaces (userId) {
+    getCompleteUsers() {
       return pgPool.query(`
-        select place from visitedplaces where user_id = $1
-      `, [userId])
+        select * from users
+      `)
+        .then(res => {
+          return res.rows
+        })
+    },
+    getAllPosts(limit) {
+      limit = (limit) ? `limit ${limit}` : '';
+      return pgPool.query(`select * from posts ${limit}`)
       .then(res => {
         return res.rows
       })
+    },
+    getPosts(userId) {
+      return pgPool.query(`
+        select content from posts where user_id = $1
+      `, [userId])
+        .then(res => {
+          return res.rows
+        })
     }
   }
 }

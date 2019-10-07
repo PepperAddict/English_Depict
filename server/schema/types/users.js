@@ -9,16 +9,16 @@ const pgdb = require('../../models/pgdb')
 const UsersType = new GraphQLObjectType({
   name: 'Users',
   fields: () => {
-    const PlacesType = require('./places')
+    const PostType = require('./posts')
     return {
       email: { type: GraphQLNonNull(GraphQLString) },
       username: { type: GraphQLNonNull(GraphQLString) },
-      visitedPlaces: {
-        type: new GraphQLList(PlacesType),
-        resolve: async (obj, args, { pgPool, req }) => {
+      posts: {
+        type: new GraphQLList(PostType),
+        resolve: async (source, args, { pgPool, req }) => {
           try {
             await verifyJwt(req)
-            return pgdb(pgPool).getVisitedPlaces(obj.id)
+            return pgdb(pgPool).getPosts(source.id)
           } catch (err) {
             return []
           }
