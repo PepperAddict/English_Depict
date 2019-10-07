@@ -79,6 +79,7 @@ module.exports = pgPool => {
         .then(async res => {
           let hashedPassword = await bcrypt.compare(password, res.rows[0].password)
           if (hashedPassword) {
+              res.rows[0].apiKey = res.rows[0].token
               return res.rows[0]
           } else {
             console.log(res)

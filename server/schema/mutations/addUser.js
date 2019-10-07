@@ -28,9 +28,14 @@ module.exports = {
       type: new GraphQLNonNull(UserInputType)
     }
   },
-  resolve: async (source, {input}, {pgPool, req }) => {
+  resolve: async (source, {
+    input
+  }, {
+    pgPool,
+    req
+  }) => {
 
-            return pgdb(pgPool).addNewUser(input)
+    return pgdb(pgPool).addNewUser(input)
 
   }
 }
