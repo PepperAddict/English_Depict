@@ -1,23 +1,22 @@
 const {
   signToken
 } = require('../utils')
+const bcrypt = require('bcrypt');
 module.exports = pgPool => {
   return {
-    addNewUser({
-      username,
-      email
-    }) {
-      const userAdd = signToken(username + email).then((e) => {
+     async addNewUser({username, email, password }) {
+       const token = await signToken(username + email + password).then((api) => {return api})
+       const saltRounds = 10;
+       let newPassword = await bcrypt.hash(password, saltRounds).then((hashed) => {return hashed })
+
         return pgPool.query(`
-        insert into users (username, email, token)
-        values ($1, $2, $3) returning *
-      `, [username, email, e])
-      }).then(res => {
+        insert into users (username, email, token, password)
+        values ($1, $2, $3, $4) returning *
+      `, [username, email, token, newPassword]).then(res => {
         const user = res.rows[0]
         user.apiKey = user.token
         return user
-      })
-      return userAdd
+      }).catch(e => {return e})
     },
     addNewPost({
       userId,
@@ -59,9 +58,9 @@ module.exports = pgPool => {
     getAllPosts(limit) {
       limit = (limit) ? `limit ${limit}` : '';
       return pgPool.query(`select * from posts ${limit}`)
-      .then(res => {
-        return res.rows
-      })
+        .then(res => {
+          return res.rows
+        })
     },
     getPosts(userId) {
       return pgPool.query(`

@@ -7,6 +7,7 @@
     "name": "Pepper",
     "email": "jenearly@gmail.com"
   },
+  "license": "mit",
   "scripts": {
     "build": "webpack --config src/config/webpack.config.js",
     "start": "SET NODE_ENV=development&& nodemon server/index.js"
