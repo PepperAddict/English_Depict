@@ -7,12 +7,12 @@ module.exports = pgPool => {
      async addNewUser({username, email, password }) {
        const token = await signToken(username + email + password).then((api) => {return api})
        const saltRounds = 10;
-       let newPassword = await bcrypt.hash(password, saltRounds).then((hashed) => {return hashed })
-
+       const newPassword = await bcrypt.hash(password, saltRounds).then((hashed) => {return hashed })
+       const date_created = new Date();
         return pgPool.query(`
-        insert into users (username, email, token, password)
-        values ($1, $2, $3, $4) returning *
-      `, [username, email, token, newPassword]).then(res => {
+        insert into users (username, email, token, password, date_created)
+        values ($1, $2, $3, $4, $5) returning *
+      `, [username, email, token, newPassword, date_created]).then(res => {
         const user = res.rows[0]
         user.apiKey = user.token
         return user
@@ -68,6 +68,23 @@ module.exports = pgPool => {
       `, [userId])
         .then(res => {
           return res.rows
+        })
+    },
+    login(input, password) {
+      let userORemail = (input.includes('@')) ? 'email' : 'username';
+      
+      return pgPool.query(`
+        select * from users where ${userORemail} = '${input}'
+      `,)
+        .then(async res => {
+          let hashedPassword = await bcrypt.compare(password, res.rows[0].password)
+          if (hashedPassword) {
+              return res.rows[0]
+          } else {
+            console.log(res)
+            throw new Error('password does not match!')
+          }
+
         })
     }
   }

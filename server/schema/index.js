@@ -1,6 +1,7 @@
 const { GraphQLSchema, GraphQLObjectType } = require('graphql')
 
 const GetUser = require('./queries/getUser');
+const Login = require('./queries/login')
 const GetUserByEmail = require('./queries/getUserByEmail')
 const GetAllUsers = require('./queries/getAllUsers')
 const GetCompleteUsers = require('./queries/getCompleteUsers')
@@ -12,6 +13,7 @@ const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
   fields: () => ({
     getUser: GetUser,
+    login: Login,
     getAllUsers: GetAllUsers,
     getUserByEmail: GetUserByEmail,
     getAllPosts: GetAllPosts,

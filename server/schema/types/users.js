@@ -13,9 +13,10 @@ const UsersType = new GraphQLObjectType({
     return {
       email: { type: GraphQLNonNull(GraphQLString) },
       username: { type: GraphQLNonNull(GraphQLString) },
+      date_created: {type: GraphQLNonNull(GraphQLString)},
       posts: {
         type: new GraphQLList(PostType),
-        resolve: async (source, args, { pgPool, req }) => {
+        resolve: async (source, input, { pgPool, req }) => {
           try {
             await verifyJwt(req)
             return pgdb(pgPool).getPosts(source.id)

@@ -2,7 +2,8 @@ const {
   GraphQLID,
   GraphQLObjectType,
   GraphQLString,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLScalarType
 } = require('graphql')
 const MeType = new GraphQLObjectType({
   name: 'Me',
@@ -12,6 +13,7 @@ const MeType = new GraphQLObjectType({
       email: { type: GraphQLNonNull(GraphQLString) },
       username: { type: GraphQLNonNull(GraphQLString) },
       password: {type: GraphQLNonNull(GraphQLString)},
+      date_created: {type: GraphQLNonNull(GraphQLString)},
       role: {type: GraphQLString },
       apiKey: { type: GraphQLNonNull(GraphQLString) }
     }

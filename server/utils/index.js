@@ -9,7 +9,7 @@ const signToken = str => {
   })
 }
 
-const verifyJwt = req => {
+const verifyJwt = async req => {
   let token;
   if (req.query && req.query.hasOwnProperty('token')) {
     token = req.query.token
