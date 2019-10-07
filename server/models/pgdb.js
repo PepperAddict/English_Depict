@@ -7,12 +7,12 @@ module.exports = pgPool => {
      async addNewUser({username, email, password }) {
        const token = await signToken(username + email + password).then((api) => {return api})
        const saltRounds = 10;
-       let newPassword = await bcrypt.hash(password, saltRounds).then((hashed) => {return hashed })
-
+       const newPassword = await bcrypt.hash(password, saltRounds).then((hashed) => {return hashed })
+       const createdAt = new Date();
         return pgPool.query(`
-        insert into users (username, email, token, password)
-        values ($1, $2, $3, $4) returning *
-      `, [username, email, token, newPassword]).then(res => {
+        insert into users (username, email, token, password, date_created)
+        values ($1, $2, $3, $4, $5) returning *
+      `, [username, email, token, newPassword, date_created]).then(res => {
         const user = res.rows[0]
         user.apiKey = user.token
         return user
