@@ -13,7 +13,7 @@ const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
   fields: () => ({
     getUser: GetUser,
-    // login: Login,
+    login: Login,
     getAllUsers: GetAllUsers,
     getUserByEmail: GetUserByEmail,
     getAllPosts: GetAllPosts,
