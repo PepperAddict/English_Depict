@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const path = require('path');
 const fs = require('fs');
 const privateKey = fs.readFileSync(path.resolve(__dirname,'../private.pem'), 'utf8');
-
 const signToken = str => {
   return new Promise(resolve => {
     resolve(jwt.sign({"token": str}, privateKey, {algorithm: 'HS256'}))

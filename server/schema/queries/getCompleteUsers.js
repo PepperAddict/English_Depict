@@ -5,6 +5,6 @@ module.exports = {
   type: new GraphQLNonNull(new GraphQLList(UserType)),
   description: 'This query will give you all users with a limit',
   resolve (source, { }, { pgPool, req }) {
-    return pgdb(pgPool).getCompleteUsers()
+    return pgdb(pgPool).getAllUsers()
   }
 }
