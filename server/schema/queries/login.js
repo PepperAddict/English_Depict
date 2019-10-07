@@ -1,5 +1,5 @@
 const { GraphQLID, GraphQLNonNull, GraphQLString } = require('graphql')
-const UserType = require('../types/users')
+const UserType = require('../types/me')
 const pgdb = require('../../models/pgdb')
 module.exports = {
   type: UserType,

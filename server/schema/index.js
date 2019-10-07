@@ -8,6 +8,7 @@ const GetCompleteUsers = require('./queries/getCompleteUsers')
 const GetCompletePosts = require('./queries/getCompletePosts')
 const AddNewUserMutation = require('./mutations/addUser')
 const AddPostsMutation = require('./mutations/addPosts')
+const AddNewStudent = require('./mutations/addStudent')
 const GetAllPosts = require('./queries/getAllPosts')
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
@@ -25,7 +26,9 @@ const RootMutationType = new GraphQLObjectType({
   name: 'RootMutation',
   fields: () => ({
     AddUser: AddNewUserMutation,
-    AddPosts: AddPostsMutation
+    AddPosts: AddPostsMutation,
+    // Figure out adding student situation after getting a ui going
+    // AddStudent: AddNewStudent,
   })
 })
 const schema = new GraphQLSchema({
