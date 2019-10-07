@@ -48,16 +48,9 @@ module.exports = pgPool => {
         })
     },
     getAllUsers(limit) {
+      limit = (limit) ? `limit ${limit}` : '';
       return pgPool.query(`
-        select * from users limit $1
-      `, [limit])
-        .then(res => {
-          return res.rows
-        })
-    },
-    getCompleteUsers() {
-      return pgPool.query(`
-        select * from users
+        select * from users ${limit}
       `)
         .then(res => {
           return res.rows

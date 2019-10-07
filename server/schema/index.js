@@ -4,6 +4,7 @@ const GetUser = require('./queries/getUser');
 const GetUserByEmail = require('./queries/getUserByEmail')
 const GetAllUsers = require('./queries/getAllUsers')
 const GetCompleteUsers = require('./queries/getCompleteUsers')
+const GetCompletePosts = require('./queries/getCompletePosts')
 const AddNewUserMutation = require('./mutations/addUser')
 const AddPostsMutation = require('./mutations/addPosts')
 const GetAllPosts = require('./queries/getAllPosts')
@@ -14,7 +15,8 @@ const RootQueryType = new GraphQLObjectType({
     getAllUsers: GetAllUsers,
     getUserByEmail: GetUserByEmail,
     getAllPosts: GetAllPosts,
-    getCompleteUsers: GetCompleteUsers
+    getCompleteUsers: GetCompleteUsers,
+    getCompletePosts: GetCompletePosts
   })
 })
 const RootMutationType = new GraphQLObjectType({
