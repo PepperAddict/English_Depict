@@ -4,10 +4,7 @@ const pgdb = require('../../models/pgdb')
 module.exports = {
   type: new GraphQLNonNull(new GraphQLList(UserType)),
   description: 'This query will give you all users with a limit',
-  args: {
-    limit: { type: new GraphQLNonNull(GraphQLInt) }
-  },
-  resolve (source, { limit }, { pgPool, req }) {
-    return pgdb(pgPool).getAllUsers(limit)
+  resolve (source, { }, { pgPool, req }) {
+    return pgdb(pgPool).getCompleteUsers()
   }
 }
