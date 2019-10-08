@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import { Query, Client } from 'react-apollo';
 import {Match_Email} from '../../query/query';
-import debounce from "lodash-es/debounce";
 
 
 export default class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: '',
+      username: '',
       passwordOne: '',
       passwordTwo: '',
       email: '',
@@ -48,7 +47,7 @@ export default class Register extends Component {
     if (this.state.passwordOne === this.state.passwordTwo && e.users.length === 0) {
       e.preventDefault();
       const data = {
-        'userName' : this.state.userName,
+        'userName' : this.state.username,
         'password': this.state.passwordOne,
         'email': this.state.email
       }
@@ -69,7 +68,7 @@ export default class Register extends Component {
               <Form onSubmit={e => this.handleRegister(data)}>
                 <Form.Field className="login">
                   <label htmlFor="login-username">Username</label>
-                  <input id="login-username" value={this.state.user} name='user' onChange={e => this.setState({ userName: e.target.value })} placeholder='username' />
+                  <input id="login-username" value={this.state.user} name='user' onChange={e => this.setState({ username: e.target.value })} placeholder='username' />
                 </Form.Field>
                 <Form.Field className="login">
                   <label htmlFor="login-email">E-mail Address</label>

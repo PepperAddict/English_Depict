@@ -1,9 +1,7 @@
 require('dotenv').config();
 const graphqlHTTP = require('express-graphql');
-const fs = require('fs')
+
 const path = require('path')
-
-
 
 const pg = require('pg');
 const cors = require('cors');
@@ -43,13 +41,12 @@ server.use(expressStaticGzip('dist', {
   enableBrotli: true
 }))
 
-server.get('/', (req, res) => {
+server.use(['/', '/register', '/login'], (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"), function(err) {
     if (err) {
       res.status(500).send(err)
     }
   });
-
 })
 
 server.use('/graphql', cors(), (req, res) => {
