@@ -41,7 +41,7 @@ server.use(expressStaticGzip('dist', {
   enableBrotli: true
 }))
 
-server.use(['/', '/register', '/login'], (req, res) => {
+server.get(['/', '/register', '/login'], (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"), function(err) {
     if (err) {
       res.status(500).send(err)
@@ -49,11 +49,12 @@ server.use(['/', '/register', '/login'], (req, res) => {
   });
 })
 
+
 server.use('/graphql', cors(), (req, res) => {
   graphqlHTTP({
     schema: schema,
-    graphiql: true,
-    context: { pgPool, req }
+    graphiql: (NODE_ENV="Development") ? true : false,
+    context: { pgPool, req },
   })(req, res)
 });
 

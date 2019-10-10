@@ -30,20 +30,19 @@ module.exports = pgPool => {
           return res.rows[0]
         })
     },
-    getUserById(userId) {
+    addNewStudent({
+      name, secret1, secret2
+    }) {
       return pgPool.query(`
-        select * from users where id = $1
-      `, [userId])
+      insert into students (name, secret1, secret2)`)
+    },
+    getUserById(input) {
+      idORemail = (input.includes('@')) ? 'email' : 'id';
+      return pgPool.query(`
+        select * from users where ${idORemail} = $1
+      `, [input])
         .then(res => {
           return res.rows[0]
-        })
-    },
-    getUserByEmail(email) {
-      return pgPool.query(`
-        select * from users where email = $1
-      `, [email])
-        .then(res => {
-          return res.rows
         })
     },
     getAllUsers(limit) {

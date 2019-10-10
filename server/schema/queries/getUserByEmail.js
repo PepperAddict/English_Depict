@@ -7,7 +7,7 @@ module.exports = {
   args: {
     email: { type: new GraphQLNonNull(GraphQLString) }
   },
-  resolve (obj, { input }, { pgPool, req }) {
-    return pgdb(pgPool).getUserByEmail(input)
+  resolve (obj, { email }, { pgPool, req }) {
+    return pgdb(pgPool).getUserById(email)
   }
 }

@@ -10,9 +10,10 @@
   "license": "mit",
   "scripts": {
     "build": "webpack --config src/config/webpack.config.js",
-    "start": "SET NODE_ENV=development&& nodemon server/index.js"
+    "start": "SET NODE_ENV=development&& node server/index.js"
   },
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.2",
     "@babel/core": "^7.6.2",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-transform-runtime": "^7.6.2",
@@ -20,6 +21,7 @@
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.6.2",
+    "apollo": "^2.19.0",
     "apollo-boost": "^0.4.4",
     "apollo-server-core": "^2.9.5",
     "babel-loader": "^8.0.6",

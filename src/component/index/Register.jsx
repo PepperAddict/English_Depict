@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import { Query, Client } from 'react-apollo';
 import {Match_Email} from '../../query/query';
+import {RegisterUser} from '../../mutation/mutation';
+import {useQuery, useMutation} from '@apollo/react-hooks';
+
+const [RegisterMe] = useMutation(RegisterUser); 
 
 
 export default class Register extends Component {
@@ -11,7 +15,7 @@ export default class Register extends Component {
       username: '',
       passwordOne: '',
       passwordTwo: '',
-      email: '',
+      email: 'example@example.com',
       registered: false,
       error: '',
       userID: null,
@@ -19,53 +23,47 @@ export default class Register extends Component {
     this.forError = React.createRef();
   }
 
-  // The next two onChange and handlefilter helps with that weird bounce issue caused by apollo and onchange
-  onChange = (e, data) => {
+  onChange = async (e, data) => {
     const value = e.target.value
-    const email = this.state.email
-    this.setState({
+    await this.setState({
       email: value
-    }, () => {
-      console.log(data)
     })
   }
 
   handleRegister = (e) => {
+    const {loading, error, data} = useQuery(Match_Email, {vriables: {email: this.state.email}})
     const forError = this.forError.current;
+
     if (this.state.passwordOne !== this.state.passwordTwo) {
-      forError.innerHTML = 'The password does not match. Please try again.'
+      forError.innerHTML = 'The passwords do not match. Please try again.'
     } else {
       forError.innerHTML = ''
     }
   
-    if(e.users.length >= 1) {
-      forError.innerHTML = 'Sorry, but the email is taken! Please use a different one'
+    if(e.getUserByEmail !== null) {
+      forError.innerHTML = `Sorry, but the email ${this.state.email} is taken! Please use a different one`
     } else {
       forError.innerHTML = ''
     }
 
-    if (this.state.passwordOne === this.state.passwordTwo && e.users.length === 0) {
-      e.preventDefault();
+    if (this.state.passwordOne === this.state.passwordTwo && e.getUserByEmail === null) {
       const data = {
-        'userName' : this.state.username,
+        'username' : this.state.username,
         'password': this.state.passwordOne,
         'email': this.state.email
       }
+    } else {
+      forError.innerHTML = 'Sorry, something went wrong. Please try again later'
     }
   }
 
   render() {
     const {email} = this.state;
-    return (
-      <Query query={Match_Email} variables={{ email}}>
-        {({ loading, error, data }) => {
-          if (loading) return 'loading';
-          if (error) return 'error';
 
-          return (
+    return (
             <div className="Welcome">
               <div>Let's register</div>
-              <Form onSubmit={e => this.handleRegister(data)}>
+              <Form onSubmit={e => this.handleRegister}>
                 <Form.Field className="login">
                   <label htmlFor="login-username">Username</label>
                   <input id="login-username" value={this.state.user} name='user' onChange={e => this.setState({ username: e.target.value })} placeholder='username' />
@@ -87,10 +85,6 @@ export default class Register extends Component {
 
               </Form>
             </div>
-          )
-        }}
-      </Query>
-
     )
   }
 }
