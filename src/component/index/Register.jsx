@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import { Query, Client } from 'react-apollo';
 import {Match_Email} from '../../query/query';
 import {RegisterUser} from '../../mutation/mutation';
-import {useQuery, useMutation} from '@apollo/react-hooks';
 
 const [RegisterMe] = useMutation(RegisterUser); 
 
@@ -31,7 +30,7 @@ export default class Register extends Component {
   }
 
   handleRegister = (e) => {
-    const {loading, error, data} = useQuery(Match_Email, {vriables: {email: this.state.email}})
+    
     const forError = this.forError.current;
 
     if (this.state.passwordOne !== this.state.passwordTwo) {
