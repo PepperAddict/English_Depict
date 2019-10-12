@@ -45,6 +45,14 @@ module.exports = pgPool => {
           return res.rows[0]
         })
     },
+    getUserByEmail(email) {
+      return pgPool.query(`
+        select * from users where email = $1
+      `, [email])
+        .then(res => {
+          return res.rows[0]
+        })
+    },
     getAllUsers(limit) {
       limit = (limit) ? `limit ${limit}` : '';
       return pgPool.query(`

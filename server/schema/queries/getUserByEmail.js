@@ -8,6 +8,6 @@ module.exports = {
     email: { type: new GraphQLNonNull(GraphQLString) }
   },
   resolve (obj, { email }, { pgPool, req }) {
-    return pgdb(pgPool).getUserById(email)
+    return pgdb(pgPool).getUserByEmail(email)
   }
 }
