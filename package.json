@@ -9,11 +9,12 @@
   },
   "license": "mit",
   "scripts": {
-    "build": "webpack --config src/config/webpack.config.js",
+    "build": "webpack --config config/webpack.config.js",
     "start": "SET NODE_ENV=development&& node server/index.js"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.2",
+    "@apollo/react-testing": "^3.1.2",
     "@babel/core": "^7.6.2",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-transform-runtime": "^7.6.2",
@@ -52,7 +53,7 @@
     "pg": "^7.12.1",
     "postcss-loader": "^3.0.0",
     "react": "^16.10.1",
-    "react-apollo": "^3.1.1",
+    "react-apollo": "^3.1.2",
     "react-dom": "^16.10.1",
     "react-hot-loader": "^4.12.14",
     "react-router-dom": "^5.1.1",

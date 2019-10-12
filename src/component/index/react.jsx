@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import  ApolloClient from 'apollo-boost';
-import { ApolloProvider, Query } from 'react-apollo';
+import { ApolloProvider, Query, withApollo } from 'react-apollo';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 const client = new ApolloClient({
   uri: 'http://localhost:8080/graphql',
@@ -14,8 +14,8 @@ const client = new ApolloClient({
 // components
 import Welcome from './Welcome.jsx';
 import Login from './Login.jsx';
-import Register from './Register.jsx';
-
+import Register from './Regi.jsx';
+const RegWithClient = withApollo(Register)
 
 
 const App = () => (
@@ -29,13 +29,11 @@ const App = () => (
           <Login />
         </Route>
         <Route path="/register">
-          <Register />
+          <RegWithClient />
         </Route>
       </div>
     </Router>
-    
-    
-  </ApolloProvider>
+    </ApolloProvider>
 )
 ReactDOM.render(
   <App/>,
