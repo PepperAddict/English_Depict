@@ -4,7 +4,7 @@ import {Get_All_Emails, Match_Email} from '../../query/query';
 import { Button, Form } from 'semantic-ui-react';
 
 
-function CheckEmail(props) {
+function CheckEmail({updateParent}) {
   const [account, setValue] = useState({
     email: 'example@example.com',
     user: '',
@@ -12,34 +12,28 @@ function CheckEmail(props) {
     passwordTwo: '',
     loading: true,
   });
-  const [vari, setVari] = useState({props});
 
   const {loading, error, data} = useQuery(Get_All_Emails);
+  
   const handleRegister = e => {
     console.log(account.email)
     
     e.preventDefault();
     for (let x of data.getCompleteUsers) {
       if (x.email === account.email) {
-        alert('that email is taken')
+        updateParent({forError: {status: true, text: 'This email is taken, would you like to Login instead? <a href="/login">Login Here</a>'}})
       }
     }
-    
 
   }
   const updateFields = e => {
     setValue({
       ...account, [e.target.name]: e.target.value || ''
     })
-    setVari({
-      error: true
-    })
+
+
   }
 
-
-  useEffect(() => {
-    setVari(props)
-  }, [props] )
 
   return ( <div>
     {loading ? <p>Loading...</p> : (error) ? <p>Error</p> :
@@ -74,14 +68,29 @@ function CheckEmail(props) {
 function Regi() {
   const [variable, setVariable] = useState({
     registered: false, 
-    error: false, 
+    forError: {
+      status: false, 
+      text: ''
+    }
   });
 
+  const fromChild = (update) => {
+    const newUpdate = update
+    console.log(update)
+    setVariable(newUpdate)
+  }
+  const textForError = e => {
+    return {__html: e}
+  }
+
+  useEffect(() => {
+    setVariable(variable)
+  }, [variable] )
 
   return (
     <div className="register">
-      <CheckEmail registered={variable.registered} error={variable.error} />
-      {variable.error === true ? <div id="errorMessage">TEST TEST TEST</div> : ''}
+      <CheckEmail registered={variable.registered} forError={variable.forError} updateParent={fromChild} />
+      {variable.forError.status === true ? <div id="errorMessage" dangerouslySetInnerHTML={textForError(variable.forError.text)} /> : ''}
     </div>
 
   )
