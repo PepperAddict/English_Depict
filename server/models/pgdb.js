@@ -77,11 +77,10 @@ module.exports = pgPool => {
           return res.rows
         })
     },
-    login(input, password) {
-      let userORemail = (input.includes('@')) ? 'email' : 'username';
+    login(email, password) {
       
       return pgPool.query(`
-        select * from users where ${userORemail} = '${input}'
+        select * from users where email = '${email}'
       `,)
         .then(async res => {
           let hashedPassword = await bcrypt.compare(password, res.rows[0].password)

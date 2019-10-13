@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {useQuery, useMutation, useLazyQuery} from '@apollo/react-hooks';
 import {Get_All_Emails, Match_Email} from '../../query/query';
+import {ADD_REGISTRATION} from '../../mutation/mutation';
 import { Button, Form } from 'semantic-ui-react';
+import { variablesInOperation } from 'apollo-utilities';
+import Dashboard from './Dashboard.jsx'
 
 
 function CheckEmail({updateParent}) {
@@ -14,29 +17,59 @@ function CheckEmail({updateParent}) {
   });
 
   const {loading, error, data} = useQuery(Get_All_Emails);
+  const [addRegistration, {newData}] = useMutation(ADD_REGISTRATION);
   
-  const handleRegister = e => {
-    console.log(account.email)
-    
+  const handleRegister = e => {    
     e.preventDefault();
+    const newAccount = {
+      username: account.user, 
+      email: account.email,
+      password: account.passwordOne
+    }
+    const passwordMatch = (account.passwordOne === account.passwordTwo) ? true : false;
+
+    let bunchesOfErrors = [];
+    // handle duplicate emails
     for (let x of data.getCompleteUsers) {
       if (x.email === account.email) {
-        updateParent({forError: {status: true, text: 'This email is taken, would you like to Login instead? <a href="/login">Login Here</a>'}})
+        bunchesOfErrors.push('This email is taken, would you like to Login instead? <a href="/login">Login Here</a>')
+        updateParent({forError: {status: true, text: bunchesOfErrors}})
+      } 
+      else {
+        updateParent({forError: {status:false}})
       }
     }
+    // handle if email doesn't have an @ symbol
+    if (!account.email.includes('@')) {
+      bunchesOfErrors.push('Please enter a valid email address')
+      updateParent({forError: {status: true, text: bunchesOfErrors}})
+    } else {
+      updateParent({forError: {status:false}})
+    }
+    // handle password mismatch
+    if (!passwordMatch) {
+      bunchesOfErrors.push('Your password does not match please try again')
+      updateParent({forError: {status: true, text: bunchesOfErrors}})
+    } else {
+      updateParent({forError: {status:false}})
+    }
 
+    // no errors mean we can carry on with the registration
+    if (bunchesOfErrors.length === 0) {
+      addRegistration({variables: {input: newAccount}}).then((e => {
+        updateParent({registered: true})
+      }))
+    }
   }
+
   const updateFields = e => {
     setValue({
       ...account, [e.target.name]: e.target.value || ''
     })
-
-
   }
 
-
   return ( <div>
-    {loading ? <p>Loading...</p> : (error) ? <p>Error</p> :
+    {loading ? <p>Loading...</p> : (error) ? <p>There was a problem. Please go back <a href="/">home</a></p> :
     <div>
                 <Form onSubmit={handleRegister}>
                 <Form.Field className="login">
@@ -76,7 +109,6 @@ function Regi() {
 
   const fromChild = (update) => {
     const newUpdate = update
-    console.log(update)
     setVariable(newUpdate)
   }
   const textForError = e => {
@@ -88,11 +120,16 @@ function Regi() {
   }, [variable] )
 
   return (
-    <div className="register">
+    <div>
+      {variable.registered ? <Dashboard /> : <div className="register">
       <CheckEmail registered={variable.registered} forError={variable.forError} updateParent={fromChild} />
-      {variable.forError.status === true ? <div id="errorMessage" dangerouslySetInnerHTML={textForError(variable.forError.text)} /> : ''}
+      {variable.forError.status === true ? 
+      variable.forError.text.map((errorsMsg, index) => (
+        <p id="errorMessage" dangerouslySetInnerHTML={textForError(errorsMsg)} key={index} /> 
+      ))
+       : ''}
+    </div>}
     </div>
-
   )
 }
 

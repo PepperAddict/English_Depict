@@ -5,10 +5,10 @@ module.exports = {
   type: UserType,
   description: 'This query will search for a user with userId',
   args: {
-    input: { type: new GraphQLNonNull(GraphQLID) },
+    email: { type: new GraphQLNonNull(GraphQLString) },
     password: {type: new GraphQLNonNull(GraphQLString)}
   },
-  resolve (obj, { input, password }, { pgPool, req }) {
-    return pgdb(pgPool).login(input, password)
+  resolve (obj, { email, password }, { pgPool, req }) {
+    return pgdb(pgPool).login(email, password)
   }
 }
