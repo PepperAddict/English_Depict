@@ -16,3 +16,13 @@ query getAllUsers {
   }
 }
 `
+
+export const Handle_Login = gql`
+query Login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    email
+    apiKey
+    username
+  }
+}
+`
