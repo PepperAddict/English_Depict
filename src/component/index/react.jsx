@@ -4,9 +4,16 @@ import  ApolloClient from 'apollo-boost';
 import { ApolloProvider, Query, withApollo } from 'react-apollo';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 const client = new ApolloClient({
-  uri: 'http://localhost:8080/graphql',
+  uri: '/graphql',
+  onError: function(graphQLErrors, networkError ) {
+    // graphQLErrors.graphQLErrors = null;
+    if (graphQLErrors.networkError.statusCode === 500) {
+      console.log(graphQLErrors)
+    }
+
+  },
   // headers: {
-  //   'x-hasura-admin-secret': 'candy',
+  //   'entrySauce': 'candy',
   // },
   // credentials: 'include'
 });

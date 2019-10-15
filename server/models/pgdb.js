@@ -105,7 +105,8 @@ module.exports = pgPool => {
     },
     login(email, password) {
 
-      return pgPool.query(`
+
+       return pgPool.query(`
         select * from users where email = '${email}'
       `, )
         .then(async res => {
@@ -115,12 +116,15 @@ module.exports = pgPool => {
               res.rows[0].apiKey = res.rows[0].token
               return res.rows[0]
             } else {
-              throw new Error('the password does not match')
+              res.rows[0].apiKey = 'none';
+              res.rows[0].email = 'incorrectPassword'
+              return res.rows[0]
             }
           } else {
-            throw new Error('The email does not exist')
+            return res.rows[0]
           }
         })
+
     }
   }
 }

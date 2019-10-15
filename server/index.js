@@ -40,17 +40,13 @@ server.use(webpackHotMiddleware);
 server.use(expressStaticGzip('dist', {
   enableBrotli: true
 }))
-
-server.get(['/', '/register', '/login'], (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../dist/index.html"), function(err) {
-    if (err) {
-      res.status(500).send(err)
-    }
-  });
+server.use(cors());
+server.get(['/', '/register', '/login'],  (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 })
 
 
-server.use('/graphql', cors(), (req, res) => {
+server.use('/graphql', (req, res) => {
   graphqlHTTP({
     schema: schema,
     graphiql: (NODE_ENV="Development") ? true : false,
