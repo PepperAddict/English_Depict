@@ -10,7 +10,7 @@
   "license": "mit",
   "scripts": {
     "build": "webpack --config config/webpack.config.js",
-    "start": "SET NODE_ENV=development&& node server/index.js"
+    "start": "SET NODE_ENV=development&& nodemon server/index.js"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.2",

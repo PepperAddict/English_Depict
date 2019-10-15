@@ -4,19 +4,42 @@ const {
 const bcrypt = require('bcrypt');
 module.exports = pgPool => {
   return {
-     async addNewUser({username, email, password }) {
-       const token = await signToken(username + email + password).then((api) => {return api})
-       const saltRounds = 10;
-       const newPassword = await bcrypt.hash(password, saltRounds).then((hashed) => {return hashed })
-       const date_created = new Date();
-        return pgPool.query(`
+    async addNewUser({
+      username,
+      email,
+      password
+    }) {
+      //first let's check if the email exists in the database, 
+      //if it does and password matches, sign in. if none then register
+      return pgPool.query(`select * from users where email = '${email}'`).then(async res => {
+        if (res.rows.length > 0) {
+          let hashedPassword = await bcrypt.compare(password, res.rows[0].password)
+          if (hashedPassword) {
+            res.rows[0].apiKey = res.rows[0].token
+            return res.rows[0]
+          } else {
+            throw new Error('Email already exists!')
+          }
+        } else {
+          //setting up for registration
+          const token = await signToken(username + email + password).then((api) => {
+            return api
+          })
+          const saltRounds = 10;
+          const newPassword = await bcrypt.hash(password, saltRounds).then((hashed) => {
+            return hashed
+          })
+          const date_created = new Date();
+          return pgPool.query(`
         insert into users (username, email, token, password, date_created)
         values ($1, $2, $3, $4, $5) returning *
       `, [username, email, token, newPassword, date_created]).then(res => {
-        const user = res.rows[0]
-        user.apiKey = user.token
-        return user
-      }).catch(e => {return e})
+            const user = res.rows[0]
+            user.apiKey = user.token
+            return user
+          })
+        }
+      })
     },
     addNewPost({
       userId,
@@ -31,7 +54,10 @@ module.exports = pgPool => {
         })
     },
     addNewStudent({
-      name, secret1, secret2
+      name,
+      secret1,
+      secret2,
+      secret3
     }) {
       return pgPool.query(`
       insert into students (name, secret1, secret2)`)
@@ -78,20 +104,22 @@ module.exports = pgPool => {
         })
     },
     login(email, password) {
-      
+
       return pgPool.query(`
         select * from users where email = '${email}'
-      `,)
+      `, )
         .then(async res => {
-          let hashedPassword = await bcrypt.compare(password, res.rows[0].password)
-          if (hashedPassword) {
+          if (res.rows.length > 0) {
+            let hashedPassword = await bcrypt.compare(password, res.rows[0].password)
+            if (hashedPassword) {
               res.rows[0].apiKey = res.rows[0].token
               return res.rows[0]
+            } else {
+              throw new Error('the password does not match')
+            }
           } else {
-            console.log(res)
-            throw new Error('password does not match!')
+            throw new Error('The email does not exist')
           }
-
         })
     }
   }

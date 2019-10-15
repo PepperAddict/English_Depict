@@ -8,7 +8,7 @@ module.exports = {
     email: { type: new GraphQLNonNull(GraphQLString) },
     password: {type: new GraphQLNonNull(GraphQLString)}
   },
-  resolve (obj, { email, password }, { pgPool, req }) {
+  resolve: async (obj, { email, password }, { pgPool, req }) => {
     return pgdb(pgPool).login(email, password)
   }
 }
