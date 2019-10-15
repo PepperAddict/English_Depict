@@ -1,5 +1,5 @@
-export const updateFields = (e, data) => {
-  setValue({
+export const updateFields = (e, data, write) => {
+  write({
     ...data, [e.target.name]: e.target.value || ''
   })
 }

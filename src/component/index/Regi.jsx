@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {useQuery, useMutation, useLazyQuery} from '@apollo/react-hooks';
-import {Get_All_Emails, Match_Email} from '../../query/query';
+import {Get_All_Emails} from '../../query/query';
 import {ADD_REGISTRATION} from '../../mutation/mutation';
 import { Button, Form } from 'semantic-ui-react';
-import { variablesInOperation } from 'apollo-utilities';
 import Dashboard from './Dashboard.jsx'
 
 
