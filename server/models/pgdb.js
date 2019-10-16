@@ -104,26 +104,34 @@ module.exports = pgPool => {
         })
     },
     login(email, password) {
-
-
-       return pgPool.query(`
+      // try {
+        return pgPool.query(`
         select * from users where email = '${email}'
       `, )
-        .then(async res => {
-          if (res.rows.length > 0) {
-            let hashedPassword = await bcrypt.compare(password, res.rows[0].password)
-            if (hashedPassword) {
-              res.rows[0].apiKey = res.rows[0].token
-              return res.rows[0]
+          .then(async res => {
+            if (res.rows.length > 0) {
+              let hashedPassword = await bcrypt.compare(password, res.rows[0].password)
+              if (hashedPassword) {
+                res.rows[0].apiKey = res.rows[0].token
+                return res.rows[0]
+              } else {
+                // res.rows[0].apiKey = 'none';
+                // res.rows[0].email = 'incorrectPassword'
+                // return res.rows[0]
+                throw new Error('incorrectPassword')
+              }
             } else {
-              res.rows[0].apiKey = 'none';
-              res.rows[0].email = 'incorrectPassword'
-              return res.rows[0]
+              // console.log(res)
+              // return res.rows[0]
+              throw new Error('noEmail')
             }
-          } else {
-            return res.rows[0]
-          }
-        })
+          }).catch((e) => {
+            throw new Error(e)
+          })
+      // } catch(e) {
+      //   throw new Error(e)
+      // }
+
 
     }
   }

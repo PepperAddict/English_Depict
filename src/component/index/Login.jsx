@@ -19,15 +19,39 @@ function LoginForm(props) {
 
   let message = false;
 
-  const handleLogin = async e => {
-    const {data} = await client.query({
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    await client.query({
       query: Handle_Login, 
       variables: {
         email: val.email, 
         password: val.password
       }
+    }).then((e) => {
+      console.log(e)
+    }).catch((e) => {
+      if (e.message.includes('noEmail')) {
+        setValu({
+          ...val,
+          texterror: {
+            status: true, 
+            text: 'Unknown email address. Would you like to register instead? <a href="/register">Click here</a> to register.'
+          }
+        })
+      } else if (e.message.includes('incorrectPassword')) {
+        setValu({
+          ...val,
+          texterror: {
+            status: true, 
+            text: `YOUR! PASSWORD! DOOESN'T MATCH! AT! ALL!`
+          }
+        })
+      }
     })
-console.log(data)
+
+    // if (error) {
+    //   console.log(error)
+    // }
 
     // if (data) {
     //   console.log(data)
@@ -67,7 +91,7 @@ console.log(data)
 
   return (<div>
 
-    <Form onSubmit={() => handleLogin()}>
+    <Form onSubmit={(e) => handleLogin(e)}>
       <Form.Field className="login">
         <label
           htmlFor="login-email">E-mail Address</label>

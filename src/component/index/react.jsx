@@ -6,10 +6,12 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 const client = new ApolloClient({
   uri: '/graphql',
   onError: function(graphQLErrors, networkError ) {
-    // graphQLErrors.graphQLErrors = null;
-    if (graphQLErrors.networkError.statusCode === 500) {
-      console.log(graphQLErrors)
-    }
+
+
+    // if (graphQLErrors.networkError.statusCode === 500) {
+    //   console.log(graphQLErrors)
+    // }
+    console.log(graphQLErrors)
 
   },
   // headers: {
