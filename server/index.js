@@ -27,6 +27,7 @@ const pgPool = new pg.Pool({
   database: 'depict'
 })
 
+
 const schema = require('./schema/')
 
 
@@ -40,8 +41,18 @@ server.use(webpackHotMiddleware);
 server.use(expressStaticGzip('dist', {
   enableBrotli: true
 }))
+// Error handler
+const errorHandler = (err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err);
+  }
+  const { status } = err;
+  res.status(status).json(err);
+};
+server.use(errorHandler);
 
-server.get(['/', '/register', '/login'], (req, res) => {
+
+server.get(['/', '/register', '/login'], cors(), (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"), function(err) {
     if (err) {
       res.status(500).send(err)
@@ -49,12 +60,12 @@ server.get(['/', '/register', '/login'], (req, res) => {
   });
 })
 
-
 server.use('/graphql', cors(), (req, res) => {
   graphqlHTTP({
     schema: schema,
     graphiql: (NODE_ENV="Development") ? true : false,
     context: { pgPool, req },
+    introspection: true,
   })(req, res)
 });
 
