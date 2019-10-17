@@ -54,21 +54,27 @@ module.exports = pgPool => {
         })
     },
     addNewStudent({
-      name,
-      secret1,
-      secret2,
-      secret3
+      teacher_id, username, name, question1, question2, question3, 
+      secret1, secret2, secret3
     }) {
+
       return pgPool.query(`
-      insert into students (name, secret1, secret2)`)
+      insert into students (teacher_id, username, name, question1, question2, question3, secret1, secret2, secret3)
+      values ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *`, 
+      [teacher_id, username, name, question1, question2, question3, secret1, secret2, secret3])
     },
     getUserById(input) {
-      idORemail = (input.includes('@')) ? 'email' : 'id';
       return pgPool.query(`
-        select * from users where ${idORemail} = $1
+        select * from users where id = $1
       `, [input])
         .then(res => {
+          if (res.rows.length === 0) {
+            throw new Error('no results found')
+          }
           return res.rows[0]
+        })
+        .catch((e) => {
+          throw new Error(e)
         })
     },
     getUserByEmail(email) {

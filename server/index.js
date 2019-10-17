@@ -1,10 +1,13 @@
 require('dotenv').config();
 const graphqlHTTP = require('express-graphql');
-
+const cookieParser = require('cookie-parser')
 const path = require('path')
 
 const pg = require('pg');
 const cors = require('cors');
+
+const {isAuthenticated, softAuthenticate } = require('./utils')
+
 
 
 const express = require('express');
@@ -26,8 +29,6 @@ const pgPool = new pg.Pool({
   password: process.env.DB_PASS,
   database: 'depict'
 })
-
-
 const schema = require('./schema/')
 
 
@@ -35,29 +36,22 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({
   extended: true
 }))
-
+server.use(cookieParser());
 server.use(webpackDevMiddleware);
 server.use(webpackHotMiddleware);
 server.use(expressStaticGzip('dist', {
   enableBrotli: true
 }))
-// Error handler
-const errorHandler = (err, req, res, next) => {
-  if (res.headersSent) {
-    return next(err);
-  }
-  const { status } = err;
-  res.status(status).json(err);
-};
-server.use(errorHandler);
 
 
-server.get(['/', '/register', '/login'], cors(), (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../dist/index.html"), function(err) {
-    if (err) {
-      res.status(500).send(err)
-    }
-  });
+
+server.get(['/', '/login', '/register'], cors(), softAuthenticate,  (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../dist/index.html"));
+})
+
+
+server.get(['/dashboard'], cors(), isAuthenticated, (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 })
 
 server.use('/graphql', cors(), (req, res) => {

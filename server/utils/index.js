@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 const fs = require('fs');
 const privateKey = fs.readFileSync(path.resolve(__dirname,'../private.pem'), 'utf8');
+
 const signToken = str => {
   return new Promise(resolve => {
     resolve(jwt.sign({"token": str}, privateKey, {algorithm: 'HS256'}))
@@ -26,33 +27,40 @@ const verifyJwt = async req => {
 }
 
 
+
 const isAuthenticated = (req, res, next) => {
-  if (typeof req.headers.authorization !== "undefined") {
-      // retrieve the authorization header and parse out the
-      // JWT using the split function
-      let token = req.headers.authorization;
-      let privateKey = fs.readFileSync(path.resolve(__dirname, './private.pem'), 'utf8');
-      // Here we validate that the JSON Web Token is valid and has been 
-      // created using the same private pass phrase
-      
+  let token = ('token', req.cookies).token || false;
+  if (token) {
+
       jwt.verify(token, privateKey, { algorithm: "HS256" }, (err, user) => {
-          
-          // if there has been an error...
           if (err) {  
-              // shut them out!
-              res.status(500).json({ error: 'Not Authorized' });
-              throw new Error("Not Authorized");
+              res.redirect('/')
           }
-          // if the JWT is valid, allow them to hit
-          // the intended endpoint
-          return next();
+          if (user) {
+            return next();
+          }
       });
-  } else {
-      // No authorization header exists on the incoming
-      // request, return not authorized and throw a new error 
-      res.status(500).json({ error: "Not Authorized" });
-      throw new Error("Not Authorized");
+  }
+  if (!token) {
+    res.redirect('/')
   }
 }
 
-module.exports = { signToken, verifyJwt}
+const softAuthenticate = async (req, res, next) => {
+  let token = ('token', req.cookies).token || false;
+  if (token) {
+      await jwt.verify(token, privateKey, { algorithm: "HS256" }, (err, user) => {
+          if (err) {  
+              return next();
+          } 
+          if (user) {
+            return res.redirect('/dashboard')
+          }
+      });
+  }
+  if (!token) {
+      return next();
+  }
+}
+
+module.exports = { signToken, verifyJwt, softAuthenticate, isAuthenticated}

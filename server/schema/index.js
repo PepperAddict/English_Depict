@@ -27,8 +27,7 @@ const RootMutationType = new GraphQLObjectType({
   fields: () => ({
     AddUser: AddNewUserMutation,
     AddPosts: AddPostsMutation,
-    // Figure out adding student situation after getting a ui going
-    // AddStudent: AddNewStudent,
+    AddStudent: AddNewStudent
   })
 })
 const schema = new GraphQLSchema({
