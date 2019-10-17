@@ -54,13 +54,14 @@ module.exports = pgPool => {
         })
     },
     addNewStudent({
-      name,
-      secret1,
-      secret2,
-      secret3
+      teacher_id, username, name, question1, question2, question3, 
+      secret1, secret2, secret3
     }) {
+
       return pgPool.query(`
-      insert into students (name, secret1, secret2)`)
+      insert into students (teacher_id, username, name, question1, question2, question3, secret1, secret2, secret3)
+      values ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *`, 
+      [teacher_id, username, name, question1, question2, question3, secret1, secret2, secret3])
     },
     getUserById(input) {
       return pgPool.query(`
