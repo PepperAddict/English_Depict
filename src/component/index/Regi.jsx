@@ -18,7 +18,7 @@ function CheckEmail({updateParent}) {
   const {loading, error, data} = useQuery(Get_All_Emails);
   const [addRegistration, {newData}] = useMutation(ADD_REGISTRATION);
   
-  const handleRegister = e => {    
+  const handleRegister = e => {
     e.preventDefault();
     const newAccount = {
       username: account.user, 

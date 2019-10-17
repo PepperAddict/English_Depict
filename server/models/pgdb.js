@@ -63,12 +63,17 @@ module.exports = pgPool => {
       insert into students (name, secret1, secret2)`)
     },
     getUserById(input) {
-      idORemail = (input.includes('@')) ? 'email' : 'id';
       return pgPool.query(`
-        select * from users where ${idORemail} = $1
+        select * from users where id = $1
       `, [input])
         .then(res => {
+          if (res.rows.length === 0) {
+            throw new Error('no results found')
+          }
           return res.rows[0]
+        })
+        .catch((e) => {
+          throw new Error(e)
         })
     },
     getUserByEmail(email) {

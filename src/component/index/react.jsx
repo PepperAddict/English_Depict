@@ -6,24 +6,19 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 const client = new ApolloClient({
   uri: '/graphql',
   onError: function(graphQLErrors, networkError ) {
-
-
-    // if (graphQLErrors.networkError.statusCode === 500) {
-    //   console.log(graphQLErrors)
-    // }
-    console.log(graphQLErrors)
-
+    graphQLErrors = null;
   },
-  // headers: {
-  //   'entrySauce': 'candy',
-  // },
-  // credentials: 'include'
+  headers: {
+    'entrySauce': 'candy',
+  },
+  credentials: 'include'
 });
 
 // components
 import Welcome from './Welcome.jsx';
 import Login from './Login.jsx';
 import Register from './Regi.jsx';
+import Dashboard from './Dashboard.jsx';
 const RegWithClient = withApollo(Register)
 
 
@@ -34,10 +29,13 @@ const App = () => (
         <Route exact path="/">
           <Welcome />
         </Route>
-        <Route path="/login">
+        <Route exact path="/login">
           <Login />
         </Route>
-        <Route path="/register">
+        <Route exact path="/dashboard">
+          <Dashboard />
+        </Route>
+        <Route exact path="/register">
           <RegWithClient />
         </Route>
       </div>
