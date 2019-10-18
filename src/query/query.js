@@ -33,8 +33,15 @@ query Login($email: String!, $password: String!) {
 export const getUserByID = gql`
 query getUserByID($userId: ID!) {
   getUser(userId: $userId) {
-    email
     username
+    date_created
+    students {
+      username
+      question
+      password
+      date_created
+      theme
+    }
   }
 }
 `

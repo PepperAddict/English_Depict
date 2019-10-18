@@ -53,15 +53,23 @@ module.exports = pgPool => {
           return res.rows[0]
         })
     },
-    addNewStudent({
-      teacher_id, username, name, question1, question2, question3, 
-      secret1, secret2, secret3
+    async addNewStudent({
+      teacher_id, username, name, question, password, theme
     }) {
-
+      const apiKey = await signToken(username + password).then((api) => {
+        return api
+      })
+      const date_created = new Date();
       return pgPool.query(`
-      insert into students (teacher_id, username, name, question1, question2, question3, secret1, secret2, secret3)
-      values ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *`, 
-      [teacher_id, username, name, question1, question2, question3, secret1, secret2, secret3])
+      insert into students (teacher_id, username, name, password, theme, student_key, date_created, question)
+      values ($1, $2, $3, $4, $5, $6, $7, $8) returning *`, 
+      [teacher_id, username, name, password, theme, apiKey, date_created, question])
+      .then((res => {
+        return res.rows[0]
+      }))
+      .catch((e) => {
+        console.log(e)
+      })
     },
     getUserById(input) {
       return pgPool.query(`
@@ -104,6 +112,14 @@ module.exports = pgPool => {
     getPosts(userId) {
       return pgPool.query(`
         select content from posts where user_id = $1
+      `, [userId])
+        .then(res => {
+          return res.rows
+        })
+    },
+    getStudent(userId) {
+      return pgPool.query(`
+        select * from students where teacher_id = $1
       `, [userId])
         .then(res => {
           return res.rows

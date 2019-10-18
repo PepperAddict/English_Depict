@@ -50,7 +50,7 @@ server.get(['/', '/login', '/register'], cors(), softAuthenticate,  (req, res) =
 })
 
 
-server.get(['/dashboard'], cors(), isAuthenticated, (req, res) => {
+server.get(['/dashboard/:page'], cors(), isAuthenticated, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 })
 

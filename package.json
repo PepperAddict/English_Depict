@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.2",
-    "@apollo/react-testing": "^3.1.2",
     "@babel/core": "^7.6.4",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-transform-runtime": "^7.6.2",
@@ -21,10 +20,9 @@
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.6.2",
-    "apollo": "^2.19.0",
     "apollo-boost": "^0.4.4",
     "apollo-client": "^2.6.4",
-    "apollo-server-core": "^2.9.5",
+    "autoprefixer": "^9.6.5",
     "babel-loader": "^8.0.6",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
@@ -35,8 +33,8 @@
     "copy-webpack-plugin": "^5.0.4",
     "core-js": "^3.2.1",
     "cors": "^2.8.5",
-    "cross-env": "^6.0.0",
     "cryptr": "^4.0.2",
+    "css-hot-loader": "^1.4.4",
     "css-loader": "^3.2.0",
     "dotenv": "^8.1.0",
     "dotenv-webpack": "^1.7.0",
@@ -44,11 +42,10 @@
     "express-graphql": "^0.9.0",
     "express-jwt": "^5.3.1",
     "express-static-gzip": "^2.0.5",
+    "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
-    "graphql-yoga": "^1.18.3",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
-    "lodash-es": "^4.17.15",
     "mini-css-extract-plugin": "^0.8.0",
     "nodemon": "^1.19.3",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
@@ -63,6 +60,7 @@
     "responsive-loader": "^1.2.0",
     "semantic-ui-react": "^0.88.1",
     "style-loader": "^1.0.0",
+    "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "terser-webpack-plugin": "^2.1.2",
     "url-loader": "^2.1.0",
@@ -71,7 +69,6 @@
     "webpack-hot-middleware": "^2.25.0"
   },
   "devDependencies": {
-    "jsonwebtoken": "^8.5.1",
-    "webpack-cli": "^3.3.9"
+    "jsonwebtoken": "^8.5.1"
   }
 }
