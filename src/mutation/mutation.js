@@ -9,3 +9,17 @@ mutation AddNewUser($input: UserInput!) {
     apiKey
   }
 }`
+
+export const ADD_STUDENT = gql`
+mutation AddStudent($input: StudentInput!) {
+  AddStudent (input: $input) {
+    name
+		student_key
+    username
+    teacher_id
+    question
+    password
+    date_created
+  }
+}
+`

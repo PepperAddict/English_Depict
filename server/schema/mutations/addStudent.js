@@ -11,14 +11,11 @@ const StudentInputType = new GraphQLInputObjectType({
   name: 'StudentInput',
   fields: {
     teacher_id: {type: GraphQLNonNull(GraphQLID)},
-    username: { type: GraphQLNonNull(GraphQLString) },
+    username: { type: GraphQLNonNull(GraphQLString)},
     name: {type: GraphQLString}, 
-    question1: { type: GraphQLNonNull(GraphQLString)},
-    question2: {type: GraphQLNonNull(GraphQLString)},
-    question3: {type: GraphQLNonNull(GraphQLString)},
-    secret1: { type: GraphQLNonNull(GraphQLString)},
-    secret2: {type: GraphQLNonNull(GraphQLString)},
-    secret3: {type: GraphQLNonNull(GraphQLString)},
+    question: { type: GraphQLNonNull(GraphQLString)},
+    password: {type: GraphQLNonNull(GraphQLString)},
+    theme: {type: GraphQLString}
   }
 })
 module.exports = {
