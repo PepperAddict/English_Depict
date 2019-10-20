@@ -1,0 +1,46 @@
+<svg id="_3" data-name="3" xmlns="http://www.w3.org/2000/svg" width="84" height="81.719" viewBox="0 0 84 81.719">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f3bd2b;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2, .cls-5 {
+        fill: #e43b3f;
+      }
+
+      .cls-3 {
+        fill: #ba2c2f;
+      }
+
+      .cls-3, .cls-4 {
+        opacity: 0.5;
+      }
+
+      .cls-4 {
+        fill: #f24044;
+      }
+
+      .cls-5 {
+        fill-opacity: 0;
+        stroke: #fff;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+        opacity: 0.3;
+      }
+    </style>
+  </defs>
+  <path id="Shape_170_copy_2" data-name="Shape 170 copy 2" class="cls-1" d="M781.111,644.734L793.9,620l11.989,24.468L832,648.724l-18.917,18.883,4.529,26.063L793.9,681.7,769.654,695l4.263-27.659L755,648.724Z" transform="translate(-752 -618)"/>
+  <path id="Shape_170_copy" data-name="Shape 170 copy" class="cls-2" d="M783.042,647.106L793.837,626l10.122,20.88L826,650.511l-15.969,16.113,3.824,22.241-20.018-10.212L773.37,690l3.6-23.6L761,650.511Z" transform="translate(-752 -618)"/>
+  <path id="Shape_593_copy_6" data-name="Shape 593 copy 6" class="cls-3" d="M758,650l63,20,15-23Z" transform="translate(-752 -618)"/>
+  <path id="Shape_593_copy_7" data-name="Shape 593 copy 7" class="cls-3" d="M794.082,618.37l0.022,66.289,24.1,8.536Z" transform="translate(-752 -618)"/>
+  <path id="Shape_593_copy_8" data-name="Shape 593 copy 8" class="cls-4" d="M765.773,699.706l52.494-40.479-7.948-24.3Z" transform="translate(-752 -618)"/>
+  <path id="Shape_593_copy_9" data-name="Shape 593 copy 9" class="cls-3" d="M830,649.491l-63,19.916-15-22.9Z" transform="translate(-752 -618)"/>
+  <path id="Shape_593_copy_10" data-name="Shape 593 copy 10" class="cls-3" d="M793.918,618L793.9,684l-24.1,8.5Z" transform="translate(-752 -618)"/>
+  <path id="Shape_593_copy_11" data-name="Shape 593 copy 11" class="cls-4" d="M822.227,698.987l-52.494-40.308,7.948-24.2Z" transform="translate(-752 -618)"/>
+  <path class="cls-5" d="M784.007,648.128l9.8-19.128,9.187,18.922L823,651.213l-14.5,14.6,3.471,20.156-18.17-9.256L775.228,687l3.267-21.39-14.5-14.4Z" transform="translate(-752 -618)"/>
+</svg>

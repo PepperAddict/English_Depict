@@ -3,12 +3,13 @@ import { useQuery } from '@apollo/react-hooks';
 import { cookieParser } from '../../helpers';
 import { getUserByID } from '../../query/query'
 import AddStudent from './AddStudent.jsx';
-import '../../styles/basic.styl'
+import '../../styles/basic.styl';
+import DashboardSidebar from './DashboardSidebar.jsx';
 
 function ShowStudent({ student, index }) {
   return (
     <div className="card-items">
-      Student: {(student.name) ? student.name : student.username}
+      Student: {(student.name) ? student.name : student.username}. 
     </div>
   )
 }
@@ -27,20 +28,6 @@ export default function Dashboard() {
   const { loading, error, data } = useQuery(getUserByID, { variables: { userId: userId } });
   const [info, setInfo] = useState('')
 
-
-  const initializeAddStudent = e => {
-    e.preventDefault();
-
-    if (!info.buttonAdd) {
-      setInfo({
-        ...info, buttonAdd: true
-      })
-    } else {
-      setInfo({
-        ...info, buttonAdd: null
-      })
-    }
-  }
 
   useEffect(() => {
 
@@ -64,9 +51,10 @@ export default function Dashboard() {
   }, [])
 
   return (
-    <div> <div>Side    <p>Would you like to add a new student?  <a href="/dashboard/add_student">go to add student</a></p> </div>
+    <div>
+      <DashboardSidebar />
       {loading ? <p>loading</p> : error ? <p>{error.message}</p> : (
-        <div>
+        <div className="dashboard-content">
           {info.buttonAdd ? (<div> {data.getUser.students.length > 0 ? (<div><ShowCard data={data.getUser} userId={userId}/> <AddStudent /></div>) : (<AddStudent />) } </div>) :
             info.settings ? (<p>meeeoooowww</p>) : (
               <div>

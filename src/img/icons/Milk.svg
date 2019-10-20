@@ -1,0 +1,40 @@
+<svg id="Milk" xmlns="http://www.w3.org/2000/svg" width="55" height="66" viewBox="0 0 55 66">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #c7e5e9;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #2d8ab4;
+      }
+
+      .cls-3 {
+        fill: #4fb5c1;
+      }
+
+      .cls-4 {
+        fill: #277395;
+      }
+
+      .cls-5 {
+        fill: #4a92b3;
+      }
+
+      .cls-6 {
+        fill: #d7edf7;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M520,1344v-44h26v44H520Z" transform="translate(-517 -1280)"/>
+  <path id="Shape_422_copy" data-name="Shape 422 copy" class="cls-2" d="M517,1324s2.33-8.71,15-4,21.128,3.79,28,0,12-6,12-6v32H517v-22Z" transform="translate(-517 -1280)"/>
+  <path class="cls-3" d="M567,1300v44H546v-44h21Z" transform="translate(-517 -1280)"/>
+  <path class="cls-4" d="M517,1324s2.33-8.71,15-4,21.128,3.79,28,0,12-6,12-6v32H517v-22Z" transform="translate(-517 -1280)"/>
+  <path class="cls-5" d="M567,1300l-11-13-10,13h21Z" transform="translate(-517 -1280)"/>
+  <path class="cls-6" d="M520,1300l11-13h26l-10,13H520Z" transform="translate(-517 -1280)"/>
+  <path class="cls-3" d="M530,1288s-0.561-8,5-8h17c4.733,0,5,8,5,8H530Z" transform="translate(-517 -1280)"/>
+</svg>

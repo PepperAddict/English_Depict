@@ -44,13 +44,17 @@ server.use(expressStaticGzip('dist', {
 }))
 
 
-
 server.get(['/', '/login', '/register'], cors(), softAuthenticate,  (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 })
 
+server.get(['/dashboard/', '/dashboard/:page?',], cors(), isAuthenticated, (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../dist/index.html"));
+})
 
-server.get(['/dashboard/:page'], cors(), isAuthenticated, (req, res) => {
+//student corner
+
+server.get(['/Student_Login'], cors(), (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 })
 

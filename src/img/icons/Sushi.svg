@@ -1,0 +1,48 @@
+<svg id="Sushi" xmlns="http://www.w3.org/2000/svg" width="72" height="85" viewBox="0 0 72 85">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #dab463;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #d5d5d5;
+      }
+
+      .cls-3 {
+        fill: #7c7d71;
+        opacity: 0.21;
+      }
+
+      .cls-4 {
+        fill: #e36c3d;
+      }
+
+      .cls-5 {
+        fill: #3d3e33;
+        opacity: 0.2;
+      }
+
+      .cls-6 {
+        fill: #313229;
+      }
+
+      .cls-7 {
+        fill: #ebc36f;
+      }
+    </style>
+  </defs>
+  <g>
+    <path class="cls-1" d="M783.218,1125.35l13.146,77.92h5.381l-11.8-78.27Z" transform="translate(-758 -1125)"/>
+    <path class="cls-2" d="M795.018,1180.4c19.32,0,34.982,6.02,34.982,13.45s-15.662,13.46-34.982,13.46-34.982-6.03-34.982-13.46S775.7,1180.4,795.018,1180.4Z" transform="translate(-758 -1125)"/>
+    <path id="Shape_409_copy_2" data-name="Shape 409 copy 2" class="cls-3" d="M808.4,1166.25H788.218s-11.432,5.82-10.073,20.87,14.8,21.53,14.8,21.53h17.491s-7.872-7.79-8.072-21.53S808.4,1166.25,808.4,1166.25Z" transform="translate(-758 -1125)"/>
+    <path class="cls-4" d="M794,1166.94c18.948,0,34.309,13.12,34.309,20.18s-14.688,4.04-33.636,4.04-34.982,5.72-34.982-1.35S775.052,1166.94,794,1166.94Z" transform="translate(-758 -1125)"/>
+    <path class="cls-5" d="M806.4,1166.25H786.218s-11.432,5.82-10.073,20.87,14.8,21.53,14.8,21.53h17.491s-7.872-7.79-8.072-21.53S806.4,1166.25,806.4,1166.25Z" transform="translate(-758 -1125)"/>
+    <path id="Shape_409_copy" data-name="Shape 409 copy" class="cls-6" d="M802.4,1166.25H782.218s-11.432,5.82-10.073,20.87,14.8,21.53,14.8,21.53h17.491s-7.872-7.79-8.072-21.53S802.4,1166.25,802.4,1166.25Z" transform="translate(-758 -1125)"/>
+    <path class="cls-7" d="M758,1127l24.909,83h5.382l-21.564-84.27Z" transform="translate(-758 -1125)"/>
+  </g>
+</svg>

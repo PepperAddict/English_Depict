@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="63.594" height="63.09" viewBox="0 0 63.594 63.09">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #4e5b5e;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #667478;
+      }
+
+      .cls-3, .cls-4 {
+        fill: #de4d43;
+      }
+
+      .cls-3 {
+        fill-opacity: 0;
+        stroke: #2f383b;
+        stroke-linejoin: round;
+        stroke-width: 3px;
+      }
+    </style>
+  </defs>
+  <path id="Rounded_Rectangle_28" data-name="Rounded Rectangle 28" class="cls-1" d="M554.145,1037.65h0c4.882-4.89,10.408-7.27,15.2-2.49l5.2,5.2a12.385,12.385,0,0,1-.171,17.51h0a12.38,12.38,0,0,1-17.507.17l-5.2-5.2C546.876,1048.05,549.264,1042.53,554.145,1037.65Z" transform="translate(-514.5 -998.5)"/>
+  <path class="cls-2" d="M555.267,1042.3s11.191,11.93,13.345,9.77-9.81-13.3-9.81-13.3,0.261,0.89-1.19,2.34S555.267,1042.3,555.267,1042.3Z" transform="translate(-514.5 -998.5)"/>
+  <path class="cls-3" d="M518.817,1010.57s5.432,7.28,10.481,2.23-2.232-10.48-2.232-10.48Z" transform="translate(-514.5 -998.5)"/>
+  <path id="Rounded_Rectangle_29" data-name="Rounded Rectangle 29" class="cls-4" d="M516.211,1008.55l8.838-8.839a2.862,2.862,0,1,1,4.045,4.049l-8.839,8.83A2.859,2.859,0,1,1,516.211,1008.55Z" transform="translate(-514.5 -998.5)"/>
+  <path id="Rounded_Rectangle_27" data-name="Rounded Rectangle 27" class="cls-4" d="M529,1013.09a2.894,2.894,0,0,1,4.085-.04l26,26.01a2.883,2.883,0,0,1-.04,4.08c-1.139,1.14-2.378.57-3.5-.55l-26-26C528.435,1015.47,527.864,1014.23,529,1013.09Z" transform="translate(-514.5 -998.5)"/>
+</svg>

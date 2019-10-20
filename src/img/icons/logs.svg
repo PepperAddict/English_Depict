@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="85" height="61" viewBox="0 0 85 61">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #5a3021;
+      }
+
+      .cls-2 {
+        fill: #472317;
+      }
+
+      .cls-2, .cls-6, .cls-7, .cls-8 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3, .cls-4 {
+        fill: #72412a;
+      }
+
+      .cls-4 {
+        stroke: #90563a;
+      }
+
+      .cls-4, .cls-5 {
+        stroke-linejoin: round;
+        stroke-width: 2px;
+      }
+
+      .cls-5 {
+        fill: #7a472f;
+        stroke: #ab6948;
+      }
+
+      .cls-6 {
+        fill: #542d1f;
+      }
+
+      .cls-7 {
+        fill: #1b1b1b;
+        opacity: 0.1;
+      }
+
+      .cls-8 {
+        fill: #5a3022;
+      }
+    </style>
+  </defs>
+  <g>
+    <circle class="cls-1" cx="47.5" cy="33.5" r="12.5"/>
+    <path id="Ellipse_5_copy_3" data-name="Ellipse 5 copy 3" class="cls-2" d="M933.5,609A12.5,12.5,0,0,1,946,621.5c0,3.229-7.151,11.331-7.151,11.331L902,649l-9-24S927.934,609.708,933.5,609Z" transform="translate(-886 -588)"/>
+    <circle id="Ellipse_5_copy_4" data-name="Ellipse 5 copy 4" class="cls-3" cx="12.5" cy="48.5" r="12.5"/>
+    <circle id="Ellipse_5_copy" data-name="Ellipse 5 copy" class="cls-4" cx="12.5" cy="48.5" r="9.5"/>
+    <circle id="Ellipse_5_copy_2" data-name="Ellipse 5 copy 2" class="cls-5" cx="12.5" cy="48.5" r="4.5"/>
+  </g>
+  <g id="Group_13_copy" data-name="Group 13 copy">
+    <circle class="cls-1" cx="72.5" cy="33.5" r="12.5"/>
+    <path id="Ellipse_5_copy_3-2" data-name="Ellipse 5 copy 3" class="cls-6" d="M958.5,609A12.5,12.5,0,0,1,971,621.5c0,3.229-7.15,11.331-7.15,11.331L927,649l-9-24S952.934,609.708,958.5,609Z" transform="translate(-886 -588)"/>
+    <path class="cls-7" d="M926,629l43-20-23-3-35,18Z" transform="translate(-886 -588)"/>
+    <circle id="Ellipse_5_copy_4-2" data-name="Ellipse 5 copy 4" class="cls-3" cx="37.5" cy="48.5" r="12.5"/>
+    <circle id="Ellipse_5_copy-2" data-name="Ellipse 5 copy" class="cls-4" cx="37.5" cy="48.5" r="9.5"/>
+    <circle id="Ellipse_5_copy_2-2" data-name="Ellipse 5 copy 2" class="cls-5" cx="37.5" cy="48.5" r="4.5"/>
+  </g>
+  <g id="Group_13_copy_2" data-name="Group 13 copy 2">
+    <circle class="cls-1" cx="60.5" cy="12.5" r="12.5"/>
+    <path id="Ellipse_5_copy_3-3" data-name="Ellipse 5 copy 3" class="cls-8" d="M946.5,588A12.5,12.5,0,0,1,959,600.5c0,3.229-7.15,11.331-7.15,11.331L915,628l-9-24S940.934,588.708,946.5,588Z" transform="translate(-886 -588)"/>
+    <circle id="Ellipse_5_copy_4-3" data-name="Ellipse 5 copy 4" class="cls-3" cx="25.5" cy="27.5" r="12.5"/>
+    <circle id="Ellipse_5_copy-3" data-name="Ellipse 5 copy" class="cls-4" cx="25.5" cy="27.5" r="9.5"/>
+    <circle id="Ellipse_5_copy_2-3" data-name="Ellipse 5 copy 2" class="cls-5" cx="25.5" cy="27.5" r="4.5"/>
+  </g>
+</svg>
