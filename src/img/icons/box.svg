@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="59" height="75" viewBox="0 0 59 75">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #edbf54;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #b07423;
+      }
+
+      .cls-3 {
+        fill: #d09239;
+      }
+
+      .cls-4 {
+        fill: #b09044;
+      }
+
+      .cls-5 {
+        fill: #dbb14d;
+      }
+
+      .cls-6 {
+        fill: #b48929;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M898,1025.33l26,17.6,26-17.6-26-15.74Z" transform="translate(-898 -992)"/>
+  <path class="cls-2" d="M923,1035.52L909,1042l17,9.26,11-8.33Z" transform="translate(-898 -992)"/>
+  <path class="cls-3" d="M923,1011.44v24.08l12,7.41,20-18.52-32-19.45v6.48Z" transform="translate(-898 -992)"/>
+  <path class="cls-4" d="M899,1050.33v-25L924,1042v25Z" transform="translate(-898 -992)"/>
+  <path id="Shape_61_copy" data-name="Shape 61 copy" class="cls-5" d="M949,1050.33v-25L924,1042v25Z" transform="translate(-898 -992)"/>
+  <path class="cls-5" d="M923,1010.52L931,992l26,15.74-8,18.52Z" transform="translate(-898 -992)"/>
+  <path class="cls-6" d="M936,1054l-5-4,1-6,8-5,3,5-3,8Z" transform="translate(-898 -992)"/>
+</svg>

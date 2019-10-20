@@ -71,6 +71,16 @@ module.exports = pgPool => {
         console.log(e)
       })
     },
+    loginStudent(username) {
+      return pgPool.query(`select * from students where username='${username}'`)
+      .then((res => {
+        return res.rows
+
+      }))
+      .catch((e) => {
+        throw new Error(e)
+      })
+    },
     getUserById(input) {
       return pgPool.query(`
         select * from users where id = $1

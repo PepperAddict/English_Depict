@@ -1,0 +1,42 @@
+<svg id="Snow" xmlns="http://www.w3.org/2000/svg" width="77" height="77" viewBox="0 0 77 77">
+  <defs>
+    <style>
+      .cls-1, .cls-3, .cls-4 {
+        fill: #fff;
+        fill-rule: evenodd;
+      }
+
+      .cls-1, .cls-2 {
+        opacity: 0.5;
+      }
+
+      .cls-4 {
+        opacity: 0.55;
+      }
+
+      .cls-5 {
+        opacity: 0.8;
+      }
+    </style>
+  </defs>
+  <path id="Rounded_Rectangle_105" data-name="Rounded Rectangle 105" class="cls-1" d="M794.5,881a2.6,2.6,0,0,1,2.6,2.6v71.8a2.6,2.6,0,0,1-5.2,0V883.6A2.6,2.6,0,0,1,794.5,881Z" transform="translate(-756 -881)"/>
+  <g class="cls-2">
+    <path id="Rounded_Rectangle_105_copy" data-name="Rounded Rectangle 105 copy" class="cls-3" d="M775.355,901.915a2.6,2.6,0,0,1,3.678,0l16.923,16.923a2.6,2.6,0,1,1-3.679,3.679l-16.922-16.923A2.6,2.6,0,0,1,775.355,901.915Z" transform="translate(-756 -881)"/>
+    <path id="Rounded_Rectangle_105_copy_2" data-name="Rounded Rectangle 105 copy 2" class="cls-3" d="M813.507,902.054a2.63,2.63,0,0,0-3.719,0l-17.11,17.109a2.63,2.63,0,0,0,3.72,3.72l17.109-17.11A2.63,2.63,0,0,0,813.507,902.054Z" transform="translate(-756 -881)"/>
+    <path id="Rounded_Rectangle_105_copy_7" data-name="Rounded Rectangle 105 copy 7" class="cls-3" d="M775.482,937.479a2.6,2.6,0,0,0,3.665,0l16.86-16.825A2.589,2.589,0,1,0,792.341,917l-16.859,16.825A2.582,2.582,0,0,0,775.482,937.479Z" transform="translate(-756 -881)"/>
+    <path id="Rounded_Rectangle_105_copy_8" data-name="Rounded Rectangle 105 copy 8" class="cls-3" d="M813.494,937.342a2.625,2.625,0,0,1-3.706,0l-17.045-17.011a2.617,2.617,0,1,1,3.7-3.7l17.046,17.011A2.612,2.612,0,0,1,813.494,937.342Z" transform="translate(-756 -881)"/>
+  </g>
+  <path id="Rounded_Rectangle_105_copy_9" data-name="Rounded Rectangle 105 copy 9" class="cls-4" d="M756,919.443a2.6,2.6,0,0,1,2.6-2.591h71.8a2.592,2.592,0,1,1,0,5.183H758.6A2.6,2.6,0,0,1,756,919.443Z" transform="translate(-756 -881)"/>
+  <g class="cls-5">
+    <path id="Rounded_Rectangle_105_copy_10" data-name="Rounded Rectangle 105 copy 10" class="cls-3" d="M761.307,938.518a2.584,2.584,0,0,1,0-3.665l16.923-16.861a2.6,2.6,0,0,1,3.679,3.666l-16.923,16.86A2.609,2.609,0,0,1,761.307,938.518Z" transform="translate(-756 -881)"/>
+    <path id="Rounded_Rectangle_105_copy_11" data-name="Rounded Rectangle 105 copy 11" class="cls-3" d="M761.446,900.506a2.614,2.614,0,0,0,0,3.706l17.109,17.046a2.625,2.625,0,1,0,3.719-3.705l-17.109-17.047A2.637,2.637,0,0,0,761.446,900.506Z" transform="translate(-756 -881)"/>
+    <path id="Rounded_Rectangle_105_copy_16" data-name="Rounded Rectangle 105 copy 16" class="cls-3" d="M828.087,938.391a2.578,2.578,0,0,0,0-3.651l-16.825-16.8a2.584,2.584,0,1,0-3.657,3.652l16.825,16.8A2.587,2.587,0,0,0,828.087,938.391Z" transform="translate(-756 -881)"/>
+    <path id="Rounded_Rectangle_105_copy_17" data-name="Rounded Rectangle 105 copy 17" class="cls-3" d="M827.95,900.52a2.608,2.608,0,0,1,0,3.692l-17.011,16.982a2.613,2.613,0,1,1-3.7-3.692l17.011-16.982A2.617,2.617,0,0,1,827.95,900.52Z" transform="translate(-756 -881)"/>
+  </g>
+  <g class="cls-5">
+    <path id="Rounded_Rectangle_105_copy_18" data-name="Rounded Rectangle 105 copy 18" class="cls-3" d="M813.5,953.085a2.59,2.59,0,0,1-3.665,0L792.976,936.2a2.594,2.594,0,1,1,3.666-3.671l16.86,16.887A2.6,2.6,0,0,1,813.5,953.085Z" transform="translate(-756 -881)"/>
+    <path id="Rounded_Rectangle_105_copy_19" data-name="Rounded Rectangle 105 copy 19" class="cls-3" d="M775.49,952.947a2.619,2.619,0,0,0,3.706,0l17.046-17.073a2.623,2.623,0,0,0-3.706-3.712L775.49,949.235A2.628,2.628,0,0,0,775.49,952.947Z" transform="translate(-756 -881)"/>
+    <path id="Rounded_Rectangle_105_copy_20" data-name="Rounded Rectangle 105 copy 20" class="cls-3" d="M813.375,886.448a2.583,2.583,0,0,0-3.652,0l-16.8,16.788a2.582,2.582,0,0,0,3.652,3.65l16.8-16.789A2.58,2.58,0,0,0,813.375,886.448Z" transform="translate(-756 -881)"/>
+    <path id="Rounded_Rectangle_105_copy_21" data-name="Rounded Rectangle 105 copy 21" class="cls-3" d="M775.5,886.585a2.612,2.612,0,0,1,3.692,0l16.983,16.974a2.61,2.61,0,0,1-3.692,3.69L775.5,890.275A2.609,2.609,0,0,1,775.5,886.585Z" transform="translate(-756 -881)"/>
+  </g>
+</svg>

@@ -4,7 +4,7 @@ import {
   useMutation
 } from '@apollo/react-hooks';
 
-export const Match_Email = gql`
+export const Match_Email = gql `
 query GET_EMAILS ($email: String!) {
   getUserByEmail(email: $email) {
     username
@@ -12,7 +12,7 @@ query GET_EMAILS ($email: String!) {
   }
 }`
 
-export const Get_All_Emails = gql`
+export const Get_All_Emails = gql `
 query getAllUsers {
   getCompleteUsers {
     email
@@ -20,7 +20,7 @@ query getAllUsers {
 }
 `
 
-export const Handle_Login = gql`
+export const Handle_Login = gql `
 query Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
     id
@@ -30,7 +30,7 @@ query Login($email: String!, $password: String!) {
 }
 `
 
-export const getUserByID = gql`
+export const getUserByID = gql `
 query getUserByID($userId: ID!) {
   getUser(userId: $userId) {
     username
@@ -43,5 +43,17 @@ query getUserByID($userId: ID!) {
       theme
     }
   }
+}
+`
+
+export const LoginStudent = gql `
+query loginStudent($username: String!) {
+  loginStudent (username: $username) {
+    active
+    username
+    question
+    password
+    secondPassword
+}
 }
 `

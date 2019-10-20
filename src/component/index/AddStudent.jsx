@@ -17,16 +17,15 @@ export default function AddStudent(props) {
   const [student, setStudent] = useState({
     
     question1: questionArray[Math.floor(Math.random() * questionArray.length)],
-    question2: questionArray[Math.floor(Math.random() * questionArray.length)],
-    question3: questionArray[Math.floor(Math.random() * questionArray.length)]
+
   })
 
   const [addRegistration, { newData }] = useMutation(ADD_STUDENT);
 
   const handleAddStudent = (e) => {
     e.preventDefault();
-    const questions = `${student.question1};${student.question2};${student.question3}`;
-    const answers = `${student.answer1};${student.answer2};${student.answer3}`
+    const questions = `${student.question1}`;
+    const answers = `${student.answer1}`
 
     const newStudent = {
       teacher_id: userId,
@@ -65,18 +64,6 @@ export default function AddStudent(props) {
 
           <label htmlFor="answer1">Answer</label>
           <input id="answer1" defaultValue={student.answer1} onChange={updateFields} name='answer1' placeholder={(student.answer1) ? student.answer1 : 'answer'} />
-
-          <label htmlFor="question2">Question 2</label>
-          <input id="question2" name='question2' defaultValue={student.question2} onChange={updateFields} placeholder={student.question2} />
-
-          <label htmlFor="answer2">Answer</label>
-          <input id="answer2" defaultValue={student.answer2} onChange={updateFields} name='answer2' placeholder={(student.answer2) ? student.answer1 : 'answer'} />
-
-          <label htmlFor="question3">Question 3</label>
-          <input id="question3" name='question3' defaultValue={student.question3} onChange={updateFields} placeholder={student.question3} />
-
-          <label htmlFor="answer3">Answer</label>
-          <input id="answer3" defaultValue={student.answer3} onChange={updateFields} name='answer3' placeholder={(student.answer3) ? student.answer3 : 'answer'} />
 
           <button type="submit">Add Student</button>
 

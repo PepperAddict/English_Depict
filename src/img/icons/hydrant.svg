@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="54" height="77" viewBox="0 0 54 77">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #de4d43;
+      }
+
+      .cls-2, .cls-5 {
+        fill: #ce453c;
+      }
+
+      .cls-3 {
+        fill: #9f372f;
+        opacity: 0.7;
+      }
+
+      .cls-3, .cls-4, .cls-5, .cls-8 {
+        fill-rule: evenodd;
+      }
+
+      .cls-4 {
+        fill: #9f3730;
+      }
+
+      .cls-6 {
+        fill: #bf3f36;
+        stroke: #f4643e;
+        stroke-linejoin: round;
+        stroke-width: 3px;
+      }
+
+      .cls-7, .cls-8 {
+        fill: #f4643e;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" y="42" width="54" height="16"/>
+  <rect class="cls-1" x="24" width="6" height="42"/>
+  <rect class="cls-2" x="5" y="30" width="43" height="41"/>
+  <path class="cls-3" d="M523,605h52v8H523v-8Zm2,35h49v9H525v-9Z" transform="translate(-522 -577)"/>
+  <path class="cls-4" d="M558,619l15,15,1,16-27-1-8-16Z" transform="translate(-522 -577)"/>
+  <path class="cls-5" d="M528,605s-5.288-22,21-22,21,23,21,23Z" transform="translate(-522 -577)"/>
+  <circle class="cls-6" cx="27" cy="49" r="12"/>
+  <circle id="Ellipse_6_copy" data-name="Ellipse 6 copy" class="cls-7" cx="27" cy="49" r="4"/>
+  <path id="Rounded_Rectangle_24" data-name="Rounded Rectangle 24" class="cls-8" d="M528,644h42a5,5,0,0,1,0,10H528A5,5,0,0,1,528,644Zm-1-42h44a4,4,0,0,1,0,8H527A4,4,0,0,1,527,602Z" transform="translate(-522 -577)"/>
+</svg>

@@ -8,8 +8,10 @@ const PostType = new GraphQLObjectType({
   name: 'Posts',
   fields: () => {
     return {
-      user_id: { type: GraphQLNonNull(GraphQLID)},
-      content: { type: GraphQLNonNull(GraphQLString) }
+      student_id: { type: GraphQLNonNull(GraphQLID)},
+      teacher_id: {type: GraphQLNonNull(GraphQLID)},
+      subject: {type: GraphQLString},
+      content: { type: GraphQLNonNull(GraphQLString)}
     }
   }
 })

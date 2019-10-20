@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="84" height="51.844" viewBox="0 0 84 51.844">
+  <defs>
+    <style>
+      .cls-1, .cls-5 {
+        fill: #3b3a3a;
+      }
+
+      .cls-1 {
+        opacity: 0.2;
+      }
+
+      .cls-2 {
+        fill: #ddd;
+        stroke: #414460;
+        stroke-linejoin: round;
+        stroke-width: 4px;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: #a13c35;
+      }
+
+      .cls-4 {
+        fill: #3b3b3b;
+      }
+    </style>
+  </defs>
+  <ellipse class="cls-1" cx="42" cy="47.844" rx="42" ry="4"/>
+  <path class="cls-2" d="M272.9,616.846A15.078,15.078,0,1,1,258,631.923,14.99,14.99,0,0,1,272.9,616.846Z" transform="translate(-256 -597.156)"/>
+  <path id="Ellipse_1_copy" data-name="Ellipse 1 copy" class="cls-2" d="M320.1,616.846a15.078,15.078,0,1,1-14.9,15.077A14.99,14.99,0,0,1,320.1,616.846Z" transform="translate(-256 -597.156)"/>
+  <path id="Rounded_Rectangle_1" data-name="Rounded Rectangle 1" class="cls-3" d="M277.629,602h9.936a3.77,3.77,0,0,1,0,7.539h-9.936A3.77,3.77,0,0,1,277.629,602Z" transform="translate(-256 -597.156)"/>
+  <path class="cls-4" d="M311,598c4.129-.359,17.164,8.465,7,13-9.609,3.6-13,3-13,3l-2-3s7.973-.225,14-3c5.555-2.876-5-7-5-7S306.871,598.359,311,598Z" transform="translate(-256 -597.156)"/>
+  <path id="Rounded_Rectangle_1_copy" data-name="Rounded Rectangle 1 copy" class="cls-3" d="M305.684,598.919l5.47-1.666a2.007,2.007,0,1,1,1.167,3.83l-5.47,1.666A2.007,2.007,0,1,1,305.684,598.919Z" transform="translate(-256 -597.156)"/>
+  <path class="cls-5" d="M270.661,633.18l13.178-22.872h22.838l15.662,23.128h-5.21L305.194,615.59H286.565l-10.694,18.333Z" transform="translate(-256 -597.156)"/>
+  <path class="cls-5" d="M275.113,629.41h17.661l5.968-15.077h5.21L296.5,633.18H274.355Z" transform="translate(-256 -597.156)"/>
+  <path class="cls-5" d="M289.048,614.333a18.8,18.8,0,0,0,3.726,5.026c2.526,4.6,7.452,1.256,7.452,1.256l-4.968,5.026s-1.684,1.931-4.968-2.513a37.531,37.531,0,0,1-4.967-10.051Z" transform="translate(-256 -597.156)"/>
+</svg>

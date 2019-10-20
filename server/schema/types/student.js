@@ -3,6 +3,7 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLNonNull,
+  GraphQLBoolean
 } = require('graphql');
 const pgdb = require('../../models/pgdb')
 const StudentType = new GraphQLObjectType({
@@ -18,7 +19,9 @@ const StudentType = new GraphQLObjectType({
       password: {type: GraphQLNonNull(GraphQLString)},
       theme: {type: GraphQLString},
       date_created: {type: GraphQLNonNull(GraphQLString)},
-      student_key: { type: GraphQLNonNull(GraphQLString)}
+      student_key: { type: GraphQLNonNull(GraphQLString)},
+      active: {type: GraphQLBoolean},
+      secondPassword: {type: GraphQLString}
     }
   }
 })
