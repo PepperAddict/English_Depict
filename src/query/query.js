@@ -49,11 +49,13 @@ query getUserByID($userId: ID!) {
 export const LoginStudent = gql `
 query loginStudent($username: String!) {
   loginStudent (username: $username) {
-    active
+    student_id
+    verified
     username
     question
     password
-    secondPassword
+    second_password
+    student_key
 }
 }
 `

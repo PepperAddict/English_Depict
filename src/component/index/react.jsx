@@ -21,6 +21,7 @@ import Register from './Regi.jsx';
 import Dashboard from './Dashboard.jsx';
 const RegWithClient = withApollo(Register);
 import StudentLogin from './StudentLogin';
+import StudentDashboard from './StudentDashboard';
 
 
 const App = () => (
@@ -33,14 +34,17 @@ const App = () => (
         <Route exact path="/login">
           <Login />
         </Route>
-        <Route path="/dashboard:page?">
+        <Route path="/dashboard/:page?">
           <Dashboard />
         </Route>
         <Route exact path="/register">
           <RegWithClient />
         </Route>
-        <Route exact path="/Student_Login">
+        <Route path="/student_login">
           <StudentLogin />
+        </Route>
+        <Route path="/student/:page?">
+          <StudentDashboard />
         </Route>
       </div>
     </Router>
