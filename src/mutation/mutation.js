@@ -23,3 +23,14 @@ mutation AddStudent($input: StudentInput!) {
   }
 }
 `
+
+export const ADD_NEWPW = gql`
+mutation studentNewPassword($input: UpdateStudentPassword!) {
+  UpdateStudentPassword(input: $input) {
+    second_password
+    student_id
+    student_key
+    teacher_id
+  }
+}
+`

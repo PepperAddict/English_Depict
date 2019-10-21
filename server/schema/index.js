@@ -11,6 +11,7 @@ const AddPostsMutation = require('./mutations/addPosts')
 const AddNewStudent = require('./mutations/addStudent')
 const GetAllPosts = require('./queries/getAllPosts')
 const loginStudent = require('./queries/getStudentByUser')
+const updatestudentpw = require('./mutations/verifiedStudent')
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
   fields: () => ({
@@ -29,7 +30,8 @@ const RootMutationType = new GraphQLObjectType({
   fields: () => ({
     AddUser: AddNewUserMutation,
     AddPosts: AddPostsMutation,
-    AddStudent: AddNewStudent
+    AddStudent: AddNewStudent,
+    UpdateStudentPassword: updatestudentpw,
   })
 })
 const schema = new GraphQLSchema({

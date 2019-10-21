@@ -6,7 +6,7 @@ const path = require('path')
 const pg = require('pg');
 const cors = require('cors');
 
-const {isAuthenticated, softAuthenticate } = require('./utils')
+const {isAuthenticated, softAuthenticate, studentAuthenticate, choice } = require('./utils')
 
 
 
@@ -52,10 +52,15 @@ server.get(['/dashboard/', '/dashboard/:page?',], cors(), isAuthenticated, (req,
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 })
 
+
 //student corner
 
-server.get(['/Student_Login'], cors(), (req, res) => {
+server.get(['/student_login/', '/student_login/:page?'], cors(), choice, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
+})
+
+server.get(['/student', '/student/:page?'], cors(), studentAuthenticate, (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../dist/index.html"))
 })
 
 server.use('/graphql', cors(), (req, res) => {

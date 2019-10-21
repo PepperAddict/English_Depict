@@ -2,11 +2,15 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const path = require('path');
 const fs = require('fs');
-const privateKey = fs.readFileSync(path.resolve(__dirname,'../private.pem'), 'utf8');
+const privateKey = fs.readFileSync(path.resolve(__dirname, '../private.pem'), 'utf8');
 
 const signToken = str => {
   return new Promise(resolve => {
-    resolve(jwt.sign({"token": str}, privateKey, {algorithm: 'HS256'}))
+    resolve(jwt.sign({
+      "token": str
+    }, privateKey, {
+      algorithm: 'HS256'
+    }))
   })
 }
 
@@ -32,14 +36,16 @@ const isAuthenticated = (req, res, next) => {
   let token = ('token', req.cookies).token || false;
   if (token) {
 
-      jwt.verify(token, privateKey, { algorithm: "HS256" }, (err, user) => {
-          if (err) {  
-              res.redirect('/')
-          }
-          if (user) {
-            return next();
-          }
-      });
+    jwt.verify(token, privateKey, {
+      algorithm: "HS256"
+    }, (err, user) => {
+      if (err) {
+        res.redirect('/')
+      }
+      if (user) {
+        return next();
+      }
+    });
   }
   if (!token) {
     res.redirect('/')
@@ -47,20 +53,86 @@ const isAuthenticated = (req, res, next) => {
 }
 
 const softAuthenticate = async (req, res, next) => {
+
   let token = ('token', req.cookies).token || false;
   if (token) {
-      await jwt.verify(token, privateKey, { algorithm: "HS256" }, (err, user) => {
-          if (err) {  
-              return next();
-          } 
-          if (user) {
-            return res.redirect('/dashboard')
-          }
-      });
+    // console.log(token)
+    await jwt.verify(token, privateKey, {
+      algorithm: "HS256"
+    }, (err, user) => {
+      if (err) {
+        return next();
+      }
+      if (user) {
+        res.redirect('/dashboard')
+      }
+    });
   }
   if (!token) {
-      return next();
+    return next();
   }
 }
 
-module.exports = { signToken, verifyJwt, softAuthenticate, isAuthenticated}
+const choice = async (req, res, next) => {
+  let token = ('token', req.cookies).token || false;
+  let studentKey = ('student_key', req.cookies).student_key || false;
+
+  if (token) {
+
+    await jwt.verify(token, privateKey, {
+      algorithm: "HS256"
+    }, (err, user) => {
+      if (err) {
+        return next();
+      }
+      if (user) {
+        res.redirect('/dashboard/student-mode')
+      }
+    });
+  } else if (studentKey) {
+
+    await jwt.verify(studentKey, privateKey, {
+      algorithm: "HS256"
+    }, (err, user) => {
+      if (user) {
+        res.redirect('/student/')
+      }
+    })
+  } else {
+
+    return next();
+  }
+}
+
+
+
+const studentAuthenticate = async (req, res, next) => {
+  let studentKey = ('student_key', req.cookies).student_key || false;
+ console.log(studentKey)
+  if (studentKey) {
+
+    await jwt.verify(studentKey, privateKey, {
+      algorithm: "HS256"
+    }, (err, user) => {
+      if (err) {
+        res.redirect('/')
+      }
+      if (user) {
+        return next();
+      }
+    });
+  } else {
+    console.log('why')
+    res.redirect('/')
+  }
+
+}
+
+module.exports = {
+  signToken,
+  verifyJwt,
+  choice,
+  softAuthenticate,
+  isAuthenticated,
+  studentAuthenticate
+}

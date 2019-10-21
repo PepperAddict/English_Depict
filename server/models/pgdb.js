@@ -71,11 +71,23 @@ module.exports = pgPool => {
         console.log(e)
       })
     },
-    loginStudent(username) {
+    verifyStudent({second_password, student_id}) {
+
+      return pgPool.query(`update students set verified=true, second_password='${second_password}'
+      where student_id=${student_id}`).then((res) => {
+        return pgPool.query(`select * from students where student_id=${student_id}`)
+        .then((res) => {
+          return res.rows[0]
+        })
+      }).catch((e) => {
+        console.log(e)
+      })
+    },
+    loginStudent(username, second_password) {
       return pgPool.query(`select * from students where username='${username}'`)
       .then((res => {
+        console.log(second_password)
         return res.rows
-
       }))
       .catch((e) => {
         throw new Error(e)
