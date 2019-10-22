@@ -59,7 +59,7 @@ server.get(['/student_login/', '/student_login/:page?'], cors(), choice, (req, r
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 })
 
-server.get(['/student', '/student/:page?'], cors(), studentAuthenticate, (req, res) => {
+server.get(['/student/', '/student/:page?'], cors(), studentAuthenticate, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"))
 })
 

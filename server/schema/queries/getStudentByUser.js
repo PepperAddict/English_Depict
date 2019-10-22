@@ -1,6 +1,6 @@
 const { GraphQLID, GraphQLNonNull, GraphQLString, GraphQLInt, GraphQLList } = require('graphql')
 const StudentType = require('../types/student')
-const pgdb = require('../../models/pgdb')
+const pgdb = require('../../models/studentDB')
 module.exports = {
   type: new GraphQLNonNull(new GraphQLList(StudentType)),
   description: 'This query will sign the student in the first time',
