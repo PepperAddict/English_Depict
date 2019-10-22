@@ -12,6 +12,7 @@ const AddNewStudent = require('./mutations/addStudent')
 const GetAllPosts = require('./queries/getAllPosts')
 const loginStudent = require('./queries/getStudentByUser')
 const updatestudentpw = require('./mutations/verifiedStudent')
+const GetStudentByID = require('./queries/getStudentByID')
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
   fields: () => ({
@@ -22,7 +23,8 @@ const RootQueryType = new GraphQLObjectType({
     getUserByEmail: GetUserByEmail,
     getAllPosts: GetAllPosts,
     getCompleteUsers: GetCompleteUsers,
-    getCompletePosts: GetCompletePosts
+    getCompletePosts: GetCompletePosts,
+    getStudentByID: GetStudentByID
   })
 })
 const RootMutationType = new GraphQLObjectType({

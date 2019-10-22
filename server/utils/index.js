@@ -108,7 +108,9 @@ const choice = async (req, res, next) => {
 
 const studentAuthenticate = async (req, res, next) => {
   let studentKey = ('student_key', req.cookies).student_key || false;
- console.log(studentKey)
+  let token = ('token', req.cookies).token || false;
+
+
   if (studentKey) {
 
     await jwt.verify(studentKey, privateKey, {
@@ -122,7 +124,6 @@ const studentAuthenticate = async (req, res, next) => {
       }
     });
   } else {
-    console.log('why')
     res.redirect('/')
   }
 

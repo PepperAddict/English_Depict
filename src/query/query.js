@@ -59,3 +59,13 @@ query loginStudent($username: String!) {
 }
 }
 `
+
+export const getStudentInfo = gql`
+query getStudentByID($student_id: ID!){
+  getStudentByID(student_id: $student_id) {
+    username
+    student_key
+    name
+  }
+}
+`

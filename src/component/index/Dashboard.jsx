@@ -73,6 +73,7 @@ export default function Dashboard() {
     clearCookies('userID')
     location.replace('/student_login')
   }
+  
   return (
     <div>
       <DashboardSidebar />

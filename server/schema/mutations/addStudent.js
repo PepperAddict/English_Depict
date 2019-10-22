@@ -5,7 +5,7 @@ const {
   GraphQLNonNull
 } = require('graphql')
 const { verifyJwt } = require('../../utils')
-const pgdb = require('../../models/pgdb')
+const pgdb = require('../../models/studentDB')
 const StudentType = require('../types/student')
 const StudentInputType = new GraphQLInputObjectType({
   name: 'StudentInput',

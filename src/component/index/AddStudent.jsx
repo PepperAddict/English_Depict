@@ -4,12 +4,10 @@ import { cookieParser } from '../../helpers';
 import { ADD_STUDENT } from '../../mutation/mutation'
 
 
-
-
 export default function AddStudent(props) {
   const userId = cookieParser('userID', true);
   const questionArray = ["What is your favorite color?", "What is your favorite number?", "What is your favorite food?",
-    "What is your favorite pet's name?", "What is your favorite toy?", "Who is your current teacher's name",
+    "What is your favorite pet's name?", "What is your favorite toy?", "Who is your current teacher?",
     "What color is your chair?", "How many pets do you have?", "What is your favorite animal?", "What is your hair color?",
     "What is your favorite house?", "What is your favorite game?", "What is your favorite store?", "What color are your eyes?",
     "What is your favorite computer", "What is your favorite insect?"];

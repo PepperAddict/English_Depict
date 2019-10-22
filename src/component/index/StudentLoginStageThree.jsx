@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {useMutation} from '@apollo/react-hooks';
 import {ADD_NEWPW} from '../../mutation/mutation';
+import {encryptMe} from '../../helpers';
 
 function ImageForm({ pass, pictureSubmit, itemClick }) {
 
@@ -141,13 +142,16 @@ export default function StageThree(props) {
     check: false,
   })
 
-  const pictureSubmit = e => {
+  const pictureSubmit = async e => {
     e.preventDefault();
     let pass = newPass.pass.sort().toString();
     if (newPass.verified) {
 
       if (pass === newPass.second_password) {
         document.cookie = `student_key=${newPass.student_key};samesite`;
+        let userid = newPass.id;
+        let newUser = await encryptMe(userid);
+        document.cookie = `student_id=${newUser};samesite`;
         location.reload();
       }
     } else {
@@ -165,9 +169,12 @@ export default function StageThree(props) {
           setNewPW({variables: {input: {
             student_id: newPass.id,
             second_password: passOne
-          }}}).then((response) => {
+          }}}).then(async  (response) => {
             console.log(response)
             document.cookie = `student_key=${response.data.UpdateStudentPassword.student_key};samesite`;
+            let userid = response.data.UpdateStudentPassword.id;
+            let newUser = await encryptMe(userid);
+            document.cookie = `student_id=${newUser};samesite`;
             location.reload();
           }).catch((e) => {
             console.log(e)
