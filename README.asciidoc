@@ -1,0 +1,6 @@
+Hellooo
+
+To help out with developing this application, you need the following: 
+
+.env file of your database information
+and a openssh generated key with the name private.pem in your server directory. 
