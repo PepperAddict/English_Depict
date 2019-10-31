@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { getAllBlogs } from '../../query/query';
 import { getStudentInfo } from '../../query/query';
 import moment from 'moment';
-import '../../styles/blog.styl';
+
 
 
 function ContentButtons(props) {
@@ -44,7 +44,7 @@ function ShowPosts(props) {
   const thestudent = props.student_id;
   return (
     <div className="student_blogs">
-      {props.blog.reverse().map((blog, index) => {
+      {props.blog.map((blog, index) => {
         return <IndividualBlog key={index} index={index} blog={blog} student_id={thestudent} addVocabulary={props.addVocabulary}/>
       })}
 
