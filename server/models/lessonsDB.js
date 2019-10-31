@@ -15,7 +15,7 @@ module.exports = pgPool => {
     getAllBlogs(limit) {
       limit = (limit) ? `limit ${limit}` : '';
       return pgPool.query(`
-      select * from blogs ${limit}`).then(res => {
+      select * from blogs ${limit} order by created_at desc`).then(res => {
         return res.rows
       }).catch((err) => console.log(err))
     }
