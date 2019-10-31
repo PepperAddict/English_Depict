@@ -31,7 +31,5 @@ export const cookieParser = (keyName, decryptMe = false) => {
     } else {
       return cookieContains
     }
-  } else {
-    console.log('no such cookie')
-  }
+  } 
 }

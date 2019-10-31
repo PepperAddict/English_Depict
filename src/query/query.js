@@ -57,15 +57,23 @@ query loginStudent($username: String!) {
     second_password
     student_key
 }
-}
-`
+}`
 
-export const getStudentInfo = gql`
+export const getStudentInfo = gql `
 query getStudentByID($student_id: ID!){
   getStudentByID(student_id: $student_id) {
     username
     student_key
     name
   }
-}
-`
+}`
+
+export const getAllBlogs = gql `
+query getAllBlogs($limit: Int) {
+  getCompleteBlogs(limit: $limit) {
+    student_id
+    subject
+    created_at
+    content
+  }
+}`
