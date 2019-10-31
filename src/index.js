@@ -1,6 +1,7 @@
 
 const isProd = (process.env.NODE_ENV === 'production');
 const isDev = (process.env.NODE_ENV === 'development');
+require('./favicon.ico')
 
 if (isDev) {
   require('webpack-hot-middleware/client?reload=true');

@@ -1,3 +1,5 @@
 {
-  "workbench.colorTheme": "Monokai Dimmed"
+  "workbench.colorTheme": "SynthWave '84",
+  "vscode_custom_css.imports": ["file:///C:/Users/Funshine/Desktop/webjav/english_depict/.vscode/glow.css"],
+  "vscode_custom_css.policy": true,
 }

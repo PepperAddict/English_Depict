@@ -34,3 +34,14 @@ mutation studentNewPassword($input: UpdateStudentPassword!) {
   }
 }
 `
+
+export const ADD_BLOG = gql`
+mutation AddBlog($input: BlogInput!){
+  AddBlog (input: $input) {
+    student_id
+    created_at
+    subject
+    content
+  }
+}
+`

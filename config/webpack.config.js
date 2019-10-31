@@ -66,6 +66,10 @@ module.exports = {
         exclude: /node_modules/
       },
       {
+        test: /\.ico$/,
+        loader: 'file-loader?name=[name].[ext]'
+    },
+      {
         test: /\.css$/,
         use: [ 
           { // inject css into the html
@@ -176,6 +180,7 @@ module.exports = {
         }
       }),
       new Dotenv({
+        path: path.resolve(__dirname, '../.env'),
         systemvars: true,
       }),
       new OptimizeCSSAssetsPlugin(),
@@ -185,7 +190,7 @@ module.exports = {
       }),
       new HTMLWebpackPlugin({
         template: path.resolve(__dirname, '../src/index.html'),
-        filename: path.resolve(__dirname, '../dist/index.html')
+        filename: path.resolve(__dirname, '../dist/index.html'),
       }),
       new CleanWebpackPlugin(),
       // new CopyPlugin([

@@ -6,7 +6,7 @@ const path = require('path')
 const pg = require('pg');
 const cors = require('cors');
 
-const {isAuthenticated, softAuthenticate, studentAuthenticate, choice } = require('./utils')
+const {isAuthenticated, softAuthenticate, studentAuthenticate, choice, isInvited } = require('./utils')
 
 
 
@@ -44,14 +44,17 @@ server.use(expressStaticGzip('dist', {
 }))
 
 
-server.get(['/', '/login', '/register'], cors(), softAuthenticate,  (req, res) => {
+server.get(['/', '/login'], cors(), softAuthenticate,  (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../dist/index.html"));
+})
+
+server.get(['/register', '/register/:page?'], cors(), isInvited, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 })
 
 server.get(['/dashboard/', '/dashboard/:page?',], cors(), isAuthenticated, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 })
-
 
 //student corner
 
