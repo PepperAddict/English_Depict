@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import {useMutation, useQuery} from '@apollo/react-hooks';
+import {ADD_VOCABULARY} from '../../mutation/mutation';
 
 function ShowDef(props) {
   let definitionArray = props.definition.split(' ')
@@ -7,15 +9,17 @@ function ShowDef(props) {
     props.addVocabulary(e.target.innerHTML)
   }
   return (
-    <p>{definitionArray.map((def, index) => {
-      return <span className="blog-content" onClick={handleMenu} key={index} index={index} > {def} </span>
+    <p key={props.index}>{definitionArray.map((def, defindex) => {
+      return <span className="blog-content" onClick={handleMenu} key={defindex} index={defindex} > {def} </span>
     })}</p>
   )
 }
 
 export default function Vocabulary(props) {
+  const {loading, error, data} = useQuery()
   const closeIt = e => {
     e.preventDefault();
+    //set vocabulary to false to disable vocabulary sidebar
     props.addVocabulary(false)
   }
   const submitVocabulary = e => {
@@ -23,19 +27,16 @@ export default function Vocabulary(props) {
   }
 
   return (
-    <div className="studentVocabulary">Hello, you selected the word:
-    <p>{props.vocab}</p>
+    <div className="studentVocabulary">You selected the word:
+    <h3>{props.vocab}</h3>
 
     Definition: {props.definition ? props.definition.map((def, index) =>
       {
-        return ( <div>
-        <ShowDef 
-        key={index} 
+        return <ShowDef 
+        key={'key' + index} 
         index={index} 
         addVocabulary={props.addVocabulary} 
         definition={def}/>
-        </div>
-        )
       }) : 'Not a word'}
       {props.definition ? <button name={props.vocab} onClick={submitVocabulary}>Add {props.vocab} to Vocabulary bucket</button> : ''}
       
