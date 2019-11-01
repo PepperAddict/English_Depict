@@ -45,3 +45,13 @@ mutation AddBlog($input: BlogInput!){
   }
 }
 `
+
+export const ADD_VOCABULARY = gql`
+mutation AddVocabulary($input: VocabularyInput!){
+  AddVocabulary(input: $input) {
+    student_id
+    vocabulary_word
+    vocabulary_definition
+  }
+}
+`

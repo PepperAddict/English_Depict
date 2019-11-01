@@ -77,3 +77,14 @@ query getAllBlogs($limit: Int) {
     content
   }
 }`
+
+export const getVocabularyByID = gql`
+query getVocabulary($student_id: ID!){
+  getVocabulary(student_id: $student_id) {
+    student_id
+    vocabulary_word
+    vocabulary_definition
+    created_at
+  }
+}
+`

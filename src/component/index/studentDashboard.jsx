@@ -43,15 +43,15 @@ export default function StudentDashboard() {
   const addVocabulary = async word => {
     var regex = /[.,():;\s]/g;
     var result = word ? word.replace(regex, '') : false
-    const checkDef = await fetch(`https://www.dictionaryapi.com/api/v3/references/sd2/json/${result}?key=${process.env.REACT_APP_MERR}`)
+    await fetch(`https://www.dictionaryapi.com/api/v3/references/sd2/json/${result}?key=${process.env.REACT_APP_MERR}`)
     .then((res) => {
       return res.json()
     }).then((e) => {
       setDashboard({...dashboard, vocabulary: result, definition: e[0].shortdef});
+      console.log(dashboard)
     }).catch((e) => console.log())
 
     
-    console.log(dashboard)
   }
 
 
