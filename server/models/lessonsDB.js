@@ -34,12 +34,13 @@ module.exports = pgPool => {
     },
     getVocabularyByID(student_id) {
       return pgPool.query(`
-      select * from vocabulary where student_id = $1
-      `, [student_id])
+      select * from vocabulary where student_id = ${student_id}
+      `)
       .then((res => {
-        return res.rows[0]
+        if (res.rows) {
+          return res.rows
+        }
       }))
-      .catch((e) => {throw new Error(e)})
     }
   }
 }

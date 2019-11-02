@@ -1,8 +1,4 @@
 import gql from 'graphql-tag';
-import {
-  useQuery,
-  useMutation
-} from '@apollo/react-hooks';
 
 export const Match_Email = gql `
 query GET_EMAILS ($email: String!) {
@@ -78,7 +74,7 @@ query getAllBlogs($limit: Int) {
   }
 }`
 
-export const getVocabularyByID = gql`
+export const getVocabularyByID = gql `
 query getVocabulary($student_id: ID!){
   getVocabulary(student_id: $student_id) {
     student_id

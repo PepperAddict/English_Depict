@@ -6,6 +6,7 @@ import {getStudentInfo} from '../../query/query';
 import AddBlog from './AddBlog.jsx';
 import ViewBlogs from './ViewBlogs.jsx';
 import Vocabulary from './Vocabulary.jsx';
+import VocabBucket from './VocabBucket.jsx';
 import '../../styles/blog.styl';
 
 export default function StudentDashboard() {
@@ -42,7 +43,8 @@ export default function StudentDashboard() {
 
   const addVocabulary = async word => {
     var regex = /[.,():;\s]/g;
-    var result = word ? word.replace(regex, '') : false
+    var resultfirst = word ? word.replace(regex, '') : false;
+    var result = resultfirst.charAt(0).toUpperCase() + resultfirst.slice(1);
     await fetch(`https://www.dictionaryapi.com/api/v3/references/sd2/json/${result}?key=${process.env.REACT_APP_MERR}`)
     .then((res) => {
       return res.json()
@@ -70,7 +72,8 @@ export default function StudentDashboard() {
       data && dashboard.addBlog ?  <AddBlog student_id={id}/> :
       data && dashboard.viewBlog ? <ViewBlogs student_id={id} addVocabulary={addVocabulary}/> :
       data && dashboard.setting ? ('settings') : ('')}
-      {dashboard.vocabulary ? <Vocabulary vocab={dashboard.vocabulary} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
+      <div className="student-vocabulary">{dashboard.vocabulary ? <Vocabulary student_id={id} vocab={dashboard.vocabulary} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
+      <VocabBucket student_id={id} vocab={dashboard.vocabulary} definition={dashboard.definition}/></div>
     </div>
   )
 }
