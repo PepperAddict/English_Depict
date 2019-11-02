@@ -1,8 +1,8 @@
-const { GraphQLID, GraphQLNonNull } = require('graphql')
+const { GraphQLID, GraphQLNonNull, GraphQLList } = require('graphql')
 const VocabularyType = require('../types/vocabulary')
 const pgdb = require('../../models/lessonsDB')
 module.exports = {
-  type: VocabularyType,
+  type: new GraphQLNonNull(new GraphQLList(VocabularyType)),
   description: 'This query will search for vocabulary words made by student',
   args: {
     student_id: { type: new GraphQLNonNull(GraphQLID) }
