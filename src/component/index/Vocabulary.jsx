@@ -37,9 +37,7 @@ export default function Vocabulary(props) {
       student_id: props.student_id, 
       vocabulary_word: props.vocab,
       vocabulary_definition: def
-    }}}).then((e) => {
-      console.log(e)
-    }).catch((err) =>console.log(err))
+    }}}).catch((err) =>console.log(err))
   }
 
   return (

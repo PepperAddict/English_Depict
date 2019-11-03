@@ -4,24 +4,33 @@ import { getVocabularyByID } from '../../query/query';
 import { ADD_VOCABULARY } from '../../mutation/mutation';
 
 function ListBucket(props) {
+  const [word, addWord] = useState(props)
   return (
-    <p>{props.word.vocabulary_word}</p>
+    <p>{word.word}</p>
   )
 }
 
 export default function VocabBucket(props) {
   const { loading, error, data } = useQuery(getVocabularyByID, {
-    variables: { student_id: 13 }
+    variables: { student_id: props.student_id }
   })
-
+  const [word, addWord] = useState({
+    vocab: []
+  })
+  let vocabt = [];
+  if (data) {
+    for (let x of data.getVocabulary) {
+      vocabt.push(x.vocabulary_word);
+    }
+    word.vocab = vocabt;
+  }
 
 
   return (<div className="vocab-bucket">
-    {data ? (
-      <span>{data.getVocabulary.map((word, key) => {
-        return < ListBucket word={word} key={key} index={key} />
-      })}</span>
-    ) : 'No Vocabulary in bucket'}
+
+      { data ? word.vocab.map((wordt, key) => {
+          return <ListBucket word={wordt} key={key} index={key} />
+        }) : ('')}
   </div>
 
   )
