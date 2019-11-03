@@ -53,7 +53,6 @@ export default function StudentDashboard() {
       console.log(dashboard)
     }).catch((e) => console.log())
 
-    
   }
 
 
@@ -72,7 +71,8 @@ export default function StudentDashboard() {
       data && dashboard.addBlog ?  <AddBlog student_id={id}/> :
       data && dashboard.viewBlog ? <ViewBlogs student_id={id} addVocabulary={addVocabulary}/> :
       data && dashboard.setting ? ('settings') : ('')}
-      <div className="student-vocabulary">{dashboard.vocabulary ? <Vocabulary student_id={id} vocab={dashboard.vocabulary} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
+      <div className="student-vocabulary">{dashboard.vocabulary ? 
+      <Vocabulary student_id={id} vocab={dashboard.vocabulary} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
       <VocabBucket student_id={id} vocab={dashboard.vocabulary} definition={dashboard.definition}/></div>
     </div>
   )
