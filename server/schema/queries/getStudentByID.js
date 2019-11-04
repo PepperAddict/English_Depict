@@ -7,7 +7,8 @@ module.exports = {
   args: {
     student_id: {type: GraphQLNonNull(GraphQLID)}
   },
-  resolve (source, { student_id}, { pgPool, req }) {
-    return pgdb(pgPool).getStudentByID(student_id)
+  async resolve (source, { student_id}, { pgPool, req }) {
+    return pgdb(pgPool).getStudentByID(student_id);
+
   }
 }

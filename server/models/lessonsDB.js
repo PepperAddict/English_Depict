@@ -33,6 +33,7 @@ module.exports = pgPool => {
       })
     },
     getVocabularyByID(student_id) {
+
       return pgPool.query(`
       select * from vocabulary where student_id = ${student_id}
       `)

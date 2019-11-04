@@ -76,6 +76,7 @@ module.exports = pgPool => {
         })
     },
     getAllUsers(limit) {
+      //get users with a limit or all if limit isn't supplied
       limit = (limit) ? `limit ${limit}` : '';
       return pgPool.query(`
         select * from users ${limit}
@@ -85,6 +86,7 @@ module.exports = pgPool => {
         })
     },
     getAllPosts(limit) {
+      //get posts with a limit or all if limit isn't supplied
       limit = (limit) ? `limit ${limit}` : '';
       return pgPool.query(`select * from posts ${limit}`)
         .then(res => {
@@ -101,7 +103,7 @@ module.exports = pgPool => {
     },
 
     login(email, password) {
-      // try {
+
         return pgPool.query(`
         select * from users where email = '${email}'
       `, )
