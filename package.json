@@ -11,6 +11,9 @@
     "build": "webpack --config config/webpack.config.js",
     "start": "SET NODE_ENV=development&& nodemon server/index.js"
   },
+  "browser": {
+    "child_process": false
+  },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.2",
     "@babel/core": "^7.6.4",

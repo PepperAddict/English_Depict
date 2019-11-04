@@ -1,20 +1,22 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { cookieParser } from '../../helpers';
 const id = cookieParser('student_id', true);
-import {getStudentInfo} from '../../query/query';
+import { getStudentInfo } from '../../query/query';
 import AddBlog from './AddBlog.jsx';
 import ViewBlogs from './ViewBlogs.jsx';
 import Vocabulary from './Vocabulary.jsx';
 import VocabBucket from './VocabBucket.jsx';
+import StudentSettings from './StudentSettings';
 import '../../styles/blog.styl';
 
 export default function StudentDashboard() {
-  const {loading, error, data } = useQuery(getStudentInfo, {variables: {student_id: id}})
+  const { loading, error, data } = useQuery(getStudentInfo, { variables: { student_id: id } })
   const student = data ? data.getStudentByID[0] : false;
-  const [dashboard, setDashboard] = useState('')
-
-
+  const [dashboard, setDashboard] = useState({
+    options: 'welcome',
+    newVocab: new Array()
+  })
 
   useEffect(() => {
 
@@ -22,58 +24,67 @@ export default function StudentDashboard() {
     switch (true) {
       case pathname.includes('add_blog'):
         setDashboard({
-          addBlog: true
+          ...dashboard, options: 'addblog'
         });
         break;
       case pathname.includes('blogs'):
+          console.log('is this working again?')
         setDashboard({
-          viewBlog: true
+          ...dashboard, options: 'blogs'
         });
         break;
       case pathname.includes('settings'):
         setDashboard({
-          settings: true
-        })
-      default: 
+          ...dashboard, options: 'settings'
+        });
+        break;
+      default:
         setDashboard({
-          welcome: true
-      })
+          ...dashboard, options: 'welcome'
+        })
     }
   }, [])
 
   const addVocabulary = async word => {
     var regex = /[.,():;\s]/g;
     var resultfirst = word ? word.replace(regex, '') : false;
-    var result = resultfirst.charAt(0).toUpperCase() + resultfirst.slice(1);
+    var result = word ? resultfirst.charAt(0).toUpperCase() + resultfirst.slice(1) : false;
     await fetch(`https://www.dictionaryapi.com/api/v3/references/sd2/json/${result}?key=${process.env.REACT_APP_MERR}`)
-    .then((res) => {
-      return res.json()
-    }).then((e) => {
-      setDashboard({...dashboard, vocabulary: result, definition: e[0].shortdef});
-      console.log(dashboard)
-    }).catch((e) => console.log())
-
+      .then((res) => {
+        return res.json()
+      }).then((e) => {
+        setDashboard({ ...dashboard, vocabulary: result, definition: e[0].shortdef });
+      }).catch((e) => console.log())
   }
 
+  const showVocab = word => {
+    setDashboard({...dashboard, newVocab: [...dashboard.newVocab, word]});
+  }
+  console.log(dashboard)
 
-  return(
+  return (
     <div className="student-container">
       <div className="student-sidebar">
         <a href="/student">Dashboard</a>
         <a href="/student/add_blog">Add a Blog</a>
         <a href="/student/blogs">View Blog</a>
+        <a href="/student/settings">Settings</a>
       </div>
-      {loading? 'loading' : error ? 'error' : 
-      data && dashboard.welcome ? (
+      {loading ? 'loading' : error ? 'error' :
+        data && dashboard.options === 'welcome' ? (
 
-        <div>Welcome {student.name || student.username} </div>
-      ) :
-      data && dashboard.addBlog ?  <AddBlog student_id={id}/> :
-      data && dashboard.viewBlog ? <ViewBlogs student_id={id} addVocabulary={addVocabulary}/> :
-      data && dashboard.setting ? ('settings') : ('')}
-      <div className="student-vocabulary">{dashboard.vocabulary ? 
-      <Vocabulary student_id={id} vocab={dashboard.vocabulary} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
-      <VocabBucket student_id={id} vocab={dashboard.vocabulary} definition={dashboard.definition}/></div>
+          <div>Welcome {student.name || student.username} </div>
+        ) :
+          data && dashboard.options === 'addblog' ? <AddBlog student_id={id} /> :
+            data && dashboard.options === 'blogs' ? <ViewBlogs student_id={id} addVocabulary={addVocabulary} /> :
+              data && dashboard.options === 'settings' ? <StudentSettings student_id={id} /> : ('')}
+      <div className="student-vocabulary">
+      {dashboard.vocabulary ?
+        <Vocabulary student_id={id} showVocab={showVocab} vocab={dashboard.vocabulary} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
+        {data ? <VocabBucket student_id={id} showVocab={showVocab} vocab={data.getStudentByID[0].vocabularies} definition={dashboard.definition} /> : '' }
+         {dashboard.newVocab ? dashboard.newVocab.map((word, key) => {
+           return <p key={key}> {word}</p>
+         }) : ''} </div>
     </div>
   )
 }

@@ -61,6 +61,9 @@ query getStudentByID($student_id: ID!){
     username
     student_key
     name
+    vocabularies {
+      vocabulary_word
+    }
   }
 }`
 
