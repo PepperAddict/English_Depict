@@ -9,8 +9,12 @@ import Vocabulary from './Vocabulary.jsx';
 import VocabBucket from './VocabBucket.jsx';
 import StudentSettings from './StudentSettings';
 import '../../styles/blog.styl';
+import moment from 'moment';
+
 
 export default function StudentDashboard() {
+  const [currentDate, setDate] = useState(moment().format('dddd, MMMM Do YYYY'));
+
   const { loading, error, data } = useQuery(getStudentInfo, { variables: { student_id: id } })
   const student = data ? data.getStudentByID[0] : false;
   const [dashboard, setDashboard] = useState({
@@ -19,6 +23,7 @@ export default function StudentDashboard() {
   })
 
   useEffect(() => {
+    console.log(currentDate)
 
     let pathname = window.location.pathname;
     switch (true) {
@@ -60,7 +65,6 @@ export default function StudentDashboard() {
   const showVocab = word => {
     setDashboard({...dashboard, newVocab: [...dashboard.newVocab, word]});
   }
-  console.log(dashboard)
 
   return (
     <div className="student-container">
@@ -73,11 +77,17 @@ export default function StudentDashboard() {
       {loading ? 'loading' : error ? 'error' :
         data && dashboard.options === 'welcome' ? (
 
-          <div>Welcome {student.name || student.username} </div>
+          <div> <span className="avatar">
+            <img className="avatar-image" src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : 'https://i.imgur.com/mczI9bfg.jpg'} />
+            </span>
+             Welcome {student.name || student.username} 
+             Today is {currentDate}
+          
+          </div>
         ) :
           data && dashboard.options === 'addblog' ? <AddBlog student_id={id} /> :
             data && dashboard.options === 'blogs' ? <ViewBlogs student_id={id} addVocabulary={addVocabulary} /> :
-              data && dashboard.options === 'settings' ? <StudentSettings student_id={id} /> : ('')}
+              data && dashboard.options === 'settings' ? <StudentSettings student_id={id} avatar={data.getStudentByID[0].avatar}/> : ('')}
       <div className="student-vocabulary">
       {dashboard.vocabulary ?
         <Vocabulary student_id={id} showVocab={showVocab} vocab={dashboard.vocabulary} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}

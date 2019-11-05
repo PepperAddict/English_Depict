@@ -59,9 +59,11 @@ export const getStudentInfo = gql `
 query getStudentByID($student_id: ID!){
   getStudentByID(student_id: $student_id) {
     username
+    avatar
     student_key
     name
     vocabularies {
+      vocab_id
       vocabulary_word
     }
   }
@@ -80,6 +82,7 @@ query getAllBlogs($limit: Int) {
 export const getVocabularyByID = gql `
 query getVocabulary($student_id: ID!){
   getVocabulary(student_id: $student_id) {
+    vocab_id
     student_id
     vocabulary_word
     vocabulary_definition

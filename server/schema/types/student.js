@@ -24,6 +24,7 @@ const StudentType = new GraphQLObjectType({
       student_key: { type: GraphQLNonNull(GraphQLString)},
       verified: {type: GraphQLBoolean},
       second_password: {type: GraphQLString},
+      avatar: {type: GraphQLString},
       vocabularies: {
         type: new GraphQLList(vocabType),
         resolve: async (source, input, { pgPool, req }) => {

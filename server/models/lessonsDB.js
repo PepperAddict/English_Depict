@@ -42,6 +42,25 @@ module.exports = pgPool => {
           return res.rows
         }
       }))
+    }, 
+    removeVocabulary(vocab_id) {
+      return pgPool.query(`
+      delete from vocabulary where vocab_id=${vocab_id} returning *
+      `).then((res) => {
+        return res.rows
+      }).catch(e => {
+        console.log(e)
+      })
+    },
+    updateStudentAvatar({student_id, avatar}) {
+
+      return pgPool.query(`
+      update students set avatar='${avatar}' where student_id=${student_id} returning *
+      `).then((res => {
+        return res.rows[0]
+      })).catch((e) => {
+        console.log(e)
+      })
     }
   }
 }

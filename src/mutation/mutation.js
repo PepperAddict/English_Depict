@@ -55,3 +55,21 @@ mutation AddVocabulary($input: VocabularyInput!){
   }
 }
 `
+
+export const UPDATE_STUDENT_AVATAR = gql`
+mutation updateStudentAvatar($input: updateStudentAvatar!) {
+  UpdateStudentAvatar(input: $input) {
+    student_id
+    student_key
+    avatar
+  }
+}
+`
+
+export const REMOVE_VOCABULARY = gql`
+  mutation removeVocabulary($vocab_id: ID!){
+  RemoveVocabulary(vocab_id: $vocab_id) {
+    vocab_id
+  } 
+}
+`
