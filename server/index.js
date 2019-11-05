@@ -1,7 +1,8 @@
 require('dotenv').config();
 const graphqlHTTP = require('express-graphql');
 const cookieParser = require('cookie-parser')
-const path = require('path')
+const path = require('path');
+
 
 const pg = require('pg');
 const cors = require('cors');
@@ -11,6 +12,7 @@ const {isAuthenticated, softAuthenticate, studentAuthenticate, choice, isInvited
 
 
 const express = require('express');
+
 const bodyParser = require('body-parser')
 const server = express();
 const webpack = require('webpack');
@@ -30,7 +32,6 @@ const pgPool = new pg.Pool({
   database: 'depict'
 })
 const schema = require('./schema/')
-
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({
@@ -74,6 +75,68 @@ server.use('/graphql', cors(), (req, res) => {
     introspection: true,
   })(req, res)
 });
+
+//route for images
+const multerS3 = require('multer-s3')
+const multer = require('multer')
+const AWS = require('aws-sdk')
+const s3 = new AWS.S3({
+  secretAccessKey: process.env.AWS_SECRET,
+  accessKeyId: process.env.AWS_KEY,
+  Bucket: 'english-practice',
+  region: 'us-east-1'
+})
+const profileImgUpload = multer({
+  storage: multerS3({
+    s3: s3, 
+    bucket: 'english-practice',
+    acl: 'public-read',
+    metadata: function(req, file, cb) {
+      cb(null, {fieldName: file.fieldname})
+    },
+    key: function(req, file, cb) {
+
+      cb(null, path.basename(Date.now().toString() + path.extname(file.originalname)));
+    }
+  }), 
+  fileFilter: function(req, file, cb) {
+    checkFileType(file, cb);
+  }
+})
+
+function checkFileType( file, cb) {
+  const filetypes = /jpeg|jpg|png|svg|gif/;
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = filetypes.test(file.mimetype);
+  if (mimetype && extname) {
+    return cb(null, true)
+  } else {
+    cb('Error: Images Only!')
+  }
+}
+
+server.post('/upload', profileImgUpload.single('depictImage'), (req, res) => {
+
+      console.log(req.file)
+      if (req.file === undefined) {
+        console.log('Error: No File Selected!');
+        res.json( 'Error: No File Selected');
+      }else if(req.files === null) {
+        return res.status(400).json({
+          msg: 'No file was uploaded'
+        })
+      } else {
+        const imageName = req.file.key; 
+        const imageLocation = req.file.location; 
+        res.json( {
+          image: imageName, 
+          location: imageLocation
+        })
+      }
+    
+
+})
+
 
 
 if (process.env.NODE_ENV === 'development') {
