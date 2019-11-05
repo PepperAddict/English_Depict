@@ -95,32 +95,29 @@ const profileImgUpload = multer({
       cb(null, {fieldName: file.fieldname})
     },
     key: function(req, file, cb) {
-
       cb(null, path.basename(Date.now().toString() + path.extname(file.originalname)));
     }
   }), 
   fileFilter: function(req, file, cb) {
-    checkFileType(file, cb);
+    const filetypes = /jpeg|jpg|png|svg|gif/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = filetypes.test(file.mimetype);
+    if (mimetype && extname) {
+      return cb(null, true)
+    } else {
+
+      cb(null, false)
+    }
   }
 })
 
-function checkFileType( file, cb) {
-  const filetypes = /jpeg|jpg|png|svg|gif/;
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = filetypes.test(file.mimetype);
-  if (mimetype && extname) {
-    return cb(null, true)
-  } else {
-    cb('Error: Images Only!')
-  }
-}
+
 
 server.post('/upload', profileImgUpload.single('depictImage'), (req, res) => {
-
-      console.log(req.file)
       if (req.file === undefined) {
-        console.log('Error: No File Selected!');
-        res.json( 'Error: No File Selected');
+        return res.status(400).json({
+          msg: 'Image only'
+        })
       }else if(req.files === null) {
         return res.status(400).json({
           msg: 'No file was uploaded'
@@ -133,8 +130,6 @@ server.post('/upload', profileImgUpload.single('depictImage'), (req, res) => {
           location: imageLocation
         })
       }
-    
-
 })
 
 

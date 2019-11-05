@@ -8,6 +8,7 @@ const VocabularyType = new GraphQLObjectType({
   name: 'Vocabulary',
   fields: () => {
     return {
+      vocab_id: {type: GraphQLID},
       student_id: { type: GraphQLNonNull(GraphQLID)},
       vocabulary_word: {type: GraphQLNonNull(GraphQLString)},
       vocabulary_definition: { type: GraphQLString},
