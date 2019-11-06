@@ -7,14 +7,15 @@ import AddBlog from './AddBlog.jsx';
 import ViewBlogs from './ViewBlogs.jsx';
 import Vocabulary from './Vocabulary.jsx';
 import VocabBucket from './VocabBucket.jsx';
-import StudentSettings from './StudentSettings';
+import StudentSettings from './StudentSettings.jsx';
+import EditBlog from './Editblog.jsx'
 import '../../styles/blog.styl';
 import moment from 'moment';
 
 
 export default function StudentDashboard() {
   const [currentDate, setDate] = useState(moment().format('dddd, MMMM Do YYYY'));
-
+  const [dupeWordt, setDupeWord] = useState('')
   const { loading, error, data } = useQuery(getStudentInfo, { variables: { student_id: id } })
   const student = data ? data.getStudentByID[0] : false;
   const [dashboard, setDashboard] = useState({
@@ -33,7 +34,7 @@ export default function StudentDashboard() {
         });
         break;
       case pathname.includes('blogs'):
-          console.log('is this working again?')
+        console.log('is this working again?')
         setDashboard({
           ...dashboard, options: 'blogs'
         });
@@ -41,6 +42,11 @@ export default function StudentDashboard() {
       case pathname.includes('settings'):
         setDashboard({
           ...dashboard, options: 'settings'
+        });
+        break;
+      case pathname.includes('edit-blog'):
+        setDashboard({
+          ...dashboard, options: 'edit-blog'
         });
         break;
       default:
@@ -63,7 +69,11 @@ export default function StudentDashboard() {
   }
 
   const showVocab = word => {
-    setDashboard({...dashboard, newVocab: [...dashboard.newVocab, word]});
+    setDashboard({ ...dashboard, newVocab: [...dashboard.newVocab, word] });
+  }
+
+  const dupeWord = word => {
+    setDupeWord(word)
   }
 
   return (
@@ -79,22 +89,23 @@ export default function StudentDashboard() {
 
           <div> <span className="avatar">
             <img className="avatar-image" src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : 'https://i.imgur.com/mczI9bfg.jpg'} />
-            </span>
-             Welcome {student.name || student.username} 
-             Today is {currentDate}
-          
+          </span>
+            Welcome {student.name || student.username}
+            Today is {currentDate}
+
           </div>
         ) :
           data && dashboard.options === 'addblog' ? <AddBlog student_id={id} /> :
             data && dashboard.options === 'blogs' ? <ViewBlogs student_id={id} addVocabulary={addVocabulary} /> :
-              data && dashboard.options === 'settings' ? <StudentSettings student_id={id} avatar={data.getStudentByID[0].avatar}/> : ('')}
+              data && dashboard.options === 'settings' ? <StudentSettings student_id={id} avatar={data.getStudentByID[0].avatar} /> :
+                data && dashboard.options === 'edit-blog' ? <EditBlog student_id={id} /> : null}
       <div className="student-vocabulary">
-      {dashboard.vocabulary ?
-        <Vocabulary student_id={id} showVocab={showVocab} vocab={dashboard.vocabulary} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
-        {data ? <VocabBucket student_id={id} showVocab={showVocab} vocab={data.getStudentByID[0].vocabularies} definition={dashboard.definition} /> : '' }
-         {dashboard.newVocab ? dashboard.newVocab.map((word, key) => {
-           return <p key={key}> {word}</p>
-         }) : ''} </div>
+        {dashboard.vocabulary ?
+          <Vocabulary dupeWord={dupeWord} student_id={id} showVocab={showVocab} vocab={dashboard.vocabulary} allVocab={data.getStudentByID[0].vocabularies} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
+        {data ? <VocabBucket dupeWord={dupeWordt} student_id={id} showVocab={showVocab} vocab={data.getStudentByID[0].vocabularies} definition={dashboard.definition} /> : ''}
+        {dashboard.newVocab ? dashboard.newVocab.map((word, key) => {
+          return <p key={key}> {word} <b>New!</b></p>
+        }) : ''} </div>
     </div>
   )
 }

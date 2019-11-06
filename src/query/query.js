@@ -72,6 +72,7 @@ query getStudentByID($student_id: ID!){
 export const getAllBlogs = gql `
 query getAllBlogs($limit: Int) {
   getCompleteBlogs(limit: $limit) {
+    blog_id
     student_id
     subject
     created_at
@@ -87,6 +88,18 @@ query getVocabulary($student_id: ID!){
     vocabulary_word
     vocabulary_definition
     created_at
+  }
+}
+`
+
+export const getBlogByID = gql`
+query getBlogByID($blog_id: ID!){
+  getBlogByID(blog_id: $blog_id) {
+    created_at
+    subject
+    content
+    updated_at
+    student_id
   }
 }
 `

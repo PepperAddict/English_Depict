@@ -46,6 +46,17 @@ mutation AddBlog($input: BlogInput!){
 }
 `
 
+export const EDIT_BLOG = gql`
+mutation editBlog($input: BlogEdit!){
+  EditBlog(input: $input) {
+    blog_id
+    subject
+    content
+    updated_at
+  }
+}
+`
+
 export const ADD_VOCABULARY = gql`
 mutation AddVocabulary($input: VocabularyInput!){
   AddVocabulary(input: $input) {
