@@ -12,6 +12,23 @@ module.exports = pgPool => {
           console.log(err)
         })
     },
+    getBlogByID(blog_id) {
+      return pgPool.query(`
+      select * from blogs where blog_id=${blog_id}`)
+      .then((res) => {
+        return res.rows
+      }).catch((err) => console.log(err))
+    },
+    editBlog({blog_id, subject, content, updated_at}) {
+      return pgPool.query(`
+      update blogs set subject='${subject}', content='${content}', updated_at='${updated_at}' where blog_id=${blog_id} returning *
+      `).then((res) => {
+        return res.rows[0]
+      }
+      ).catch((e => {
+        console.log(e)
+      }))
+    },
     getAllBlogs(limit) {
       limit = (limit) ? `limit ${limit}` : '';
       return pgPool.query(`

@@ -14,11 +14,14 @@ const loginStudent = require('./queries/getStudentByUser')
 const updatestudentpw = require('./mutations/verifiedStudent')
 const GetStudentByID = require('./queries/getStudentByID')
 const AddBlog = require('./mutations/addBlog')
+const GetBlogByID = require('./queries/getSingleBlog');
 const GetCompleteBlogs = require('./queries/getCompleteBlogs');
 const AddVocabulary = require('./mutations/addVocabulary');
 const GetVocabularyByStudentID = require('./queries/getVocabularyByID');
 const UpdateStudentAvatar = require('./mutations/updateStudentAvatar');
 const removeVocabulary = require('./mutations/removeVocabulary');
+const EditBlog = require('./mutations/editBlog')
+
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
   fields: () => ({
@@ -32,7 +35,8 @@ const RootQueryType = new GraphQLObjectType({
     getCompletePosts: GetCompletePosts,
     getStudentByID: GetStudentByID,
     getCompleteBlogs: GetCompleteBlogs,
-    getVocabulary: GetVocabularyByStudentID
+    getVocabulary: GetVocabularyByStudentID,
+    getBlogByID: GetBlogByID
   })
 })
 const RootMutationType = new GraphQLObjectType({
@@ -45,7 +49,8 @@ const RootMutationType = new GraphQLObjectType({
     AddBlog: AddBlog,
     AddVocabulary: AddVocabulary,
     UpdateStudentAvatar: UpdateStudentAvatar,
-    RemoveVocabulary: removeVocabulary
+    RemoveVocabulary: removeVocabulary,
+    EditBlog: EditBlog
   })
 })
 const schema = new GraphQLSchema({

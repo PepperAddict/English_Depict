@@ -31,7 +31,7 @@ export default function AddBlog({student_id}) {
       <input id="subject" onChange={updateFields} name="subject" placeholder="subject" /> 
 
       <label htmlFor="content">Content</label>
-      <input id="content" onChange={updateFields} name="content" placeholder="" />
+      <textarea id="content" onChange={updateFields} name="content" placeholder="" />
 
       <button type="submit">Submit your blog</button>
     </form>
