@@ -124,6 +124,23 @@ module.exports = pgPool => {
             throw new Error(e)
           })
 
+    },
+    addChat({student_id, teacher_id, content}) {
+      let teacherOrstudentOne = student_id ? 'student_id' : 'teacher_id';
+      let teacherOrstudentTwo = student_id ? student_id : teacher_id;
+      let date = new Date();
+
+      return pgPool.query(`
+      insert into chats (${teacherOrstudentOne}, content, created_at)
+      values ($1, $2, $3) returning *
+      `, [teacherOrstudentTwo, content, date])
+      .then((res) => {
+        console.log(res)
+        return res.rows[0]
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     }
   }
 }

@@ -3,7 +3,6 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLNonNull,
-  GraphQLScalarType
 } = require('graphql')
 const MeType = new GraphQLObjectType({
   name: 'Me',

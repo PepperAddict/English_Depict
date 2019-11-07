@@ -21,7 +21,8 @@ const GetVocabularyByStudentID = require('./queries/getVocabularyByID');
 const UpdateStudentAvatar = require('./mutations/updateStudentAvatar');
 const removeVocabulary = require('./mutations/removeVocabulary');
 const EditBlog = require('./mutations/editBlog')
-
+const AddChat = require('./mutations/addChat')
+const WatchChat = require('./subscriptions/watchChat')
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
   fields: () => ({
@@ -50,9 +51,13 @@ const RootMutationType = new GraphQLObjectType({
     AddVocabulary: AddVocabulary,
     UpdateStudentAvatar: UpdateStudentAvatar,
     RemoveVocabulary: removeVocabulary,
-    EditBlog: EditBlog
+    EditBlog: EditBlog,
+    AddChat: AddChat
   })
 })
+
+
+
 const schema = new GraphQLSchema({
   query: RootQueryType,
   mutation: RootMutationType
