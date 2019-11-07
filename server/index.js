@@ -15,6 +15,14 @@ const express = require('express');
 
 const bodyParser = require('body-parser')
 const server = express();
+const http = require('http').createServer(server)
+
+//socket io
+const io = require('socket.io').listen(http)
+const SocketManager = require('./socket');
+io.on('connection', SocketManager)
+
+
 const webpack = require('webpack');
 const config = require('../config/webpack.config.js');
 const compiler = webpack(config);
@@ -141,7 +149,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => {
+http.listen(PORT, () => {
   console.log('the server is listening in ' + PORT)
 })
 
