@@ -1,4 +1,5 @@
 import React from 'react';
+import ChatBox from './Chat/ChatBox.jsx';
 
 export default function Welcome() {
 
@@ -12,6 +13,8 @@ export default function Welcome() {
       <a href="/login">Login</a><br></br>
       <a href="/register">Register</a><br></br>
       <a href="/student_login">Student Login</a>
+
+      <ChatBox />
     </div>
   )
 
