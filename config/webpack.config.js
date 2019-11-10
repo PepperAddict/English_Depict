@@ -68,7 +68,15 @@ module.exports = {
       {
         test: /\.ico$/,
         loader: 'file-loader?name=[name].[ext]'
-    },
+      },
+      {test: /\.glb$/,
+        loader: 'file-loader?name=[name].[ext]',
+        options: {
+          outputPath: './images',
+          context: './src/component/images'
+        }
+      },
+
       {
         test: /\.css$/,
         use: [ 
