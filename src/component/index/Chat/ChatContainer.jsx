@@ -9,7 +9,7 @@ function ChatSidebar(props) {
         <div className="app-name">Chat</div>
       </div>
       <div className="search">
-        <i className="search-icon"><ChatSearch /></i>
+
         <input placeholder="search" type="text" />
         <div className="plus"> + </div>
       </div>
