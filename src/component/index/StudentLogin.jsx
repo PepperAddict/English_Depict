@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {LoginStudent} from '../../query/query';
 import {useQuery, useApolloClient} from '@apollo/react-hooks';
-import '../../styles/studentLogin.styl';
+import '../../styles/student.styl';
 import StageThree from './StudentLoginStageThree';
 
 
@@ -104,8 +104,9 @@ export default function StudentLogin() {
   }
   
   return (
-   <div>
-     Hi Student! Let's sign in! 
+   <div className="student-login-container">
+     <div className="student-login-inner">
+       Hi Student! Let's sign in! 
      
      {studentLogin.stage1 ? <StageOne updateParent={updateParent}/> : 
      studentLogin.stage2 && !studentLogin.verified ? (<StageTwo 
@@ -118,7 +119,7 @@ export default function StudentLogin() {
       updateParent={updateParent}/>) : 
      studentLogin.stage3 && !studentLogin.verified ? (<StageThree verified={studentLogin.verified} id={studentLogin.id}/>) : 
      studentLogin.verified ? (<StageThree verified={studentLogin.verified} id={studentLogin.id} second_password={studentLogin.second_password} student_key={studentLogin.student_key} />) : ('')}
-
+    </div>
    </div>
   )
 }

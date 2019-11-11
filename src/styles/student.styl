@@ -1,0 +1,53 @@
+.row 
+  display: flex;
+  position:relative;
+  span
+    position: relative;
+    input 
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    object 
+      pointer-events:none;
+      z-index:1;
+  .notSelected 
+    border: 0px;
+  .selected 
+    border: 1px solid black;
+
+
+// student login 
+.student-login-container
+  position: relative;
+  background: white;
+  width: 100%;
+  height: 100vh;
+  padding: 10px;
+  box-sizing: border-box;
+  z-index: 2;
+  &:before
+    background: linear-gradient(to right, #d16ba5, #c674bd, #b47fd4, #9a8be7, #7597f5, #55a7fd, #30b6ff, #00c3ff, #00d7ff, #00e8ed, #00f6c4, #00ff8c);
+    animation: AnimationName 10s ease infinite;
+    width: 100%;
+    height: 100%;
+    background-size: 200% 200%;
+    content: ' ';
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    z-index: -1;
+  .student-login-inner
+    background: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    padding: 30px;
+    box-sizing: border-box;
+
+
+@keyframes AnimationName {
+    0%{background-position:10% 50%}
+    50%{background-position:100% 51%}
+    100%{background-position:10% 50%}
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import ReactDOM from 'react-dom';
 import  ApolloClient from 'apollo-boost';
 import { ApolloProvider, Query, withApollo } from 'react-apollo';
@@ -27,7 +27,7 @@ import StudentDashboard from './StudentDashboard';
 const App = () => (
   <ApolloProvider client={client}>
     <Router>
-      <div>
+      <Fragment>
         <Route exact path="/">
           <Welcome />
         </Route>
@@ -46,7 +46,7 @@ const App = () => (
         <Route path="/student/:page?">
           <StudentDashboard />
         </Route>
-      </div>
+      </Fragment>
     </Router>
     </ApolloProvider>
 )
