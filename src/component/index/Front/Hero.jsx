@@ -10,9 +10,20 @@ export default function Hero(props) {
 
   const onLoad = (gltf, child) => {
     const model = gltf.scene.children[child];
-
-
     const animation = gltf.animations[child];
+
+    //texture
+    const imageTexture = require('../../images/gradientMap.jpg')
+    console.dir(imageTexture)
+    var texture = new THREE.TextureLoader().load(imageTexture.src);
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+
+    model.material = new THREE.MeshToonMaterial({
+      gradientMap: texture,
+      shininess: false
+    })
+
 
     const mixer = new THREE.AnimationMixer(model);
     mixers.push(mixer);
@@ -32,6 +43,7 @@ export default function Hero(props) {
   }
 
   useEffect(() => {
+    const cloud = document.getElementById('floating-cloud')
     scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       75, //field of view
@@ -40,11 +52,11 @@ export default function Hero(props) {
       1000 //far
     );
     //set the camera position
-    camera.position.set(6, 6, 9);
+    camera.position.set(10, 10, 15); //side up/down zoom
     let renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }) //to smooth and transparent background
-    renderer.setClearColor('#80e4ff', 0) //background color
+    renderer.setClearColor('#80e4ff', 0) //background color. not needed
     renderer.setSize(window.innerWidth, window.innerHeight) //set the size of the renderer
-    const cloud = document.getElementById('floating-cloud')
+
     cloud.appendChild(renderer.domElement) //now stick it to the element
 
     //make responsive scene 
@@ -64,12 +76,25 @@ export default function Hero(props) {
     loader.load(cloudOnePath, gltf => onLoad(gltf, 1), onProgress, onError  )
 
     loader.load(cloudOnePath, gltf => onLoad(gltf, 2), onProgress, onError  )
+    loader.load(cloudOnePath, gltf => onLoad(gltf, 3), onProgress, onError  )
+    loader.load(cloudOnePath, gltf => onLoad(gltf, 4), onProgress, onError  )
+    loader.load(cloudOnePath, gltf => onLoad(gltf, 5), onProgress, onError  )
 
+    loader.load(cloudOnePath, gltf => onLoad(gltf, 6), onProgress, onError  )
+    loader.load(cloudOnePath, gltf => onLoad(gltf, 7), onProgress, onError  )
+    loader.load(cloudOnePath, gltf => onLoad(gltf, 8), onProgress, onError  )
 
-    //the lighting 
-    var light = new THREE.AmbientLight(0xFFFFFF, 2);
-    light.position.set(10, 0, 25);
+    // the lighting 
+    var light = new THREE.HemisphereLight(0xFFFFFF, 0x000000, 1.5); //sky ground intensity
+    light.castShadow = true;
+    light.position.set(10, 30, 25);
     scene.add(light);
+
+    scene.add( new THREE.AmbientLight( 0xFFFFFF, .3 ) );
+    var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+    directionalLight.position.set( 1, 1, 1 ).normalize();
+    scene.add( directionalLight );
+
 
 
     //fix aspect ratio during resize
