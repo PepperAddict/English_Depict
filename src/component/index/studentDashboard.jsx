@@ -9,8 +9,9 @@ import Vocabulary from './Vocabulary.jsx';
 import VocabBucket from './VocabBucket.jsx';
 import StudentSettings from './StudentSettings.jsx';
 import EditBlog from './Editblog.jsx'
-import '../../styles/blog.styl';
+import '../../styles/studentdashboard.styl';
 import moment from 'moment';
+const defaultImage = require('../images/no-pic.png')
 
 
 export default function StudentDashboard() {
@@ -78,21 +79,20 @@ export default function StudentDashboard() {
 
   return (
     <div className="student-container">
-      <div className="student-sidebar">
+      <nav className="student-sidebar">
         <a href="/student">Dashboard</a>
         <a href="/student/add_blog">Add a Blog</a>
         <a href="/student/blogs">View Blog</a>
         <a href="/student/settings">Settings</a>
-      </div>
+      </nav>
       {loading ? 'loading' : error ? 'error' :
         data && dashboard.options === 'welcome' ? (
 
-          <div> <span className="avatar">
-            <img className="avatar-image" src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : 'https://i.imgur.com/mczI9bfg.jpg'} />
+          <div className="welcome-hero"> <span className="avatar">
+            <img className="avatar-image" src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : defaultImage.src} />
           </span>
-            Welcome {student.name || student.username}
-            Today is {currentDate}
-
+            <h1>Welcome <strong>{student.name? student.name : student.username}</strong></h1>
+            <h2>Today is <strong>{currentDate}</strong></h2>
           </div>
         ) :
           data && dashboard.options === 'addblog' ? <AddBlog student_id={id} /> :

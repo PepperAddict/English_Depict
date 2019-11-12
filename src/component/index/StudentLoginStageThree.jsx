@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import {useMutation} from '@apollo/react-hooks';
-import {ADD_NEWPW} from '../../mutation/mutation';
-import {encryptMe} from '../../helpers';
+import React, { useState, useEffect, Fragment } from 'react';
+import { useMutation } from '@apollo/react-hooks';
+import { ADD_NEWPW } from '../../mutation/mutation';
+import { encryptMe } from '../../helpers';
 
 function ImageForm({ pass, pictureSubmit, itemClick }) {
 
   return (
-    <form onSubmit={pictureSubmit}>
+    <form className="password-selection" onSubmit={pictureSubmit}>
       <div className="row">
         <span id="icecream" className={(pass.indexOf('icecream') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
           <object type="image/svg+xml" data={require('../../img/icons/icecream.svg')} />
@@ -130,7 +130,7 @@ function ImageForm({ pass, pictureSubmit, itemClick }) {
 
 
 export default function StageThree(props) {
-  const [setNewPW, {data}] = useMutation(ADD_NEWPW);
+  const [setNewPW, { data }] = useMutation(ADD_NEWPW);
   const [newPass, setNewPass] = useState({
     id: props.id,
     verified: props.verified,
@@ -141,6 +141,8 @@ export default function StageThree(props) {
     texterror: false,
     check: false,
   })
+  const [error, setError] = useState(false)
+  const [count, setCount] = useState(0)
 
   const pictureSubmit = async e => {
     e.preventDefault();
@@ -153,43 +155,51 @@ export default function StageThree(props) {
         let newUser = await encryptMe(userid);
         document.cookie = `student_id=${newUser};samesite`;
         location.reload();
-      }
-    } else {
-          if (!newPass.check) {
-      if (newPass.pass.length < 5) {
-        setNewPass({ ...newPass, texterror: `You only chose ${newPass.pass.length - 1} images as your password. Please select more images` })
       } else {
-        setNewPass({ ...newPass, check: true, texterror: false })
+        setCount(count + 1)
+        setError(1)
       }
     } else {
+      if (!newPass.check) {
+        if (newPass.pass.length < 5) {
+          setError(2)
+        } else {
+          setError(false)
+          setNewPass({...newPass, check: true})
+        }
+      } else {
         let passOne = newPass.pass.sort().toString();
         let passTwo = newPass.passTwo.sort().toString();
 
         if (passOne === passTwo) {
-          setNewPW({variables: {input: {
-            student_id: newPass.id,
-            second_password: passOne
-          }}}).then(async  (response) => {
+          setNewPW({
+            variables: {
+              input: {
+                student_id: newPass.id,
+                second_password: passOne
+              }
+            }
+          }).then(async (response) => {
             console.log(response)
             document.cookie = `student_key=${response.data.UpdateStudentPassword.student_key};samesite`;
-            let userid = response.data.UpdateStudentPassword.id;
+            let userid = response.data.UpdateStudentPassword.student_id;
             let newUser = await encryptMe(userid);
+            console.log(newUser)
             document.cookie = `student_id=${newUser};samesite`;
+          }).then((again) => {
             location.reload();
           }).catch((e) => {
             console.log(e)
           })
         } else {
-          setNewPass({pass: ['start'], passTwo: ['start'], check: false, texterror: 'Sorry, your password did not match. Lets start over.'})
+          setError(3)
+          setNewPass({...newPass, check: false, pass: ['start'], passTwo: ['start']})
         }
+      }
     }
-    }
-
-
   }
 
   const itemClick = e => {
-    console.log(props)
 
     e.preventDefault();
     if (!newPass.check) {
@@ -209,28 +219,45 @@ export default function StageThree(props) {
     }
 
   }
-
+  const closeit = e => {
+    setError(false)
+  }
   useEffect(() => {
     setNewPass(newPass)
   }, [])
 
-  return (<div>
+  return (<div className="password-container">
+      <div className="three-dot">• • <span className="active">•</span></div>
+    {newPass.verified ? (
+    <Fragment>
+      <h1>Welcome {props.username}</h1>
+      <h2>Please select your password</h2>
+      <ImageForm pass={newPass.pass} pictureSubmit={pictureSubmit} itemClick={itemClick} />
 
-    {newPass.verified ? (<div>
-<p>Sign into your account</p>
-<ImageForm pass={newPass.pass} pictureSubmit={pictureSubmit} itemClick={itemClick} />
 
-    </div>) : (
-      <div>
-    {!newPass.check ? 
-      (<p>Select at least 4 pictures as your secret password!</p>): 
-      (<p>Please verify the images you chose!</p>)}
-    <p className="message">{newPass.texterror ? newPass.texterror : ''}</p>
-    {!newPass.check ? 
-      (<ImageForm pass={newPass.pass} pictureSubmit={pictureSubmit} itemClick={itemClick} />) :
-      (<ImageForm pass={newPass.passTwo} pictureSubmit={pictureSubmit} itemClick={itemClick} />)}
-      </div>
-    )}
+    </Fragment>) : (
+        <Fragment>
+          <h1>Welcome {props.username}</h1>
+          {!newPass.check ?
+            (<h2>Select at least 4 pictures as your secret password!</h2>) :
+            (<h2>Please verify the images you chose by selecting them again.</h2>)}
+          <p className="message">{newPass.texterror && newPass.texterror}</p>
+          {!newPass.check ?
+            (<ImageForm pass={newPass.pass} pictureSubmit={pictureSubmit} itemClick={itemClick} />) :
+            (<ImageForm pass={newPass.passTwo} pictureSubmit={pictureSubmit} itemClick={itemClick} />)}
+      
+        </Fragment>
+      )}
 
+      {error && error === 1 && count <= 2 ? <p className="error" onClick={closeit}>Password did not match. Please try again.</p> : 
+      error === 1 && count >= 3 ? <p className="error" onClick={closeit}>
+      Your password does not match. Please let your teacher know to reset your password.
+    </p> : error === 2 ? 
+    <p className="error" onClick={closeit}>You only chose {newPass.pass.length - 1} images as your password. Please select more images</p> :
+    error === 3 && 
+    <p className="error" onClick={closeit}>
+      Sorry, your password did not match. Lets start over.
+    </p>
+  }
   </div>)
 }

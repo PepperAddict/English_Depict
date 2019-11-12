@@ -3,10 +3,10 @@ import {useQuery, useMutation, useLazyQuery} from '@apollo/react-hooks';
 import {Get_All_Emails} from '../../query/query';
 import {ADD_REGISTRATION} from '../../mutation/mutation';
 import { Button, Form } from 'semantic-ui-react';
-import Dashboard from './Dashboard.jsx'
+import Login from './Login.jsx'
 
 
-function CheckEmail({updateParent}) {
+function CheckEmail(props) {
   const [account, setValue] = useState({
     email: 'example@example.com',
     user: '',
@@ -32,32 +32,35 @@ function CheckEmail({updateParent}) {
     for (let x of data.getCompleteUsers) {
       if (x.email === account.email) {
         bunchesOfErrors.push('This email is taken, would you like to Login instead? <a href="/login">Login Here</a>')
-        updateParent({forError: {status: true, text: bunchesOfErrors}})
+        props.updateParent({forError: {status: true, text: bunchesOfErrors}})
       } 
       else {
-        updateParent({forError: {status:false}})
+        props.updateParent({forError: {status:false}})
       }
     }
     // handle if email doesn't have an @ symbol
     if (!account.email.includes('@')) {
       bunchesOfErrors.push('Please enter a valid email address')
-      updateParent({forError: {status: true, text: bunchesOfErrors}})
+      props.updateParent({forError: {status: true, text: bunchesOfErrors}})
     } else {
-      updateParent({forError: {status:false}})
+      props.updateParent({forError: {status:false}})
     }
     // handle password mismatch
     if (!passwordMatch) {
       bunchesOfErrors.push('Your password does not match please try again')
-      updateParent({forError: {status: true, text: bunchesOfErrors}})
+      props.updateParent({forError: {status: true, text: bunchesOfErrors}})
     } else {
-      updateParent({forError: {status:false}})
+      props.updateParent({forError: {status:false}})
     }
 
     // no errors mean we can carry on with the registration
     if (bunchesOfErrors.length === 0) {
       addRegistration({variables: {input: newAccount}}).then((e => {
-        updateParent({registered: true})
-      }))
+        console.log(e)
+        props.setRegistered(true)
+      })).catch((err) => {
+        console.log(err)
+      })
     }
   }
 
@@ -105,6 +108,7 @@ function Regi() {
       text: ''
     }
   });
+  const [registered, setRegistered] = useState(false)
 
   const fromChild = (update) => {
     const newUpdate = update
@@ -120,13 +124,12 @@ function Regi() {
 
   return (
     <div>
-      {variable.registered ? <Dashboard /> : <div className="register">
-      <CheckEmail registered={variable.registered} forError={variable.forError} updateParent={fromChild} />
-      {variable.forError.status === true ? 
+      {registered ? <Login /> : <div className="register">
+      <CheckEmail registered={registered} forError={variable.forError} updateParent={fromChild} setRegistered={setRegistered}/>
+      {variable.forError.status === true && 
       variable.forError.text.map((errorsMsg, index) => (
         <p id="errorMessage" dangerouslySetInnerHTML={textForError(errorsMsg)} key={index} /> 
-      ))
-       : ''}
+      ))}
     </div>}
     </div>
   )
