@@ -104,7 +104,7 @@ export default function StudentDashboard() {
           <Vocabulary dupeWord={dupeWord} student_id={id} showVocab={showVocab} vocab={dashboard.vocabulary} allVocab={data.getStudentByID[0].vocabularies} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
         {data ? <VocabBucket dupeWord={dupeWordt} student_id={id} showVocab={showVocab} vocab={data.getStudentByID[0].vocabularies} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
         {dashboard.newVocab && dashboard.newVocab.map((word, key) => {
-          return <p key={key}> {word} <b>New!</b></p>
+          return <p className="new-vocab" key={key}> {word} <b>New!</b></p>
         })} </div>
     </div>
   )

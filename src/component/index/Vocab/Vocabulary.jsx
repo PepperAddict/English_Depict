@@ -62,8 +62,8 @@ export default function Vocabulary(props) {
   }
 
   return (
-    <div className="vocab-def">You selected the word:
-    <h3>{props.vocab}</h3>
+    <div className="vocab-def">
+    <h2>Word Lookup: <strong>{props.vocab}</strong></h2>
 
       Definition: {props.definition ? props.definition.map((def, index) => {
         return <ShowDef
@@ -72,9 +72,9 @@ export default function Vocabulary(props) {
           addVocabulary={props.addVocabulary}
           definition={def} />
       }) : 'Not a word'}
-      {props.definition ? <button name={props.vocab} onClick={submitVocabulary}>Add {props.vocab} to Vocabulary bucket</button> : ''}
+      {props.definition ? <button name={props.vocab} className="is-button" onClick={submitVocabulary}>Add <strong>{props.vocab}</strong> to Vocabulary Bucket</button> : ''}
 
-      <button onClick={closeIt}>Close</button>
+      <button className="not-button" onClick={closeIt}>close</button>
 
     </div>
   )
