@@ -52,7 +52,7 @@ export default function Hero(props) {
       1000 //far
     );
     //set the camera position
-    camera.position.set(10, 10, 15); //side up/down zoom
+    camera.position.set(8, 10, 15); //side up/down zoom
     let renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }) //to smooth and transparent background
     renderer.setClearColor('#80e4ff', 0) //background color. not needed
     renderer.setSize(window.innerWidth, window.innerHeight) //set the size of the renderer
@@ -85,13 +85,13 @@ export default function Hero(props) {
     loader.load(cloudOnePath, gltf => onLoad(gltf, 8), onProgress, onError  )
 
     // the lighting 
-    var light = new THREE.HemisphereLight(0xFFFFFF, 0x000000, 1.5); //sky ground intensity
+    var light = new THREE.HemisphereLight(0xFFFFFF, 0x000000, 1); //sky ground intensity
     light.castShadow = true;
     light.position.set(10, 30, 25);
     scene.add(light);
 
-    scene.add( new THREE.AmbientLight( 0xFFFFFF, .3 ) );
-    var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+    scene.add( new THREE.AmbientLight( 0xFFFFFF, .2 ) );
+    var directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
     directionalLight.position.set( 1, 1, 1 ).normalize();
     scene.add( directionalLight );
 
