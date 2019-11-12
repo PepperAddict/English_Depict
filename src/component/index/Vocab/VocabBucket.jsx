@@ -5,7 +5,6 @@ import { ADD_VOCABULARY } from '../../../mutation/mutation';
 import '../../../styles/vocabulary.styl'
 function EachWord(props) {
   let defArray = props.def.split(' ')
-  console.log(defArray)
   const addWord = e => {
     props.addVocabulary(e.target.innerHTML)
   }
@@ -36,11 +35,11 @@ function Dictionary(props) {
 function ListBucket(props) {
   //the individual words that are in the database
   const [removeVocab, { removed }] = useMutation(REMOVE_VOCABULARY);
-  const [lookup, setLookup] = useState([])
 
 
   const [word, addWord] = useState(props)
   const removeWord = (e) => {
+    //when x is clicked have a confirmation message and then remove
     const yesOrNo = confirm(`Do you want to delete the word: ${word.word.vocabulary_word}?`)
     if (yesOrNo == true) {
       removeVocab({ variables: { vocab_id: e.target.name } }).then((e) => {
@@ -49,15 +48,16 @@ function ListBucket(props) {
     }
   }
   const dictionaryLookup = e => {
-    props.sendDef(e.target.id);
+    props.sendDef(e.target.innerHTML);
+    // props.closeit();
   }
 
 
   return (
-    <Fragment>
-      <p onClick={dictionaryLookup} id={word.word.vocabulary_word} className={props.dupeWord === word.word.vocabulary_word || props.dupeWordt === word.word.vocabulary_word ? 'vocabulary duped' : 'vocabulary'}>{word.word.vocabulary_word}
-        <button className="not-button" name={word.word.vocab_id} onClick={removeWord}>×</button></p>
-    </Fragment>)
+    <div className="section-word">
+      <p onClick={dictionaryLookup} className={props.dupeWord === word.word.vocabulary_word || props.dupeWordt === word.word.vocabulary_word ? 'vocabulary duped' : 'vocabulary'}>{word.word.vocabulary_word}</p>
+      <button className="not-button" name={word.word.vocab_id} onClick={removeWord}>×</button>
+    </div>)
 }
 
 export default function VocabBucket(props) {
@@ -126,11 +126,14 @@ export default function VocabBucket(props) {
   return (<div className="vocab-bucket">
 
     <form onSubmit={submitVocabulary}>
-      <label htmlFor="vocab">Add Vocabulary Word</label>
-      <input id="vocab" placeholder="new word" onChange={e => addVocabu(e.target.value)} />
-      <button type="submit">submit word</button>
+      <label htmlFor="vocab"><h2>Vocabulary Bucket</h2></label>
+      <input id="vocab" placeholder="Add Word to Bucket" onChange={e => addVocabu(e.target.value)} />
+      <button type="submit" className="submit-word">submit {vocab ? vocab : 'word'}</button>
     </form>
+
+    <h3>Vocabularies</h3>
     <div className="list-of-vocabularies">
+
       {props.vocab.map((wordt, key) => {
         return <ListBucket
           dupeWordt={props.dupeWord}
@@ -138,10 +141,12 @@ export default function VocabBucket(props) {
           word={wordt}
           key={key}
           index={key}
-          sendDef={childDef} />
+          sendDef={childDef} 
+          closeit={closeit}/>
       })}
       {show &&
-        <div className="selected-definition" onClick={closeit}>
+        <div className="selected-definition">
+          <div className="x-close" onClick={closeit}>close</div>
           <Dictionary def={showDict} addVocabulary={props.addVocabulary} word={selectedword}/></div>}
 
     </div>

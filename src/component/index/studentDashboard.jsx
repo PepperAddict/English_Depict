@@ -3,12 +3,12 @@ import { useQuery } from '@apollo/react-hooks';
 import { cookieParser } from '../../helpers';
 const id = cookieParser('student_id', true);
 import { getStudentInfo } from '../../query/query';
-import AddBlog from './AddBlog.jsx';
+import AddBlog from './Content/AddBlog.jsx';
 import ViewBlogs from './ViewBlogs.jsx';
 import Vocabulary from './Vocab/Vocabulary.jsx';
 import VocabBucket from './Vocab/VocabBucket.jsx';
 import StudentSettings from './StudentSettings.jsx';
-import EditBlog from './Editblog.jsx'
+import EditBlog from './Content/EditBlog.jsx'
 import '../../styles/studentdashboard.styl';
 import moment from 'moment';
 const defaultImage = require('../images/no-pic.png')
@@ -95,7 +95,7 @@ export default function StudentDashboard() {
             <h2>Today is <strong>{currentDate}</strong></h2>
           </div>
         ) :
-          data && dashboard.options === 'addblog' ? <AddBlog student_id={id} /> :
+          data && dashboard.options === 'addblog' ? <AddBlog student_id={id} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} /> :
             data && dashboard.options === 'blogs' ? <ViewBlogs student_id={id} addVocabulary={addVocabulary} /> :
               data && dashboard.options === 'settings' ? <StudentSettings student_id={id} avatar={data.getStudentByID[0].avatar} /> :
                 data && dashboard.options === 'edit-blog' ? <EditBlog student_id={id} /> : null}
@@ -104,7 +104,7 @@ export default function StudentDashboard() {
           <Vocabulary dupeWord={dupeWord} student_id={id} showVocab={showVocab} vocab={dashboard.vocabulary} allVocab={data.getStudentByID[0].vocabularies} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
         {data ? <VocabBucket dupeWord={dupeWordt} student_id={id} showVocab={showVocab} vocab={data.getStudentByID[0].vocabularies} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
         {dashboard.newVocab && dashboard.newVocab.map((word, key) => {
-          return <p key={key}> {word} <b>New!</b></p>
+          return <p className="new-vocab" key={key}> {word} <b>New!</b></p>
         })} </div>
     </div>
   )

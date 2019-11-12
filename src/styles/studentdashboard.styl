@@ -1,6 +1,8 @@
 .student-container 
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
+  box-sizing: border-box;
+  width: 100%;
   .welcome-hero
     font-family: utopia-std, serif;
     font-weight: 700;
@@ -11,7 +13,7 @@
 .blog-content 
   cursor: pointer;
   &:hover {
-    border: 1px solid black;
+    border-bottom: 1px solid black;
   }
 
 .students-blog 

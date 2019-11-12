@@ -33,11 +33,11 @@ function IndividualBlog(props) {
 
   return (
     <div className={data ? author === student ? 'blog students-blog' : 'blog' : 'blog'}>
+      <div className="date">{moment(time).format('MMMM Do YYYY, h:mm:ss a')}</div>
       <h2>{props.blog.subject} </h2>
-      <span>{moment(time).format('MMMM Do YYYY, h:mm:ss a')}</span>
       <ContentButtons content={props.blog.content} addVocabulary={props.addVocabulary}/>
-      Author: {data &&  <span className="avatar"><img className="avatar-image"src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : 'none'} /> </span>} {data ? data.getStudentByID[0].name == null ? data.getStudentByID[0].username : data.getStudentByID[0].name : 'Unknown'}
-      {props.editMe && <a href={"/student/edit-blog="+ props.blog.blog_id}>Edit Blog</a>}
+      <div className="author">Written by {data &&  <span className="avatar"><img className="avatar-image"src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : 'none'} /> </span>} {data ? data.getStudentByID[0].name == null ? data.getStudentByID[0].username : data.getStudentByID[0].name : 'Unknown'}</div>
+      {props.editMe && <div className="edit"><a href={"/student/edit-blog="+ props.blog.blog_id}>Edit Blog</a></div>}
     </div>
   )
 }
