@@ -148,7 +148,7 @@ export default function StudentLogin() {
      student_key={studentLogin.student_key} /> }
     </div>
 
-    <span className="teacher-corner">If you're a teacher, please click <a href="/login">here</a>.</span>
+    <span className="teacher-corner"><a href="/login">Teacher Login</a>.</span>
    </div>
   )
 }
