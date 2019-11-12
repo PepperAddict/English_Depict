@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { getBlogByID } from '../../query/query';
-import {EDIT_BLOG} from '../../mutation/mutation'
-import ViewBlogs from './ViewBlogs.jsx'
+import { getBlogByID } from '../../../query/query';
+import {EDIT_BLOG} from '../../../mutation/mutation'
+import ViewBlogs from '../ViewBlogs.jsx'
 
 export default function EditBlog(props) {
 
@@ -15,7 +15,6 @@ export default function EditBlog(props) {
   useEffect(() => {
     if (data) {
       if (data.getBlogByID[0].student_id === props.student_id) {
-        console.log('owner')
         setOwner(true)
       }
 
@@ -56,18 +55,19 @@ export default function EditBlog(props) {
 
 
   return (
-    <Fragment>
+    <div className="blog-container">
+      <h2>You are modifying this blog entry</h2>
       {loading ? 'loading' : error ? 'error' : data && owner ? (
             <form onSubmit={submitChanges}>
+            <button className="blog-button" type="submit">Submit Changes</button>
             <label htmlFor="subject">Subject</label>
             <input id="subject" defaultValue={data.getBlogByID[0].subject} onChange={updateFields} name="subject" placeholder="subject" /> 
       
             <label htmlFor="content">Content</label>
             <textarea id="content" defaultValue={data.getBlogByID[0].content} onChange={updateFields} name="content" placeholder="" />
       
-            <button type="submit">Submit Changes</button>
           </form>
       ) : <ViewBlogs student_id={props.student_id} />}
-    </Fragment>
+    </div>
   )
 }
