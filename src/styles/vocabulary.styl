@@ -1,0 +1,42 @@
+.list-of-vocabularies
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-gap: 10px;
+  position: relative;
+  .selected-definition
+    position: absolute;
+    width: 300px;
+    left: -310px;
+    border: 1px solid #ccc;
+    background: white;
+    padding: 10px;
+    box-sizing: border-box;
+  .duped 
+    background: #dc7200;
+    color: white;
+  .vocabulary
+    border: 1px solid #ccc;
+    text-align: center;
+    position: relative;
+    padding: 10px;
+    cursor: pointer;
+    transition: .5s;
+    &:hover
+      background: #dc7200
+      color: white;
+      transition: .5s;
+  .not-button 
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    line-height: 10px;
+    transition: .5s;
+    font-size: 30px;
+    color: #ccc;
+    background: white;
+    padding: 5px;
+    &:hover
+      color: #ff005a
+      transition: .5s;

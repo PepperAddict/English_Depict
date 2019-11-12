@@ -5,8 +5,8 @@ const id = cookieParser('student_id', true);
 import { getStudentInfo } from '../../query/query';
 import AddBlog from './AddBlog.jsx';
 import ViewBlogs from './ViewBlogs.jsx';
-import Vocabulary from './Vocabulary.jsx';
-import VocabBucket from './VocabBucket.jsx';
+import Vocabulary from './Vocab/Vocabulary.jsx';
+import VocabBucket from './Vocab/VocabBucket.jsx';
 import StudentSettings from './StudentSettings.jsx';
 import EditBlog from './Editblog.jsx'
 import '../../styles/studentdashboard.styl';
@@ -91,7 +91,7 @@ export default function StudentDashboard() {
           <div className="welcome-hero"> <span className="avatar">
             <img className="avatar-image" src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : defaultImage.src} />
           </span>
-            <h1>Welcome <strong>{student.name? student.name : student.username}</strong></h1>
+            <h1>Welcome <strong>{student.name? student.name : student.username}</strong>!</h1>
             <h2>Today is <strong>{currentDate}</strong></h2>
           </div>
         ) :
@@ -103,9 +103,9 @@ export default function StudentDashboard() {
         {dashboard.vocabulary ?
           <Vocabulary dupeWord={dupeWord} student_id={id} showVocab={showVocab} vocab={dashboard.vocabulary} allVocab={data.getStudentByID[0].vocabularies} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
         {data ? <VocabBucket dupeWord={dupeWordt} student_id={id} showVocab={showVocab} vocab={data.getStudentByID[0].vocabularies} definition={dashboard.definition} /> : ''}
-        {dashboard.newVocab ? dashboard.newVocab.map((word, key) => {
+        {dashboard.newVocab && dashboard.newVocab.map((word, key) => {
           return <p key={key}> {word} <b>New!</b></p>
-        }) : ''} </div>
+        })} </div>
     </div>
   )
 }
