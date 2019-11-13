@@ -187,10 +187,6 @@ module.exports = {
           'PATH_PREFIX': JSON.stringify(process.env.PATH_PREFIX)
         }
       }),
-      new Dotenv({
-        path: path.resolve(__dirname, '../.env'),
-        systemvars: true,
-      }),
       new OptimizeCSSAssetsPlugin(),
       new MiniCSSExtractPlugin({
         filename: 'bundled-style.css',
@@ -209,9 +205,15 @@ module.exports = {
     if (isDev) {
       plugins.push(
         new webpack.HotModuleReplacementPlugin(),
+        new Dotenv({
+          path: path.resolve(__dirname, '../.env')
+        }),
       );
     } else if (isProd) {
       plugins.push(
+        new Dotenv({
+          systemvars: true,
+        }),
         new TerserPlugin({
           test: /\.js(\?.*)?$/i,
           parallel: true,
