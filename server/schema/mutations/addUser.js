@@ -5,7 +5,7 @@ const {
 } = require('graphql')
 const pgdb = require('../../models/pgdb')
 const MeType = require('../types/me')
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const UserInputType = new GraphQLInputObjectType({
   name: 'UserInput',
   fields: {
