@@ -10,7 +10,7 @@
   "scripts": {
     "build": "webpack --config config/webpack.config.js",
     "start": "SET NODE_ENV=development&& nodemon server/index.js",
-    "front": "SET NODE_ENV=production&& node server/index.js"
+    "prod": "NODE_ENV=production&& node server/index.js"
   },
   "browser": {
     "child_process": false
@@ -83,9 +83,7 @@
     "uuid": "^3.3.3",
     "webpack": "^4.41.0",
     "webpack-dev-middleware": "^3.7.2",
-    "webpack-hot-middleware": "^2.25.0"
-  },
-  "devDependencies": {
+    "webpack-hot-middleware": "^2.25.0",
     "jsonwebtoken": "^8.5.1"
   }
 }
