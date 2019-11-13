@@ -21,7 +21,7 @@ import Register from './Regi.jsx';
 import Dashboard from './Dashboard.jsx';
 const RegWithClient = withApollo(Register);
 import StudentLogin from './StudentLogin.jsx';
-import StudentDashboard from './StudentDashboard.jsx';
+import StudentDashboard from './studentDashboard.jsx';
 
 
 const App = () => (
