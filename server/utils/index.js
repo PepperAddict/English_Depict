@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const path = require('path');
 const fs = require('fs');
 const privateKey = fs.readFileSync(path.resolve(__dirname, '../private.pem'), 'utf8');
