@@ -1,3 +1,8 @@
+const {
+  signToken
+} = require('../utils')
+const bcrypt = require('bcrypt');
+
 module.exports = pgPool => {
   return {
     async addNewStudent({

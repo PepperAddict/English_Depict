@@ -5,7 +5,6 @@ import '../../styles/basic.styl';
 const logoImage = require('../../img/logo.png')
 
 export default function Welcome() {
-  console.log(logoImage)
 
   return (
     <div className="welcome-container">

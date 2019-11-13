@@ -50,7 +50,7 @@ function StageOne(props) {
       <h1>Hello Student!</h1>
      <form onSubmit={usernameSubmit}>
        <label htmlFor="username">Please enter your username below ↴</label>
-       <input id="username" onChange={e => {setStudentInfo({username: e.target.value}); setError(false)}} />
+       <input id="username" onChange={e => {setStudentInfo({username: e.target.value.toLowerCase()}); setError(false)}} />
        <button type="submit">Submit Username</button>
      </form>
      {error && error === 1 && <p className="error" onClick={e => {setError(false)}}>Sorry, we could not find <strong>{studentInfo.username}</strong> in our system. Please ask
@@ -64,8 +64,9 @@ function StageTwo(props) {
   const [questionIt, setQuestion] = useState(props);
   const [error, setError] = useState(false)
   const checkAnswer = e => {
+    let newAnswer = questionIt.answerCheck.toLowerCase();
     e.preventDefault();
-    if (questionIt.password === questionIt.answerCheck) {
+    if (questionIt.password === newAnswer) {
       props.updateParent({...questionIt, stage1: false, stage2: false, stage3: true})
     } else {
       setError(1)

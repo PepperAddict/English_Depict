@@ -19,7 +19,7 @@ require('./index.html')
 if (isProd) {
   var http = require("http");
   setInterval(function() {
-    http.get("https://english-depict.herokuapp.com/");
+    http.get("https://talking-cloud.herokuapp.com/");
 }, 300000); // every 5 minutes (300000)
 }
 console.log('Environment: ' + process.env.NODE_ENV);

@@ -71,12 +71,21 @@ export default function Dashboard() {
   const logout = e => {
     clearCookies('token');
     clearCookies('userID')
-    location.replace('/student_login')
+    if (info.studentMode) {
+      location.replace('/student_login')
+    } else {
+      location.replace('/')
+    }
+    
   }
   
+  if (data) {
+    console.log(data);
+  }
   return (
     <div>
       <DashboardSidebar />
+      <button onClick={logout} >Logout</button>
       {loading ? <p>loading</p> : error ? <p>{error.message}</p> : (
         <div className="dashboard-content">
           {info.buttonAdd ? (<div> {data.getUser.students.length > 0 ? (<div><ShowCard data={data.getUser} userId={userId}/> <AddStudent /></div>) : (<AddStudent />) } </div>) :

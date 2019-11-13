@@ -14,7 +14,6 @@ export default function Hero(props) {
 
     //texture
     const imageTexture = require('../../images/gradientMap.jpg')
-    console.dir(imageTexture)
     var texture = new THREE.TextureLoader().load(imageTexture.src);
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;

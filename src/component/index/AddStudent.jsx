@@ -22,17 +22,16 @@ export default function AddStudent(props) {
 
   const handleAddStudent = (e) => {
     e.preventDefault();
-    const questions = `${student.question1}`;
-    const answers = `${student.answer1}`
+    const questions = student.question1;
+    const answers = student.answer1.toLowerCase()
 
     const newStudent = {
       teacher_id: userId,
-      username: student.username, 
+      username: student.username.toLowerCase(), 
       name: student.name,
       question: questions,
       password: answers
     }
-    console.log(newStudent)
     addRegistration({variables: {input:newStudent}}).then((e) => {
       location.reload()
     }).catch((e) => console.log(e))
