@@ -10,7 +10,7 @@
   "scripts": {
     "build": "webpack --config config/webpack.config.js",
     "start": "SET NODE_ENV=development&& nodemon server/index.js",
-    "front": "SET NODE_ENV=development&& node server/index.js"
+    "front": "SET NODE_ENV=production&& node server/index.js"
   },
   "browser": {
     "child_process": false
