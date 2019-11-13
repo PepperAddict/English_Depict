@@ -1,5 +1,5 @@
 const Cryptr = require('cryptr');
-const cryptr = new Cryptr('iJustWantToGetRidOfThatErrorAboutItHavingToBeAStringAndItsNotPickingUpMyDotEnvFile');
+const cryptr = new Cryptr(process.env.SALT);
 
 export const encryptMe  = (e) => {
   return cryptr.encrypt(e)

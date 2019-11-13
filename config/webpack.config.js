@@ -214,13 +214,13 @@ module.exports = {
         new Dotenv({
           systemvars: true,
         }),
-        new TerserPlugin({
-          test: /\.js(\?.*)?$/i,
-          parallel: true,
-          terserOptions: {
-            mangle: true,
-          }
-        }),
+        // new TerserPlugin({
+        //   test: /\.js(\?.*)?$/i,
+        //   parallel: true,
+        //   terserOptions: {
+        //     mangle: true,
+        //   }
+        // }),
         new CompressionPlugin({
           algorithm: 'gzip'
         }),
