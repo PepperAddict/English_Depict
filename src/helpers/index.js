@@ -1,5 +1,16 @@
 const Cryptr = require('cryptr');
+const jwt = require('jsonwebtoken');
 const cryptr = new Cryptr(process.env.SALT);
+
+
+const privateKey = process.env.TOKENPW
+export const signMe = str => {
+  return new Promise(resolve => {
+    resolve(jwt.sign({
+      "token": str
+    }, privateKey))
+  })
+}
 
 export const encryptMe  = (e) => {
   return cryptr.encrypt(e)

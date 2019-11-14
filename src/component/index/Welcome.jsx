@@ -20,7 +20,7 @@ export default function Welcome() {
           <a href="/student_login">Student Login</a>
         </nav>
         <h1>The place to practice English</h1>
-        <h3>Don't have an account? Request an invitation.</h3>
+        <h3>Don't have a teacher's account? <a href="/register">Register</a> for one</h3>
         </div>
         <HeroBG />
       </header>

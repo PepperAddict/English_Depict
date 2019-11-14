@@ -19,7 +19,6 @@ const UsersType = new GraphQLObjectType({
       students: {
         type: new GraphQLList(StudentType),
         resolve: async (source, input, { pgPool, req }) => {
-            // await verifyJwt(req)
             return pgdb(pgPool).getStudent(source.id)
         }
       }

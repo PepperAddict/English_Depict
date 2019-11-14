@@ -196,7 +196,7 @@ module.exports = {
         template: path.resolve(__dirname, '../src/index.html'),
         filename: path.resolve(__dirname, '../dist/index.html'),
       }),
-      new CleanWebpackPlugin(),
+      // new CleanWebpackPlugin(),
       // new CopyPlugin([
       //   { from: '../components/images', to: 'images'}
       // ])

@@ -14,7 +14,7 @@ const MeType = new GraphQLObjectType({
       password: {type: GraphQLNonNull(GraphQLString)},
       date_created: {type: GraphQLNonNull(GraphQLString)},
       role: {type: GraphQLString },
-      apiKey: { type: GraphQLNonNull(GraphQLString) }
+      apiKey: { type: GraphQLNonNull(GraphQLString) },
     }
   }
 })

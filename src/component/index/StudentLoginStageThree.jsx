@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { ADD_NEWPW } from '../../mutation/mutation';
-import { encryptMe } from '../../helpers';
+import { encryptMe, signMe } from '../../helpers';
 
 function ImageForm({ pass, pictureSubmit, itemClick }) {
 
@@ -150,7 +150,10 @@ export default function StageThree(props) {
     if (newPass.verified) {
 
       if (pass === newPass.second_password) {
-        document.cookie = `student_key=${newPass.student_key};samesite`;
+        const newToken = await signMe(newPass.student_key).then((api) => {
+          return api
+        })
+        document.cookie = `student_key=${newToken};samesite`;
         let userid = newPass.id;
         let newUser = await encryptMe(userid);
         document.cookie = `student_id=${newUser};samesite`;

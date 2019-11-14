@@ -1,16 +1,13 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
 const path = require('path');
 const fs = require('fs');
-const privateKey = fs.readFileSync(path.resolve(__dirname, '../private.pem'), 'utf8');
-
+// const privateKey = fs.readFileSync(path.resolve(__dirname, '../private.pem'), 'utf8');
+const privateKey = process.env.TOKENPW
 const signToken = str => {
   return new Promise(resolve => {
     resolve(jwt.sign({
       "token": str
-    }, privateKey, {
-      algorithm: 'HS256'
-    }))
+    }, privateKey))
   })
 }
 
@@ -35,7 +32,6 @@ const verifyJwt = async req => {
 const isAuthenticated = (req, res, next) => {
   let token = ('token', req.cookies).token || false;
   if (token) {
-
     jwt.verify(token, privateKey, {
       algorithm: "HS256"
     }, (err, user) => {
@@ -56,10 +52,7 @@ const softAuthenticate = async (req, res, next) => {
 
   let token = ('token', req.cookies).token || false;
   if (token) {
-    // console.log(token)
-    await jwt.verify(token, privateKey, {
-      algorithm: "HS256"
-    }, (err, user) => {
+    await jwt.verify(token, privateKey, (err, user) => {
       if (err) {
         return next();
       }

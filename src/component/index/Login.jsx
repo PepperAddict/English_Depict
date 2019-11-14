@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import { Handle_Login } from '../../query/query';
 import { useApolloClient } from '@apollo/react-hooks';
-import {encryptMe} from '../../helpers';
+import {encryptMe, signMe} from '../../helpers';
 
 
 
@@ -27,9 +27,12 @@ function LoginForm({updateParent}) {
         password: val.password
       }
     }).then( async (e) => {
-      document.cookie = `token=${e.data.login.apiKey};samesite`;
+      const newToken = await signMe(e.data.login.apiKey).then((api) => {
+        return api
+      })
+      document.cookie = `token=${newToken}`;
       let userid = e.data.login.id;
-      let newUser = await encryptMe(userid);
+      let newUser = await encryptMe(userid); 
       document.cookie = `userID=${newUser};samesite`;
     }).then(() => {
       location.reload();
