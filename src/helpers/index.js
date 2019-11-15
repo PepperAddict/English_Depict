@@ -2,6 +2,20 @@ const Cryptr = require('cryptr');
 const jwt = require('jsonwebtoken');
 const cryptr = new Cryptr(process.env.SALT);
 
+export const clearCookies = (keyName = null) => {
+  let expireDate = new Date();
+  expireDate.setTime(expireDate.getTime() - 1);
+
+  if (keyName) {
+    document.cookie = `${keyName}=; expires=${expireDate.toUTCString()};Path=/;`;
+  } else {
+    const cookies = document.cookie.split(';');
+
+    cookies.forEach((value) => {
+      document.cookie = value.replace(/^ +/, '').replace(/=.*/, '=;expires=' + expireDate.toUTCString());
+    });
+  }
+}
 
 const privateKey = process.env.TOKENPW
 export const signMe = str => {

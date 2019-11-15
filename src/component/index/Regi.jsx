@@ -57,7 +57,6 @@ function CheckEmail(props) {
     if (bunchesOfErrors.length === 0) {
       console.log(newAccount);
       addRegistration({variables: {input: newAccount}}).then((e => {
-        console.log(e)
         props.setRegistered(true)
       })).catch((err) => {
         console.log(err)

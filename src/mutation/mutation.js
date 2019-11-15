@@ -76,6 +76,14 @@ mutation updateStudentAvatar($input: updateStudentAvatar!) {
 }
 `
 
+export const UPDATE_STUDENT_NAME = gql`
+mutation changeName($input: updateStudentName!) {
+  UpdateStudentName(input: $input) {
+    name
+  }
+}
+`
+
 export const REMOVE_VOCABULARY = gql`
   mutation removeVocabulary($vocab_id: ID!){
   RemoveVocabulary(vocab_id: $vocab_id) {

@@ -78,6 +78,16 @@ module.exports = pgPool => {
       })).catch((e) => {
         console.log(e)
       })
+    },
+    updateStudentName({student_id, name}) {
+
+      return pgPool.query(`
+      update students set name='${name}' where student_id=${student_id} returning *
+      `).then((res => {
+        return res.rows[0]
+      })).catch((e) => {
+        console.log(e)
+      })
     }
   }
 }

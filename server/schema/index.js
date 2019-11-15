@@ -19,6 +19,7 @@ const GetCompleteBlogs = require('./queries/getCompleteBlogs');
 const AddVocabulary = require('./mutations/addVocabulary');
 const GetVocabularyByStudentID = require('./queries/getVocabularyByID');
 const UpdateStudentAvatar = require('./mutations/updateStudentAvatar');
+const UpdateStudentName = require('./mutations/updateStudentName');
 const removeVocabulary = require('./mutations/removeVocabulary');
 const EditBlog = require('./mutations/editBlog')
 const AddChat = require('./mutations/addChat')
@@ -50,9 +51,10 @@ const RootMutationType = new GraphQLObjectType({
     AddBlog: AddBlog,
     AddVocabulary: AddVocabulary,
     UpdateStudentAvatar: UpdateStudentAvatar,
+    UpdateStudentName: UpdateStudentName,
     RemoveVocabulary: removeVocabulary,
     EditBlog: EditBlog,
-    AddChat: AddChat
+    AddChat: AddChat,
   })
 })
 

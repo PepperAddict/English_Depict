@@ -1,6 +1,25 @@
-Hellooo
+== about
+This is an open source project made with ReactJS, Express, GraphQL etc 
 
-To help out with developing this application, you need the following: 
+== purpose 
+This project is for grade school children to practice English by completing lessons assigned by the teacher. 
 
-.env file of your database information
-and a openssh generated key with the name private.pem in your server directory. 
+== Env File 
+To help out, include your own .env file with the following: 
+
+DB_HOST=  //postgres host
+DB_USER=  //postgres username
+DB_PASS= //postgres password 
+DB_PORT=5432
+GPW=   // random password
+SALT= //random set of numbers for crypting
+REACT_APP_MERR= //dictionary api key
+AWS_KEY= //AWS KEY
+AWS_SECRET= //AWS SECRET
+LOCAL_URL= //your local url
+TOKENPW= //random letters for crypting
+
+== Design 
+
+The design is to help map out the features that need to be put in. Check daily for changes. 
+https://xd.adobe.com/view/049b8746-593f-4944-4e76-b47e92c7a8d7-72aa/

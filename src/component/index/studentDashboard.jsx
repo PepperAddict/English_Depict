@@ -76,6 +76,27 @@ export default function StudentDashboard() {
   const dupeWord = word => {
     setDupeWord(word)
   }
+  const logout = e => {
+    clearCookies('student_id');
+    clearCookies('student_key')
+    location.replace('/')
+    
+  }
+
+  const clearCookies = (keyName = null) => {
+    let expireDate = new Date();
+    expireDate.setTime(expireDate.getTime() - 1);
+
+    if (keyName) {
+      document.cookie = `${keyName}=; expires=${expireDate.toUTCString()};Path=/;`;
+    } else {
+      const cookies = document.cookie.split(';');
+
+      cookies.forEach((value) => {
+        document.cookie = value.replace(/^ +/, '').replace(/=.*/, '=;expires=' + expireDate.toUTCString());
+      });
+    }
+  }
 
   return (
     <div className="student-container">
@@ -84,6 +105,7 @@ export default function StudentDashboard() {
         <a href="/student/add_blog">Add a Blog</a>
         <a href="/student/blogs">View Blog</a>
         <a href="/student/settings">Settings</a>
+        <button onClick={logout}>Logout</button>
       </nav>
       {loading ? 'loading' : error ? 'error' :
         data && dashboard.options === 'welcome' ? (
@@ -92,12 +114,13 @@ export default function StudentDashboard() {
             <img className="avatar-image" src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : defaultImage.src} />
           </span>
             <h1>Welcome <strong>{student.name? student.name : student.username}</strong>!</h1>
+        <small>student:{student.username}</small>
             <h2>Today is <strong>{currentDate}</strong></h2>
           </div>
         ) :
           data && dashboard.options === 'addblog' ? <AddBlog student_id={id} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} /> :
             data && dashboard.options === 'blogs' ? <ViewBlogs student_id={id} addVocabulary={addVocabulary} /> :
-              data && dashboard.options === 'settings' ? <StudentSettings student_id={id} avatar={data.getStudentByID[0].avatar} /> :
+              data && dashboard.options === 'settings' ? <StudentSettings student_id={id} avatar={data.getStudentByID[0].avatar} name={data.getStudentByID[0].name} /> :
                 data && dashboard.options === 'edit-blog' ? <EditBlog student_id={id} /> : null}
       <div className="student-vocabulary">
         {dashboard.vocabulary ?
