@@ -29,10 +29,10 @@ module.exports = pgPool => {
         console.log(e)
       }))
     },
-    getAllBlogs(limit) {
-      limit = (limit) ? `limit ${limit}` : '';
+    getAllBlogs(student_id, limit) {
       return pgPool.query(`
-      select * from blogs ${limit} order by created_at desc`).then(res => {
+      select * from blogs where student_id=${student_id} order by created_at desc`)
+      .then(res => {
         return res.rows
       }).catch((err) => console.log(err))
     },

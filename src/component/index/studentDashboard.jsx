@@ -25,8 +25,6 @@ export default function StudentDashboard() {
   })
 
   useEffect(() => {
-    console.log(currentDate)
-
     let pathname = window.location.pathname;
     switch (true) {
       case pathname.includes('add_blog'):
@@ -35,7 +33,6 @@ export default function StudentDashboard() {
         });
         break;
       case pathname.includes('blogs'):
-        console.log('is this working again?')
         setDashboard({
           ...dashboard, options: 'blogs'
         });
@@ -119,7 +116,7 @@ export default function StudentDashboard() {
           </div>
         ) :
           data && dashboard.options === 'addblog' ? <AddBlog student_id={id} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} /> :
-            data && dashboard.options === 'blogs' ? <ViewBlogs student_id={id} addVocabulary={addVocabulary} /> :
+            data && dashboard.options === 'blogs' ? <ViewBlogs student_id={id} addVocabulary={addVocabulary} blogs={data.getStudentByID[0].blogs}/> :
               data && dashboard.options === 'settings' ? <StudentSettings student_id={id} avatar={data.getStudentByID[0].avatar} name={data.getStudentByID[0].name} /> :
                 data && dashboard.options === 'edit-blog' ? <EditBlog student_id={id} /> : null}
       <div className="student-vocabulary">

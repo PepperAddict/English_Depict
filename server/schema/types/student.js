@@ -7,7 +7,8 @@ const {
   GraphQLList
 } = require('graphql');
 const pgdb = require('../../models/lessonsDB');
-const vocabType = require('./vocabulary')
+const vocabType = require('./vocabulary');
+const blogType = require('./blog')
 const StudentType = new GraphQLObjectType({
   name: 'Student',
   fields: () => {
@@ -30,6 +31,13 @@ const StudentType = new GraphQLObjectType({
         resolve: async (source, input, { pgPool, req }) => {
           let student_id = source.student_id;
             return pgdb(pgPool).getVocabularyByID(student_id)
+        }
+      },
+      blogs: {
+        type: new GraphQLList(blogType),
+        resolve: async (source, input, { pgPool, req }) => {
+          let student_id = source.student_id;
+            return pgdb(pgPool).getAllBlogs(student_id)
         }
       }
     }

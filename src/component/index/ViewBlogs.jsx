@@ -24,10 +24,9 @@ const handleMenu = (e, data) => {
 }
 
 function IndividualBlog(props) {
-  let author = props.blog.student_id;
+  let author = props.student_id;
   let student = props.student_id;
   const time = props.blog.created_at;
-
 
   const { loading, error, data } = useQuery(getStudentInfo, { variables: { student_id: parseInt(author) } })
 
@@ -41,6 +40,7 @@ function IndividualBlog(props) {
     </div>
   )
 }
+
 function ShowStudentPosts(props) {
   //Blog posts for student
   const thestudent = props.student_id;
@@ -77,8 +77,9 @@ function ShowPosts(props) {
 
 export default function ViewBlogs(props) {
   const [studentOnly, setStudentOnly] = useState(false)
-  const [buttonText, setButtonText] = useState('View Your Blogs Only')
-  const { loading, error, data } = useQuery(getAllBlogs);
+  const [buttonText, setButtonText] = useState('View Your Blogs Only');
+  const [blog, setDate] = useState(props.blogs)
+
   const allOrIndi = e => {
     e.preventDefault();
     e.target.value = 'cheese'
@@ -93,10 +94,10 @@ export default function ViewBlogs(props) {
   }
   return (
     <div> <div><button onClick={allOrIndi} >{buttonText}</button>  </div>
-    {loading ? 'loading' : error ? 'error' : data && !studentOnly? (
-      <ShowPosts blog={data.getCompleteBlogs} student_id={props.student_id} addVocabulary={props.addVocabulary} />
+    {!studentOnly? (
+      <ShowPosts blog={blog} date={blog.created_at} student_id={props.student_id} addVocabulary={props.addVocabulary} />
     ) : data && studentOnly && (
-      <ShowStudentPosts blog={data.getCompleteBlogs} student_id={props.student_id} addVocabulary={props.addVocabulary} />
+      <ShowStudentPosts blog={blog} date={blog.created_at} student_id={props.student_id} addVocabulary={props.addVocabulary} />
     )}</div>
   )
 }

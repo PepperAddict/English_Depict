@@ -59,12 +59,18 @@ export const getStudentInfo = gql `
 query getStudentByID($student_id: ID!){
   getStudentByID(student_id: $student_id) {
     username
+    teacher_id
     avatar
     student_key
     name
     vocabularies {
       vocab_id
       vocabulary_word
+    }
+    blogs {
+      blog_id, 
+      content,
+      created_at
     }
   }
 }`

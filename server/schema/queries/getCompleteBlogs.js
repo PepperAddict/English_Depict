@@ -5,9 +5,10 @@ module.exports = {
   type: new GraphQLNonNull(new GraphQLList(BlogType)),
   description: 'This query will find all blogs',
   args: {
-    limit: {type: GraphQLInt}
+    teacher_id: {type: GraphQLNonNull(GraphQLID)},
+    limit: {type: GraphQLInt},
   },
-  resolve (source, { limit }, { pgPool, req }) {
-    return pgdb(pgPool).getAllBlogs(limit)
+  resolve (source, { teacher_id, limit }, { pgPool, req }) {
+    return pgdb(pgPool).getAllBlogs(teacher_id, limit)
   }
 }
