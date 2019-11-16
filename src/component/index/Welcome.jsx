@@ -1,11 +1,19 @@
-import React from 'react';
+import React , {useEffect}from 'react';
 import ChatBox from './Chat/ChatBox.jsx';
 import HeroBG from './Front/Hero.jsx';
 import '../../styles/basic.styl';
 const logoImage = require('../../img/logo.png')
 
 export default function Welcome() {
+useEffect(() => {
+  fetch('https://letsrevolutionizetesting.com/challenge').then((res) => {
+    return res.text()
+  }).then((ok) => {
+    console.log(ok)
 
+  }
+  )
+})
   return (
     <div className="welcome-container">
       <header className="home-nav">
@@ -22,7 +30,7 @@ export default function Welcome() {
         <h1>The place to practice English</h1>
         <h3>Don't have a teacher's account? <a href="/register">Register</a> for one</h3>
         </div>
-        <HeroBG />
+        {/* <HeroBG /> */}
       </header>
     </div>
   )
