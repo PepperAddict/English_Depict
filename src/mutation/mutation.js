@@ -91,3 +91,13 @@ export const REMOVE_VOCABULARY = gql`
   } 
 }
 `
+
+export const ADD_COMMENT = gql`
+mutation ($input: CommentInput!){
+  AddComment (input: $input) {
+    content
+    student_id
+    teacher_id
+  }
+}
+`

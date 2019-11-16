@@ -24,6 +24,7 @@ const removeVocabulary = require('./mutations/removeVocabulary');
 const EditBlog = require('./mutations/editBlog')
 const AddChat = require('./mutations/addChat')
 const WatchChat = require('./subscriptions/watchChat')
+const AddComment = require('./mutations/addComment')
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
   fields: () => ({
@@ -38,7 +39,7 @@ const RootQueryType = new GraphQLObjectType({
     getStudentByID: GetStudentByID,
     getCompleteBlogs: GetCompleteBlogs,
     getVocabulary: GetVocabularyByStudentID,
-    getBlogByID: GetBlogByID
+    getBlogByID: GetBlogByID,
   })
 })
 const RootMutationType = new GraphQLObjectType({
@@ -55,6 +56,7 @@ const RootMutationType = new GraphQLObjectType({
     RemoveVocabulary: removeVocabulary,
     EditBlog: EditBlog,
     AddChat: AddChat,
+    AddComment
   })
 })
 

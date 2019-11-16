@@ -88,6 +88,31 @@ module.exports = pgPool => {
       })).catch((e) => {
         console.log(e)
       })
-    }
+    },
+    addComment({blog_id, student_id, teacher_id, content}) {
+      const teacher = teacher_id ? teacher_id: null;
+      const student = student_id ? student_id: null;
+      const created_at = new Date();
+      return pgPool.query(`
+      insert into comments (student_id, teacher_id, content, created_at, blog_id) values ($1, $2, $3, $4, $5) returning *
+      `, [student, teacher, content, created_at, blog_id])
+      .then(res => {
+        console.log(res.rows)
+        return res.rows[0]
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    getCommentByBlogID(blog_id) {
+      return pgPool.query(`
+      select * from comments where blog_id = ${blog_id}
+      `)
+      .then((res => {
+        if (res.rows) {
+          return res.rows
+        }
+      }))
+    }, 
   }
 }

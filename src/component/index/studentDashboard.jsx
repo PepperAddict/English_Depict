@@ -8,7 +8,8 @@ import ViewBlogs from './ViewBlogs.jsx';
 import Vocabulary from './Vocab/Vocabulary.jsx';
 import VocabBucket from './Vocab/VocabBucket.jsx';
 import StudentSettings from './StudentSettings.jsx';
-import EditBlog from './Content/EditBlog.jsx'
+import EditBlog from './Content/EditBlog.jsx';
+import ViewComments from './Content/Comments.jsx';
 import '../../styles/studentdashboard.styl';
 import moment from 'moment';
 const defaultImage = require('../images/no-pic.png')
@@ -46,6 +47,10 @@ export default function StudentDashboard() {
         setDashboard({
           ...dashboard, options: 'edit-blog'
         });
+        case pathname.includes('view-comments'):
+          setDashboard({
+            ...dashboard, options: 'view-comments'
+          });
         break;
       default:
         setDashboard({
@@ -118,7 +123,8 @@ export default function StudentDashboard() {
           data && dashboard.options === 'addblog' ? <AddBlog student_id={id} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} /> :
             data && dashboard.options === 'blogs' ? <ViewBlogs student_id={id} addVocabulary={addVocabulary} blogs={data.getStudentByID[0].blogs}/> :
               data && dashboard.options === 'settings' ? <StudentSettings student_id={id} avatar={data.getStudentByID[0].avatar} name={data.getStudentByID[0].name} /> :
-                data && dashboard.options === 'edit-blog' ? <EditBlog student_id={id} /> : null}
+                data && dashboard.options === 'edit-blog' ? <EditBlog student_id={id} /> : 
+                  data && dashboard.options === 'view-comments' ? <ViewComments addVocabulary={addVocabulary} student_id={id}/> : null}
       <div className="student-vocabulary">
         {dashboard.vocabulary ?
           <Vocabulary dupeWord={dupeWord} student_id={id} showVocab={showVocab} vocab={dashboard.vocabulary} allVocab={data.getStudentByID[0].vocabularies} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { cookieParser, clearCookies } from '../../helpers';
+import { cookieParser } from '../../helpers';
 import { getUserByID } from '../../query/query'
 import AddStudent from './AddStudent.jsx';
 import '../../styles/basic.styl';
@@ -53,6 +53,20 @@ export default function Dashboard() {
         })
     }
   }, [])
+  const clearCookies = (keyName = null) => {
+    let expireDate = new Date();
+    expireDate.setTime(expireDate.getTime() - 1);
+
+    if (keyName) {
+      document.cookie = `${keyName}=; expires=${expireDate.toUTCString()};Path=/;`;
+    } else {
+      const cookies = document.cookie.split(';');
+
+      cookies.forEach((value) => {
+        document.cookie = value.replace(/^ +/, '').replace(/=.*/, '=;expires=' + expireDate.toUTCString());
+      });
+    }
+  }
 
   const logout = e => {
     clearCookies('token');
@@ -65,9 +79,7 @@ export default function Dashboard() {
     
   }
   
-  if (data) {
-    console.log(data);
-  }
+
   return (
     <div>
       <DashboardSidebar />

@@ -55,6 +55,16 @@ query loginStudent($username: String!) {
 }
 }`
 
+export const getStudentInfoSimple = gql `
+query getStudentByID($student_id: ID!){
+  getStudentByID(student_id: $student_id) {
+    username
+    teacher_id
+    avatar
+    name
+  }
+}`
+
 export const getStudentInfo = gql `
 query getStudentByID($student_id: ID!){
   getStudentByID(student_id: $student_id) {
@@ -71,6 +81,12 @@ query getStudentByID($student_id: ID!){
       blog_id, 
       content,
       created_at
+      comments {
+        student_id
+        teacher_id
+        content
+        created_at
+      }
     }
   }
 }`
@@ -101,11 +117,18 @@ query getVocabulary($student_id: ID!){
 export const getBlogByID = gql`
 query getBlogByID($blog_id: ID!){
   getBlogByID(blog_id: $blog_id) {
+    blog_id
     created_at
     subject
     content
     updated_at
     student_id
+    comments {
+      content 
+      student_id
+      teacher_id
+      created_at
+    }
   }
 }
 `
