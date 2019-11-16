@@ -32,15 +32,27 @@ query getUserByID($userId: ID!) {
     username
     date_created
     students {
+      student_id
+      name
       username
       question
       password
       date_created
       theme
+      avatar
     }
   }
 }
 `
+
+export const getUserByIDSimple = gql `
+query getUserByID($userId: ID!) {
+  getUser(userId: $userId) {
+    username
+  }
+}
+`
+
 
 export const LoginStudent = gql `
 query loginStudent($username: String!) {
@@ -79,6 +91,7 @@ query getStudentByID($student_id: ID!){
     }
     blogs {
       blog_id, 
+      subject,
       content,
       created_at
       comments {

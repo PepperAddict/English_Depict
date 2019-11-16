@@ -7,21 +7,26 @@ import '../../styles/basic.styl';
 import DashboardSidebar from './DashboardSidebar.jsx';
 import IndividualStudent from './Content/IndividualStudent.jsx'
 
-function ShowStudent({ student, index }) {
-  console.log(student)
+function ShowStudent({ student, index, setStudentID }) {
+  const sendStudent = e => {
+    location.replace('/dashboard/student-info=' + student.student_id)
+  }
   return (
-    <div className="card-items">
-      Student: {(student.name) ? student.name : student.username}. 
+    <div onClick={sendStudent}>
+      <div className="avatar">
+        <img className="avatar-image" src={student.avatar} />
+      </div>
+      Student: {student.name ? student.name : student.username} <small>u/{student.username}</small>.
     </div>
   )
 }
 
-function ShowCard({ data, userId }) {
+function ShowCard({ data, userId, setStudentID }) {
 
   return (<div className="student-card">Your Students:
     {data.students.map((student, index) => {
-      return <ShowStudent key={index} index={index} student={student} teacherID={userId} />
-    })} </div>
+    return <ShowStudent key={index} index={index} student={student} teacherID={userId} setStudentID={setStudentID}/>
+  })} </div>
   )
 }
 
@@ -29,7 +34,7 @@ export default function Dashboard() {
   const userId = cookieParser('userID', true);
   const { loading, error, data } = useQuery(getUserByID, { variables: { userId: userId } });
   const [info, setInfo] = useState('')
-
+  const [student_id, setStudent_id] = useState(null)
 
   useEffect(() => {
 
@@ -52,7 +57,7 @@ export default function Dashboard() {
         break;
       case pathname.includes('student-info'):
         setInfo({
-            student: true
+          student: true
         })
         break;
       case pathname.includes('student-mode'):
@@ -85,7 +90,7 @@ export default function Dashboard() {
       location.replace('/')
     }
   }
-  
+
 
   return (
     <div>
@@ -93,22 +98,22 @@ export default function Dashboard() {
       <button onClick={logout} >Logout</button>
       {loading ? <p>loading</p> : error ? <p>{error.message}</p> : (
         <div className="dashboard-content">
-          {info.buttonAdd ? (<div> {data.getUser.students.length > 0 ? (<div><ShowCard data={data.getUser} userId={userId}/> <AddStudent /></div>) : (<AddStudent />) } </div>) :
-            info.settings ? (<p>meeeoooowww</p>) : 
-              info.student ? (<IndividualStudent teacher_id={userId} data={data.getUser}/>): (
-              info.studentMode ? (
-              <div>Hello {data.getUser.name || data.getUser.username}, you're logged in as a teacher. 
-                Would you like to logout?
+          {info.buttonAdd ? (<div> {data.getUser.students.length > 0 ? (<div><ShowCard data={data.getUser} userId={userId} /> <AddStudent /></div>) : (<AddStudent />)} </div>) :
+            info.settings ? (<p>meeeoooowww</p>) :
+              info.student ? (<IndividualStudent teacher_id={userId} student_id={student_id} data={data.getUser} />) : (
+                info.studentMode ? (
+                  <div>Hello {data.getUser.name || data.getUser.username}, you're logged in as a teacher.
+                    Would you like to logout?
                 <button onClick={logout} >Logout</button>
-              </div>
-              ) :
-              <div>
-                hi {data.getUser.username},
+                  </div>
+                ) :
+                  <div>
+                    hi {data.getUser.username},
                   You have {(data.getUser.students.length) ? data.getUser.students.length : '0'} students.
-                  {data.getUser.students.length > 0 ? (<ShowCard data={data.getUser} userId={userId} />) : (<AddStudent />)}
+                  {data.getUser.students.length > 0 ? (<ShowCard data={data.getUser} userId={userId} setStudentID={setStudent_id} />) : (<AddStudent />)}
 
-              </div>
-            )}
+                  </div>
+              )}
 
         </div>
       )}

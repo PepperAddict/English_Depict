@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { getBlogByID, getStudentInfoSimple } from '../../../query/query';
+import { getBlogByID, getStudentInfoSimple, getUserByIDSimple } from '../../../query/query';
 import { ADD_COMMENT} from '../../../mutation/mutation'
 import ViewBlogs from '../ViewBlogs.jsx';
 import moment from 'moment';
@@ -21,9 +21,13 @@ function CommentContent(props) {
 //TODO: Once Teacher is more filled out work on this...
 
 function CommentAuthorTeacher(props) {
-  console.log(props)
+  const {loading, error, data} = useQuery(getUserByIDSimple, {variables: {userId: props.teacher_id}})
+  if (data) {
+    console.log(data)
+  }
+
   return ( <Fragment>
-    Hello
+     {data ? <p>Commented by <strong>{data.getUser.username}</strong> on <strong>{moment(props.date).format('MMMM Do YYYY, h:mm:ss a')}</strong></p> : null}
   </Fragment>)
 }
 
@@ -64,7 +68,6 @@ export default function EditBlog(props) {
       ...comment, [e.target.name]: e.target.value || ''
     })
   }
-
 
 
   return (

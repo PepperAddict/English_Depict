@@ -90,11 +90,13 @@ module.exports = pgPool => {
       })
     },
     addComment({blog_id, student_id, teacher_id, content}) {
+
       const teacher = teacher_id ? teacher_id: null;
       const student = student_id ? student_id: null;
       const created_at = new Date();
       return pgPool.query(`
-      insert into comments (student_id, teacher_id, content, created_at, blog_id) values ($1, $2, $3, $4, $5) returning *
+      insert into comments (student_id, teacher_id, content, created_at, blog_id) 
+      values ($1, $2, $3, $4, $5) returning *
       `, [student, teacher, content, created_at, blog_id])
       .then(res => {
         console.log(res.rows)
