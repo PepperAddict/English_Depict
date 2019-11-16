@@ -18,13 +18,9 @@ function CommentContent(props) {
   </p>)
 }
 
-//TODO: Once Teacher is more filled out work on this...
 
 function CommentAuthorTeacher(props) {
   const {loading, error, data} = useQuery(getUserByIDSimple, {variables: {userId: props.teacher_id}})
-  if (data) {
-    console.log(data)
-  }
 
   return ( <Fragment>
      {data ? <p>Commented by <strong>{data.getUser.username}</strong> on <strong>{moment(props.date).format('MMMM Do YYYY, h:mm:ss a')}</strong></p> : null}
