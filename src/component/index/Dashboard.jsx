@@ -5,8 +5,10 @@ import { getUserByID } from '../../query/query'
 import AddStudent from './AddStudent.jsx';
 import '../../styles/basic.styl';
 import DashboardSidebar from './DashboardSidebar.jsx';
+import IndividualStudent from './Content/IndividualStudent.jsx'
 
 function ShowStudent({ student, index }) {
+  console.log(student)
   return (
     <div className="card-items">
       Student: {(student.name) ? student.name : student.username}. 
@@ -47,6 +49,12 @@ export default function Dashboard() {
         setInfo({
           settings: true
         })
+        break;
+      case pathname.includes('student-info'):
+        setInfo({
+            student: true
+        })
+        break;
       case pathname.includes('student-mode'):
         setInfo({
           studentMode: true
@@ -76,7 +84,6 @@ export default function Dashboard() {
     } else {
       location.replace('/')
     }
-    
   }
   
 
@@ -87,7 +94,8 @@ export default function Dashboard() {
       {loading ? <p>loading</p> : error ? <p>{error.message}</p> : (
         <div className="dashboard-content">
           {info.buttonAdd ? (<div> {data.getUser.students.length > 0 ? (<div><ShowCard data={data.getUser} userId={userId}/> <AddStudent /></div>) : (<AddStudent />) } </div>) :
-            info.settings ? (<p>meeeoooowww</p>) : (
+            info.settings ? (<p>meeeoooowww</p>) : 
+              info.student ? (<IndividualStudent teacher_id={userId} data={data.getUser}/>): (
               info.studentMode ? (
               <div>Hello {data.getUser.name || data.getUser.username}, you're logged in as a teacher. 
                 Would you like to logout?
