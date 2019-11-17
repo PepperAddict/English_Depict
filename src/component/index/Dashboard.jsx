@@ -4,6 +4,7 @@ import { cookieParser } from '../../helpers';
 import { getUserByID } from '../../query/query';
 import AddStudent from './AddStudent.jsx';
 import '../../styles/basic.styl';
+import '../../styles/teacherDashboard.styl';
 import DashboardSidebar from './DashboardSidebar.jsx';
 import IndividualStudent from './Content/IndividualStudent.jsx';
 import PropTypes from 'prop-types';
@@ -18,9 +19,9 @@ function ShowStudent({ student, index }) {
     location.replace('/dashboard/student-info=' + student.student_id);
   };
   return (
-    <button onClick={sendStudent} index={index}>
+    <button type="button" onClick={sendStudent} index={index}>
       <div className="avatar">
-        <img className="avatar-image" src={student.avatar} alt={student.name + ' avatar'}/>
+        <img className="avatar-image" src={student.avatar} alt={student.name + ' avatar'} />
       </div>
       Student: {student.name ? student.name : student.username} <small>u/{student.username}</small>.
     </button>
@@ -29,21 +30,27 @@ function ShowStudent({ student, index }) {
 
 ShowCard.propTypes = {
   data: PropTypes.object,
-  userId: PropTypes.number, 
-  setStudentID: PropTypes.func
+  userId: PropTypes.number,
+  setStudentID: PropTypes.func,
+  students: PropTypes.array
 };
 
-function ShowCard({ data, userId, setStudentID }) {
+function ShowCard({ data, userId, setStudentID, students }) {
 
-  return (<div className="student-card">Your Students:
-    {data.students.map((student, index) => {
-      return <ShowStudent key={index} index={index} student={student} teacherID={userId} setStudentID={setStudentID}/>;
-    })} </div>
+  return (<div className="student-card">
+    <h2>Your Students:</h2>
+    <h3>You have {(students.length) ? students.length : '0'} students.</h3>
+    <div className="individual-students">
+      {data.students.map((student, index) => {
+        return <ShowStudent key={index} index={index} student={student} teacherID={userId} setStudentID={setStudentID} />;
+      })}       
+    </div>
+  </div>
   );
 }
 
 export default function Dashboard() {
-  const userId = cookieParser('userID', true);
+  const userId = parseInt(cookieParser('userID', true));
   const { loading, error, data } = useQuery(getUserByID, { variables: { userId: userId } });
   const [info, setInfo] = useState('');
   const [student_id, setStudent_id] = useState(null);
@@ -105,24 +112,29 @@ export default function Dashboard() {
 
 
   return (
-    <div>
-      <DashboardSidebar />
-      <button onClick={logout} >Logout</button>
+    <div className="dashboard-container">
+      <div className="dashboard-sidebar">
+        {data && <DashboardSidebar username={data.getUser.username} email={data.getUser.email}/> }
+        <button type="button" onClick={logout} >Logout</button>
+      </div>
+
       {loading ? <p>loading</p> : error ? <p>{error.message}</p> : (
         <div className="dashboard-content">
-          {info.buttonAdd ? (<div> {data.getUser.students.length > 0 ? (<div><ShowCard data={data.getUser} userId={userId} /> <AddStudent /></div>) : (<AddStudent />)} </div>) :
+          {info.buttonAdd ? (<div> {data.getUser.students.length > 0 ? 
+            (<div>
+              <ShowCard data={data.getUser} userId={userId} /> 
+              <AddStudent /></div>) : (<AddStudent />)} </div>) :
             info.settings ? (<p>meeeoooowww</p>) :
               info.student ? (<IndividualStudent teacher_id={userId} student_id={student_id} data={data.getUser} />) : (
                 info.studentMode ? (
                   <div>Hello {data.getUser.name || data.getUser.username}, you′re logged in as a teacher.
                     Would you like to logout?
-                  <button onClick={logout} >Logout</button>
+                  <button type="button" onClick={logout} >Logout</button>
                   </div>
                 ) :
                   <div>
-                    hi {data.getUser.username},
-                  You have {(data.getUser.students.length) ? data.getUser.students.length : '0'} students.
-                    {data.getUser.students.length > 0 ? (<ShowCard data={data.getUser} userId={userId} setStudentID={setStudent_id} />) : (<AddStudent />)}
+
+                    {data.getUser.students.length > 0 ? (<ShowCard students={data.getUser.students} data={data.getUser} userId={userId} setStudentID={setStudent_id} />) : (<AddStudent />)}
 
                   </div>
               )}

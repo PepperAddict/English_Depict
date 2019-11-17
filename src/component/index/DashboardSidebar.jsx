@@ -1,10 +1,23 @@
-import React from 'react';
+import React, {Fragment} from 'react';
+import PropTypes from 'prop-types';
 
+DashboardSidebar.propTypes = {
+  username: PropTypes.string, 
+  email: PropTypes.string
+};
 
-export default function DashboardSidebar() {
+export default function DashboardSidebar(props) {
+  console.log(props);
   return (
-    <div className="dashboard-sidebar">
-      <a href="/dashboard">Dashboard</a><br></br>
-      <a href="/dashboard/add_student">go to add student</a> </div>
-  )
+    <Fragment>
+      <div className="teacherInfo">
+        <p>@{props.username}</p>
+        <small>{props.email}</small>
+      </div>
+      <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/dashboard/add_student">go to add student</a>
+      </nav>
+    </Fragment>
+  );
 }

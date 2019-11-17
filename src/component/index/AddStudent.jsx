@@ -4,12 +4,11 @@ import { cookieParser } from '../../helpers';
 import { ADD_STUDENT } from '../../mutation/mutation';
 
 
-export default function AddStudent(props) {
+export default function AddStudent() {
   const userId = cookieParser('userID', true);
   const questionArray = ['What is your favorite color?', 'What is your favorite number?', 'What is your favorite food?',
     'What is your favorite pet\'s name?', 'What is your favorite toy?', 'Who is your current teacher?',
-    'What color is your chair?', 'How many pets do you have?', 'What is your favorite animal?', 'What is your hair color?',
-    'What is your favorite house?', 'What is your favorite game?', 'What is your favorite store?', 'What color are your eyes?',
+    'What color is your chair?', 'How many pets do you have?', 'What is your favorite animal?', 'What is your hair color?', 'What is your favorite game?', 'What is your favorite store?', 'What color are your eyes?',
     'What is your favorite computer', 'What is your favorite insect?'];
 
   const [student, setStudent] = useState({
@@ -55,9 +54,9 @@ export default function AddStudent(props) {
           <label htmlFor="studentName">Name</label>
           <input id="studentName" defaultValue={student.name} onChange={updateFields} name='name' placeholder={(student.name) ? student.name : 'name'} />
 
-          <p>Questions to ask your student</p>
+          <p>Questions to ask your student when to verify it′s them.</p>
 
-          <label htmlFor="question1">Question 1</label>
+          <label htmlFor="question1">Question</label>
           <input id="question1" name='question1' defaultValue={student.question1} onChange={updateFields} placeholder={student.question1} />
 
           <label htmlFor="answer1">Answer</label>

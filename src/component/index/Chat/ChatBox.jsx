@@ -1,7 +1,6 @@
 import React, {useState, useEffect, Fragment} from 'react';
 import io from 'socket.io-client';
 const socketUrl = process.env.LOCAL_URL;
-import '../../../styles/chat.css';
 import { USER_CONNECTED, LOGOUT, VERIFY_USER } from '../../../helpers/Events';
 import ChatContainer from './ChatContainer.jsx';
 
