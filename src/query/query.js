@@ -6,7 +6,7 @@ query GET_EMAILS ($email: String!) {
     username
     email
   }
-}`
+}`;
 
 export const Get_All_Emails = gql `
 query getAllUsers {
@@ -14,7 +14,7 @@ query getAllUsers {
     email
   }
 }
-`
+`;
 
 export const Handle_Login = gql `
 query Login($email: String!, $password: String!) {
@@ -24,7 +24,7 @@ query Login($email: String!, $password: String!) {
     apiKey
   }
 }
-`
+`;
 
 export const getUserByID = gql `
 query getUserByID($userId: ID!) {
@@ -43,7 +43,7 @@ query getUserByID($userId: ID!) {
     }
   }
 }
-`
+`;
 
 export const getUserByIDSimple = gql `
 query getUserByID($userId: ID!) {
@@ -51,7 +51,7 @@ query getUserByID($userId: ID!) {
     username
   }
 }
-`
+`;
 
 
 export const LoginStudent = gql `
@@ -65,7 +65,7 @@ query loginStudent($username: String!) {
     second_password
     student_key
 }
-}`
+}`;
 
 export const getStudentInfoSimple = gql `
 query getStudentByID($student_id: ID!){
@@ -75,7 +75,7 @@ query getStudentByID($student_id: ID!){
     avatar
     name
   }
-}`
+}`;
 
 export const getStudentInfo = gql `
 query getStudentByID($student_id: ID!){
@@ -102,7 +102,7 @@ query getStudentByID($student_id: ID!){
       }
     }
   }
-}`
+}`;
 
 export const getAllBlogs = gql `
 query getAllBlogs($limit: Int) {
@@ -113,7 +113,7 @@ query getAllBlogs($limit: Int) {
     created_at
     content
   }
-}`
+}`;
 
 export const getVocabularyByID = gql `
 query getVocabulary($student_id: ID!){
@@ -125,7 +125,7 @@ query getVocabulary($student_id: ID!){
     created_at
   }
 }
-`
+`;
 
 export const getBlogByID = gql`
 query getBlogByID($blog_id: ID!){
@@ -144,4 +144,4 @@ query getBlogByID($blog_id: ID!){
     }
   }
 }
-`
+`;
