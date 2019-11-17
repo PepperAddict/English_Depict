@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { cookieParser } from '../../helpers';
-import { ADD_STUDENT } from '../../mutation/mutation'
+import { ADD_STUDENT } from '../../mutation/mutation';
 
 
 export default function AddStudent(props) {
   const userId = cookieParser('userID', true);
-  const questionArray = ["What is your favorite color?", "What is your favorite number?", "What is your favorite food?",
-    "What is your favorite pet's name?", "What is your favorite toy?", "Who is your current teacher?",
-    "What color is your chair?", "How many pets do you have?", "What is your favorite animal?", "What is your hair color?",
-    "What is your favorite house?", "What is your favorite game?", "What is your favorite store?", "What color are your eyes?",
-    "What is your favorite computer", "What is your favorite insect?"];
+  const questionArray = ['What is your favorite color?', 'What is your favorite number?', 'What is your favorite food?',
+    'What is your favorite pet\'s name?', 'What is your favorite toy?', 'Who is your current teacher?',
+    'What color is your chair?', 'How many pets do you have?', 'What is your favorite animal?', 'What is your hair color?',
+    'What is your favorite house?', 'What is your favorite game?', 'What is your favorite store?', 'What color are your eyes?',
+    'What is your favorite computer', 'What is your favorite insect?'];
 
   const [student, setStudent] = useState({
     
     question1: questionArray[Math.floor(Math.random() * questionArray.length)],
 
-  })
+  });
 
-  const [addRegistration, { newData }] = useMutation(ADD_STUDENT);
+  const [addRegistration] = useMutation(ADD_STUDENT);
 
   const handleAddStudent = (e) => {
     e.preventDefault();
     const questions = student.question1;
-    const answers = student.answer1.toLowerCase()
+    const answers = student.answer1.toLowerCase();
 
     const newStudent = {
       teacher_id: userId,
@@ -31,21 +31,22 @@ export default function AddStudent(props) {
       name: student.name,
       question: questions,
       password: answers
-    }
-    addRegistration({variables: {input:newStudent}}).then((e) => {
-      location.reload()
-    }).catch((e) => console.log(e))
-  }
+    };
+    addRegistration({variables: {input:newStudent}}).then( () => {
+      location.reload();
+    }).catch((e) => console.log(e));
+  };
 
   const updateFields = (e) => {
     setStudent({
       ...student, [e.target.name]: e.target.value || ''
-    })
-  }
+    });
+  };
   return (
     <div className="add-student">
-      Let's add a student!
-        <div>
+
+      <p>Let′s add a student!</p>
+      <div>
         <form onSubmit={handleAddStudent}>
 
           <label htmlFor="studentUsername">Username</label>
@@ -67,5 +68,5 @@ export default function AddStudent(props) {
         </form>
       </div>
     </div>
-  )
+  );
 }

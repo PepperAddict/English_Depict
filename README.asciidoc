@@ -12,7 +12,6 @@ DB_HOST=  //postgres host
 DB_USER=  //postgres username
 DB_PASS= //postgres password 
 DB_PORT=5432
-GPW=   // random password
 SALT= //random set of numbers for crypting
 REACT_APP_MERR= //dictionary api key
 AWS_KEY= //AWS KEY
