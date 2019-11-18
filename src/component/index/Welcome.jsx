@@ -24,6 +24,7 @@ export default function Welcome() {
           <h3>Don’t have a teacher’s account? <a href="/register">Register</a> for one</h3>
         </div>
         <HeroBG />
+        
       </header>
     </div>
   );

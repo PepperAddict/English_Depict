@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import { Handle_Login } from '../../query/query';
 import { useApolloClient } from '@apollo/react-hooks';
@@ -6,7 +6,7 @@ import {encryptMe, signMe} from '../../helpers';
 
 
 
-function LoginForm({updateParent}) {
+function LoginForm() {
   const client = useApolloClient();
   const [val, setValu] = useState({
     email: 'example@example.com',
@@ -15,7 +15,7 @@ function LoginForm({updateParent}) {
       status: false,
       text: ''
     }
-  })
+  });
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -28,8 +28,8 @@ function LoginForm({updateParent}) {
       }
     }).then( async (e) => {
       const newToken = await signMe(e.data.login.apiKey).then((api) => {
-        return api
-      })
+        return api;
+      });
       document.cookie = `token=${newToken}`;
       let userid = e.data.login.id;
       let newUser = await encryptMe(userid); 
@@ -44,25 +44,25 @@ function LoginForm({updateParent}) {
             status: true, 
             text: `The email: <b>${val.email}</b> is not in the system. Did you mean to register instead? <a href="/register">Click here</a> to register.`
           }
-        })
+        });
       } else if (e.message.includes('incorrectPassword')) {
         setValu({
           ...val,
           texterror: {
             status: true, 
-            text: `Incorrect password. Please try again.`
+            text: 'Incorrect password. Please try again.'
           }
-        })
+        });
       }
-    })
-  }
+    });
+  };
 
   const updateFields = e => {
 
     setValu({
       ...val, [e.target.name]: e.target.value || ''
-    })
-  }
+    });
+  };
 
 
   return (<div>
@@ -80,36 +80,36 @@ function LoginForm({updateParent}) {
       <Form.Field className="login">
         <label htmlFor="login-passwordOne">Password</label>
         <input 
-        id="login-passwordOne" 
-        defaultValue={val.username} 
-        onChange={updateFields} 
-        name='password' 
-        type="password" 
-        placeholder='password' />
+          id="login-passwordOne" 
+          defaultValue={val.username} 
+          onChange={updateFields} 
+          name='password' 
+          type="password" 
+          placeholder='password' />
       </Form.Field>
       <Button className="login-button" type='Login'>Login</Button>
     </Form>
     {val.texterror.status === true ? (<p dangerouslySetInnerHTML={{__html:val.texterror.text}} />) : ''}
   </div>
-  )
+  );
 }
 
-function Login(e) {
+function Login() {
   const [account, setValue] = useState({
     userid: null,
     loggedin: false
   });
 
   const fromChild = (update) => {
-    console.log(update)
-    setValue(update)
-  }
+    console.log(update);
+    setValue(update);
+  };
 
   return (
     <div>
       <LoginForm email={account.email} password={account.password} texterror={account.texterror} updateParent={fromChild} />
     </div>
-    )
+  );
 }
 
 export default Login;

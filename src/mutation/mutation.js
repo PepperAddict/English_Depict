@@ -7,7 +7,7 @@ mutation AddNewUser($input: UserInput!) {
     username
     apiKey
   }
-}`
+}`;
 
 export const ADD_STUDENT = gql`
 mutation AddStudent($input: StudentInput!) {
@@ -21,7 +21,7 @@ mutation AddStudent($input: StudentInput!) {
     date_created
   }
 }
-`
+`;
 
 export const ADD_NEWPW = gql`
 mutation studentNewPassword($input: UpdateStudentPassword!) {
@@ -32,7 +32,7 @@ mutation studentNewPassword($input: UpdateStudentPassword!) {
     teacher_id
   }
 }
-`
+`;
 
 export const ADD_BLOG = gql`
 mutation AddBlog($input: BlogInput!){
@@ -43,7 +43,7 @@ mutation AddBlog($input: BlogInput!){
     content
   }
 }
-`
+`;
 
 export const EDIT_BLOG = gql`
 mutation editBlog($input: BlogEdit!){
@@ -54,7 +54,7 @@ mutation editBlog($input: BlogEdit!){
     updated_at
   }
 }
-`
+`;
 
 export const ADD_VOCABULARY = gql`
 mutation AddVocabulary($input: VocabularyInput!){
@@ -64,7 +64,7 @@ mutation AddVocabulary($input: VocabularyInput!){
     vocabulary_definition
   }
 }
-`
+`;
 
 export const UPDATE_STUDENT_AVATAR = gql`
 mutation updateStudentAvatar($input: updateStudentAvatar!) {
@@ -74,7 +74,7 @@ mutation updateStudentAvatar($input: updateStudentAvatar!) {
     avatar
   }
 }
-`
+`;
 
 export const UPDATE_STUDENT_NAME = gql`
 mutation changeName($input: updateStudentName!) {
@@ -82,7 +82,7 @@ mutation changeName($input: updateStudentName!) {
     name
   }
 }
-`
+`;
 
 export const REMOVE_VOCABULARY = gql`
   mutation removeVocabulary($vocab_id: ID!){
@@ -90,7 +90,7 @@ export const REMOVE_VOCABULARY = gql`
     vocab_id
   } 
 }
-`
+`;
 
 export const ADD_COMMENT = gql`
 mutation ($input: CommentInput!){
@@ -100,4 +100,4 @@ mutation ($input: CommentInput!){
     teacher_id
   }
 }
-`
+`;

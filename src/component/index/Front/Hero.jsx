@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as THREE from 'three';
 import GLTFLoader from 'three-gltf-loader';
-const loader = new GLTFLoader();
-let mixers = [];
-const clock = new THREE.Clock();
-let scene;
 
 export default function Hero() {
+  const [loaded, setLoaded] = useState(false);
+  const loader = new GLTFLoader();
+  let mixers = [];
+  const clock = new THREE.Clock();
+  let scene;
 
   const onLoad = (gltf, child) => {
     const model = gltf.scene.children[child];
@@ -31,7 +32,7 @@ export default function Hero() {
     action.play();
     scene.add(model);
   };
-  const onProgress = () => {};
+  const onProgress = () => { };
   const onError = (err) => console.log(err);
 
   function update() {
@@ -41,76 +42,80 @@ export default function Hero() {
     }
   }
 
+
   useEffect(() => {
-    const cloud = document.getElementById('floating-cloud');
-    scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-      75, //field of view
-      window.innerWidth / window.innerHeight, // aspect ratio
-      0.1, //near
-      1000 //far
-    );
-    //set the camera position
-    camera.position.set(8, 10, 15); //side up/down zoom
-    let renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); //to smooth and transparent background
-    renderer.setClearColor('#80e4ff', 0); //background color. not needed
-    renderer.setSize(window.innerWidth, window.innerHeight); //set the size of the renderer
 
-    cloud.appendChild(renderer.domElement); //now stick it to the element
+    setLoaded(true);
+    if (loaded) {
+      const cloud = document.getElementById('floating-cloud');
+      scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75, //field of view
+        window.innerWidth / window.innerHeight, // aspect ratio
+        0.1, //near
+        1000 //far
+      );
+      //set the camera position
+      camera.position.set(8, 10, 15); //side up/down zoom
+      let renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); //to smooth and transparent background
+      renderer.setClearColor('#80e4ff', 0); //background color. not needed
+      renderer.setSize(window.innerWidth, window.innerHeight); //set the size of the renderer
 
-    //make responsive scene 
-    window.addEventListener('resize', () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      //change aspect ratio too
-      camera.aspect = window.innerWidth / window.innerHeight;
-      //update project matrix when update 
-      camera.updateProjectionMatrix();
-    });
+      cloud.appendChild(renderer.domElement); //now stick it to the element
 
-
-    //the meshes loaded and animate each child
-
-    var cloudOnePath = require('../../images/cloud1.glb');
-
-    loader.load(cloudOnePath, gltf => onLoad(gltf, 1), onProgress, onError  );
-
-    loader.load(cloudOnePath, gltf => onLoad(gltf, 2), onProgress, onError  );
-    loader.load(cloudOnePath, gltf => onLoad(gltf, 3), onProgress, onError  );
-    loader.load(cloudOnePath, gltf => onLoad(gltf, 4), onProgress, onError  );
-    loader.load(cloudOnePath, gltf => onLoad(gltf, 5), onProgress, onError  );
-
-    loader.load(cloudOnePath, gltf => onLoad(gltf, 6), onProgress, onError  );
-    loader.load(cloudOnePath, gltf => onLoad(gltf, 7), onProgress, onError  );
-    loader.load(cloudOnePath, gltf => onLoad(gltf, 8), onProgress, onError  );
-
-    // the lighting 
-    var light = new THREE.HemisphereLight(0xFFFFFF, 0x000000, 1); //sky ground intensity
-    light.castShadow = true;
-    light.position.set(10, 30, 25);
-    scene.add(light);
-
-    scene.add( new THREE.AmbientLight( 0xFFFFFF, .2 ) );
-    var directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
-    directionalLight.position.set( 1, 1, 1 ).normalize();
-    scene.add( directionalLight );
+      //make responsive scene 
+      window.addEventListener('resize', () => {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        //change aspect ratio too
+        camera.aspect = window.innerWidth / window.innerHeight;
+        //update project matrix when update 
+        camera.updateProjectionMatrix();
+      });
 
 
+      //the meshes loaded and animate each child
 
-    //fix aspect ratio during resize
-    var rerender = function () {
-      //60 frames per second loop
-      requestAnimationFrame(rerender);
+      var cloudOnePath = require('../../images/cloud1.glb');
 
-      update();
-      //apply scene and camera
-      renderer.render(scene, camera);
-    };
-    rerender();
+      loader.load(cloudOnePath, gltf => onLoad(gltf, 1), onProgress, onError);
+      loader.load(cloudOnePath, gltf => onLoad(gltf, 2), onProgress, onError);
+      loader.load(cloudOnePath, gltf => onLoad(gltf, 3), onProgress, onError);
+      loader.load(cloudOnePath, gltf => onLoad(gltf, 4), onProgress, onError);
+      loader.load(cloudOnePath, gltf => onLoad(gltf, 5), onProgress, onError);
+      loader.load(cloudOnePath, gltf => onLoad(gltf, 6), onProgress, onError);
+      loader.load(cloudOnePath, gltf => onLoad(gltf, 7), onProgress, onError);
+      loader.load(cloudOnePath, gltf => onLoad(gltf, 8), onProgress, onError);
+
+      // the lighting 
+      var light = new THREE.HemisphereLight(0xFFFFFF, 0x000000, 1); //sky ground intensity
+      light.castShadow = true;
+      light.position.set(10, 30, 25);
+      scene.add(light);
+
+      scene.add(new THREE.AmbientLight(0xFFFFFF, .2));
+      var directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+      directionalLight.position.set(1, 1, 1).normalize();
+      scene.add(directionalLight);
 
 
-  }, []);
 
-  return (<div id="floating-cloud">
+      //fix aspect ratio during resize
+      var rerender = function () {
+        //60 frames per second loop
+        requestAnimationFrame(rerender);
 
-  </div>);
+        update();
+        //apply scene and camera
+        renderer.render(scene, camera);
+      };
+      rerender();
+    }
+
+
+  }, [loaded]);
+
+  return (
+    <div id="floating-cloud">
+    </div>
+  );
 }

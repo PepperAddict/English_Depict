@@ -15,27 +15,27 @@ export const clearCookies = (keyName = null) => {
       document.cookie = value.replace(/^ +/, '').replace(/=.*/, '=;expires=' + expireDate.toUTCString());
     });
   }
-}
+};
 
-const privateKey = process.env.TOKENPW
+const privateKey = process.env.TOKENPW;
 export const signMe = str => {
   return new Promise(resolve => {
     resolve(jwt.sign({
-      "token": str
-    }, privateKey))
-  })
-}
+      'token': str
+    }, privateKey));
+  });
+};
 
 export const encryptMe  = (e) => {
-  return cryptr.encrypt(e)
-}
+  return cryptr.encrypt(e);
+};
 
 export const decryptMe = (e) => {
-  return cryptr.decrypt(e)
-}
+  return cryptr.decrypt(e);
+};
 
 export const cookieParser = (keyName, decryptMe = false) => {
-  let cookieData = document.cookie.split(';').map(string => string.trim());;
+  let cookieData = document.cookie.split(';').map(string => string.trim());
   const rawCookie = document.cookie.split(/=|;/).map(string => string.trim());
   let newcookie = [] ;
   let blah = cookieData[Symbol.iterator]();
@@ -45,16 +45,16 @@ export const cookieParser = (keyName, decryptMe = false) => {
   }
   newcookie.forEach(e => {
     if (e.includes(keyName)) {
-      cookieContains = e[1]
+      cookieContains = e[1];
     }
-  })
+  });
 
   if (cookieContains) {
     if (decryptMe === true) {
-      let afterEncrypt = cryptr.decrypt(cookieContains)
-      return afterEncrypt
+      let afterEncrypt = cryptr.decrypt(cookieContains);
+      return afterEncrypt;
     } else {
-      return cookieContains
+      return cookieContains;
     }
   } 
-}
+};
