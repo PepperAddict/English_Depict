@@ -4,8 +4,8 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const BrotliPlugin = require('brotli-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
@@ -18,7 +18,7 @@ const isDev = (process.env.NODE_ENV === 'development');
 
 
 module.exports = {
-  entry: path.resolve(__dirname, "../src/index.js"),
+  entry: path.resolve(__dirname, '../src/index.js'),
   resolve: {
     extensions: ['*', '.js', '.jsx']
   },
@@ -108,9 +108,9 @@ module.exports = {
           let separate = [
             { loader: MiniCSSExtractPlugin.loader},
             { loader: 'css-loader',
-          options: {
-            url: false
-          }},
+              options: {
+                url: false
+              }},
             { loader: 'postcss-loader',
               options: {
                 indent: 'postcss',
@@ -196,6 +196,10 @@ module.exports = {
         template: path.resolve(__dirname, '../src/index.html'),
         filename: path.resolve(__dirname, '../dist/index.html'),
       }),
+      new CopyPlugin( [
+        //send sw over to dist folder
+        { from: path.resolve(__dirname, '../src/sw.js'), to: path.resolve(__dirname, '../dist/sw.js')}
+      ])
       // new CleanWebpackPlugin(),
       // new CopyPlugin([
       //   { from: '../components/images', to: 'images'}
