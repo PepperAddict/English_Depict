@@ -1,0 +1,20 @@
+{
+  "short_name": "TC",
+  "name": "Talking Cloud",
+  "icons": [
+    {
+      "src": "/images/logoPlain-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/logoPlain-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "index.html",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "theme_color": "#ff5a00"
+}

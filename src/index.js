@@ -3,6 +3,8 @@ const isProd = (process.env.NODE_ENV === 'production');
 const isDev = (process.env.NODE_ENV === 'development');
 require('./favicon.ico');
 
+//for manifest
+require('./img/logoPlain.png');
 
 //add serviceWorker 
 if ('serviceWorker' in navigator) {
