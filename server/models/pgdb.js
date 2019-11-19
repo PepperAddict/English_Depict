@@ -1,6 +1,6 @@
 const {
   signToken
-} = require('../utils')
+} = require('../utils');
 const bcrypt = require('bcryptjs');
 module.exports = pgPool => {
   return {
@@ -13,33 +13,33 @@ module.exports = pgPool => {
       //if it does and password matches, sign in. if none then register
       return pgPool.query(`select * from users where email = '${email}'`).then(async res => {
         if (res.rows.length > 0) {
-          let hashedPassword = await bcrypt.compare(password, res.rows[0].password)
+          let hashedPassword = await bcrypt.compare(password, res.rows[0].password);
           if (hashedPassword) {
-            res.rows[0].apiKey = res.rows[0].token
-            return res.rows[0]
+            res.rows[0].apiKey = res.rows[0].token;
+            return res.rows[0];
           } else {
-            throw new Error('Email already exists!')
+            throw new Error('Email already exists!');
           }
         } else {
           //setting up for registration
           const token = await signToken(username + email + password).then((api) => {
-            return api
-          })
+            return api;
+          });
           const saltRounds = 10;
           const newPassword = await bcrypt.hash(password, saltRounds).then((hashed) => {
-            return hashed
-          })
+            return hashed;
+          });
           const date_created = new Date();
           return pgPool.query(`
         insert into users (username, email, token, password, date_created)
         values ($1, $2, $3, $4, $5) returning *
       `, [username, email, token, newPassword, date_created]).then(res => {
-            const user = res.rows[0]
-            user.apiKey = user.token
-            return user
-          })
+            const user = res.rows[0];
+            user.apiKey = user.token;
+            return user;
+          });
         }
-      })
+      });
     },
     addNewPost({
       userId,
@@ -50,8 +50,8 @@ module.exports = pgPool => {
         values ($1, $2) returning *
       `, [userId, content])
         .then(res => {
-          return res.rows[0]
-        })
+          return res.rows[0];
+        });
     },
     getUserById(input) {
       return pgPool.query(`
@@ -59,21 +59,21 @@ module.exports = pgPool => {
       `, [input])
         .then(res => {
           if (res.rows.length === 0) {
-            throw new Error('no results found')
+            throw new Error('no results found');
           }
-          return res.rows[0]
+          return res.rows[0];
         })
         .catch((e) => {
-          throw new Error(e)
-        })
+          throw new Error(e);
+        });
     },
     getUserByEmail(email) {
       return pgPool.query(`
         select * from users where email = $1
       `, [email])
         .then(res => {
-          return res.rows[0]
-        })
+          return res.rows[0];
+        });
     },
     getAllUsers(limit) {
       //get users with a limit or all if limit isn't supplied
@@ -82,47 +82,48 @@ module.exports = pgPool => {
         select * from users ${limit}
       `)
         .then(res => {
-          return res.rows
-        })
+          return res.rows;
+        });
     },
     getAllPosts(limit) {
       //get posts with a limit or all if limit isn't supplied
       limit = (limit) ? `limit ${limit}` : '';
       return pgPool.query(`select * from posts ${limit}`)
         .then(res => {
-          return res.rows
-        })
+          return res.rows;
+        });
     },
     getPosts(userId) {
       return pgPool.query(`
         select content from posts where user_id = $1
       `, [userId])
         .then(res => {
-          return res.rows
-        })
+          return res.rows;
+        });
     },
 
     login(email, password) {
 
-        return pgPool.query(`
+      return pgPool.query(`
         select * from users where email = '${email}'
       `, )
-          .then(async res => {
-            if (res.rows.length > 0) {
-              let hashedPassword = await bcrypt.compare(password, res.rows[0].password)
-              if (hashedPassword) {
-                res.rows[0].apiKey = res.rows[0].token
-                return res.rows[0]
-              } else {
-                throw new Error('incorrectPassword')
-              }
+        .then(async res => {
+          if (res.rows.length > 0) {
+            let hashedPassword = await bcrypt.compare(password, res.rows[0].password);
+            console.log(hashedPassword);
+            if (hashedPassword) {
+              res.rows[0].apiKey = res.rows[0].token;
+              return res.rows[0];
             } else {
-
-              throw new Error('noEmail')
+              throw new Error('incorrectPassword');
             }
-          }).catch((e) => {
-            throw new Error(e)
-          })
+          } else {
+
+            throw new Error('noEmail');
+          }
+        }).catch((e) => {
+          throw new Error(e);
+        });
 
     },
     addChat({student_id, teacher_id, content}) {
@@ -134,13 +135,13 @@ module.exports = pgPool => {
       insert into chats (${teacherOrstudentOne}, content, created_at)
       values ($1, $2, $3) returning *
       `, [teacherOrstudentTwo, content, date])
-      .then((res) => {
-        console.log(res)
-        return res.rows[0]
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+        .then((res) => {
+          console.log(res);
+          return res.rows[0];
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }
-}
+  };
+};

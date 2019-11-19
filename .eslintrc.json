@@ -31,6 +31,7 @@
     "react/no-typos": "error",
     "react/jsx-child-element-spacing": "error",
     "no-unused-vars": ["warn"],
+    "require-atomic-updates": "off",
     "no-console": "off",
     "indent": [
       "warn",

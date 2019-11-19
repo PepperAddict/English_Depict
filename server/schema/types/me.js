@@ -3,7 +3,7 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLNonNull,
-} = require('graphql')
+} = require('graphql');
 const MeType = new GraphQLObjectType({
   name: 'Me',
   fields: () => {
@@ -15,7 +15,7 @@ const MeType = new GraphQLObjectType({
       date_created: {type: GraphQLNonNull(GraphQLString)},
       role: {type: GraphQLString },
       apiKey: { type: GraphQLNonNull(GraphQLString) },
-    }
+    };
   }
-})
-module.exports = MeType
+});
+module.exports = MeType;

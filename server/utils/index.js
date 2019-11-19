@@ -1,31 +1,31 @@
 const jwt = require('jsonwebtoken');
-const path = require('path');
-const fs = require('fs');
+// const path = require('path');
+// const fs = require('fs');
 // const privateKey = fs.readFileSync(path.resolve(__dirname, '../private.pem'), 'utf8');
-const privateKey = process.env.TOKENPW
+const privateKey = process.env.TOKENPW;
 const signToken = str => {
   return new Promise(resolve => {
     resolve(jwt.sign({
-      "token": str
-    }, privateKey))
-  })
-}
+      'token': str
+    }, privateKey));
+  });
+};
 
 const verifyJwt = async req => {
   let token;
   if (req.query && req.query.hasOwnProperty('token')) {
-    token = req.query.token
+    token = req.query.token;
   } else if (req.headers.authorization && req.headers.authorization.includes('Bearer')) {
-    token = req.headers.authorization.split(' ')[1]
+    token = req.headers.authorization.split(' ')[1];
   }
 
   return new Promise((resolve, reject) => {
     jwt.verify(token, privateKey, (error, decoded) => {
       if (error) reject(new Error('401: User is not authenticated!'));
-      resolve(decoded)
-    })
-  })
-}
+      resolve(decoded);
+    });
+  });
+};
 
 
 
@@ -33,10 +33,10 @@ const isAuthenticated = (req, res, next) => {
   let token = ('token', req.cookies).token || false;
   if (token) {
     jwt.verify(token, privateKey, {
-      algorithm: "HS256"
+      algorithm: 'HS256'
     }, (err, user) => {
       if (err) {
-        res.redirect('/')
+        res.redirect('/');
       }
       if (user) {
         return next();
@@ -44,9 +44,9 @@ const isAuthenticated = (req, res, next) => {
     });
   }
   if (!token) {
-    res.redirect('/')
+    res.redirect('/');
   }
-}
+};
 
 const softAuthenticate = async (req, res, next) => {
 
@@ -57,14 +57,14 @@ const softAuthenticate = async (req, res, next) => {
         return next();
       }
       if (user) {
-        res.redirect('/dashboard')
+        res.redirect('/dashboard');
       }
     });
   }
   if (!token) {
     return next();
   }
-}
+};
 
 const choice = async (req, res, next) => {
   let token = ('token', req.cookies).token || false;
@@ -73,58 +73,56 @@ const choice = async (req, res, next) => {
   if (token) {
 
     await jwt.verify(token, privateKey, {
-      algorithm: "HS256"
+      algorithm: 'HS256'
     }, (err, user) => {
       if (err) {
         return next();
       }
       if (user) {
-        res.redirect('/dashboard/student-mode')
+        res.redirect('/dashboard/student-mode');
       }
     });
   } else if (studentKey) {
 
     await jwt.verify(studentKey, privateKey, {
-      algorithm: "HS256"
+      algorithm: 'HS256'
     }, (err, user) => {
       if (user) {
-        res.redirect('/student/')
+        res.redirect('/student/');
       }
-    })
+    });
   } else {
 
     return next();
   }
-}
+};
 
 
 
 const studentAuthenticate = async (req, res, next) => {
   let studentKey = ('student_key', req.cookies).student_key || false;
-  let token = ('token', req.cookies).token || false;
-
 
   if (studentKey) {
 
     await jwt.verify(studentKey, privateKey, {
-      algorithm: "HS256"
+      algorithm: 'HS256'
     }, (err, user) => {
       if (err) {
-        res.redirect('/')
+        res.redirect('/');
       }
       if (user) {
         return next();
       }
     });
   } else {
-    res.redirect('/')
+    res.redirect('/');
   }
 
-}
+};
 const isInvited = async (req, res, next) => {
-  console.log(req.headers)
-  next()
-}
+  console.log(req.headers);
+  next();
+};
 
 module.exports = {
   signToken,
@@ -134,4 +132,4 @@ module.exports = {
   isAuthenticated,
   studentAuthenticate,
   isInvited
-}
+};

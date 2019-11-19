@@ -2,9 +2,9 @@ const {
   GraphQLInputObjectType,
   GraphQLString,
   GraphQLNonNull
-} = require('graphql')
-const pgdb = require('../../models/pgdb')
-const MeType = require('../types/me')
+} = require('graphql');
+const pgdb = require('../../models/pgdb');
+const MeType = require('../types/me');
 const UserInputType = new GraphQLInputObjectType({
   name: 'UserInput',
   fields: {
@@ -18,7 +18,7 @@ const UserInputType = new GraphQLInputObjectType({
       type: GraphQLNonNull(GraphQLString)
     }
   }
-})
+});
 module.exports = {
   type: MeType,
   description: 'This mutation will create a new user and it will return an apiKey',
@@ -30,11 +30,11 @@ module.exports = {
   resolve: async (source, {
     input
   }, {
-    pgPool,
-    req
-  }) => {
+      pgPool,
+      req
+    }) => {
 
-    return pgdb(pgPool).addNewUser(input)
+    return pgdb(pgPool).addNewUser(input);
 
   }
-}
+};

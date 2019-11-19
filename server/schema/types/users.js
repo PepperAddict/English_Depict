@@ -4,13 +4,13 @@ const {
   GraphQLNonNull,
   GraphQLList,
   GraphQLID
-} = require('graphql')
-const { verifyJwt } = require('../../utils')
-const pgdb = require('../../models/studentDB.js')
+} = require('graphql');
+
+const pgdb = require('../../models/studentDB.js');
 const UsersType = new GraphQLObjectType({
   name: 'Users',
   fields: () => {
-    const StudentType = require('./student')
+    const StudentType = require('./student');
     return {
       id: {type: GraphQLID},
       email: { type: GraphQLNonNull(GraphQLString) },
@@ -19,10 +19,10 @@ const UsersType = new GraphQLObjectType({
       students: {
         type: new GraphQLList(StudentType),
         resolve: async (source, input, { pgPool, req }) => {
-            return pgdb(pgPool).getStudent(source.id)
+          return pgdb(pgPool).getStudent(source.id);
         }
       }
-    }
+    };
   }
-})
-module.exports = UsersType
+});
+module.exports = UsersType;
