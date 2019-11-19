@@ -16,6 +16,7 @@
   "browser": {
     "child_process": false
   },
+  "browserslist": ["last 2 version", "> 2%"],
   "dependencies": {
     "@apollo/react-hooks": "^3.1.2",
     "@babel/core": "^7.6.4",
