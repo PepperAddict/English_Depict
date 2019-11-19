@@ -5,7 +5,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 // const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-// const TerserPlugin = require('terser-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const BrotliPlugin = require('brotli-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
@@ -219,13 +219,13 @@ module.exports = {
         new Dotenv({
           systemvars: true,
         }),
-        // new TerserPlugin({
-        //   test: /\.js(\?.*)?$/i,
-        //   parallel: true,
-        //   terserOptions: {
-        //     mangle: true,
-        //   }
-        // }),
+        new TerserPlugin({
+          test: /\.js(\?.*)?$/i,
+          parallel: true,
+          terserOptions: {
+            mangle: true,
+          }
+        }),
         new CompressionPlugin({
           algorithm: 'gzip'
         }),
