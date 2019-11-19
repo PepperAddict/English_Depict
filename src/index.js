@@ -7,7 +7,6 @@ require('./favicon.ico');
 require('./img/logoPlain.png');
 
 //add serviceWorker 
-
 // if ('serviceWorker' in navigator) {
 //   window.addEventListener('load', function () {
 //     navigator.serviceWorker.register('./sw.js').then(function (registration) {
@@ -33,10 +32,10 @@ require('./component/index/react.jsx');
 require('./index.html');
 
 //for heroku 
-if (isProd) {
-  var http = require('http');
-  setInterval(function() {
-    http.get('https://talking-cloud.herokuapp.com/');
-  }, 300000); // every 5 minutes (300000)
-}
+// if (isProd) {
+//   var http = require('http');
+//   setInterval(function() {
+//     http.get('https://talking-cloud.herokuapp.com/');
+//   }, 300000); // every 5 minutes (300000)
+// }
 console.log('Environment: ' + process.env.NODE_ENV);
