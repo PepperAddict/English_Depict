@@ -53,6 +53,8 @@ function LoginForm() {
             text: 'Incorrect password. Please try again.'
           }
         });
+      } else {
+        console.log(e);
       }
     });
   };

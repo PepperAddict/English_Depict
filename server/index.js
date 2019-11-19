@@ -2,7 +2,7 @@ require('dotenv').config();
 const graphqlHTTP = require('express-graphql');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-
+const fs = require('fs');
 
 const pg = require('pg');
 const cors = require('cors');
@@ -15,6 +15,11 @@ const express = require('express');
 
 const bodyParser = require('body-parser');
 const server = express();
+const sslOptions = {
+  key: fs.readFileSync(path.join('server', 'ssl', 'server.key')),
+  cert: fs.readFileSync(path.join('server', 'ssl', 'server.crt'))
+};
+
 const http = require('http').createServer(server);
 
 //socket io

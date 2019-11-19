@@ -22,6 +22,7 @@ query Login($email: String!, $password: String!) {
     id
     email
     apiKey
+    username
   }
 }
 `;
