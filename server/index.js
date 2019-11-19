@@ -52,11 +52,6 @@ server.use(expressStaticGzip('dist', {
   enableBrotli: true
 }));
 
-server.use((request, response) => {
-  if(!request.secure){
-    response.redirect('https://' + request.headers.host + request.url);
-  }
-});
 
 server.get(['/', '/login'], cors(), softAuthenticate,  (req, res) => {
   res.sendFile(path.resolve(__dirname, '../dist/index.html'));

@@ -198,7 +198,7 @@ module.exports = {
       }),
       new CopyPlugin( [
         //send service worker and manifest over to dist folder
-        { from: path.resolve(__dirname, '../src/sw.js'), to: path.resolve(__dirname, '../dist/sw.js')},
+        // { from: path.resolve(__dirname, '../src/sw.js'), to: path.resolve(__dirname, '../dist/sw.js')},
         { from: path.resolve(__dirname, '../src/manifest.json'), to: path.resolve(__dirname, '../dist/manifest.json')}
       ])
       // new CleanWebpackPlugin(),
