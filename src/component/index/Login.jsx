@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Form } from 'semantic-ui-react';
 import { Handle_Login } from '../../query/query';
 import { useApolloClient } from '@apollo/react-hooks';
-import {encryptMe, signMe} from '../../helpers';
+import { encryptMe, signMe } from '../../helpers';
+import '../../styles/login.styl';
 
 
 
@@ -21,18 +21,18 @@ function LoginForm() {
     e.preventDefault();
 
     await client.query({
-      query: Handle_Login, 
+      query: Handle_Login,
       variables: {
-        email: val.email, 
+        email: val.email,
         password: val.password
       }
-    }).then( async (e) => {
+    }).then(async (e) => {
       const newToken = await signMe(e.data.login.apiKey).then((api) => {
         return api;
       });
       document.cookie = `token=${newToken}`;
       let userid = e.data.login.id;
-      let newUser = await encryptMe(userid); 
+      let newUser = await encryptMe(userid);
       document.cookie = `userID=${newUser};samesite`;
     }).then(() => {
       location.reload();
@@ -41,7 +41,7 @@ function LoginForm() {
         setValu({
           ...val,
           texterror: {
-            status: true, 
+            status: true,
             text: `The email: <b>${val.email}</b> is not in the system. Did you mean to register instead? <a href="/register">Click here</a> to register.`
           }
         });
@@ -49,7 +49,7 @@ function LoginForm() {
         setValu({
           ...val,
           texterror: {
-            status: true, 
+            status: true,
             text: 'Incorrect password. Please try again.'
           }
         });
@@ -67,31 +67,35 @@ function LoginForm() {
   };
 
 
-  return (<div>
+  return (<div className="login-container">
+    <div className="login-content">
+      <h1>Teacher Login</h1>
 
-    <Form onSubmit={(e) => handleLogin(e)}>
-      <Form.Field className="login">
+      <form onSubmit={(e) => handleLogin(e)}>
         <label
           htmlFor="login-email">E-mail Address</label>
         <input
           id="login-email"
           name='email'
-          onChange={updateFields} 
+          onChange={updateFields}
           placeholder='email' />
-      </Form.Field>
-      <Form.Field className="login">
+
         <label htmlFor="login-passwordOne">Password</label>
-        <input 
-          id="login-passwordOne" 
-          defaultValue={val.username} 
-          onChange={updateFields} 
-          name='password' 
-          type="password" 
+        <input
+          id="login-passwordOne"
+          defaultValue={val.username}
+          onChange={updateFields}
+          name='password'
+          type="password"
           placeholder='password' />
-      </Form.Field>
-      <Button className="login-button" type='Login'>Login</Button>
-    </Form>
-    {val.texterror.status === true ? (<p dangerouslySetInnerHTML={{__html:val.texterror.text}} />) : ''}
+
+        <button className="login-button" type='submit'>Login</button>
+      </form>
+      {val.texterror.status === true ? (<p dangerouslySetInnerHTML={{ __html: val.texterror.text }} />) : ''}
+
+    </div>
+    <div className="bottom"></div>
+
   </div>
   );
 }

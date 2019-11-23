@@ -16,7 +16,10 @@
   "browser": {
     "child_process": false
   },
-  "browserslist": ["last 2 version", "> 2%"],
+  "browserslist": [
+    "last 2 version",
+    "> 2%"
+  ],
   "dependencies": {
     "@apollo/react-hooks": "^3.1.2",
     "@babel/core": "^7.6.4",
@@ -74,7 +77,6 @@
     "react-router-dom": "^5.1.1",
     "regenerator-runtime": "^0.13.3",
     "responsive-loader": "^1.2.0",
-    "semantic-ui-react": "^0.88.1",
     "socket.io": "^2.3.0",
     "style-loader": "^1.0.0",
     "stylus": "^0.54.7",

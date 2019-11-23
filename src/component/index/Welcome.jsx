@@ -3,7 +3,7 @@ import React from 'react';
 import HeroBG from './Front/Hero.jsx';
 import '../../styles/basic.styl';
 const logoImage = require('../../img/logo.png');
-
+require('../../img/bubble.jpg');
 
 export default function Welcome() {
 
