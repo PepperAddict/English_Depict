@@ -20,7 +20,10 @@ const isDev = (process.env.NODE_ENV === 'development');
 module.exports = {
   entry: path.resolve(__dirname, '../src/index.js'),
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx'],
+    alias: {
+      'react-dom': '@hot-loader/react-dom'
+    }
   },
   mode: 'none',
   output: {

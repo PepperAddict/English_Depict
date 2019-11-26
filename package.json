@@ -11,7 +11,8 @@
     "build": "webpack --config config/webpack.config.js",
     "start": "SET NODE_ENV=development&& nodemon server/index.js",
     "prod": "NODE_ENV=production&& node server/index.js",
-    "prodtest": "SET NODE_ENV=production&& node server/index.js"
+    "prodtest": "SET NODE_ENV=production&& node server/index.js",
+    "react": "SET NODE_ENV=development&& node server/index.js"
   },
   "browser": {
     "child_process": false
@@ -29,6 +30,7 @@
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.6.2",
+    "@hot-loader/react-dom": "^16.11.0",
     "apollo-boost": "^0.4.4",
     "apollo-client": "^2.6.4",
     "autoprefixer": "^9.6.5",
