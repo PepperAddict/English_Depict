@@ -101,3 +101,12 @@ mutation ($input: CommentInput!){
   }
 }
 `;
+
+export const UPDATE_MESSAGE = gql`
+mutation UpdateMessage($input: AddMessage!){
+  UpdateMessage(input: $input) {
+    student_id
+    message
+  }
+}
+`;

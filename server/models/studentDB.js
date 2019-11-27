@@ -59,5 +59,13 @@ module.exports = pgPool => {
           return res.rows;
         });
     },
+
+    updateMessage({student_id, message}) {
+      return pgPool.query(`
+      update students set message='${message}' where student_id=${student_id} returning *
+      `).then((res) => {
+        return res.rows[0];
+      }).catch((err) => console.log(err));
+    }
   };
 };

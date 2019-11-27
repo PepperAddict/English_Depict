@@ -100,7 +100,7 @@ export default function StudentDashboard() {
       });
     }
   };
-
+  
   return (
     <div className="student-container">
       <nav className="student-sidebar">
@@ -108,7 +108,7 @@ export default function StudentDashboard() {
         <a href="/student/add_blog">Add a Blog</a>
         <a href="/student/blogs">View Blog</a>
         <a href="/student/settings">Settings</a>
-        <button onClick={logout}>Logout</button>
+        <button type="button" onClick={logout}>Logout</button>
       </nav>
       {loading ? 'loading' : error ? 'error' :
         data && dashboard.options === 'welcome' ? (
@@ -119,6 +119,9 @@ export default function StudentDashboard() {
           <h1>Welcome <strong>{student.name? student.name : student.username}</strong>!</h1>
           <small>student:{student.username}</small>
           <h2>Today is <strong>{currentDate}</strong></h2>
+
+          {data.getStudentByID[0].message && 
+          <h2 className="message">❝{data.getStudentByID[0].message}❞</h2>}
           </div>
         ) :
           data && dashboard.options === 'addblog' ? <AddBlog student_id={id} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} /> :

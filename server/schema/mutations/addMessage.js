@@ -4,23 +4,22 @@ const {
   GraphQLString,
   GraphQLNonNull
 } = require('graphql');
-const pgdb = require('../../models/lessonsDB');
-const BlogType = require('../types/blog');
+const pgdb = require('../../models/studentDB');
+const StudentType = require('../types/student');
 const PostInputType = new GraphQLInputObjectType({
-  name: 'BlogInput',
+  name: 'AddMessage',
   fields: {
     student_id: { type: GraphQLNonNull(GraphQLID) },
-    subject: {type: GraphQLNonNull(GraphQLString)},
-    content: { type: GraphQLNonNull(GraphQLString) }
+    message: {type: GraphQLNonNull(GraphQLString)},
   }
 });
 module.exports = {
-  type: BlogType,
-  description: 'This mutation will add a new blog',
+  type: StudentType,
+  description: 'This mutation is to add a personal message to the student',
   args: {
     input: { type: new GraphQLNonNull(PostInputType) }
   },
   resolve: async (source, { input }, { pgPool }) => {
-    return pgdb(pgPool).addBlog(input);
+    return pgdb(pgPool).updateMessage(input);
   }
 };

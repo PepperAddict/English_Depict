@@ -87,6 +87,7 @@ query getStudentByID($student_id: ID!){
     avatar
     student_key
     name
+    message
     vocabularies {
       vocab_id
       vocabulary_word

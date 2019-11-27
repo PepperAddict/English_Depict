@@ -8,7 +8,7 @@ const {
 } = require('graphql');
 const pgdb = require('../../models/lessonsDB');
 const vocabType = require('./vocabulary');
-const blogType = require('./blog')
+const blogType = require('./blog');
 const StudentType = new GraphQLObjectType({
   name: 'Student',
   fields: () => {
@@ -26,21 +26,22 @@ const StudentType = new GraphQLObjectType({
       verified: {type: GraphQLBoolean},
       second_password: {type: GraphQLString},
       avatar: {type: GraphQLString},
+      message: {type: GraphQLString},
       vocabularies: {
         type: new GraphQLList(vocabType),
         resolve: async (source, input, { pgPool, req }) => {
           let student_id = source.student_id;
-            return pgdb(pgPool).getVocabularyByID(student_id)
+          return pgdb(pgPool).getVocabularyByID(student_id);
         }
       },
       blogs: {
         type: new GraphQLList(blogType),
         resolve: async (source, input, { pgPool, req }) => {
           let student_id = source.student_id;
-            return pgdb(pgPool).getAllBlogs(student_id)
+          return pgdb(pgPool).getAllBlogs(student_id);
         }
       }
-    }
+    };
   }
-})
-module.exports = StudentType
+});
+module.exports = StudentType;
