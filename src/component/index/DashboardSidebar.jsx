@@ -7,7 +7,6 @@ DashboardSidebar.propTypes = {
 };
 
 export default function DashboardSidebar(props) {
-  console.log(props);
   return (
     <Fragment>
       <div className="teacherInfo">
@@ -17,6 +16,7 @@ export default function DashboardSidebar(props) {
       <nav>
         <a href="/dashboard">Dashboard</a>
         <a href="/dashboard/add_student">go to add student</a>
+        <a href="/dashboard/task">Tasks</a>
       </nav>
     </Fragment>
   );

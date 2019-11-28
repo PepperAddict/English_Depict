@@ -7,6 +7,7 @@ import '../../styles/basic.styl';
 import '../../styles/teacherDashboard.styl';
 import DashboardSidebar from './DashboardSidebar.jsx';
 import IndividualStudent from './Content/IndividualStudent.jsx';
+import Tasks from './Content/TeacherTasks.jsx';
 import PropTypes from 'prop-types';
 
 ShowStudent.propTypes = {
@@ -79,10 +80,16 @@ export default function Dashboard() {
         student: true
       });
       break;
+    case pathname.includes('task'):
+      setInfo({
+        task: true
+      });
+      break;
     case pathname.includes('student-mode'):
       setInfo({
         studentMode: true
       });
+      break;
     }
   }, []);
   const clearCookies = (keyName = null) => {
@@ -125,19 +132,20 @@ export default function Dashboard() {
               <ShowCard data={data.getUser} userId={userId} /> 
               <AddStudent /></div>) : (<AddStudent />)} </div>) :
             info.settings ? (<p>meeeoooowww</p>) :
-              info.student ? (<IndividualStudent teacher_id={userId} student_id={student_id} data={data.getUser} />) : (
-                info.studentMode ? (
-                  <div>Hello {data.getUser.name || data.getUser.username}, you′re logged in as a teacher.
+              info.task ? <Tasks students={data.getUser.students} teacher_data={data.getUser}/> :
+                info.student ? (<IndividualStudent teacher_id={userId} student_id={student_id} data={data.getUser} />) : (
+                  info.studentMode ? (
+                    <div>Hello {data.getUser.name || data.getUser.username}, you′re logged in as a teacher.
                     Would you like to logout?
-                  <button type="button" onClick={logout} >Logout</button>
-                  </div>
-                ) :
-                  <div>
+                    <button type="button" onClick={logout} >Logout</button>
+                    </div>
+                  ) :
+                    <div>
 
-                    {data.getUser.students.length > 0 ? (<ShowCard students={data.getUser.students} data={data.getUser} userId={userId} setStudentID={setStudent_id} />) : (<AddStudent />)}
+                      {data.getUser.students.length > 0 ? (<ShowCard students={data.getUser.students} data={data.getUser} userId={userId} setStudentID={setStudent_id} />) : (<AddStudent />)}
 
-                  </div>
-              )}
+                    </div>
+                )}
 
         </div>
       )}

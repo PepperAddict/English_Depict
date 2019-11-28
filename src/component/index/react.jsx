@@ -48,8 +48,8 @@ const App = () => (
         </Route>
       </Fragment>
     </Router>
-    </ApolloProvider>
-)
+  </ApolloProvider>
+);
 ReactDOM.render(
   <App/>,
   document.getElementById('app')
