@@ -12,8 +12,6 @@ const cors = require('cors');
 
 const {isAuthenticated, softAuthenticate, studentAuthenticate, choice, isInvited } = require('./utils');
 
-
-
 const express = require('express');
 
 const bodyParser = require('body-parser');

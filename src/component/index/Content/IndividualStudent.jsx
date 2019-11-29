@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { getStudentInfo } from '../../../query/query';
 import Comments from './TeacherBlogComments.jsx';
-import { ADD_COMMENT,  UPDATE_MESSAGE} from '../../../mutation/mutation';
+import { ADD_COMMENT, UPDATE_MESSAGE } from '../../../mutation/mutation';
 import PropTypes from 'prop-types';
 
 AddComment.propTypes = {
@@ -46,12 +46,10 @@ function StudentProfile(props) {
 
   const submitMessage = e => {
     e.preventDefault();
-    updateMessage({variables: {input: {student_id: props.student_id, message: message}}})
-    .then(() => {
-      location.reload();
-    }).catch((err) => {
-      console.log(err)
-    })
+    updateMessage({ variables: { input: { student_id: props.student_id, message: message } } })
+      .then(() => {
+        location.reload();
+      }).catch((err) => console.log(err));
   }
 
   return (
@@ -95,7 +93,7 @@ export default function IndividualStudent(props) {
   const pathname = window.location.pathname.split('=');
   const student_id = pathname[pathname.length - 1];
 
-  const [students, setStudents] = useState(props.data.students);
+  const [students] = useState(props.data.students);
   const [myStudent, setMyStudent] = useState(false);
   const { loading, error, data } = useQuery(getStudentInfo, { variables: { student_id } });
   useEffect(() => {
