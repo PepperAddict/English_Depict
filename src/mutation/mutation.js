@@ -110,3 +110,13 @@ mutation UpdateMessage($input: AddMessage!){
   }
 }
 `;
+
+export const ADD_TASK = gql`
+mutation AddTask($input: TaskInput!){
+  AddTask (input: $input) {
+    task_code
+    entry
+    student_id
+  }
+}
+`

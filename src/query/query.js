@@ -30,6 +30,7 @@ query Login($email: String!, $password: String!) {
 export const getUserByID = gql `
 query getUserByID($userId: ID!) {
   getUser(userId: $userId) {
+    id
     email
     username
     date_created
@@ -42,6 +43,14 @@ query getUserByID($userId: ID!) {
       date_created
       theme
       avatar
+      tasks {
+      task_code
+      task_date
+      student_id
+      entry
+      completed_at
+      viewed
+    }
     }
   }
 }

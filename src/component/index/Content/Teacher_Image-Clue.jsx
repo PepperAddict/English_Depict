@@ -28,7 +28,8 @@ function ListOfImages(props) {
 }
 
 Teacher_ImageClue_Task.propTypes = {
-  teacher_data: PropTypes.object
+  teacher_data: PropTypes.object,
+  students: PropTypes.array
 };
 
 export default function Teacher_ImageClue_Task(props) {
@@ -95,7 +96,7 @@ export default function Teacher_ImageClue_Task(props) {
           }
         </Fragment>
       ) :
-        <NextStage image_data={next} setNext={setNext}/>}
+        <NextStage image_data={next} setNext={setNext} students={props.students} teacher_id={parseInt(props.teacher_data.id)}/>}
 
     </Fragment>
   );

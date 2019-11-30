@@ -7,6 +7,7 @@ const {
 } = require('graphql');
 
 const pgdb = require('../../models/studentDB.js');
+
 const UsersType = new GraphQLObjectType({
   name: 'Users',
   fields: () => {
@@ -21,7 +22,7 @@ const UsersType = new GraphQLObjectType({
         resolve: async (source, input, { pgPool, req }) => {
           return pgdb(pgPool).getStudent(source.id);
         }
-      }
+      }, 
     };
   }
 });

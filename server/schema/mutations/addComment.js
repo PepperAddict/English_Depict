@@ -3,9 +3,9 @@ const {
   GraphQLID,
   GraphQLString,
   GraphQLNonNull
-} = require('graphql')
-const pgdb = require('../../models/lessonsDB')
-const CommentType = require('../types/comment')
+} = require('graphql');
+const pgdb = require('../../models/lessonsDB');
+const CommentType = require('../types/comment');
 const PostInputType = new GraphQLInputObjectType({
   name: 'CommentInput',
   fields: {
@@ -14,14 +14,14 @@ const PostInputType = new GraphQLInputObjectType({
     teacher_id: {type: GraphQLID},
     content: {type: GraphQLNonNull(GraphQLString)},
   }
-})
+});
 module.exports = {
   type: CommentType,
   description: 'This mutation will add a new comment for a blog post',
   args: {
     input: { type: new GraphQLNonNull(PostInputType) }
   },
-  resolve: async (source, { input }, { pgPool, req }) => {
-    return pgdb(pgPool).addComment(input)
+  resolve: async (source, { input }, { pgPool}) => {
+    return pgdb(pgPool).addComment(input);
   }
-}
+};

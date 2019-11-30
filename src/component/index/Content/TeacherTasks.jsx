@@ -1,6 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import ImageClue from './Teacher_Image-Clue.jsx';
 import PropTypes from 'prop-types';
+import TaskList from './TaskList.jsx';
 
 Tasks.propTypes = {
   students: PropTypes.array,
@@ -32,10 +33,10 @@ export default function Tasks(props) {
           <nav>
             <a href="/dashboard/task=image-clue">Image Clue</a>
           </nav>
+          <TaskList students={props.teacher_data.students}/>
 
         </div> : task === 'image-clue' ?
-          <ImageClue teacher_data={props.teacher_data}/> : null
-
+          <ImageClue teacher_data={props.teacher_data} students={students}/> : null
       }
     </Fragment>
   );

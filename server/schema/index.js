@@ -6,12 +6,12 @@ const GetUserByEmail = require('./queries/getUserByEmail');
 const GetAllUsers = require('./queries/getAllUsers');
 const GetCompleteUsers = require('./queries/getCompleteUsers');
 const GetCompletePosts = require('./queries/getCompletePosts');
-const AddNewUserMutation = require('./mutations/addUser');
-const AddPostsMutation = require('./mutations/addPosts');
-const AddNewStudent = require('./mutations/addStudent');
+const AddUser = require('./mutations/addUser');
+const AddPosts = require('./mutations/addPosts');
+const AddStudent = require('./mutations/addStudent');
 const GetAllPosts = require('./queries/getAllPosts');
 const loginStudent = require('./queries/getStudentByUser');
-const updatestudentpw = require('./mutations/verifiedStudent');
+const UpdateStudentPassword = require('./mutations/verifiedStudent');
 const GetStudentByID = require('./queries/getStudentByID');
 const AddBlog = require('./mutations/addBlog');
 const GetBlogByID = require('./queries/getSingleBlog');
@@ -20,12 +20,13 @@ const AddVocabulary = require('./mutations/addVocabulary');
 const GetVocabularyByStudentID = require('./queries/getVocabularyByID');
 const UpdateStudentAvatar = require('./mutations/updateStudentAvatar');
 const UpdateStudentName = require('./mutations/updateStudentName');
-const removeVocabulary = require('./mutations/removeVocabulary');
+const RemoveVocabulary = require('./mutations/removeVocabulary');
 const EditBlog = require('./mutations/editBlog');
 const AddChat = require('./mutations/addChat');
 // const WatchChat = require('./subscriptions/watchChat');
 const AddComment = require('./mutations/addComment');
 const UpdateMessage = require('./mutations/addMessage');
+const AddTask = require('./mutations/addTask');
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
   fields: () => ({
@@ -46,23 +47,22 @@ const RootQueryType = new GraphQLObjectType({
 const RootMutationType = new GraphQLObjectType({
   name: 'RootMutation',
   fields: () => ({
-    AddUser: AddNewUserMutation,
-    AddPosts: AddPostsMutation,
-    AddStudent: AddNewStudent,
-    UpdateStudentPassword: updatestudentpw,
-    AddBlog: AddBlog,
-    AddVocabulary: AddVocabulary,
-    UpdateStudentAvatar: UpdateStudentAvatar,
-    UpdateStudentName: UpdateStudentName,
-    RemoveVocabulary: removeVocabulary,
-    EditBlog: EditBlog,
+    AddUser,
+    AddPosts,
+    AddStudent,
+    UpdateStudentPassword,
+    AddBlog,
+    AddVocabulary,
+    UpdateStudentAvatar,
+    UpdateStudentName,
+    RemoveVocabulary,
+    EditBlog,
     AddChat,
     AddComment,
-    UpdateMessage
+    UpdateMessage,
+    AddTask
   })
 });
-
-
 
 const schema = new GraphQLSchema({
   query: RootQueryType,

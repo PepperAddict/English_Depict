@@ -24,7 +24,7 @@ const PostType = new GraphQLObjectType({
           return pgdb(pgPool).getCommentByBlogID(blog_id)
         }
       }
-    }
+    };
   }
-})
-module.exports = PostType
+});
+module.exports = PostType;
