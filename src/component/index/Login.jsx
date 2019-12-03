@@ -16,6 +16,7 @@ function LoginForm() {
       text: ''
     }
   });
+  const [error, setError] = useState(null); // 1 is no email in database, 2 is wrong password
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -38,21 +39,9 @@ function LoginForm() {
       location.reload();
     }).catch((e) => {
       if (e.message.includes('noEmail')) {
-        setValu({
-          ...val,
-          texterror: {
-            status: true,
-            text: `The email: <b>${val.email}</b> is not in the system. Did you mean to register instead? <a href="/register">Click here</a> to register.`
-          }
-        });
+        setError(1);
       } else if (e.message.includes('incorrectPassword')) {
-        setValu({
-          ...val,
-          texterror: {
-            status: true,
-            text: 'Incorrect password. Please try again.'
-          }
-        });
+        setError(2);
       } else {
         console.log(e);
       }
@@ -60,7 +49,7 @@ function LoginForm() {
   };
 
   const updateFields = e => {
-
+    setError(null);
     setValu({
       ...val, [e.target.name]: e.target.value || ''
     });
@@ -69,6 +58,7 @@ function LoginForm() {
 
   return (<div className="login-container">
     <div className="login-content">
+      <a href="/"><img className="logo-center" src="/images/logo-192.png" alt="logo" /></a>
       <h1>Teacher Login</h1>
 
       <form onSubmit={(e) => handleLogin(e)}>
@@ -89,12 +79,23 @@ function LoginForm() {
           type="password"
           placeholder='password' />
 
+        <hr />
+
         <button className="login-button" type='submit'>Login</button>
       </form>
-      {val.texterror.status === true ? (<p dangerouslySetInnerHTML={{ __html: val.texterror.text }} />) : ''}
-
+      {error === 1 ? (<p className="error">The email: <b>{val.email}</b> is not in the system. Did you mean to register instead? <a href="/register">Click here</a> to register.</p>) :
+        error === 2 && <p className="error">Incorrect password. Please try again.</p>
+      }
+      
     </div>
-    <div className="bottom"></div>
+    <div className="bottom">
+      <div className="bottom-content">
+        <ul>
+          <li><a href="/register">Register For a teacher’s account</a></li>
+          <li><a href="/student_login">Student Login</a></li>
+        </ul>
+        </div>
+    </div>
 
   </div>
   );

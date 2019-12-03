@@ -33,9 +33,11 @@ export default function Tasks(props) {
           <nav>
             <a href="/dashboard/task=image-clue">Image Clue</a>
           </nav>
+          <h2>All Tasks</h2>
           <TaskList students={props.teacher_data.students}/>
 
         </div> : task === 'image-clue' ?
+          
           <ImageClue teacher_data={props.teacher_data} students={students}/> : null
       }
     </Fragment>

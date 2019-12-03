@@ -1,7 +1,7 @@
 import React from 'react';
 // import ChatBox from './Chat/ChatBox.jsx';
 import HeroBG from './Front/Hero.jsx';
-import '../../styles/basic.styl';
+import '../../styles/welcome.styl';
 const logoImage = require('../../img/logo.png');
 require('../../img/bubble.jpg');
 

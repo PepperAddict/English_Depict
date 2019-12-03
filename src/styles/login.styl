@@ -15,17 +15,29 @@
     padding: 30px;
     color: dark-gray;
     box-shadow: 0px 0px 50px 0px #888888;
+    border-radius: 5px;
+    .logo-center
+      margin-top: -150px;
+      margin-left: auto;
+      margin-right: auto;
+      display: grid;
     button 
-      background: light-green;
+      background: button-green;
       color: white;
       font-weight: 800;
       border: 0px;
       justify-self: center;
       align-self: center;
       width: 150px;
+      &:hover
+        filter: brightness(120%)
+        box-shadow: 0px 0px 5px 0px #888888;
+
     h1 
       font-weight: 400;
       text-align: center;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #ccc;
     form 
       display: grid;
       label
@@ -40,3 +52,19 @@
     width: 100%;
     z-index: 1;
     left: 0px;
+    .bottom-content 
+      background: rgba(0, 0, 0, 0.2);
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      text-align: center;
+      color: white;
+      padding: 10px;
+      box-sizing: border-box;
+      ul
+        list-style: none;
+        padding: 0px;
+        li
+          padding: 10px 0;
+          text-transform: uppercase;
+          letter-spacing: .1rem;

@@ -2,90 +2,52 @@
 
 dark-gray = #6A6A6A;
 light-green = #0f5;
+button-green = #00d41e;
+link-orange = #ff8a00;
+font-gray = #414141;
 
-body {
-  font-family: lato;
+body, html {
+  font-family: roboto;
+  height: 100%;
+  margin: 0px;
 }
 button {
   cursor: pointer;
   padding:10px;
   border: 1px solid #ccc;
+  font-size: 1rem;
+  text-transform: uppercase;
 }
-.black 
-  background: green;
+
+hr {
+    width: 100%;
+    height: 1px;
+    background: none;
+    margin: 20px 0px;
+    border: 0px;
+    border-bottom: 1px solid #ccc;
+}
+
 input {
   width: 100%;
   min-height: 30px;
   font-size: 18px;
   padding: 5px;
   box-sizing: border-box;
+  color: link-orange;
+  font-weight: 600;
 }
 a {
   text-decoration: none;
+  color: link-orange;
+}
+.error {
+  text-align: center;
+  background: #ffea00;
+  padding: 10px;
+  color: font-gray;
+  font-weight: 600;
 }
 span {
   margin-right: 5px;
 }
-.welcome-container 
-  position: relative;
-  .home-nav 
-    width: 100%;
-    position: relative;
-    top: 0px;
-    right: 0px;
-    background-image: linear-gradient(to bottom, #ffe5bb, #ffe7c1, #ffe9c7, #ffecce, #ffeed4);
-
-    #floating-cloud 
-      z-index: 1;    
-      canvas
-        z-index:4;
-        max-width: 100%;
-        max-height: 100%;
-        display: block;
-    .logo-info
-      z-index: 2;
-      position: absolute;
-      top: 0px;
-      width: 100%;
-      height: 100%;
-      display: grid;
-      justify-items: center;
-      align-items: center;
-      grid-template-columns: 1fr;
-      grid-template-rows: auto auto 2fr
-      h1 
-        align-self: start;
-        color: #616161;
-        font-family: ff-tisa-web-pro, serif;
-        font-weight: 700;
-        font-style: italic;
-      h3
-        color: #616161;
-        text-align: right;
-        width: 100%;
-        margin-right: 50px;
-        font-size: 16px;
-        a
-          color: #FF8800;
-      img
-        width: 500px;
-      nav
-        padding:10px;
-        z-index: 4
-        align-self: start;
-        font-size: 40px;
-        display: grid;
-        grid-template-columns: auto auto;
-        grid-gap: 10px;
-        font-family: sophisto, sans-serif;
-        a
-          text-decoration: none;
-          color: #ff5a00;
-          background: rgba(255, 255, 255, 0.5);
-          padding: 10px;
-          border-radius: 10px;
-          transition: .5s;
-          &:hover 
-            background: rgba(255, 90, 0, 1);
-            color: #fff;
-            transition: .5s;

@@ -8,7 +8,7 @@ This is an open source project made with:
 This project is for grade school children to practice English by completing lessons assigned by the teacher. 
 
 == Env File 
-rename .projectenv to env with your own values inside of it.
+Rename .projectenv to env with your own values inside of it.
 
 == Issues
 The issues are sorted in this kanban project board right in github: 
