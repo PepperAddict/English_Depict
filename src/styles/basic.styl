@@ -3,8 +3,9 @@
 dark-gray = #6A6A6A;
 light-green = #0f5;
 button-green = #00d41e;
-link-orange = #ff8a00;
+link-orange = #f25500;
 font-gray = #414141;
+mobile = 530px;
 
 body, html {
   font-family: roboto;
@@ -47,6 +48,20 @@ a {
   padding: 10px;
   color: font-gray;
   font-weight: 600;
+  position: relative;
+  &:before {
+    content: '!';
+    position: absolute;
+    top: 0px;
+    left: -10px;
+    font-size: 2rem;
+    font-family: fira-sans, sans-serif;
+    font-weight: 800;
+    color: link-orange;
+  }
+  b {
+    font-size: 1.2rem;
+  }
 }
 span {
   margin-right: 5px;

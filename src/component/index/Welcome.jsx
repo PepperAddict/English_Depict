@@ -6,7 +6,7 @@ const logoImage = require('../../img/logo.png');
 require('../../img/bubble.jpg');
 
 export default function Welcome() {
-
+console.dir(logoImage)
   return (
     <div className="welcome-container">
       <header className="home-nav">
@@ -14,14 +14,13 @@ export default function Welcome() {
         <div className="logo-info">
           <picture>
             <source srcSet={logoImage.srcSet} />
-            <img src={logoImage.src} alt="Talking Cloud Logo"/>
+            <img src={logoImage.src} srcSet={logoImage.srcSet} alt="Talking Cloud Logo"/>
           </picture>
           <nav>
             <a href="/login">Teacher Login</a> 
             <a href="/student_login">Student Login</a>
           </nav>
-          <h1>The place to practice English</h1>
-          <h3>Don’t have a teacher’s account? <a href="/register">Register</a> for one</h3>
+          <h1>The place to practice English and track of progress.</h1>
         </div>
         <HeroBG />
         

@@ -16,11 +16,20 @@
     color: dark-gray;
     box-shadow: 0px 0px 50px 0px #888888;
     border-radius: 5px;
+    .logo-container-link
+      display: flex;
+      justify-content: center;
+      align-content: center;
     .logo-center
       margin-top: -150px;
       margin-left: auto;
       margin-right: auto;
       display: grid;
+      @media screen and (max-width: mobile) 
+        position: absolute;
+        top: 0px;
+        margin: 0px;
+        z-index: -1;
     button 
       background: button-green;
       color: white;
@@ -29,15 +38,17 @@
       justify-self: center;
       align-self: center;
       width: 150px;
+      margin-top: 20px;
       &:hover
         filter: brightness(120%)
         box-shadow: 0px 0px 5px 0px #888888;
-
     h1 
       font-weight: 400;
       text-align: center;
-      padding-bottom: 5px;
+      padding-bottom: 15px;
       border-bottom: 1px solid #ccc;
+      margin-top: 0px;
+      background: rgba(255, 255, 255, 0.6);
     form 
       display: grid;
       label
@@ -52,6 +63,14 @@
     width: 100%;
     z-index: 1;
     left: 0px;
+    @media screen and (max-width: mobile) 
+      z-index: 4;
+      height: auto;
+      bottom: 0px;
+      top: inherit;
+      ul
+        display: inline-grid;
+        margin: 0px;
     .bottom-content 
       background: rgba(0, 0, 0, 0.2);
       position: absolute;
@@ -61,6 +80,8 @@
       color: white;
       padding: 10px;
       box-sizing: border-box;
+      @media screen and (max-width: mobile) 
+        background: white;
       ul
         list-style: none;
         padding: 0px;

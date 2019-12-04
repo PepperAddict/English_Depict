@@ -1,12 +1,12 @@
+@import './basic.styl';
+
 .welcome-container 
   position: relative;
+  background-image: linear-gradient(to bottom, #ffe5bb, #ffe7c1, #ffe9c7, #ffecce, #ffeed4);
+  height: 100vmax;
   .home-nav 
     width: 100%;
     position: relative;
-    top: 0px;
-    right: 0px;
-    background-image: linear-gradient(to bottom, #ffe5bb, #ffe7c1, #ffe9c7, #ffecce, #ffeed4);
-
     #floating-cloud 
       z-index: 1;    
       canvas
@@ -31,16 +31,27 @@
         font-family: ff-tisa-web-pro, serif;
         font-weight: 700;
         font-style: italic;
+        box-sizing: border-box;
+        padding: 50px;
+        @media screen and (max-width: mobile) 
+          padding: 10px;
+          text-align: center;
+          font-size: 1rem;
       h3
         color: #616161;
         text-align: right;
         width: 100%;
-        margin-right: 50px;
         font-size: 16px;
+        padding: 10px;
+        box-sizing: border-box;
+        @media screen and (max-width: mobile) 
+          font-size: 14px;
         a
           color: #FF8800;
       img
         width: 500px;
+        @media screen and (max-width: mobile) 
+          width: 150px;
       nav
         padding:10px;
         z-index: 4
@@ -50,6 +61,9 @@
         grid-template-columns: auto auto;
         grid-gap: 10px;
         font-family: sophisto, sans-serif;
+        @media screen and (max-width: mobile)
+          display: inline-grid;
+          grid-template-columns: 1fr;
         a
           text-decoration: none;
           color: #ff5a00;

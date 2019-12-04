@@ -58,7 +58,7 @@ function LoginForm() {
 
   return (<div className="login-container">
     <div className="login-content">
-      <a href="/"><img className="logo-center" src="/images/logo-192.png" alt="logo" /></a>
+      <a href="/" className="logo-container-link"><img className="logo-center" src="/images/logo-192.png" alt="logo" /></a>
       <h1>Teacher Login</h1>
 
       <form onSubmit={(e) => handleLogin(e)}>
@@ -79,11 +79,12 @@ function LoginForm() {
           type="password"
           placeholder='password' />
 
-        <hr />
 
         <button className="login-button" type='submit'>Login</button>
       </form>
-      {error === 1 ? (<p className="error">The email: <b>{val.email}</b> is not in the system. Did you mean to register instead? <a href="/register">Click here</a> to register.</p>) :
+      <hr />
+      {error === 1 ? (<p className="error">The email: <i>{val.email}</i> is not in our system. Please check and try again.<br/>
+       <a href="/register">Did you mean to register?</a></p>) :
         error === 2 && <p className="error">Incorrect password. Please try again.</p>
       }
       
