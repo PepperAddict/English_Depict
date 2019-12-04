@@ -16,8 +16,8 @@ const client = new ApolloClient({
 
 // components
 import Welcome from './Welcome.jsx';
-import Login from './Login.jsx';
-import Register from './Regi.jsx';
+import Login from './Front/Login.jsx';
+import Register from './Front/Register.jsx';
 import Dashboard from './Dashboard.jsx';
 const RegWithClient = withApollo(Register);
 import StudentLogin from './StudentLogin.jsx';
