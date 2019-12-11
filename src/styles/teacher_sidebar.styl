@@ -1,0 +1,60 @@
+@import './basic.styl';
+
+.dashboard-sidebar
+  min-width: 300px;
+  background: darker-gray;
+  box-sizing: border-box;
+  padding: 35px 15px;
+  height: 100vh;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  .bottom-nav 
+    button 
+      background: none;
+      text-align: left;
+      border: 0px;
+      color: white;
+  .teacher-info
+    padding: 10px 10px 100px;
+    letter-spacing: 3px;
+    p
+      color: white;
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin: 0px
+    address
+      background: link-orange;
+      color: white;
+      border-radius: 50px;
+      box-sizing: border-box;
+      padding: 5px 15px;
+      margin: 0 10px 20px 10px;
+  nav
+
+    display: grid;
+    grid-row-gap: 10px;
+    img
+      margin-right: 10px;
+    a
+      display: flex;
+      align-items: center;
+    .dashboard-link 
+      font-size: 1.5rem;
+      font-weight: 800;
+      &:hover 
+        color: white;
+    .top-nav
+      li 
+        box-sizing: border-box;
+        padding: 20px 10px;
+        cursor: pointer;
+        @extend .bottom-dashed;
+        a 
+          font-weight: 800;
+          text-transform: uppercase;
+          display: grid;
+          grid-template-columns: 50px 1fr; 
+          color: white;
+        &:hover 
+          background: light-green;

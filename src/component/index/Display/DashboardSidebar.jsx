@@ -1,5 +1,11 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+const outlineLogo = require('../../../img/logo-outline.svg');
+const personIcon = require('../../../img/person.svg');
+const blogIcon = require('../../../img/pencil.svg');
+const taskIcon = require('../../../img/task.svg');
+const activityIcon = require('../../../img/activity.svg');
+
 
 DashboardSidebar.propTypes = {
   username: PropTypes.string, 
@@ -7,16 +13,23 @@ DashboardSidebar.propTypes = {
 };
 
 export default function DashboardSidebar(props) {
+
   return (
     <Fragment>
-      <div className="teacherInfo">
+      <div className="teacher-info">
         <p>@{props.username}</p>
-        <small>{props.email}</small>
+        <address>{props.email}</address>
       </div>
       <nav>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/dashboard/add_student">go to add student</a>
-        <a href="/dashboard/task">Tasks</a>
+        <a href="/dashboard" className="dashboard-link"><img src={outlineLogo} alt="logo to dashboard"/> Dashboard</a>
+
+        <ul className="top-nav">
+          <li><a href="/dashboard/add_student"><img src={personIcon} alt="Go to Student" /> Student</a></li>  
+          <li><a href="/dashboard/task"><img src={taskIcon} alt="Go to Tasks" /> Tasks</a></li>
+          <li><a href="/"><img src={blogIcon} alt="Go to Blog" /> Blog</a></li>
+          <li><a href="/"><img src={activityIcon} alt="Go to Activity" /> Activity</a></li>
+        </ul>
+                
       </nav>
     </Fragment>
   );

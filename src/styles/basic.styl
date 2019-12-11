@@ -1,11 +1,19 @@
 @import url("https://use.typekit.net/rbt3pze.css");
 
 dark-gray = #6A6A6A;
+darker-gray = #292929;
 light-green = #0f5;
 button-green = #00d41e;
 link-orange = #f25500;
 font-gray = #414141;
 mobile = 530px;
+
+.bottom-dashed {
+  background-image: linear-gradient(90deg,#444 33%,hsla(0,0%,100%,0) 0);
+  background-position: bottom;
+  background-size: 8px 1px;
+  background-repeat: repeat-x;
+}
 
 body, html {
   font-family: roboto;
@@ -18,6 +26,12 @@ button {
   border: 1px solid #ccc;
   font-size: 1rem;
   text-transform: uppercase;
+}
+
+ul {
+  margin: 0px;
+  padding: 0;
+  list-style: none;
 }
 
 hr {
@@ -42,6 +56,7 @@ a {
   text-decoration: none;
   color: link-orange;
 }
+
 .error {
   text-align: center;
   background: #ffea00;

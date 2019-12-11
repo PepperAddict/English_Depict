@@ -5,10 +5,13 @@ import { getUserByID } from '../../query/query';
 import AddStudent from './AddStudent.jsx';
 import '../../styles/basic.styl';
 import '../../styles/teacherDashboard.styl';
+import '../../styles/teacher_sidebar.styl';
 import DashboardSidebar from './Display/DashboardSidebar.jsx';
 import IndividualStudent from './Content/IndividualStudent.jsx';
 import Tasks from './Content/TeacherTasks.jsx';
 import PropTypes from 'prop-types';
+const settingsLogo = require('../../img/settings.svg');
+const logoutLogo = require('../../img/logout.svg');
 
 ShowStudent.propTypes = {
   student: PropTypes.object,
@@ -122,7 +125,13 @@ export default function Dashboard() {
     <div className="dashboard-container">
       <div className="dashboard-sidebar">
         {data && <DashboardSidebar username={data.getUser.username} email={data.getUser.email}/> }
-        <button type="button" onClick={logout} >Logout</button>
+        <nav className="bottom-nav">
+
+            <button type="button"><span><img src={settingsLogo} alt="Go to Settings" /></span> Settings</button>
+            <button type="button" onClick={logout}><span><img src={logoutLogo} alt="Logout" /></span> Logout</button>
+
+        </nav>
+        
       </div>
 
       {loading ? <p>loading</p> : error ? <p>{error.message}</p> : (
