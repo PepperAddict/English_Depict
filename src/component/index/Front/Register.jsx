@@ -92,8 +92,7 @@ function CheckEmail(props) {
 
         <label htmlFor="login-passwordTwo">Verify Password</label>
         <input id="login-passwordTwo" defaultValue={account.passwordTwo} onChange={updateFields} name='passwordTwo' type="password" placeholder={(account.passwordTwo) ? account.passwordTwo : 'Verify your Password'} required/>
-
-
+        
         <button className="login-button" type='submit'>Submit Registration</button>
 
       </form>

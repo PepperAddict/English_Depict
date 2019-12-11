@@ -5,7 +5,7 @@ import { getUserByID } from '../../query/query';
 import AddStudent from './AddStudent.jsx';
 import '../../styles/basic.styl';
 import '../../styles/teacherDashboard.styl';
-import DashboardSidebar from './DashboardSidebar.jsx';
+import DashboardSidebar from './Display/DashboardSidebar.jsx';
 import IndividualStudent from './Content/IndividualStudent.jsx';
 import Tasks from './Content/TeacherTasks.jsx';
 import PropTypes from 'prop-types';
