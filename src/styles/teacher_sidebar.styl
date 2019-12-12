@@ -6,7 +6,8 @@
   box-sizing: border-box;
   padding: 35px 15px;
   height: 100vh;
-  position: relative;
+  position: sticky;
+  top: 0px;
   display: grid;
   grid-template-rows: auto 1fr auto;
   .bottom-nav 
@@ -15,6 +16,13 @@
       text-align: left;
       border: 0px;
       color: white;
+      display:flex;
+      align-items: center;
+      font-weight: 600;
+      &:hover 
+        color: link-orange;
+      span 
+        width: 45px;
   .teacher-info
     padding: 10px 10px 100px;
     letter-spacing: 3px;

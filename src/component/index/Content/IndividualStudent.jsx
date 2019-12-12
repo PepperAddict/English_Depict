@@ -1,38 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
 import { getStudentInfo } from '../../../query/query';
-import Comments from './TeacherBlogComments.jsx';
-import { ADD_COMMENT, UPDATE_MESSAGE } from '../../../mutation/mutation';
 import PropTypes from 'prop-types';
-
-AddComment.propTypes = {
-  blog_id: PropTypes.number,
-  teacher_id: PropTypes.number
-};
-
-function AddComment(props) {
-  const [addComment] = useMutation(ADD_COMMENT);
-  const [content, setContent] = useState('');
-  const submit = e => {
-    e.preventDefault();
-    const commentInfo = {
-      blog_id: props.blog_id,
-      student_id: null,
-      teacher_id: parseInt(props.teacher_id),
-      content: content
-    };
-    addComment({ variables: { input: commentInfo } }).then(() => {
-      location.reload();
-    }).then((err) => {
-      console.log(err);
-    });
-  };
-  return (<form onSubmit={submit}>
-    <label htmlFor="add-comment">Add Comment</label>
-    <textarea id="add-comment" onChange={e => setContent(e.target.value)} />
-    <button type="submit">submit comment</button>
-  </form>);
-}
+import IndividualStudentBlog from './IndividualStudentBlog.jsx';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { UPDATE_MESSAGE } from '../../../mutation/mutation';
 
 StudentProfile.propTypes = {
   data: PropTypes.object,
@@ -73,12 +44,15 @@ function StudentProfile(props) {
 
       <h2>Blogs</h2>
       {props.data.blogs.length > 0 ? props.data.blogs.map((blog, key) => {
-        const blog_id = parseInt(blog.blog_id);
-        return <div key={blog.blog_id} index={key}><b>{blog.subject}</b><p>{blog.content}</p>
-          {blog.comments.length > 0 &&
-            <Comments comments={blog.comments} />}
-          <AddComment blog_id={blog_id} teacher_id={props.teacher_id} />
-        </div>;
+
+        return <IndividualStudentBlog
+          key={key}
+          blog_id={blog.blog_id}
+          index={key}
+          subject={blog.subject}
+          content={blog.content}
+          comments={blog.comments}
+          teacher_id={props.teacher_id} />
       }) : 'No Blog'}
     </div>
   );
