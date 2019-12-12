@@ -1,48 +1,55 @@
-import React, {useState, useEffect, Fragment} from 'react';
-import {ADD_BLOG} from '../../../mutation/mutation';
-import {useMutation} from '@apollo/react-hooks';
-import '../../../styles/lesson.styl'
+import React, { useState } from 'react';
+import { ADD_BLOG } from '../../../mutation/mutation';
+import { useMutation } from '@apollo/react-hooks';
+import '../../../styles/lesson.styl';
+import PropType from 'prop-types';
+
+AddBlog.propTypes = {
+  student_id: PropType.number,
+  name: PropType.string
+};
 
 
 export default function AddBlog(props) {
   const [blog, setBlog] = useState({
     student_id: props.student_id
   });
-  const [addBlog, {blogData}] = useMutation(ADD_BLOG)
+  const [addBlog] = useMutation(ADD_BLOG);
 
   const submitBlog = (e) => {
 
     e.preventDefault();
-    addBlog({variables: {input: blog}}).then((e) => {
-      window.location.replace('/student/blogs')
-    })
-    .catch((e) => {
-      console.log(e)
-    })
 
-  }
+    // set up a new string where a new line is wrapped in a <p> element and remove all
+    // html elements!
+    let newtext = blog.content.replace(/<\/?[^>]+(>|$)/g, '');
 
-  const updateFields = (e) => {
-    setBlog({
-      ...blog, [e.target.name]: e.target.value || ''
-    })
-  }
+    const blogObject = {
+      student_id: blog.student_id,
+      subject: blog.subject,
+      content: newtext
+    };
+    addBlog({ variables: { input: blogObject } }).then(() => {
+      window.location.replace('/student/blogs');
+    }).catch((e) => {
+      console.log(e);
+    });
+
+  };
+
+  const updateFields = (e) => { setBlog({ ...blog, [e.target.name]: e.target.value || '' }); };
 
   return (
     <div className="blog-container">
-      <h2>Hello {props.name}</h2>
-      <h3> What would you like to write about today?</h3>
+      <h2> What would you like to write about, {props.name}?</h2>
       <form onSubmit={submitBlog}>
-      <button className="blog-button" type="submit">Publish Blog</button>
-      <label htmlFor="subject"><p>Subject</p></label>
-      <input id="subject" onChange={updateFields} name="subject" placeholder="subject" /> 
-
-      <label htmlFor="content"><p>Content</p></label>
-      <textarea id="content" onChange={updateFields} name="content" placeholder="" />
-
-      
+        <button className="blog-button" type="submit">Publish Blog</button>
+        <label htmlFor="subject"><p>Subject</p></label>
+        <input id="subject" onChange={updateFields} name="subject" placeholder="subject" />
+        <label htmlFor="content"><p>Content</p></label>
+        <textarea id="content" onChange={updateFields} name="content" placeholder="" />
       </form>
     </div>
 
-  )
-  }
+  );
+}

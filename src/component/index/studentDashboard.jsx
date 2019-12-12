@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { cookieParser } from '../../helpers';
-const id = cookieParser('student_id', true);
+const id = parseInt(cookieParser('student_id', true));
 import { getStudentInfo } from '../../query/query';
 import AddBlog from './Content/AddBlog.jsx';
-import ViewBlogs from './ViewBlogs.jsx';
+import ViewBlogs from './Content/ViewBlogs.jsx';
 import Vocabulary from './Vocab/Vocabulary.jsx';
 import VocabBucket from './Vocab/VocabBucket.jsx';
 import StudentSettings from './StudentSettings.jsx';

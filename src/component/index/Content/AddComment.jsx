@@ -20,13 +20,11 @@ export default function AddComment(props) {
       teacher_id: parseInt(props.teacher_id),
       content: content
     };
-    // addComment({ variables: { input: commentInfo } }).then(() => {
-    //   location.reload();
-    // }).then((err) => {
-    //   console.log(err);
-    // });
-    console.log(content);
-
+    addComment({ variables: { input: commentInfo } }).then(() => {
+      location.reload();
+    }).then((err) => {
+      console.log(err);
+    });
   };
   return (
     <form onSubmit={submit}>

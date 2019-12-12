@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { getBlogByID } from '../../../query/query';
 import {EDIT_BLOG} from '../../../mutation/mutation'
-import ViewBlogs from '../ViewBlogs.jsx'
+import ViewBlogs from './ViewBlogs.jsx'
 
 export default function EditBlog(props) {
 

@@ -2,9 +2,10 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { getBlogByID, getStudentInfoSimple, getUserByIDSimple } from '../../../query/query';
 import { ADD_COMMENT } from '../../../mutation/mutation';
-import ViewBlogs from '../ViewBlogs.jsx';
+import ViewBlogs from './ViewBlogs.jsx';
 import moment from 'moment';
 import PropTypes from 'prop-types';
+import BlogContent from './BlogContent.jsx';
 
 CommentContent.propTypes = {
   addVocabulary: PropTypes.func,
@@ -90,7 +91,8 @@ export default function EditBlog(props) {
         <Fragment>
           <div className="blog-entry">
             <h2>{data.getBlogByID[0].subject}</h2>
-            <p>{data.getBlogByID[0].content}</p>
+            
+            <BlogContent content={data.getBlogByID[0].content} addVocabulary={props.addVocabulary}/>
           </div>
           {data.getBlogByID[0].comments.length === 1 ? '1 Comment' : data.getBlogByID[0].comments.length > 1 ? data.getBlogByID[0].comments.length + ' Comments' : data.getBlogByID[0].comments.length === 0 && 'No Comments'}
           {data.getBlogByID[0].comments.length >= 1 && data.getBlogByID[0].comments.map((comments, key) => {
