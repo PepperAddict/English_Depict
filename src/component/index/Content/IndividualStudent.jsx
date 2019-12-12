@@ -21,7 +21,7 @@ function StudentProfile(props) {
       .then(() => {
         location.reload();
       }).catch((err) => console.log(err));
-  }
+  };
 
   return (
     <div>
@@ -52,7 +52,7 @@ function StudentProfile(props) {
           subject={blog.subject}
           content={blog.content}
           comments={blog.comments}
-          teacher_id={props.teacher_id} />
+          teacher_id={props.teacher_id} />;
       }) : 'No Blog'}
     </div>
   );
@@ -82,7 +82,11 @@ export default function IndividualStudent(props) {
 
   return (
     <Fragment>
-      {myStudent && data ? <StudentProfile data={data.getStudentByID[0]} teacher_id={props.teacher_id} student_id={student_id} /> : null}
+      {loading ? <p>loading</p> : error ? <p>error</p> : myStudent && data ? 
+        <StudentProfile 
+          data={data.getStudentByID[0]} 
+          teacher_id={props.teacher_id} 
+          student_id={student_id} /> : null}
     </Fragment>
   );
 }

@@ -24,36 +24,36 @@ export default function Dashboard() {
 
     let pathname = window.location.pathname;
     switch (true) {
-      case pathname.includes('add_student'):
-        setInfo({
-          buttonAdd: true
-        });
-        break;
-      case pathname.includes('student_posts'):
-        setInfo({
-          posts: true
-        });
-        break;
-      case pathname.includes('settings'):
-        setInfo({
-          settings: true
-        });
-        break;
-      case pathname.includes('student-info'):
-        setInfo({
-          student: true
-        });
-        break;
-      case pathname.includes('task'):
-        setInfo({
-          task: true
-        });
-        break;
-      case pathname.includes('student-mode'):
-        setInfo({
-          studentMode: true
-        });
-        break;
+    case pathname.includes('add_student'):
+      setInfo({
+        buttonAdd: true
+      });
+      break;
+    case pathname.includes('student_posts'):
+      setInfo({
+        posts: true
+      });
+      break;
+    case pathname.includes('settings'):
+      setInfo({
+        settings: true
+      });
+      break;
+    case pathname.includes('student-info'):
+      setInfo({
+        student: true
+      });
+      break;
+    case pathname.includes('task'):
+      setInfo({
+        task: true
+      });
+      break;
+    case pathname.includes('student-mode'):
+      setInfo({
+        studentMode: true
+      });
+      break;
     }
   }, []);
   const clearCookies = (keyName = null) => {
