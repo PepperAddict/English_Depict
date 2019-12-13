@@ -39,7 +39,7 @@ module.exports = pgPool => {
     },
     getAllBlogs(student_id, limit) {
       return pgPool.query(`
-      select * from blogs where student_id=${student_id} order by created_at desc`)
+      select * from blogs where student_id=${student_id} order by created_at desc limit 10`)
         .then(res => {
           return res.rows;
         }).catch((err) => console.log(err));

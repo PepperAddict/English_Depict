@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import IndividualStudentBlog from './IndividualStudentBlog.jsx';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { UPDATE_MESSAGE } from '../../../mutation/mutation';
+import '../../../styles/teacher_dashboard_student.styl';
 
 StudentProfile.propTypes = {
   data: PropTypes.object,
@@ -24,14 +25,14 @@ function StudentProfile(props) {
   };
 
   return (
-    <div>
-
+    <div className="individual-student">
       <div className="avatar">
         <img className="avatar-image" src={props.data.avatar} alt="Student's avatar" />
-
       </div>
+      <center><h1>{props.data.name}</h1></center>
       <form onSubmit={submitMessage}>
-        <label htmlFor="message">Message</label>
+        <label htmlFor="message">
+          <h2>Welcome Message</h2></label>
         <input id="message" defaultValue={message ? message : 'enter a message for ' + props.data.name} onChange={e => setMessage(e.target.value)} />
         <button type="submit">Submit Message</button>
       </form>
