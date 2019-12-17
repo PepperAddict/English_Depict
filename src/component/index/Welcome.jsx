@@ -20,7 +20,7 @@ console.dir(logoImage)
             <a href="/login">Teacher Login</a> 
             <a href="/student_login">Student Login</a>
           </nav>
-          <h1>The place to practice English and track of progress.</h1>
+          <h1>The place to practice English and track progress.</h1>
         </div>
         <HeroBG />
         
