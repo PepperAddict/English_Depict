@@ -12,11 +12,13 @@ import EditBlog from './Content/EditBlog.jsx';
 import ViewComments from './Content/Comments.jsx';
 import '../../styles/studentdashboard.styl';
 import moment from 'moment';
+import Sidebar from './Display/Student_DashboardSidebar.jsx';
 const defaultImage = require('../images/no-pic.png');
 
 
 export default function StudentDashboard() {
-  const currentDate = moment().format('dddd, MMMM Do YYYY');
+  const todaysdate = moment();
+  const currentDate = todaysdate.format('dddd, MMMM Do YYYY');
   const [dupeWordt, setDupeWord] = useState('');
   const { loading, error, data } = useQuery(getStudentInfo, { variables: { student_id: id } });
   const student = data ? data.getStudentByID[0] : false;
@@ -25,38 +27,45 @@ export default function StudentDashboard() {
     newVocab: new Array()
   });
 
+  const [specialDay, setSpecialDay] = useState(null);
+
   useEffect(() => {
+    //Special Day 
+    var eventdate = moment('2019-12-25');
+    setSpecialDay(eventdate.diff(todaysdate, 'days'));
+
+
     let pathname = window.location.pathname;
     switch (true) {
-    case pathname.includes('add_blog'):
-      setDashboard({
-        ...dashboard, options: 'addblog'
-      });
-      break;
-    case pathname.includes('blogs'):
-      setDashboard({
-        ...dashboard, options: 'blogs'
-      });
-      break;
-    case pathname.includes('settings'):
-      setDashboard({
-        ...dashboard, options: 'settings'
-      });
-      break;
-    case pathname.includes('edit-blog'):
-      setDashboard({
-        ...dashboard, options: 'edit-blog'
-      });
-      break;
-    case pathname.includes('view-comments'):
-      setDashboard({
-        ...dashboard, options: 'view-comments'
-      });
-      break;
-    default:
-      setDashboard({
-        ...dashboard, options: 'welcome'
-      });
+      case pathname.includes('add_blog'):
+        setDashboard({
+          ...dashboard, options: 'addblog'
+        });
+        break;
+      case pathname.includes('blogs'):
+        setDashboard({
+          ...dashboard, options: 'blogs'
+        });
+        break;
+      case pathname.includes('settings'):
+        setDashboard({
+          ...dashboard, options: 'settings'
+        });
+        break;
+      case pathname.includes('edit-blog'):
+        setDashboard({
+          ...dashboard, options: 'edit-blog'
+        });
+        break;
+      case pathname.includes('view-comments'):
+        setDashboard({
+          ...dashboard, options: 'view-comments'
+        });
+        break;
+      default:
+        setDashboard({
+          ...dashboard, options: 'welcome'
+        });
     }
   }, []);
 
@@ -83,7 +92,7 @@ export default function StudentDashboard() {
     clearCookies('student_id');
     clearCookies('student_key');
     location.replace('/');
-    
+
   };
 
   const clearCookies = (keyName = null) => {
@@ -100,42 +109,45 @@ export default function StudentDashboard() {
       });
     }
   };
-  
+
   return (
     <div className="student-container">
-      <nav className="student-sidebar">
-        <a href="/student">Dashboard</a>
-        <a href="/student/add_blog">Add a Blog</a>
-        <a href="/student/blogs">View Blog</a>
-        <a href="/student/settings">Settings</a>
+      <div className="sidebar">
+        <Sidebar />
         <button type="button" onClick={logout}>Logout</button>
-      </nav>
-      {loading ? 'loading' : error ? 'error' :
-        data && dashboard.options === 'welcome' ? (
+      </div>
 
-          <div className="welcome-hero"> <span className="avatar">
-            <img className="avatar-image" src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : defaultImage.src} alt={data.getStudentByID[0].name + ' avatar'} />
-          </span>
-          <h1>Welcome <strong>{student.name? student.name : student.username}</strong>!</h1>
-          <small>student:{student.username}</small>
-          <h2>Today is <strong>{currentDate}</strong></h2>
 
-          {data.getStudentByID[0].message && 
-          <h2 className="message">❝{data.getStudentByID[0].message}❞</h2>}
-          </div>
-        ) :
-          data && dashboard.options === 'addblog' ? <AddBlog student_id={id} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} /> :
-            data && dashboard.options === 'blogs' ? <ViewBlogs student_id={id} addVocabulary={addVocabulary} blogs={data.getStudentByID[0].blogs}/> :
-              data && dashboard.options === 'settings' ? <StudentSettings student_id={id} avatar={data.getStudentByID[0].avatar} name={data.getStudentByID[0].name} /> :
-                data && dashboard.options === 'edit-blog' ? <EditBlog student_id={id} /> : 
-                  data && dashboard.options === 'view-comments' ? <ViewComments addVocabulary={addVocabulary} student_id={id}/> : null}
-      <div className="student-vocabulary">
-        {dashboard.vocabulary ?
-          <Vocabulary dupeWord={dupeWord} student_id={id} showVocab={showVocab} vocab={dashboard.vocabulary} allVocab={data.getStudentByID[0].vocabularies} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
-        {data ? <VocabBucket dupeWord={dupeWordt} student_id={id} showVocab={showVocab} vocab={data.getStudentByID[0].vocabularies} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
-        {dashboard.newVocab && dashboard.newVocab.map((word, key) => {
-          return <p className="new-vocab" key={key}> {word} <b>New!</b></p>;
-        })} </div>
-    </div>
+        {loading ? 'loading' : error ? 'error' :
+          data && dashboard.options === 'welcome' ? (
+
+            <div className="welcome-hero"> <span className="avatar">
+              <img className="avatar-image" src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : defaultImage.src} alt={data.getStudentByID[0].name + ' avatar'} />
+            </span>
+              <h1>Welcome <strong>{student.name ? student.name : student.username}</strong>!</h1>
+              <h2>Today is <strong>{currentDate}</strong></h2>
+
+              <h2 className="holiday-theme">{specialDay} Days until Christmas!</h2>
+
+              {data.getStudentByID[0].message &&
+                <h2 className="message">❝{data.getStudentByID[0].message}❞</h2>}
+            </div>
+          ) :
+            data && dashboard.options === 'addblog' ? <AddBlog student_id={id} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} /> :
+              data && dashboard.options === 'blogs' ? <ViewBlogs student_id={id} addVocabulary={addVocabulary} blogs={data.getStudentByID[0].blogs} /> :
+                data && dashboard.options === 'settings' ? <StudentSettings student_id={id} avatar={data.getStudentByID[0].avatar} name={data.getStudentByID[0].name} /> :
+                  data && dashboard.options === 'edit-blog' ? <EditBlog student_id={id} /> :
+                    data && dashboard.options === 'view-comments' ? <ViewComments addVocabulary={addVocabulary} student_id={id} /> : null}
+        <div className="student-vocabulary">
+          {dashboard.vocabulary ?
+            <Vocabulary dupeWord={dupeWord} student_id={id} showVocab={showVocab} vocab={dashboard.vocabulary} allVocab={data.getStudentByID[0].vocabularies} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
+          {data ? <VocabBucket dupeWord={dupeWordt} student_id={id} showVocab={showVocab} vocab={data.getStudentByID[0].vocabularies} definition={dashboard.definition} addVocabulary={addVocabulary} /> : ''}
+          {dashboard.newVocab && dashboard.newVocab.map((word, key) => {
+            return <p className="new-vocab" key={key}> {word} <b>New!</b></p>;
+          })} </div>
+      </div>
+
   );
+
+
 }

@@ -158,7 +158,11 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|jp?g|svg|gif)$/,
+        test: /\.svg$/,
+        loader: 'raw-loader'
+      },
+      {
+        test: /\.(png|jp?g|gif)$/,
         loader: 'url-loader'
       }
     ]
