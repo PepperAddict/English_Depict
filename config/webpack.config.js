@@ -157,12 +157,12 @@ module.exports = {
           },
         ]
       },
+      // {
+      //   test: /\.svg$/,
+      //   loader: 'raw-loader'
+      // },
       {
-        test: /\.svg$/,
-        loader: 'raw-loader'
-      },
-      {
-        test: /\.(png|jp?g|gif)$/,
+        test: /\.(png|jp?g|gif|svg)$/,
         loader: 'url-loader'
       }
     ]

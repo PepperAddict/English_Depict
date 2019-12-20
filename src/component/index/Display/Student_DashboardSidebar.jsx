@@ -9,9 +9,9 @@ import { createUseStyles } from 'react-jss';
 
 const svgColor = createUseStyles({
   svg: {
-    fill: 'green',
     stroke: 'green',
-    '& path': {
+    fill: 'green',
+    ' svg': {
       stroke: 'green'
     }
   }
@@ -23,17 +23,22 @@ export default function DashboardSidebar(props) {
 
   return (
     <Fragment>
-      <nav>
+      <nav className={svgIt.svg}>
         <a href="/student" className="dashboard-link">
-          <span className={svgIt.svg} dangerouslySetInnerHTML={{ __html: outlineLogo }} /> Dashboard</a>
+          <object className={svgIt.svg} type="image/svg+xml" data={outlineLogo} />
+           Dashboard
+        </a>
 
         <ul className="top-nav">
           <li><a href="/dashboard/task">
-            <span className={svgIt.svg} dangerouslySetInnerHTML={{ __html: taskIcon }} /> Tasks</a></li>
+
+            <object type="image/svg+xml" data={taskIcon} /> Tasks</a></li>
           <li><a href="/student/blogs">
-            <span className={svgIt.svg} dangerouslySetInnerHTML={{ __html: blogIcon }} /> View Blog</a></li>
+            <object type="image/svg+xml" data={blogIcon} /> View Blog</a></li>
           <li><a href="/student/blogs">
-            <span className={svgIt.svg} dangerouslySetInnerHTML={{ __html: activityIcon }} />Tasks</a></li>
+
+            <object type="image/svg+xml" data={activityIcon} />
+            Tasks</a></li>
         </ul>
 
       </nav>

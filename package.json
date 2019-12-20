@@ -6,6 +6,7 @@
     "name": "Pepper",
     "email": "jenearly@gmail.com"
   },
+  "main": "index.html",
   "license": "mit",
   "scripts": {
     "build": "webpack --config config/webpack.config.js",

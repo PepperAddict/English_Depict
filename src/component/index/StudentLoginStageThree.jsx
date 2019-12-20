@@ -3,6 +3,9 @@ import { useMutation } from '@apollo/react-hooks';
 import { ADD_NEWPW } from '../../mutation/mutation';
 import { encryptMe, signMe } from '../../helpers';
 
+//images 
+const icecream = require('../../img/icons/icecream.svg');
+
 function ImageForm({ pass, pictureSubmit, itemClick }) {
 
   return (
