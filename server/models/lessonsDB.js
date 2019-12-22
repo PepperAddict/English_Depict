@@ -154,12 +154,15 @@ module.exports = pgPool => {
           return res.rows[0];
         }).catch(err => console.log(err));
     },
-    getTasks(id) {
+    getTasks(student_id) {
       return pgPool.query(`
-      select * from tasks where student_id=${id}`)
+      select * from tasks where student_id= $1`, [student_id])
       .then((res => {
-        return res.rows;
+        if (res.rows) {
+          return res.rows;
+        }
       }))
+      .catch((err) => console.log(err))
     }
   };
 };
