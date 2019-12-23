@@ -13,6 +13,7 @@ import ViewComments from './Content/Comments.jsx';
 import '../../styles/studentdashboard.styl';
 import moment from 'moment';
 import Sidebar from './Display/Student_DashboardSidebar.jsx';
+import StudentTasks from './Content/StudentTasks.jsx';
 const defaultImage = require('../images/no-pic.png');
 
 
@@ -110,6 +111,7 @@ export default function StudentDashboard() {
     }
   };
 
+
   return (
     <div className="student-container">
       <div className="sidebar">
@@ -131,6 +133,8 @@ export default function StudentDashboard() {
 
               {data.getStudentByID[0].message &&
                 <h2 className="message">❝{data.getStudentByID[0].message}❞</h2>}
+              <StudentTasks tasks={data.getStudentByID[0].tasks}/>
+              
             </div>
           ) :
             data && dashboard.options === 'addblog' ? <AddBlog student_id={id} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} /> :

@@ -101,6 +101,18 @@ query getStudentByID($student_id: ID!){
       vocab_id
       vocabulary_word
     }
+    tasks {
+      task_id
+      task_code
+      task_date
+      entry
+      updated
+      started_at
+      completed_at
+      accepted
+      message
+      viewed
+    }
     blogs {
       blog_id, 
       subject,
