@@ -1,0 +1,21 @@
+# version: 2.1
+# orbs:
+#   aws-code-deploy: circleci/aws-code-deploy@1.0.0
+# workflows:
+#   deploy_application:
+#     jobs:
+#       - aws-code-deploy/deploy:
+#           application-name: English_Depict
+#           deployment-group: English_Group
+#           service-role-arn: myDeploymentGroupRoleARN
+#           bundle-bucket: myApplicationS3Bucket
+#           bundle-key: myS3BucketKey
+
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.9.0
+    
+      steps:
+        - run: npm install
