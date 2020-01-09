@@ -35,7 +35,7 @@ export default function DashboardSidebar(props) {
             <object type="image/svg+xml" data={taskIcon} /> Tasks</a></li>
           <li><a href="/student/blogs">
             <object type="image/svg+xml" data={blogIcon} /> View Blog</a></li>
-          <li><a href="/student/addblog">
+          <li><a href="/student/add_blog">
 <object type="image/svg+xml" data={activityIcon} />
             Add blog</a></li>
         </ul>
