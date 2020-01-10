@@ -32,7 +32,7 @@ export default function StudentDashboard() {
 
   useEffect(() => {
     //Special Day 
-    var eventdate = moment('2019-12-25');
+    var eventdate = moment('2020-2-14');
     setSpecialDay(eventdate.diff(todaysdate, 'days'));
 
 
@@ -129,7 +129,7 @@ export default function StudentDashboard() {
               <h1>Welcome <strong>{student.name ? student.name : student.username}</strong>!</h1>
               <h2>Today is <strong>{currentDate}</strong></h2>
 
-              <h2 className="holiday-theme">{specialDay} Days until Christmas!</h2>
+              <h2 className="holiday-theme">{specialDay} Days until Valentine's day! ❤️</h2>
 
               {data.getStudentByID[0].message &&
                 <h2 className="message">❝{data.getStudentByID[0].message}❞</h2>}
