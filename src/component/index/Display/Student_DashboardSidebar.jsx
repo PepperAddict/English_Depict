@@ -26,7 +26,7 @@ export default function DashboardSidebar(props) {
       <nav className={svgIt.svg}>
         <a href="/student" className="dashboard-link">
           <object className={svgIt.svg} type="image/svg+xml" data={outlineLogo} />
-           Dashboard
+          Dashboard
         </a>
 
         <ul className="top-nav">
@@ -36,8 +36,10 @@ export default function DashboardSidebar(props) {
           <li><a href="/student/blogs">
             <object type="image/svg+xml" data={blogIcon} /> View Blog</a></li>
           <li><a href="/student/add_blog">
-<object type="image/svg+xml" data={activityIcon} />
+            <object type="image/svg+xml" data={activityIcon} />
             Add blog</a></li>
+
+            <li><a href="/student/settings">Settings</a></li>
         </ul>
 
       </nav>
