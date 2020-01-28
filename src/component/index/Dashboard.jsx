@@ -89,7 +89,7 @@ export default function Dashboard() {
         <nav className="bottom-nav">
 
           <button type="button"><span><img src={settingsLogo} alt="Go to Settings" /></span> Settings</button>
-          <button type="button" onClick={logout}><span><img src={logoutLogo} alt="Logout" /></span> Logout</button>
+          <button id="logout" type="button" onClick={logout}><span><img src={logoutLogo} alt="Logout" /></span> Logout</button>
 
         </nav>
 

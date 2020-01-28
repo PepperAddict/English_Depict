@@ -17,8 +17,8 @@ console.dir(logoImage)
             <img src={logoImage.src} srcSet={logoImage.srcSet} alt="Talking Cloud Logo"/>
           </picture>
           <nav>
-            <a href="/login">Teacher Login</a> 
-            <a href="/student_login">Student Login</a>
+            <a class="teacherLogin" href="/login">Teacher Login</a> 
+            <a class="studentLogin" href="/student_login">Student Login</a>
           </nav>
           <h1>The place to practice English and track progress.</h1>
         </div>
