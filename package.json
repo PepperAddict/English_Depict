@@ -2,10 +2,7 @@
   "name": "english_depict",
   "description": "A place to help exercise your English skills.",
   "version": "0.0.0",
-  "author": {
-    "name": "Pepper",
-    "email": "jenearly@gmail.com"
-  },
+  "author": "Pepper <jenearly@gmail.com>",
   "main": "index.html",
   "license": "mit",
   "scripts": {
@@ -103,5 +100,6 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
     "nodemon": "^1.19.3"
-  }
+  },
+  "repository": "https://github.com/PepperAddict/English_Depict.git"
 }
