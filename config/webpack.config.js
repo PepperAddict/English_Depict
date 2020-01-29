@@ -20,7 +20,7 @@ const isDev = (process.env.NODE_ENV === 'development');
 module.exports = {
   entry: path.resolve(__dirname, '../src/index.js'),
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '*', '.js', '.jsx'],
     alias: {
       'react-dom': '@hot-loader/react-dom'
     }
@@ -60,6 +60,20 @@ module.exports = {
   }()),
   module: {
     rules: [
+      {
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "ts-loader"
+          }
+        ]
+      },
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        loader: "source-map-loader"
+      },
       {
         test: /\.(js|jsx)$/,
         use: [{
