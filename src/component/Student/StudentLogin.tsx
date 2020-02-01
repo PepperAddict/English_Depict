@@ -2,7 +2,7 @@ import React, {useState, useEffect, Fragment} from 'react';
 import {LoginStudent} from '../../query/query';
 import {useQuery, useApolloClient} from '@apollo/react-hooks';
 import '../../styles/student.styl';
-import StageThree from './StudentLoginStageThree';
+import StageThree from './StudentLoginStage3';
 
 
 function StageOne(props) {

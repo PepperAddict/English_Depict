@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Handle_Login } from '../../../query/query';
+import { Handle_Login } from '../../query/query';
 import { useApolloClient } from '@apollo/react-hooks';
-import { encryptMe, signMe } from '../../../helpers';
-import '../../../styles/login.styl';
+import { encryptMe, signMe } from '../../helpers';
+import '../../styles/login.styl';
 
 
 

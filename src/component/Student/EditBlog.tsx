@@ -1,15 +1,15 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { getBlogByID } from '../../../query/query';
-import {EDIT_BLOG} from '../../../mutation/mutation'
-import ViewBlogs from './ViewBlogs.jsx'
+import { getBlogByID } from '../../query/query';
+import {EDIT_BLOG} from '../../mutation/mutation'
+import ViewBlogs from '../teacher-student-shared/ViewBlogs'
 
 export default function EditBlog(props) {
 
   const [blog_id, setBlog_id] = useState(window.location.pathname.split('=')[1])
   const [owner, setOwner] = useState(false);
   const [blog, setBlog] = useState({})
-  const [editBlog, {blogged}] = useMutation(EDIT_BLOG);
+  const [editBlog] = useMutation(EDIT_BLOG);
 
   const { loading, error, data } = useQuery(getBlogByID, { variables: { blog_id: blog_id } })
   useEffect(() => {

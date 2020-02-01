@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { getBlogByID, getStudentInfoSimple, getUserByIDSimple } from '../../../query/query';
+import { getBlogByID, getStudentInfoSimple, getUserByIDSimple } from '../../query/query';
 
 import moment from 'moment';
 
@@ -45,15 +45,8 @@ function IndividualComments(props) {
 }
 
 
-//TODO: Once Teacher is more filled out work on this...
-
 export default function Comments(props) {
   const [comments, setComments] = useState(props.comments)
-
-
-  useEffect(() => {
-
-  }, [])
 
   
 

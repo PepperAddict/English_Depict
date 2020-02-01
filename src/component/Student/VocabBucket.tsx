@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { REMOVE_VOCABULARY } from '../../../mutation/mutation';
-import { ADD_VOCABULARY } from '../../../mutation/mutation';
-import '../../../styles/vocabulary.styl'
+import { REMOVE_VOCABULARY } from '../../mutation/mutation';
+import { ADD_VOCABULARY } from '../../mutation/mutation';
+import '../../styles/vocabulary.styl'
 function EachWord(props) {
   let defArray = props.def.split(' ')
   const addWord = e => {
@@ -34,7 +34,7 @@ function Dictionary(props) {
 }
 function ListBucket(props) {
   //the individual words that are in the database
-  const [removeVocab, { removed }] = useMutation(REMOVE_VOCABULARY);
+  const [removeVocab] = useMutation(REMOVE_VOCABULARY);
 
 
   const [word, addWord] = useState(props)

@@ -4,11 +4,11 @@ This is for View Blog in Student's Dashboard.
 
 import React, { useState, useEffect, Fragment } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { getAllBlogs } from '../../../query/query';
-import { getStudentInfo } from '../../../query/query';
+import { getAllBlogs } from '../../query/query';
+import { getStudentInfo } from '../../query/query';
 import moment from 'moment';
 import PropType from 'prop-types';
-import BlogContent from './BlogContent.jsx';
+import BlogContent from './BlogContent';
 
 IndividualBlog.propTypes = {
   student_id: PropType.number,
@@ -17,6 +17,7 @@ IndividualBlog.propTypes = {
   comment: PropType.array,
   editMe: PropType.bool
 };
+
 function IndividualBlog(props) {
   let author = props.student_id;
   let student = props.student_id;

@@ -1,9 +1,9 @@
 import React from 'react';
 // import ChatBox from './Chat/ChatBox.jsx';
 import HeroBG from './Hero';
-import '../../../styles/welcome.styl';
-const logoImage = require('../../../img/logo.png');
-require('../../../img/bubble.jpg');
+import '../../styles/welcome.styl';
+const logoImage = require('../../img/logo.png');
+require('../../img/bubble.jpg');
 
 export default function Welcome() {
 

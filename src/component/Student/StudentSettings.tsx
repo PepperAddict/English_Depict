@@ -1,30 +1,30 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
-import {useMutation} from '@apollo/react-hooks';
-import {UPDATE_STUDENT_AVATAR, UPDATE_STUDENT_NAME} from '../../mutation/mutation';
+import { useMutation } from '@apollo/react-hooks';
+import { UPDATE_STUDENT_AVATAR, UPDATE_STUDENT_NAME } from '../../mutation/mutation';
 
 
 function ChangeName(props) {
-  const [updateName, {nameData}] = useMutation(UPDATE_STUDENT_NAME);
+  const [updateName] = useMutation(UPDATE_STUDENT_NAME);
   const [newName, setnewName] = useState('')
   const onSubmit = e => {
     e.preventDefault();
-    updateName({variables: {input: {student_id: props.student_id, name: newName}}}).then((e) => {
+    updateName({ variables: { input: { student_id: props.student_id, name: newName } } }).then((e) => {
       props.setName(newName)
     })
   }
 
   return (
-  <form onSubmit={onSubmit}>
-  <label htmlFor="image-upload">Change name</label>
-  <input placeholder="name" onChange={e => {setnewName(e.target.value)}}/>
-  <button type="submit" value="Upload" >Submit Name</button>
-</form>)
+    <form onSubmit={onSubmit}>
+      <label htmlFor="image-upload">Change name</label>
+      <input placeholder="name" onChange={e => { setnewName(e.target.value) }} />
+      <button type="submit" value="Upload" >Submit Name</button>
+    </form>)
 }
 
 export default function StudentSettings(props) {
 
-  const [updateAvatar, {avatarData}] = useMutation(UPDATE_STUDENT_AVATAR);
+  const [updateAvatar] = useMutation(UPDATE_STUDENT_AVATAR);
   const [file, setFile] = useState('');
   const [filename, setFilename] = useState('Choose File');
   const [uploadedFile, setUploadedFile] = useState({})
@@ -51,11 +51,11 @@ export default function StudentSettings(props) {
           // clear percentage
           setTimeout(() => setUploadPercentage(0), 10000)
         }
-      }).then( (response) => {
+      }).then((response) => {
         if (response.status === 200) {
           const { image, location } = response.data;
 
-          updateAvatar({variables: {input: {student_id: props.student_id, avatar: location}}}).then((e) => {
+          updateAvatar({ variables: { input: { student_id: props.student_id, avatar: location } } }).then((e) => {
             setUploadedFile({ image, location });
           })
         } else {
@@ -68,7 +68,7 @@ export default function StudentSettings(props) {
         } else {
           setMessage('There was a problem with the server')
         }
-        
+
       })
     } else {
       setMessage('No image was uploaded. Please try again.')
@@ -79,20 +79,20 @@ export default function StudentSettings(props) {
 
   return (
     <div className="image-upload">
-<h1>Hello {name}</h1>
+      <h1>Hello {name}</h1>
       {typeof message != 'undefined' ? message : ''}
       <div className="avatar">
-          <img className="avatar-image" src={uploadedFile.location ? uploadedFile.location : props.avatar} />
-        </div>
+        <img className="avatar-image" src={uploadedFile.location ? uploadedFile.location : props.avatar} />
+      </div>
 
       <form onSubmit={onSubmit} encType="multipart/form-data">
         <label htmlFor="image-upload">Choose an Image</label>
         <input name="depictImage" type="file" id="image-upload" onChange={imageChange} />
         <button type="submit" value="Upload" >Submit Avatar</button>
       </form>
-      <div className="percent-bar" style={{width: percent + '%' }} >{percent}%</div>
-<hr></hr>
-      <ChangeName student_id={props.student_id} name={name} setName={setName}/>
+      <div className="percent-bar" style={{ width: percent + '%' }} >{percent}%</div>
+      <hr></hr>
+      <ChangeName student_id={props.student_id} name={name} setName={setName} />
     </div>
   )
 }

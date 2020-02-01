@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { ADD_BLOG } from '../../../mutation/mutation';
+import { ADD_BLOG } from '../../mutation/mutation';
 import { useMutation } from '@apollo/react-hooks';
-import '../../../styles/lesson.styl';
+import '../../styles/lesson.styl';
 import PropType from 'prop-types';
 
 AddBlog.propTypes = {

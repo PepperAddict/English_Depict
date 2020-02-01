@@ -14,7 +14,7 @@ export default function Hero() {
     const animation = gltf.animations[child];
 
     //texture
-    const imageTexture = require('../../images/gradientMap.jpg');
+    const imageTexture = require('../../img/3D/gradientMap.jpg');
     var texture = new THREE.TextureLoader().load(imageTexture.src);
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
@@ -75,7 +75,7 @@ export default function Hero() {
 
       //the meshes loaded and animate each child
 
-      var cloudOnePath = require('../../images/cloud1.glb');
+      var cloudOnePath = require('../../img/3D/cloud1.glb');
 
       loader.load(cloudOnePath, gltf => onLoad(gltf, 1), onProgress, onError);
       loader.load(cloudOnePath, gltf => onLoad(gltf, 2), onProgress, onError);

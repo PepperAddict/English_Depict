@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Unsplash from 'unsplash-js';
 import '../../styles/tasks.styl';
 const unsplash = new Unsplash({ accessKey: process.env.UNSPLASH_ACCESS });
-import NextStage from './Teacher_Image-Clue-Two.jsx';
+import NextStage from './Teacher_Image-Clue-Two';
 
 
 ListOfImages.propTypes = {

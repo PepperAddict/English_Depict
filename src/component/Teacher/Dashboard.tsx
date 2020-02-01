@@ -2,17 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { cookieParser } from '../../helpers';
 import { getUserByID } from '../../query/query';
-import AddStudent from './AddStudent.jsx';
+import AddStudent from './AddStudent';
 import '../../styles/basic.styl';
 import '../../styles/teacherDashboard.styl';
 import '../../styles/teacher_sidebar.styl';
 import DashboardSidebar from './DashboardSidebar';
-import IndividualStudent from './IndividualStudent.jsx';
-import ShowCard from './StudentCard.jsx';
-import Tasks from './TeacherTasks.jsx';
+import IndividualStudent from './IndividualStudent';
+import ShowCard from './StudentCard';
+import Tasks from './TeacherTasks';
 const settingsLogo = require('../../img/settings.svg');
 const logoutLogo = require('../../img/logout.svg');
-
 
 export default function Dashboard() {
   const userId = parseInt(cookieParser('userID', true));
@@ -100,7 +99,7 @@ export default function Dashboard() {
         <div className="dashboard-content">
           {info.buttonAdd ? (<div> {data.getUser.students.length > 0 ?
             (<div>
-              <ShowCard data={data.getUser} userId={userId} />
+              <ShowCard data={data.getUser} userId={userId} setStudentID={null} students={null}/>
               <AddStudent /></div>) : (<AddStudent />)} </div>) :
             info.settings ? (<p>meeeoooowww</p>) :
               info.task ? <Tasks students={data.getUser.students} teacher_data={data.getUser} /> :

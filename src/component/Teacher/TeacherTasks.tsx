@@ -1,14 +1,18 @@
+/*
+The teacher side of creating the task for the students
+so far image clue
+*/
+
 import React, { useState, Fragment, useEffect } from 'react';
-import ImageClue from './Teacher_Image-Clue.jsx';
-import PropTypes from 'prop-types';
-import TaskList from './TaskList.jsx';
+import ImageClue from './Teacher_Image-Clue';
+import TaskList from './ShowTaskList';
 
-Tasks.propTypes = {
-  students: PropTypes.array,
-  teacher_data: PropTypes.object
-};
+interface TaskPropTypes{
+  students: any, 
+  teacher_data: any
+}
 
-export default function Tasks(props) {
+export default function Tasks(props: TaskPropTypes) {
   const [students] = useState(props.students);
   const [task, setTask] = useState('task');
 

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { getBlogByID, getStudentInfoSimple, getUserByIDSimple } from '../../../query/query';
-import { ADD_COMMENT } from '../../../mutation/mutation';
-import ViewBlogs from './ViewBlogs.jsx';
+import { getBlogByID, getStudentInfoSimple, getUserByIDSimple } from '../../query/query';
+import { ADD_COMMENT } from '../../mutation/mutation';
+import ViewBlogs from './ViewBlogs';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import BlogContent from './BlogContent.jsx';
+import BlogContent from './BlogContent';
 
 CommentContent.propTypes = {
   addVocabulary: PropTypes.func,

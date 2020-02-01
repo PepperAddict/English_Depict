@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { getStudentInfo } from '../../query/query';
 import PropTypes from 'prop-types';
-import IndividualStudentBlog from '../teacher-student-shared/IndividualStudentBlog.jsx';
+import IndividualStudentBlog from '../teacher-student-shared/IndieStudentBlog';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { UPDATE_MESSAGE } from '../../mutation/mutation';
 import '../../styles/teacher_dashboard_student.styl';

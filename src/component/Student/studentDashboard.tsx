@@ -3,17 +3,17 @@ import { useQuery } from '@apollo/react-hooks';
 import { cookieParser } from '../../helpers';
 const id = parseInt(cookieParser('student_id', true));
 import { getStudentInfo } from '../../query/query';
-import AddBlog from './Content/AddBlog.jsx';
-import ViewBlogs from './Content/ViewBlogs.jsx';
-import Vocabulary from './Vocab/Vocabulary.jsx';
-import VocabBucket from './Vocab/VocabBucket.jsx';
-import StudentSettings from './StudentSettings.jsx';
-import EditBlog from './Content/EditBlog.jsx';
-import ViewComments from './Content/Comments.jsx';
+import AddBlog from './AddBlog';
+import ViewBlogs from '../teacher-student-shared/ViewBlogs';
+import Vocabulary from './Vocabulary';
+import VocabBucket from './VocabBucket';
+import StudentSettings from './StudentSettings';
+import EditBlog from './EditBlog';
+import ViewComments from '../teacher-student-shared/Comments';
 import '../../styles/studentdashboard.styl';
 import moment from 'moment';
-import Sidebar from './Display/Student_DashboardSidebar.jsx';
-import StudentTasks from './Content/StudentTasks.jsx';
+import Sidebar from './Student_DashboardSidebar';
+import StudentTasks from './StudentTasks';
 const defaultImage = require('../images/no-pic.png');
 
 

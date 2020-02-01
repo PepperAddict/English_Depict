@@ -4,25 +4,33 @@ To show a list of tasks:
 Sort by date
 */
 
-import React, { useState, useEffect, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, Fragment } from 'react';
 import moment from 'moment';
 
-//taskInfo needs to reflect for different task types. Right now it's just image clue.
-function TaskInfo(props) {
+interface TaskInfoProps {
+  entry: any,
+  what: string
+}
+
+function TaskInfo(props: TaskInfoProps) {
   const [taskType] = useState(props.what);
   return (<Fragment>
-    {taskType === 'CIC' ?
+    {/* for now only capture the image */}
+    {taskType === 'CIC' &&
       <img src={props.entry.clue_image.urls.thumb} alt={props.entry.clue_image.alt_description} />
-      : null
 
     }
   </Fragment>
   )
 }
 
-function Tasks(props) {
-  console.log(props);
+interface TaskPropTypes {
+  task: any,
+  student_name: string,
+  key: number
+}
+
+function Tasks(props: TaskPropTypes) {
   return (
     <Fragment>
       {props.task.map((task, key) => {
@@ -37,11 +45,11 @@ function Tasks(props) {
   )
 }
 
-TaskList.propTypes = {
-  students: PropTypes.array
+interface TaskListsProp{
+  students: string
 }
 
-export default function TaskList(props) {
+export default function TaskList(props: TaskListsProp) {
   const [students] = useState(props.students);
   return (<div className="task-container">
     {students.map((student, key) => {

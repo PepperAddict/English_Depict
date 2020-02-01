@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import { ADD_REGISTRATION } from '../../../mutation/mutation';
-import Login from './Login.jsx';
-import '../../../styles/register.styl';
+import { ADD_REGISTRATION } from '../../mutation/mutation';
+import Login from './Login';
+import '../../styles/register.styl';
 import PropTypes from 'prop-types';
 
 /*

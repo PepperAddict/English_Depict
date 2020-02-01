@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { getVocabularyByID } from '../../../query/query';
-import { ADD_VOCABULARY } from '../../../mutation/mutation';
+import { getVocabularyByID } from '../../query/query';
+import { ADD_VOCABULARY } from '../../mutation/mutation';
 
 function ShowDef(props) {
   let definitionArray = props.definition.split(' ')
@@ -22,7 +22,7 @@ export default function Vocabulary(props) {
   })
 
 
-  const [addVocab, { vocabulary }] = useMutation(ADD_VOCABULARY);
+  const [addVocab] = useMutation(ADD_VOCABULARY);
 
   const closeIt = e => {
     e.preventDefault();

@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import Comments from './TeacherBlogComments.jsx';
-import AddComment from './AddComment.jsx';
-import BlogContent from './BlogContent.jsx';
+import Comments from '../Teacher/TeacherBlogComments';
+import AddComment from './AddComment';
+import BlogContent from './BlogContent';
 import PropTypes from 'prop-types';
 
-IndividualStudentBlog.propTypes = {
-  teacher_id: PropTypes.number,
-  index: PropTypes.number
-};
+interface IndividualStudentBlogProps {
+  teacher_id: number,
+  index: number
+}
 
-export default function IndividualStudentBlog(props) {
+
+export default function IndividualStudentBlog(props: IndividualStudentBlogProps) {
   const [blog] = useState(props);
   const blog_id = parseInt(blog.blog_id);
   return (

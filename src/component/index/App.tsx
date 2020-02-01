@@ -12,13 +12,13 @@ const client = new ApolloClient({
 });
 
 // components
-import Welcome from './Front/Welcome';
-import Login from './Front/Login.jsx';
-import Register from './Front/Register.jsx';
+import Welcome from './Welcome';
+import Login from './Login';
+import Register from './Register';
 import Dashboard from '../Teacher/Dashboard';
 const RegWithClient = withApollo(Register);
-import StudentLogin from './StudentLogin.jsx';
-import StudentDashboard from './studentDashboard.jsx';
+import StudentLogin from '../Student/StudentLogin';
+import StudentDashboard from '../Student/studentDashboard';
 
 
 const App = () => (
