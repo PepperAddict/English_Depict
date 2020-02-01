@@ -5,9 +5,6 @@ import { ApolloProvider, Query, withApollo } from 'react-apollo';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 const client = new ApolloClient({
   uri: '/graphql',
-  onError: function(graphQLErrors, networkError ) {
-    graphQLErrors = null;
-  },
   headers: {
     'entrySauce': 'candy',
   },
@@ -15,10 +12,10 @@ const client = new ApolloClient({
 });
 
 // components
-import Welcome from './Welcome.jsx';
+import Welcome from './Front/Welcome';
 import Login from './Front/Login.jsx';
 import Register from './Front/Register.jsx';
-import Dashboard from './Dashboard.jsx';
+import Dashboard from '../Teacher/Dashboard';
 const RegWithClient = withApollo(Register);
 import StudentLogin from './StudentLogin.jsx';
 import StudentDashboard from './studentDashboard.jsx';
@@ -56,6 +53,6 @@ ReactDOM.render(
 );
 
 
-if (module.hot) {
-  module.hot.accept();
-}
+// if (module.hot) {
+//   module.hot.accept();
+// }

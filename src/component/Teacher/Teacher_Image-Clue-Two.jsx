@@ -6,7 +6,7 @@ database.
 import React, { useState, Fragment, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import {ADD_TASK} from '../../../mutation/mutation';
+import {ADD_TASK} from '../../mutation/mutation';
 import {useMutation} from '@apollo/react-hooks';
 
 NextStage.propTypes = {

@@ -4,7 +4,7 @@ This Task will use UnSplash API https://github.com/unsplash/unsplash-js
 import React, { useState, Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Unsplash from 'unsplash-js';
-import '../../../styles/tasks.styl';
+import '../../styles/tasks.styl';
 const unsplash = new Unsplash({ accessKey: process.env.UNSPLASH_ACCESS });
 import NextStage from './Teacher_Image-Clue-Two.jsx';
 

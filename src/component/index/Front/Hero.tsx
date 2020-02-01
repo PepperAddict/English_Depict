@@ -21,7 +21,7 @@ export default function Hero() {
 
     model.material = new THREE.MeshToonMaterial({
       gradientMap: texture,
-      shininess: false
+      shininess: 10
     });
 
 

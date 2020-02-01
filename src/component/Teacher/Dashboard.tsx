@@ -6,10 +6,10 @@ import AddStudent from './AddStudent.jsx';
 import '../../styles/basic.styl';
 import '../../styles/teacherDashboard.styl';
 import '../../styles/teacher_sidebar.styl';
-import DashboardSidebar from './Display/DashboardSidebar.jsx';
-import IndividualStudent from './Content/IndividualStudent.jsx';
-import ShowCard from './Display/StudentCard.jsx';
-import Tasks from './Content/TeacherTasks.jsx';
+import DashboardSidebar from './DashboardSidebar';
+import IndividualStudent from './IndividualStudent.jsx';
+import ShowCard from './StudentCard.jsx';
+import Tasks from './TeacherTasks.jsx';
 const settingsLogo = require('../../img/settings.svg');
 const logoutLogo = require('../../img/logout.svg');
 
@@ -21,7 +21,6 @@ export default function Dashboard() {
   const [student_id, setStudent_id] = useState(null);
 
   useEffect(() => {
-
     let pathname = window.location.pathname;
     switch (true) {
     case pathname.includes('add_student'):
@@ -56,6 +55,8 @@ export default function Dashboard() {
       break;
     }
   }, []);
+
+  //for clearing cookies during logout
   const clearCookies = (keyName = null) => {
     let expireDate = new Date();
     expireDate.setTime(expireDate.getTime() - 1);

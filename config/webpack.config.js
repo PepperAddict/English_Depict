@@ -21,9 +21,9 @@ module.exports = {
   entry: path.resolve(__dirname, '../src/index.js'),
   resolve: {
     extensions: ['.ts', '.tsx', '*', '.js', '.jsx'],
-    alias: {
-      'react-dom': '@hot-loader/react-dom'
-    }
+    // alias: {
+    //   'react-dom': '@hot-loader/react-dom'
+    // }
   },
   mode: 'none',
   output: {

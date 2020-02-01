@@ -1,10 +1,12 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-const outlineLogo = require('../../../img/logo-outline.svg');
-const personIcon = require('../../../img/person.svg');
-const blogIcon = require('../../../img/pencil.svg');
-const taskIcon = require('../../../img/task.svg');
-const activityIcon = require('../../../img/activity.svg');
+
+
+const outlineLogo = require('../../img/logo-outline.svg');
+const personIcon = require('../../img/person.svg');
+const blogIcon = require('../../img/pencil.svg');
+const taskIcon = require('../../img/task.svg');
+const activityIcon = require('../../img/activity.svg');
 
 
 DashboardSidebar.propTypes = {

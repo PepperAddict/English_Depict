@@ -28,7 +28,7 @@ if (isDev) {
 require('core-js/stable');
 require('regenerator-runtime/runtime');
 require('@babel/register');
-require('./component/index/react.jsx');
+require('./component/index/App.tsx');
 require('./index.html');
 
 //for heroku 

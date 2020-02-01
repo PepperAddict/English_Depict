@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { ADD_COMMENT } from '../../../mutation/mutation';
+import { ADD_COMMENT } from '../../mutation/mutation';
 import { useMutation } from '@apollo/react-hooks';
 
 
