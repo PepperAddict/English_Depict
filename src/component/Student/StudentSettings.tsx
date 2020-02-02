@@ -47,7 +47,7 @@ export default function StudentSettings(props) {
           'accept': 'application/json'
         },
         onUploadProgress: progressEvent => {
-          setUploadPercentage(parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total)))
+          setUploadPercentage(Math.round((progressEvent.loaded * 100) / progressEvent.total))
           // clear percentage
           setTimeout(() => setUploadPercentage(0), 10000)
         }
@@ -59,7 +59,7 @@ export default function StudentSettings(props) {
             setUploadedFile({ image, location });
           })
         } else {
-          setMessage(err.response.data.msg)
+          setMessage(response.data.msg)
         }
 
       }).catch((err) => {

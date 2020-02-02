@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import Comments from '../Teacher/TeacherBlogComments';
 import AddComment from './AddComment';
 import BlogContent from './BlogContent';
-import PropTypes from 'prop-types';
 
 interface IndividualStudentBlogProps {
   teacher_id: number,
-  index: number
+  index: number,
+  key: number,
+  blog_id: number,
+  subject: string,
+  content: string,
+  comments: string
 }
 
 
