@@ -1,5 +1,4 @@
 import React, {Fragment} from 'react';
-import PropTypes from 'prop-types';
 
 
 const outlineLogo = require('../../img/logo-outline.svg');
@@ -8,13 +7,12 @@ const blogIcon = require('../../img/pencil.svg');
 const taskIcon = require('../../img/task.svg');
 const activityIcon = require('../../img/activity.svg');
 
+interface DashboardSidebarProps {
+  username: string,
+  email: string
+}
 
-DashboardSidebar.propTypes = {
-  username: PropTypes.string, 
-  email: PropTypes.string
-};
-
-export default function DashboardSidebar(props) {
+export default function DashboardSidebar(props: DashboardSidebarProps) {
 
   return (
     <Fragment>

@@ -17,13 +17,14 @@ interface IndividualStudentBlogProps {
 export default function IndividualStudentBlog(props: IndividualStudentBlogProps) {
   const [blog] = useState(props);
   const blog_id = parseInt(blog.blog_id);
+  const teacherID = props.teacher_id
   return (
     <article index={props.index}>
       <h2>{blog.subject}</h2>
       <BlogContent content={blog.content} addVocabulary={null} />
       {blog.comments.length > 0 &&
         <Comments comments={blog.comments} />}
-      <AddComment blog_id={blog_id} teacher_id={props.teacher_id} />
+      <AddComment blog_id={blog_id} teacher_id={teacherID} />
     </article>
   );
 }

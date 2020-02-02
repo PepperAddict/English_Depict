@@ -1,18 +1,17 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { getStudentInfo } from '../../query/query';
-import PropTypes from 'prop-types';
 import IndividualStudentBlog from '../teacher-student-shared/IndieStudentBlog';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { UPDATE_MESSAGE } from '../../mutation/mutation';
 import '../../styles/teacher_dashboard_student.styl';
 
-StudentProfile.propTypes = {
-  data: PropTypes.object,
-  teacher_id: PropTypes.number,
-  student_id: PropTypes.string
-};
+interface StudentProfileProps {
+  data: any, 
+  teacher_id: number,
+  student_id: string
+}
 
-function StudentProfile(props) {
+function StudentProfile(props: StudentProfileProps) {
   const [updateMessage] = useMutation(UPDATE_MESSAGE);
   const [message, setMessage] = useState(props.data.message);
 
@@ -59,12 +58,13 @@ function StudentProfile(props) {
   );
 }
 
-IndividualStudent.propTypes = {
-  data: PropTypes.object,
-  teacher_id: PropTypes.number
-};
+interface IndividualStudentProps {
+  data: any, 
+  teacher_id: number,
+  student_id: number
+}
 
-export default function IndividualStudent(props) {
+export default function IndividualStudent(props: IndividualStudentProps) {
   const pathname = window.location.pathname.split('=');
   const student_id = pathname[pathname.length - 1];
 

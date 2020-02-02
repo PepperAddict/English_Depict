@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 const outlineLogo = require('../../img/logo-outline.svg');
 const personIcon = require('../../img/person.svg');
 const blogIcon = require('../../img/pencil.svg');

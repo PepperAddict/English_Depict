@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/react-hooks';
 import { ADD_REGISTRATION } from '../../mutation/mutation';
 import Login from './Login';
 import '../../styles/register.styl';
-import PropTypes from 'prop-types';
 
 /*
 Errors: 
@@ -12,13 +11,15 @@ Errors:
 3 = Password doesn't match
 */
 
-CheckEmail.propTypes = {
-  setError: PropTypes.func,
-  setRegistered: PropTypes.func
+interface CheckEmailProps {
+  setError: any, 
+  setRegistered: any,
+  registered: boolean,
+  error: any,
+  updateParent: any
+}
 
-};
-
-function CheckEmail(props) {
+function CheckEmail(props: CheckEmailProps) {
   const [account, setValue] = useState({
     email: 'example@example.com',
     user: '',

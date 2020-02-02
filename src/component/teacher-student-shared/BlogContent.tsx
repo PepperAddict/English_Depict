@@ -1,12 +1,12 @@
 import React, {useState, Fragment} from 'react';
-import PropType from 'prop-types';
 
+interface TheWordsProps {
+  addVocabulary: any, 
+  content: string,
+  index: number
+}
 
-TheWords.propTypes = {
-  addVocabulary: PropType.func,
-  content: PropType.string
-};
-function TheWords(props) {
+function TheWords(props: TheWordsProps) {
   const [newWord] = useState(props.content.split(' '));
   const handleMenu = (e) => {
     //send selected word to dashboard to figure out what to do with it
@@ -34,11 +34,14 @@ function TheWords(props) {
 
   );
 }
-BlogContent.propTypes = {
-  addVocabulary: PropType.func,
-  content: PropType.string
-};
-export default function BlogContent(props) {
+
+interface BlogContentProps {
+  addVocabulary: any, 
+  content: string,
+
+}
+
+export default function BlogContent(props: BlogContentProps) {
 
   let contentArray = props.content.split('\n');
   if (contentArray.length === 1) {

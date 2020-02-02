@@ -4,16 +4,14 @@ import { getBlogByID, getStudentInfoSimple, getUserByIDSimple } from '../../quer
 import { ADD_COMMENT } from '../../mutation/mutation';
 import ViewBlogs from './ViewBlogs';
 import moment from 'moment';
-import PropTypes from 'prop-types';
 import BlogContent from './BlogContent';
 
-CommentContent.propTypes = {
-  addVocabulary: PropTypes.func,
-  content: PropTypes.string
+interface CommentContentProps {
+  addVocabulary: any, 
+  content: string
+}
 
-};
-
-function CommentContent(props) {
+function CommentContent(props: CommentContentProps) {
 
   const handleMenu = (e) => {
     props.addVocabulary(e.target.innerHTML);
@@ -26,11 +24,11 @@ function CommentContent(props) {
   </p>);
 }
 
-CommentAuthorTeacher.propTypes = {
-  teacher_id: PropTypes.string,
-  date: PropTypes.string,
-};
-function CommentAuthorTeacher(props) {
+interface CommentAuthorTeacherProps {
+  teacher_id: number, 
+  date: string
+}
+function CommentAuthorTeacher(props: CommentAuthorTeacherProps) {
   const { loading, error, data } = useQuery(getUserByIDSimple, { variables: { userId: props.teacher_id } });
 
   return (<Fragment>
@@ -38,10 +36,11 @@ function CommentAuthorTeacher(props) {
   </Fragment>);
 }
 
-CommentAuthorStudent.propTypes = {
-  student_id: PropTypes.string,
-  date: PropTypes.string
-};
+interface CommentAuthorStudent {
+  student_id: number, 
+  date: string
+}
+
 
 function CommentAuthorStudent(props) {
   const { loading, error, data } = useQuery(getStudentInfoSimple, { variables: { student_id: props.student_id } });
@@ -51,13 +50,12 @@ function CommentAuthorStudent(props) {
   </Fragment>);
 }
 
-EditBlog.propTypes = {
-  student_id: PropTypes.string,
-  addVocabulary: PropTypes.func,
+interface EditBlogProps {
+  student_id: number, 
+  addVocabulary: any
+}
 
-};
-
-export default function EditBlog(props) {
+export default function EditBlog(props: EditBlogProps) {
 
   const [blog_id] = useState(window.location.pathname.split('=')[1]);
   const [comment, setComment] = useState({});
@@ -108,7 +106,7 @@ export default function EditBlog(props) {
             <button className="blog-button" type="submit">Submit Comment</button>
           </form>
         </Fragment>
-      ) : <ViewBlogs student_id={props.student_id} />}
+      ) : <ViewBlogs student_id={props.student_id} blogs={null} addVocabulary={null}/>}
     </div>
   );
 }

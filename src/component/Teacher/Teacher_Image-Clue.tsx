@@ -2,18 +2,19 @@
 This Task will use UnSplash API https://github.com/unsplash/unsplash-js
 */
 import React, { useState, Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
+
 import Unsplash from 'unsplash-js';
 import '../../styles/tasks.styl';
 const unsplash = new Unsplash({ accessKey: process.env.UNSPLASH_ACCESS });
 import NextStage from './Teacher_Image-Clue-Two';
 
+interface ListOfImagesProps {
+  images: any, 
+  setNext: any,
+  key: number
+}
 
-ListOfImages.propTypes = {
-  images: PropTypes.object,
-  setNext: PropTypes.func
-};
-function ListOfImages(props) {
+function ListOfImages(props: ListOfImagesProps) {
   const [imageInfo] = useState(props.images);
   const imageClick = e => {
     e.preventDefault();
@@ -27,12 +28,12 @@ function ListOfImages(props) {
   );
 }
 
-Teacher_ImageClue_Task.propTypes = {
-  teacher_data: PropTypes.object,
-  students: PropTypes.array
-};
+interface Teacher_ImageClue_taskProps {
+  teacher_data: any, 
+  students: any
+}
 
-export default function Teacher_ImageClue_Task(props) {
+export default function Teacher_ImageClue_Task(props: Teacher_ImageClue_taskProps) {
 
   const [query, setQuery] = useState('');
   const [results, setResults] = useState(null);

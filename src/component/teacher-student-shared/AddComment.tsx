@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { ADD_COMMENT } from '../../mutation/mutation';
 import { useMutation } from '@apollo/react-hooks';
 
+interface AddCommentProps {
+  blog_id: number, 
+  teacher_id: number
+}
 
-AddComment.propTypes = {
-  blog_id: PropTypes.number,
-  teacher_id: PropTypes.number
-};
-
-export default function AddComment(props) {
+export default function AddComment(props: AddCommentProps) {
   const [addComment] = useMutation(ADD_COMMENT);
   const [content, setContent] = useState('');
   const submit = e => {
@@ -17,7 +15,7 @@ export default function AddComment(props) {
     const commentInfo = {
       blog_id: props.blog_id,
       student_id: null,
-      teacher_id: parseInt(props.teacher_id),
+      teacher_id: props.teacher_id,
       content: content
     };
     addComment({ variables: { input: commentInfo } }).then(() => {

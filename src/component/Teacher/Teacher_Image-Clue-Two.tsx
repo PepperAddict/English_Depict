@@ -4,19 +4,18 @@ database.
 */
 
 import React, { useState, Fragment, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import {ADD_TASK} from '../../mutation/mutation';
 import {useMutation} from '@apollo/react-hooks';
 
-NextStage.propTypes = {
-  image_data: PropTypes.object,
-  setNext: PropTypes.func,
-  students: PropTypes.array,
-  teacher_id: PropTypes.number
-};
+interface NextStageProps {
+  image_data: any,
+  setNext: any, 
+  students: string,
+  teacher_id: number
+}
 
-export default function NextStage(props) {
+export default function NextStage(props: NextStageProps) {
   const [students] = useState(props.students);
   //error 0 is for empty student 
   const [error, setError] = useState(null);

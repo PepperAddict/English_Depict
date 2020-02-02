@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { ADD_BLOG } from '../../mutation/mutation';
 import { useMutation } from '@apollo/react-hooks';
 import '../../styles/lesson.styl';
-import PropType from 'prop-types';
 
-AddBlog.propTypes = {
-  student_id: PropType.number,
-  name: PropType.string
-};
+interface AddBlogProps {
+  student_id: number, 
+  name: string,
+  username: string
+}
 
-
-export default function AddBlog(props) {
+export default function AddBlog(props: AddBlogProps) {
   const [blog, setBlog] = useState({
     student_id: props.student_id
   });
