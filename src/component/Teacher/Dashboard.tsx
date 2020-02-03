@@ -99,14 +99,14 @@ export default function Dashboard() {
         <div className="dashboard-content">
           {info.buttonAdd ? (<div> {data.getUser.students.length > 0 ?
             (<div>
-              <ShowCard data={data.getUser} userId={userId} setStudentID={null} students={null}/>
+              <ShowCard data={data.getUser} userId={userId} setStudentID={setStudent_id} students={data.getUser.students}/>
               <AddStudent /></div>) : (<AddStudent />)} </div>) :
             info.settings ? (<p>meeeoooowww</p>) :
               info.task ? <Tasks students={data.getUser.students} teacher_data={data.getUser} /> :
                 info.student ? (<IndividualStudent teacher_id={userId} student_id={student_id} data={data.getUser} />) : (
                   info.studentMode ? (
-                    <div>Hello {data.getUser.name || data.getUser.username}, you′re logged in as a teacher.
-                    Would you like to logout?
+                    <div>Hello, you are logged in as <b>{data.getUser.name || data.getUser.username}</b>, you′re logged in as a teacher.
+                    Would you like to logout and log back in as a student?
                     <button type="button" onClick={logout} >Logout</button>
                     </div>
                   ) :

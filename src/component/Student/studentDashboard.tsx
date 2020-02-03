@@ -14,7 +14,7 @@ import '../../styles/studentdashboard.styl';
 import moment from 'moment';
 import Sidebar from './Student_DashboardSidebar';
 import StudentTasks from './StudentTasks';
-const defaultImage = require('../images/no-pic.png');
+const defaultImage = require('../../img/no-pic.png');
 
 
 export default function StudentDashboard() {

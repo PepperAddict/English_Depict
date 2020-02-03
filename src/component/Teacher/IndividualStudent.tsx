@@ -4,6 +4,7 @@ import IndividualStudentBlog from '../teacher-student-shared/IndieStudentBlog';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { UPDATE_MESSAGE } from '../../mutation/mutation';
 import '../../styles/teacher_dashboard_student.styl';
+const noPic = require('../../img/no-pic.png')
 
 interface StudentProfileProps {
   data: any, 
@@ -26,7 +27,7 @@ function StudentProfile(props: StudentProfileProps) {
   return (
     <div className="individual-student">
       <div className="avatar">
-        <img className="avatar-image" src={props.data.avatar} alt="Student's avatar" />
+        <img className="avatar-image" src={props.data.avatar ? props.data.avatar : noPic} alt="Student's avatar" />
       </div>
       <center><h1>{props.data.name}</h1></center>
       <form onSubmit={submitMessage}>
