@@ -110,7 +110,6 @@ module.exports = pgPool => {
         .then(async res => {
           if (res.rows.length > 0) {
             let hashedPassword = await bcrypt.compare(password, res.rows[0].password);
-            console.log(hashedPassword);
             if (hashedPassword) {
               res.rows[0].apiKey = res.rows[0].token;
               return res.rows[0];
@@ -136,7 +135,6 @@ module.exports = pgPool => {
       values ($1, $2, $3) returning *
       `, [teacherOrstudentTwo, content, date])
         .then((res) => {
-          console.log(res);
           return res.rows[0];
         })
         .catch((err) => {
