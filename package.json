@@ -11,7 +11,8 @@
     "prod": "NODE_ENV=production&& node server/index.js",
     "prodtest": "SET NODE_ENV=production&& node server/index.js",
     "react": "SET NODE_ENV=development&& node server/index.js",
-    "test": "concurrently \"yarn run start\" \"yarn run cypress open\""
+    "cypress": "cypress open",
+    "test": "start-server-and-test start http://localhost:8080 cypress"
   },
   "browser": {
     "child_process": false
@@ -98,14 +99,14 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
-    "concurrently": "^5.1.0",
     "cypress": "^3.8.3",
     "eslint": "^6.6.0",
     "eslint-loader": "^3.0.2",
     "eslint-plugin-cypress": "^2.8.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
-    "nodemon": "^1.19.3"
+    "nodemon": "^1.19.3",
+    "start-server-and-test": "^1.10.8"
   },
   "repository": "https://github.com/PepperAddict/English_Depict.git"
 }

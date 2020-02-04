@@ -92,7 +92,7 @@ export default function Dashboard() {
           <button id="logout" type="button" onClick={logout}><span><img src={logoutLogo} alt="Logout" /></span> Logout</button>
 
         </nav>
-
+ 
       </div>
 
       {loading ? <p>loading</p> : error ? <p>{error.message}</p> : (
