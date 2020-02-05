@@ -15,4 +15,7 @@ describe("Teacher Sidebar", function() {
     //     cy.get("#logout").click()
     //     cy.url().should("contain", "/")
     // })
+
+    //add a student 
+    
 })
