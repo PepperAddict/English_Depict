@@ -1,4 +1,4 @@
 {
   "verbose": true,
-  "ignore": ["src", "node_modules", "dist", "test"]
+  "ignore": ["src", "node_modules", "dist", "test", "cypress"]
 }

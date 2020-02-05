@@ -21,8 +21,8 @@ describe("Login and Out", function() {
         cy.getCookie("token").should("exist")
         cy.getCookie("userID").should("exist")
     })
-    it("logout of teacher", () => {
-        cy.get("#logout").click()
-        cy.url().should("contain", "/")
-    })
+    // it("logout of teacher", () => {
+    //     cy.get("#logout").click()
+    //     cy.url().should("contain", "/")
+    // })
 })
