@@ -1,15 +1,15 @@
 version: 0.2
 
 phases: 
-    install: 
-        commands: 
-            - echo Executing Install Phase
     pre_build:
         commands: 
             - echo Executing Pre Build Phase
+            - service docker start
+            - $(aws ecr get-login --region $AWS_DEFAULT_REGION | sed - e 's/-e none//g')
     build:
         commands: 
             - echo Executing Build Phase
+            - docker build -t $IMAGE_REPO_NAME .
     post_build:
         commands:
             - echo Executing Post Build Phase
