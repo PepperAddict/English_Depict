@@ -7,7 +7,7 @@ phases:
     pre_build:
         commands: 
             - echo Executing Pre Build Phase
-            - $(aws ecr get-login --region $AWS_DEFAULT_REGION)
+            - docker start
     build:
         commands:
             - echo Build started on `date`
