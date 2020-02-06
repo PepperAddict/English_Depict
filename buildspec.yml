@@ -19,7 +19,6 @@ phases:
       - echo Preparing CloudFormation Artifacts
       - aws s3 cp s3://$ECS_SERVICE_BUCKET/$ECS_SERVICE_KEY task-definition.template
       - aws s3 cp s3://$ECS_SERVICE_PARAMS_BUCKET/$ECS_SERVICE_PARAMS_KEY cf-config.json
-      # We assume the parameters json file has IMAGE_NAME_PLACEHOLDER in it, if not this will not work
       - sed -i "s/IMAGE_NAME_PLACEHOLDER/$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com\/$(cat ./repo_name):$BRANCH-$(cat ./timestamp)/g" ./cf-config.json
 
 artifacts:
