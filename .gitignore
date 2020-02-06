@@ -1,4 +1,5 @@
 /dist/
+/config/aws/*
 node_modules
 .env
 yarn.lock
