@@ -14,7 +14,7 @@ phases:
       - docker tag $REPOSITORY_NAME $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$REPOSITORY_NAME:$BRANCH-`cat ./timestamp`
   post_build:
     commands:
-      - echo Pushing docker image
+      - echo Pushing docker image at `date`
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$REPOSITORY_NAME:$BRANCH-`cat ./timestamp`
       - echo Preparing CloudFormation Artifacts
       - aws s3 cp s3://$ECS_SERVICE_BUCKET/$ECS_SERVICE_KEY task-definition.template
