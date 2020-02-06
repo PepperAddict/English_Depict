@@ -3,7 +3,7 @@ version: 0.2
 phases: 
     install:
         runtime-versions:
-            docker: 19.03.1
+            docker: 18
     pre_build:
         commands: 
             - echo Executing Pre Build Phase
