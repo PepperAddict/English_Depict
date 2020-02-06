@@ -1,6 +1,9 @@
-version: 0.1
+version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+        docker: 18
   pre_build:
     commands:
       - echo Setting timestamp for container tag
@@ -8,21 +11,23 @@ phases:
       - echo Logging into Amazon ECR
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - REPOSITORY_URI=403643908280.dkr.ecr.us-east-1.amazonaws.com/talkingcloud1
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
-      - echo Building and tagging container
-      - docker build -t $REPOSITORY_NAME .
-      - docker tag $REPOSITORY_NAME $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$REPOSITORY_NAME:$BRANCH-`cat ./timestamp`
+        - echo Build started on `date`
+        - echo Building the Docker image...
+        - docker build -t $REPOSITORY_URI:latest .
+        - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
-      - echo Pushing docker image at `date`
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$REPOSITORY_NAME:$BRANCH-`cat ./timestamp`
-      - echo Preparing CloudFormation Artifacts
-      - aws s3 cp s3://$ECS_SERVICE_BUCKET/$ECS_SERVICE_KEY task-definition.template
-      - aws s3 cp s3://$ECS_SERVICE_PARAMS_BUCKET/$ECS_SERVICE_PARAMS_KEY cf-config.json
-      - sed -i "s/IMAGE_NAME_PLACEHOLDER/$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com\/$(cat ./repo_name):$BRANCH-$(cat ./timestamp)/g" ./cf-config.json
+        - echo Build completed on `date`
+        - echo Pushing the Docker images...
+        - docker push $REPOSITORY_URI:latest
+        - docker push $REPOSITORY_URI:$IMAGE_TAG
+        - echo Writing image definitions file...
+        - printf '[{"name":"talkingcloud1","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 
-artifacts:
-  files:
-    - task-definition.template
-    - cf-config.json
+    artifacts:
+        files: imagedefinitions.json
