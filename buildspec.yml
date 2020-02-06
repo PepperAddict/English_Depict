@@ -5,8 +5,9 @@ phases:
     commands:
       - echo Setting timestamp for container tag
       - echo `date +%s` > timestamp
-      - echo Logging into Amazon ECR...
-      - $(aws ecr get-login --region $AWS_DEFAULT_REGION)
+      - echo Logging into Amazon ECR
+      - aws --version
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
   build:
     commands:
       - echo Building and tagging container
