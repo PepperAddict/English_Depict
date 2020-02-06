@@ -18,6 +18,8 @@ phases:
     commands:
         - echo Build started on `date`
         - echo Building the Docker image...
+        - aws --version
+        - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
         - docker build -t $REPOSITORY_URI:latest .
         - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
