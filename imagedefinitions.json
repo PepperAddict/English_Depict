@@ -1,6 +1,6 @@
 {
     "taskDefinition": {
-      "family": "talkingcloud1",
+      "family": "talkingcloud2",
       "containerDefinitions": [
         {
           "name": "talkingcloud1", 
