@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-        docker: latest
+        docker: 18
   pre_build:
     commands:
       - echo Setting timestamp for container tag
