@@ -31,5 +31,5 @@ phases:
         - echo Writing image definitions file...
         - printf '[{"name":"talkingcloud1","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 
-    artifacts:
-        files: imagedefinitions.json
+artifacts:
+    files: imagedefinitions.json
