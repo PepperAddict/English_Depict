@@ -148,7 +148,7 @@ server.post('/upload', profileImgUpload.single('depictImage'), (req, res) => {
 
 
 
-const PORT = process.env.PORT || 8080;
+const PORT = (process.env.NODE_ENV === 'development' ) ? process.env.PORT || 8080 : 80;
 http.listen(PORT, () => {
   console.log('the server is listening in ' + PORT);
 });

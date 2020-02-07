@@ -3,8 +3,7 @@ This is an open source project made with:
 
 * Backend: GraphQL, ExpressJs, PostgreSQL, NodeJs
 * Frontend: React Hooks, Apollo, Stylus, Webpack
-* Testing: CypressJS
-* Hosting: Docker, AWS ECS/EC2
+* DevOps: CypressJS, Docker, AWS ECS/EC2/RDS
 
 == Purpose 
 This project is for grade school children to practice English by completing lessons assigned by the teacher. 
