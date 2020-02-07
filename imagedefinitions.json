@@ -3,7 +3,7 @@
       "family": "talkingcloud1",
       "containerDefinitions": [
         {
-          "name": "talkingcloud1",
+          "name": "talkingcloud1", 
           "image": "403643908280.dkr.ecr.us-east-1.amazonaws.com/talkingcloud1:latest",
           "cpu": 100, 
           "portMappings": [
