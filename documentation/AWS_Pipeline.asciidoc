@@ -6,6 +6,7 @@ AWS Pipeline with ECS and Github
 
 * Head on over to AWS EC2> Network & Security > Key Pairs and create a key pair 
 * While still in AWS Ec2> Network & Security > Security Groups, create a new one to allow the ports you need. 
+* Create role for codebuild. 
 
 == Create the container repository in AWS 
 
@@ -38,6 +39,22 @@ This is the main body for the project.
 * Select EC2, Select the Task Definition that you created earlier. 
 * Select the Cluster that you created earlier. 
 * Create a Service name. You will need the name for *AWS Pipeline*. 
+
+== Create AWS CodeBuild 
+
+* Any name you want, but you'll need the name for AWS CodePipeline. 
+* Source: Github and pick the repository you want to watch. 
+* Environment: Managed image. Operating system: ubuntu. runtime: standard. Make sure to check Privileged *Enable this flag if you want to build Docker images or want your builds to get elevated privileges.*
+* Create a new service role and remember the name to change permissions later. 
+* Use a buildspec file
+
+== Add permission to codebuild role 
+
+Since we will be using EC2, we need to have EC2 permissions to be able to login in ECS. 
+
+* IAM > ROLES > Now search for the role you just created for codebuild. 
+* Attach policies
+* find `AmazonEC2ContainerRegistryFullAccess` and Attach policy
 
 
 == buildspec.yml file 
@@ -131,11 +148,7 @@ CMD ["npm", "run", "prod"]
 * Source is Github and easily connect to your github account. 
 * Needs a AWS Codebuild so make sure to create project 
 ** Managed image
-
-=== Build 
-
-** Important. When creating the codebuild project, make sure to select *Enable this flag if you want to build Docker images or want your builds to get elevated privileges* in Privileged. 
-* Use a buildspec file that was created in our file's directory. 
+* Find the codebuild you already created. 
 
 === Deploy
 
@@ -148,4 +161,4 @@ CMD ["npm", "run", "prod"]
 
 * Create a name you'll need to remember in AWS CodePipeline 
 * Select Amazon ECS 
-* 
+
