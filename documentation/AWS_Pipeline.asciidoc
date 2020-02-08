@@ -1,0 +1,151 @@
+= AWS Pipeline
+
+AWS Pipeline with ECS and Github
+
+== First steps 
+
+* Head on over to AWS EC2> Network & Security > Key Pairs and create a key pair 
+* While still in AWS Ec2> Network & Security > Security Groups, create a new one to allow the ports you need. 
+
+== Create the container repository in AWS 
+
+* Head on over to AWS ECR and create a new repository 
+** create a repository name and leave the rest as default. 
+** After the repository creation, you will need the repository name and URI for *task definitions*, *buildspec.yml* and *imagedefinitions.json*
+
+== Task Definitions
+
+* If you're still at AWS ECR, you'll see Task definitions at the left. If not, you can find it at AWS ECS > Task Definitions
+* Create a new Task Definition. Remember the name. 
+* Add container. The ECR you created earlier. Enter the name of the repository and the image URI. 
+* In add container make sure to enter the ports you want opened such as 80.
+* Remember the _Task Definitions_ name you gave it. You will need it when setting up the *AWS Pipeline* and *imagedefinitions.json*
+
+== Create Cluster 
+
+This is the main body for the project. 
+
+* When creating the cluster, pick EC2 Linux + Networking 
+* Pick a name and remember for *AWS Pipeline*
+* Free mode would be t2.micro 
+* Key pair. Use the one that you created in the beginning. 
+* Have AWS ECS create new VPC if none available. 
+* Select the security group that was created earlier 
+
+== Create Service 
+
+* Once your ECS Cluster is complete, now you have to set up a service. You will find it in your cluster under the Services tab.
+* Select EC2, Select the Task Definition that you created earlier. 
+* Select the Cluster that you created earlier. 
+* Create a Service name. You will need the name for *AWS Pipeline*. 
+
+
+== buildspec.yml file 
+
+Insert this file in your home directory that way pipeline will be able to find it.
+
+----
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - REPOSITORY_URI=012345678910.dkr.ecr.us-west-2.amazonaws.com/hello-world  //ECR repository URI
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing image definitions file...
+      - printf '[{"name":"hello-world","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG >  imagedefinitions.json  //instead of hello-world, replace with the ECR repository name
+artifacts:
+    files: imagedefinitions.json
+----
+
+== imagedefinitions.json 
+
+Pipeline will look for the file imagedefinitions.json so be sure to also have this file in your home directory. 
+
+----
+
+{
+  "taskDefinition": {
+    "family": "hello-world",  //The Task Definition name
+    "containerDefinitions": [
+      {
+        "name": "hello-world", //The ECR name
+        "image": "012345678910.dkr.ecr.us-west-2.amazonaws.com/hello-world:latest", //The ECR URI
+        "cpu": 100,
+        "portMappings": [
+          {
+            "protocol": "tcp",
+            "containerPort": 80,
+            "hostPort": 80
+          }
+        ],
+        "memory": 128,
+        "essential": true
+      }
+    ]
+  }
+}
+
+----
+
+== Dockerfile 
+
+In your home directory, you need a Dockerfile that will be able to run your project. For a project like mine with Webpack, make sure Webpack is global. 
+
+----
+FROM node:latest
+
+WORKDIR /
+COPY package*.json ./
+RUN npm install
+RUN npm install -g webpack-cli webpack
+RUN npm link webpack
+COPY . /
+EXPOSE 80
+CMD ["npm", "run", "prod"] 
+----
+
+== Glue it all together with AWS CodePipeline
+
+* Role. Create a new ARN Role and remember the name as you will need to give it permissions later. 
+
+* Source is Github and easily connect to your github account. 
+* Needs a AWS Codebuild so make sure to create project 
+** Managed image
+
+=== Build 
+
+** Important. When creating the codebuild project, make sure to select *Enable this flag if you want to build Docker images or want your builds to get elevated privileges* in Privileged. 
+* Use a buildspec file that was created in our file's directory. 
+
+=== Deploy
+
+* Select Amazon ECS 
+* Select your cluster name 
+* Select the service that was created under that Cluster
+* Won't need image definitions file since already created in home directory with buildspec linking to it. 
+
+== AWS CodeDeploy 
+
+* Create a name you'll need to remember in AWS CodePipeline 
+* Select Amazon ECS 
+* 
