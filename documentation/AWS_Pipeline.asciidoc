@@ -17,7 +17,7 @@ AWS Pipeline with ECS and Github
 == Task Definitions
 
 * If you're still at AWS ECR, you'll see Task definitions at the left. If not, you can find it at AWS ECS > Task Definitions
-* Create a new Task Definition. Remember the name. 
+* Create a new Task Definition. Remember the name.  Select FARGATE the same as your service for your cluster.
 * Add container. The ECR you created earlier. Enter the name of the repository and the image URI. 
 * In add container make sure to enter the ports you want opened such as 80.
 * Remember the _Task Definitions_ name you gave it. You will need it when setting up the *AWS Pipeline* and *imagedefinitions.json*
@@ -36,7 +36,7 @@ This is the main body for the project.
 == Create Service 
 
 * Once your ECS Cluster is complete, now you have to set up a service. You will find it in your cluster under the Services tab.
-* Select EC2, Select the Task Definition that you created earlier. 
+* Select FARGATE, Select the Task Definition that you created earlier. 
 * Select the Cluster that you created earlier. 
 * Create a Service name. You will need the name for *AWS Pipeline*. 
 
