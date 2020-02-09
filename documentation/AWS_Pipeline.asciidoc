@@ -44,13 +44,14 @@ This is the main body for the project.
 
 * Any name you want, but you'll need the name for AWS CodePipeline. 
 * Source: Github and pick the repository you want to watch. 
-* Environment: Managed image. Operating system: ubuntu. runtime: standard. Make sure to check Privileged *Enable this flag if you want to build Docker images or want your builds to get elevated privileges.*
+* Environment: Managed image. Operating system: ubuntu. runtime: standard. 
+* Make sure to check Privileged *Enable this flag if you want to build Docker images or want your builds to get elevated privileges.*
 * Create a new service role and remember the name to change permissions later. 
 * Use a buildspec file
 
-== Add permission to codebuild role 
+== Add permission to CodeBuild role 
 
-Since we will be using EC2, we need to have EC2 permissions to be able to login in ECS. 
+We need permission to login into ECS during codeBuild. 
 
 * IAM > ROLES > Now search for the role you just created for codebuild. 
 * Attach policies
