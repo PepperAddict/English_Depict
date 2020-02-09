@@ -1,6 +1,7 @@
 const Cryptr = require('cryptr');
 const jwt = require('jsonwebtoken');
-const cryptr = new Cryptr(process.env.SALT);
+const okaythis = "nonzerostring"
+const cryptr = new Cryptr(okaythis);
 
 export const clearCookies = (keyName = null) => {
   let expireDate = new Date();
