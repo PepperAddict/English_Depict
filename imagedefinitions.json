@@ -1,6 +1,6 @@
 {
     "taskDefinition": {
-      "family": "TalkingEC2",
+      "family": "talkingFargate",
       "containerDefinitions": [
         {
           "name": "talkingrepository",
