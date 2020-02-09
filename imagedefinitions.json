@@ -13,6 +13,10 @@
               "hostPort": 80
             }
           ],
+          "requiresCompatibilities": [
+            "FARGATE"
+          ],
+          "networkMode": "awsvpc",
           "memory": 128,
           "essential": true
         }
