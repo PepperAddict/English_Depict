@@ -1,14 +1,4 @@
 # Docker
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Azure subscription 1 (be0fb9c1-eca4-437f-8aca-46b51b8725af)'
-    appType: 'webAppContainer'
-    WebAppName: 'talking-cloud-app'
-    DockerNamespace: 'pepperaddict'
-    DockerRepository: 'talking-cloud-repository'
-    DockerImageTag: 'develop'
-    StartupCommand: 'npm run prod'
 # Build a Docker image 
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
@@ -37,3 +27,13 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Azure subscription 1 (be0fb9c1-eca4-437f-8aca-46b51b8725af)'
+        appType: 'webAppContainer'
+        WebAppName: 'talking-cloud-app'
+        DockerNamespace: 'pepperaddict'
+        DockerRepository: 'talking-cloud-repository'
+        DockerImageTag: 'develop'
+        StartupCommand: 'npm run prod'
