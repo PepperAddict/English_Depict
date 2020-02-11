@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import  ApolloClient from 'apollo-boost';
 import { ApolloProvider, Query, withApollo } from 'react-apollo';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+const graphQLPW = process.env.GRAPHPW
+
 const client = new ApolloClient({
   uri: '/graphql',
   headers: {
-    'entrySauce': 'candy',
+    'entrySauce': graphQLPW,
   },
   credentials: 'include'
 });
