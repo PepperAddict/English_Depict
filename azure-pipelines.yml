@@ -27,6 +27,14 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
+- stage: Deploy
+  displayName: Deploy
+  jobs:  
+  - job: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
@@ -34,6 +42,6 @@ stages:
         appType: 'webAppContainer'
         WebAppName: 'talking-cloud-app'
         DockerNamespace: 'pepperaddict'
-        DockerRepository: 'talking-cloud-repository'
-        DockerImageTag: 'develop'
+        DockerRepository: 'talking-cloud-registry'
+        DockerImageTag: 'latest'
         StartupCommand: 'npm run prod'
