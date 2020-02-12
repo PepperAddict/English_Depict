@@ -11,10 +11,10 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '15743411-0a65-4c6d-902a-9b5cbac8b4e0'
-  imageRepository: 'talkingcloud'
+  imageRepository: 'talking-cloud'
   containerRegistry: 'talkingcloudregistry.azurecr.io'
   dockerfilePath: 'Dockerfile'
-  tag: '$(Build.BuildId)'
+  tag: 'latest'
   
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
