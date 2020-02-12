@@ -11,6 +11,8 @@
     "prod": "NODE_ENV=production&& node server/index.js",
     "prodtest": "SET NODE_ENV=production&& node server/index.js",
     "react": "SET NODE_ENV=development&& node server/index.js",
+    "_comment1": "The section below is for testing only",
+    "cypresscli":"cypress run",
     "cypress": "cypress open",
     "test": "start-server-and-test start http://localhost:8080 cypress"
   },
