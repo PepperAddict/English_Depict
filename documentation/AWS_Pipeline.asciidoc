@@ -2,6 +2,8 @@
 
 AWS Pipeline with ECS and Github
 
+Warning: I didn't finish setting this up as the IP kept getting changed with FARGATE mode. 
+
 == First steps 
 
 * Head on over to AWS EC2> Network & Security > Key Pairs and create a key pair 
