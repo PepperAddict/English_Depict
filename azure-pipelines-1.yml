@@ -32,8 +32,7 @@ stages:
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+        repository: 'talking-cloud'
+        dockerfile: './Dockerfile'
+        containerRegistry: 'talkingcloudregistry'
+        tags: 'latest'
