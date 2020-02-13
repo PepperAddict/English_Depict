@@ -237,9 +237,6 @@ module.exports = {
       );
     } else if (isProd) {
       plugins.push(
-        new webpack.DefinePlugin({
-          "process.env.NODE_ENV": JSON.stringify("production")
-        }),
         new Dotenv({
           path: path.resolve(__dirname, '../.env'),
           systemvars: true,
