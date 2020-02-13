@@ -33,14 +33,14 @@ query getUserByID($userId: ID!) {
     id
     email
     username
-    date_created
+    created_at
     students {
       student_id
       name
       username
       question
       password
-      date_created
+      created_at
       theme
       avatar
       tasks {

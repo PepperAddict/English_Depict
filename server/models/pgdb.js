@@ -31,7 +31,7 @@ module.exports = pgPool => {
           });
           const date_created = new Date();
           return pgPool.query(`
-        insert into users (username, email, token, password, date_created)
+        insert into users (username, email, token, password, created_at)
         values ($1, $2, $3, $4, $5) returning *
       `, [username, email, token, newPassword, date_created]).then(res => {
             const user = res.rows[0];

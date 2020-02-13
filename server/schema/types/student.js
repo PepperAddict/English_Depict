@@ -23,7 +23,7 @@ const StudentType = new GraphQLObjectType({
       question: {type: GraphQLNonNull(GraphQLString)},
       password: {type: GraphQLNonNull(GraphQLString)},
       theme: {type: GraphQLString},
-      date_created: {type: GraphQLNonNull(GraphQLString)},
+      created_at: {type: GraphQLNonNull(GraphQLString)},
       student_key: { type: GraphQLNonNull(GraphQLString)},
       verified: {type: GraphQLBoolean},
       second_password: {type: GraphQLString},

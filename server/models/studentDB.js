@@ -12,7 +12,7 @@ module.exports = pgPool => {
       });
       const date_created = new Date();
       return pgPool.query(`
-      insert into students (teacher_id, username, name, password, theme, student_key, date_created, question)
+      insert into students (teacher_id, username, name, password, theme, student_key, created_at, question)
       values ($1, $2, $3, $4, $5, $6, $7, $8) returning *`, 
       [teacher_id, username, name, password, theme, apiKey, date_created, question])
         .then((res => {

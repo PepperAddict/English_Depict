@@ -12,7 +12,7 @@ const MeType = new GraphQLObjectType({
       email: { type: GraphQLNonNull(GraphQLString) },
       username: { type: GraphQLNonNull(GraphQLString) },
       password: {type: GraphQLNonNull(GraphQLString)},
-      date_created: {type: GraphQLNonNull(GraphQLString)},
+      created_at: {type: GraphQLNonNull(GraphQLString)},
       role: {type: GraphQLString },
       apiKey: { type: GraphQLNonNull(GraphQLString) },
     };

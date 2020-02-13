@@ -16,7 +16,7 @@ const UsersType = new GraphQLObjectType({
       id: {type: GraphQLID},
       email: { type: GraphQLNonNull(GraphQLString) },
       username: { type: GraphQLNonNull(GraphQLString) },
-      date_created: {type: GraphQLNonNull(GraphQLString)},
+      created_at: {type: GraphQLNonNull(GraphQLString)},
       students: {
         type: new GraphQLList(StudentType),
         resolve: async (source, input, { pgPool, req }) => {

@@ -18,7 +18,7 @@ mutation AddStudent($input: StudentInput!) {
     teacher_id
     question
     password
-    date_created
+    created_at
   }
 }
 `;
