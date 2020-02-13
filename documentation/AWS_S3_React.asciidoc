@@ -1,2 +1,127 @@
 = AWS S3 and React
 Since I'll be moving away from AWS, I wanted to save what I had just in case I switch back
+
+== Packages that were needed
+
+* `multer-s3`, `multer`, `aws-sdk`
+
+* set up the S3 route
+
+----
+const s3 = new AWS.S3({
+  secretAccessKey: process.env.AWS_SECRET,
+  accessKeyId: process.env.AWS_KEY,
+  Bucket: 'english-practice', // bucket name
+  region: 'us-east-1'
+});
+----
+
+* Form data info 
+
+----
+
+const profileImgUpload = multer({
+  storage: multerS3({
+    s3: s3, 
+    bucket: 'english-practice',
+    acl: 'public-read',
+    metadata: function(req, file, cb) {
+      cb(null, {fieldName: file.fieldname});
+    },
+    key: function(req, file, cb) {
+      cb(null, path.basename(Date.now().toString() + path.extname(file.originalname))); //giving it a unique name
+    }
+  }), 
+  fileFilter: function(req, file, cb) {
+    const filetypes = /jpeg|jpg|png|svg|gif/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = filetypes.test(file.mimetype);
+    if (mimetype && extname) {
+      return cb(null, true);
+    } else {
+
+      cb(null, false);
+    }
+  }
+});
+
+----
+
+* the post method when /upload is accessed with the appropriate error messages
+
+----
+
+server.post('/upload', profileImgUpload.single('depictImage'), (req, res) => {
+  if (req.file === undefined) {
+    return res.status(400).json({
+      msg: 'Image only'
+    });
+  }else if(req.files === null) {
+    return res.status(400).json({
+      msg: 'No file was uploaded'
+    });
+  } else {
+    const imageName = req.file.key; 
+    const imageLocation = req.file.location; 
+    res.json( {
+      image: imageName, 
+      location: imageLocation
+    });
+  }
+});
+----
+
+* inside reactJS the proper format with the matching input name and single name in the backend.
+
+----
+      <form onSubmit={onSubmit} encType="multipart/form-data">
+        <label htmlFor="image-upload">Choose an Image</label>
+        <input name="depictImage" type="file" id="image-upload" onChange={imageChange} />
+        <button type="submit" value="Upload" >Submit Avatar</button>
+      </form>
+----
+
+* on submit doing the call in the frontend 
+
+----
+  const onSubmit = async e => {
+    e.preventDefault();
+    const formData = new FormData();
+    if (file) {
+      formData.append('depictImage', file, filename);
+
+      axios.post('/upload', formData, {
+        headers: {
+          'accept': 'application/json'
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage(Math.round((progressEvent.loaded * 100) / progressEvent.total))
+          // clear percentage
+          setTimeout(() => setUploadPercentage(0), 10000)
+        }
+      }).then((response) => {
+        if (response.status === 200) {
+          const { image, location } = response.data;
+
+          updateAvatar({ variables: { input: { student_id: props.student_id, avatar: location } } }).then((e) => {
+            setUploadedFile({ image, location });
+          })
+        } else {
+          setMessage(response.data.msg)
+        }
+
+      }).catch((err) => {
+        if (err.response.status === 400) {
+          setMessage(err.response.data.msg)
+        } else {
+          setMessage('There was a problem with the server')
+        }
+
+      })
+    } else {
+      setMessage('No image was uploaded. Please try again.')
+    }
+
+
+  }
+----
