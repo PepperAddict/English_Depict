@@ -241,6 +241,7 @@ module.exports = {
           "process.env.NODE_ENV": JSON.stringify("production")
         }),
         new Dotenv({
+          path: path.resolve(__dirname, '../.env'),
           systemvars: true,
         }),
         new TerserPlugin({
@@ -263,6 +264,7 @@ module.exports = {
     } else {
       plugins.push(
         new Dotenv({
+          path: path.resolve(__dirname, '../.env'),
           systemvars: true,
         }))
     }
