@@ -257,6 +257,11 @@ module.exports = {
           minRatio: 0.8
         })
       );
+    } else {
+      plugins.push(
+        new Dotenv({
+          systemvars: true,
+        }))
     }
     return plugins;
 
