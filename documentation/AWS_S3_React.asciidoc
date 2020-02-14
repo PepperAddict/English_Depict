@@ -1,9 +1,10 @@
 = AWS S3 and React
-Since I'll be moving away from AWS, I wanted to save what I had just in case I switch back
+
+Since I'll be moving away from AWS, I wanted to save what I had just in case I switch back. This setup is for the frontend and the backend.
 
 == Packages that were needed
 
-* `multer-s3`, `multer`, `aws-sdk`
+* `multer-s3`, `multer`, `aws-sdk`, and `axios`
 
 * set up the S3 route
 
@@ -16,7 +17,7 @@ const s3 = new AWS.S3({
 });
 ----
 
-* Form data info 
+* Using the definition from above to connect it to multer 
 
 ----
 
@@ -47,7 +48,7 @@ const profileImgUpload = multer({
 
 ----
 
-* the post method when /upload is accessed with the appropriate error messages
+* The post method that will be using multer's setup that needed AWS S3's info
 
 ----
 
@@ -71,7 +72,7 @@ server.post('/upload', profileImgUpload.single('depictImage'), (req, res) => {
 });
 ----
 
-* inside reactJS the proper format with the matching input name and single name in the backend.
+* inside the frontend, we need the form. note the input name is shared between the backend and the frontend.
 
 ----
       <form onSubmit={onSubmit} encType="multipart/form-data">
