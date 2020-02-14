@@ -11,7 +11,7 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '99e5c77f-e0e3-430f-9dc9-de09c0a77c30'
-  imageRepository: 'talkingcloud'
+  imageRepository: 'talking-cloud'
   containerRegistry: 'talkingcloudregistry.azurecr.io'
   dockerfilePath: 'Dockerfile'
   tag: 'latest'
