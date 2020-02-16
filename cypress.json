@@ -1,7 +1,7 @@
 {
     "baseUrl": "http://localhost:8080",
     "env": {
-        "user": "hello@hello.com",
+        "user": "test@test.com",
         "pass": "secretsecret"
     }
 }

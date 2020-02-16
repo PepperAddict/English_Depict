@@ -27,6 +27,7 @@ const AddChat = require('./mutations/addChat');
 const AddComment = require('./mutations/addComment');
 const UpdateMessage = require('./mutations/addMessage');
 const AddTask = require('./mutations/addTask');
+const RemoveUser = require('./mutations/removeUser')
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
   fields: () => ({
@@ -61,7 +62,8 @@ const RootMutationType = new GraphQLObjectType({
     AddChat,
     AddComment,
     UpdateMessage,
-    AddTask
+    AddTask,
+    RemoveUser
   })
 });
 
