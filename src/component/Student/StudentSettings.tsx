@@ -39,6 +39,17 @@ export default function StudentSettings(props) {
   const onSubmit = async e => {
     e.preventDefault();
     const formData = new FormData();
+    // const deleteMe = `https://talkingstorage.blob.core.windows.net/talkingcontainer/1581882646475.jpg`;
+    // fetch(deleteMe, {
+    //   method: 'POST',
+    //   mode: 'no-cors',
+    //   headers: {
+    //     'Authorization':
+    //   }
+    // }).then((res) => {
+    //   console.log(res)
+    // })
+
     if (file) {
       formData.append('depictImage', file, filename);
 
