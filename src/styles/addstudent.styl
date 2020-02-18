@@ -1,0 +1,35 @@
+.add-student
+    label 
+        font-weight: 600;
+        font-size: 1.1rem;
+    input 
+        margin: 10px 0;
+    .tool
+        padding: 5px; 
+        background: #ccc;
+        color: black;
+        font-weight: bold;
+        cursor: help;
+        width: 30px;
+        display: inline-flex;
+        justify-content: center;
+        margin: 10px;
+        position: relative;
+        transition: .5s;
+        &:before
+            background: #ccc;
+            width: 200px;
+            position: absolute;
+            top: -25px;
+            left: 0px;
+            padding: 5px;
+            z-index: 2;
+            border-radius: 5px;
+        &:hover 
+            position: relative;
+            &.username::before
+                content: 'Username is required for student to remember when logging in.';
+            &.name::before
+                content: "Name is optional. The student can change their name at any time.";
+            &.question::before
+                content: "To identify the student, ask a personal question the student can easily answer."

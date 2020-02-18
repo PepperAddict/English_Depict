@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { cookieParser } from '../../helpers';
 import { ADD_STUDENT } from '../../mutation/mutation';
+import '../../styles/addstudent.styl';
 
 
 export default function AddStudent() {
@@ -43,20 +44,19 @@ export default function AddStudent() {
   };
   return (
     <div className="add-student">
+      <hr></hr>
 
-      <p>Let′s add a student!</p>
+      <h2>Add a student!</h2>
       <div>
         <form onSubmit={handleAddStudent}>
 
-          <label htmlFor="studentUsername">Username</label>
+          <label htmlFor="studentUsername">Username</label><p className="tool username">?</p>
           <input id="studentUsername" defaultValue={student.username} onChange={updateFields} name='username' placeholder={(student.username) ? student.username : 'username'} required />
 
-          <label htmlFor="studentName">Name</label>
+          <label htmlFor="studentName">Name</label><p className="tool name">?</p>
           <input id="studentName" defaultValue={student.name} onChange={updateFields} name='name' placeholder={(student.name) ? student.name : 'name'} />
 
-          <p>Questions to ask your student when to verify it′s them.</p>
-
-          <label htmlFor="question1">Question</label>
+          <label htmlFor="question1">Question</label><p className="tool question">?</p>
           <input id="question1" name='question1' defaultValue={student.question1} onChange={updateFields} placeholder={student.question1} />
 
           <label htmlFor="answer1">Answer</label>
