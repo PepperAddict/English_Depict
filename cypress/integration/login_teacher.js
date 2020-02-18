@@ -1,16 +1,22 @@
 Cypress.Cookies.defaults({
     whitelist: ["token", "userID"]
 })
-describe("Login and Out", function() {
+describe("Register, Login and Out, and delete", function() {
 
     it("visit it", function() {
         cy.visit("/")
-        cy.get(".teacherLogin").click()
+        cy.get(".registerAccount").click()
     })
+    it("register for an account", function() {
+        cy.get('input[name=user]').type("test")
+        cy.get('input[name=email]').type(Cypress.env("user"))
+        cy.get('input[name=passwordOne]').type(`${Cypress.env("pass")}`)
+        cy.get('input[name=passwordTwo]').type(`${Cypress.env("pass")}{enter}`)
+    })
+
     it("login as teacher", () => {
         cy.get('input[name=email]').type(Cypress.env("user"))
         cy.get('input[name=password]').type(`${Cypress.env("pass")}{enter}`)
-
     })
 
     it("teacher dashboard", () => {

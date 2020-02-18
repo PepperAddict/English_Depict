@@ -8,7 +8,7 @@ const MeType = new GraphQLObjectType({
   name: 'Me',
   fields: () => {
     return {
-      id: { type: GraphQLNonNull(GraphQLID) },
+      id: { type: GraphQLID },
       email: { type: GraphQLNonNull(GraphQLString) },
       username: { type: GraphQLNonNull(GraphQLString) },
       password: {type: GraphQLNonNull(GraphQLString)},

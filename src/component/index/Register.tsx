@@ -123,7 +123,11 @@ export default function Regi() {
 
   return (
     <Fragment>
-      {registered ? <Login /> : 
+      {registered ? 
+      <Fragment>
+        <p className="regSticky">Thank you for registerring, please sign in with your new account</p>
+        <Login /> </Fragment>
+      : 
       <div className="register-container">
         
         <CheckEmail registered={registered} error={error} updateParent={fromChild} setRegistered={setRegistered} setError={setError} />
