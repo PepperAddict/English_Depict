@@ -94,7 +94,6 @@ server.use('/graphql', cors(), (req, res) => {
 
 const multer = require('multer');
 const multerAzure = require('multer-azure')
-const { BlobServiceClient } = require('@azure/storage-blob');
 
 
 const upload = multer({
