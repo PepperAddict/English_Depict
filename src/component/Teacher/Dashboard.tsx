@@ -10,7 +10,6 @@ import DashboardSidebar from './DashboardSidebar';
 import IndividualStudent from './IndividualStudent';
 import ShowCard from './StudentCard';
 import Tasks from './TeacherTasks';
-import Settings from './Settings';
 const settingsLogo = require('../../img/settings.svg');
 const logoutLogo = require('../../img/logout.svg');
 
@@ -89,7 +88,7 @@ export default function Dashboard() {
         {data && <DashboardSidebar username={data.getUser.username} email={data.getUser.email} />}
         <nav className="bottom-nav">
 
-          <button type="button"><span><img src={settingsLogo} alt="Go to Settings" /></span><a href="/dashboard/settings">Settings</a></button>
+          <button type="button"><span><img src={settingsLogo} alt="Go to Settings" /></span> Settings</button>
           <button id="logout" type="button" onClick={logout}><span><img src={logoutLogo} alt="Logout" /></span> Logout</button>
 
         </nav>
@@ -102,7 +101,7 @@ export default function Dashboard() {
             (<div>
               <ShowCard data={data.getUser} userId={userId} setStudentID={setStudent_id} students={data.getUser.students}/>
               <AddStudent /></div>) : (<AddStudent />)} </div>) :
-            info.settings ? (<Settings userId={userId}/>) :
+            info.settings ? (<p>meeeoooowww</p>) :
               info.task ? <Tasks students={data.getUser.students} teacher_data={data.getUser} /> :
                 info.student ? (<IndividualStudent teacher_id={userId} student_id={student_id} data={data.getUser} />) : (
                   info.studentMode ? (

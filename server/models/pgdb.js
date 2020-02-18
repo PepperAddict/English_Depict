@@ -41,12 +41,6 @@ module.exports = pgPool => {
         }
       });
     },
-    removeUser(id) {
-      return pgPool.query(`delete from users where id=${id} returning *`)
-      .then(res => {
-        return res.rows
-      }).catch(e => console.log(e))
-    },
     addNewPost({
       userId,
       content

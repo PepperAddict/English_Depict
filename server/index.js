@@ -59,11 +59,11 @@ server.use(expressStaticGzip('dist', {
 }));
 
 
-server.get(['/', '/login'], softAuthenticate,  (req, res) => {
+server.get(['/', '/login'], cors(), softAuthenticate,  (req, res) => {
   res.sendFile(path.resolve(__dirname, '../dist/index.html'));
 });
 
-server.get(['/register', '/register/:page?'], softAuthenticate, (req, res) => {
+server.get(['/register', '/register/:page?'], cors(), isInvited, (req, res) => {
   res.sendFile(path.resolve(__dirname, '../dist/index.html'));
 });
 

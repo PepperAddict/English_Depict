@@ -9,14 +9,6 @@ mutation AddNewUser($input: UserInput!) {
   }
 }`;
 
-export const REMOVE_USER = gql`
-mutation RemoveUser($id: ID!) {
-  RemoveUser (id: $id) {
-    id
-  }
-}
-`
-
 export const ADD_STUDENT = gql`
 mutation AddStudent($input: StudentInput!) {
   AddStudent (input: $input) {
