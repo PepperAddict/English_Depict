@@ -3,13 +3,17 @@ This is an open source project made with:
 
 * Backend: GraphQL, ExpressJs, PostgreSQL, NodeJs
 * Frontend: React Hooks, Apollo, Stylus, Webpack
-* DevOps: CypressJS, Docker, AWS ECS/EC2/RDS
+* DevOps: CypressJS and Azure
 
 == Purpose 
 This project is for grade school children to practice English by completing lessons assigned by the teacher. 
 
 == Env File 
-Rename .projectenv to env with your own values inside of it.
+DB_HOST=//database host URL
+DB_PASS=//database password
+SALT=//random generated code for crypting
+REACT_APP_MERR=//key from dictionary merriam api
+TOKENPW=//another generated code for crypting
 
 == Issues
 The issues are sorted in this kanban project board right in github: 
