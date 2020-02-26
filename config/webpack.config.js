@@ -239,6 +239,7 @@ module.exports = {
       plugins.push(
         new Dotenv({
           path: path.resolve(__dirname, '../.env'),
+          systemvars: true,
         }),
         new TerserPlugin({
           test: /\.js(\?.*)?$/i,
