@@ -41,9 +41,9 @@ const expressStaticGzip = require('express-static-gzip');
 const webpackHotMiddleware = require('webpack-hot-middleware')(compiler);
 const pgPool = new pg.Pool({
   host: process.env.DB_HOST,
-  user: 'pepper@tcdata',
+  user: process.env.DB_USER,
   password: process.env.DB_PASS,
-  database: 'talkingcloud'
+  database: process.env.DB
 });
 const schema = require('./schema/');
 
