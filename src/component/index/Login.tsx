@@ -3,10 +3,25 @@ import { Handle_Login } from '../../query/query';
 import { useApolloClient } from '@apollo/react-hooks';
 import { encryptMe, signMe } from '../../helpers';
 import '../../styles/login.styl';
-
+import {createUseStyles} from 'react-jss';
 
 
 function LoginForm() {
+  const bgCrinkle = require('../../img/crinkle.png');
+  const bgWave = require('../../img/wave.png');
+
+  const bg = createUseStyles({
+    myBG: {
+      backgroundImage: `url(${bgCrinkle.images[bgCrinkle.images.length -1].path})`
+    },
+    myBGTwo: {
+      backgroundImage: `url(${bgWave.images[bgWave.images.length -1].path})`,
+      backgroundSize: 'cover'
+    }
+  })
+
+  const classy = bg();
+
   const client = useApolloClient();
   const [val, setValu] = useState({
     email: 'example@example.com',
@@ -49,6 +64,7 @@ function LoginForm() {
   };
 
   const updateFields = e => {
+
     setError(null);
     setValu({
       ...val, [e.target.name]: e.target.value || ''
@@ -56,7 +72,7 @@ function LoginForm() {
   };
 
 
-  return (<div className="login-container">
+  return (<div className={classy.myBG + ' login-container'}>
     <div className="login-content">
       <a href="/" className="logo-container-link"><img className="logo-center" src="/images/logo-192.png" alt="logo" /></a>
       <h1>Teacher Login</h1>
@@ -89,7 +105,7 @@ function LoginForm() {
       }
       
     </div>
-    <div className="bottom">
+    <div className={classy.myBGTwo + ' bottom'}>
       <div className="bottom-content">
         <ul>
           <li><a href="/register">Register For a teacher’s account</a></li>
