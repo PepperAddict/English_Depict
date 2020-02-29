@@ -16,7 +16,9 @@ function LoginForm() {
     },
     myBGTwo: {
       backgroundImage: `url(${bgWave.images[bgWave.images.length -1].path})`,
-      backgroundSize: 'cover'
+      backgroundSize: 'contain',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'bottom'
     }
   })
 
@@ -35,6 +37,8 @@ function LoginForm() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    const rememberMe = document.getElementById('rememberMe') as HTMLInputElement;
+
 
     await client.query({
       query: Handle_Login,
@@ -49,7 +53,11 @@ function LoginForm() {
       document.cookie = `token=${newToken}`;
       let userid = e.data.login.id;
       let newUser = await encryptMe(userid);
-      document.cookie = `userID=${newUser};samesite`;
+
+      let a = new Date();
+      a = new Date(a.getTime() +1000*60*60*24*365);
+      (rememberMe.checked === false) ? document.cookie = `userID=${newUser};samesite` : document.cookie = `userID=${newUser};samesite; expires=${a.toUTCString()}`;
+
     }).then(() => {
       location.reload();
     }).catch((e) => {
@@ -71,30 +79,44 @@ function LoginForm() {
     });
   };
 
+  const changeLabel = (e, f) => {
+    const sibling = f.previousSibling
+    sibling.classList.add('label-active')
+    
+  }
 
   return (<div className={classy.myBG + ' login-container'}>
     <div className="login-content">
       <a href="/" className="logo-container-link"><img className="logo-center" src="/images/logo-192.png" alt="logo" /></a>
-      <h1>Teacher Login</h1>
+      <h1>Teacher Portal</h1>
 
       <form onSubmit={(e) => handleLogin(e)}>
         <label
-          htmlFor="login-email">E-mail Address</label>
+          htmlFor="loginemail" className="emaillabel">
+            <p className="real-label">E-mail Address</p>
         <input
-          id="login-email"
+          id="loginemail"
           name='email'
-          onChange={updateFields}
-          placeholder='email' />
+          onFocus={ e => changeLabel(e.target.name, e.target)}
+          onChange={updateFields} />
 
-        <label htmlFor="login-passwordOne">Password</label>
+          </label>
+
+        <label htmlFor="loginpasswordOne" className="passwordlabel">
+          <p className="real-label">Password</p>
         <input
-          id="login-passwordOne"
+          id="loginpasswordOne"
+          className="loginpasswordOne"
           defaultValue={val.username}
           onChange={updateFields}
+          onFocus={e => changeLabel(e.target.name, e.target)}
           name='password'
-          type="password"
-          placeholder='password' />
-
+          type="password" />
+          </label>
+        
+        <label htmlFor="rememberMe">
+        <input type="checkbox" id="rememberMe"/>
+        Remember Me</label>
 
         <button className="login-button" type='submit'>Login</button>
       </form>
@@ -125,7 +147,6 @@ function Login() {
   });
 
   const fromChild = (update) => {
-    console.log(update);
     setValue(update);
   };
 

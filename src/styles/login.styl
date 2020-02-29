@@ -14,7 +14,7 @@
     z-index: 3;
     padding: 30px;
     color: dark-gray;
-    box-shadow: 0px 0px 50px 0px #888888;
+    box-shadow: 0px 2px 5px 0px #888888;
     border-radius: 5px;
     .logo-container-link
       display: flex;
@@ -46,18 +46,39 @@
       font-weight: 400;
       text-align: center;
       padding-bottom: 15px;
-      border-bottom: 1px solid #ccc;
       margin-top: 0px;
       background: rgba(255, 255, 255, 0.6);
+      font-family: roboto;
     form 
       display: grid;
+      position: relative;
       label
         font-family: roboto;
+      .real-label 
+        position: relative;
+        top: 40px;
+        left: 30px;
+        z-index: 3;
+        transition: .3s;
+        margin: 10px 0;
+
+      .label-active
+        top: 0px;
+        left: 0px;
       input 
-        margin: 10px 0px;
+        margin: 0px;
+        position: relative;
+        background: #FAFAFA;
+        border: 0px;
+        border-left: 10px solid icon-orange;
+        border-radius: 5px;
+        height: 40px;
+        &:focus 
+          outline: 1px solid icon-orange;
+
   .bottom
-    height: 50%;
-    top: 50%;
+    height: 100%;
+    bottom: 0px;
     position: absolute;
     width: 100%;
     z-index: 1;
