@@ -33,7 +33,7 @@ function LoginForm() {
       text: ''
     }
   });
-  const [error, setError] = useState(1); // 1 is no email in database, 2 is wrong password
+  const [error, setError] = useState(null); // 1 is no email in database, 2 is wrong password
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -88,10 +88,13 @@ function LoginForm() {
     });
   };
 
-  const changeLabel = (e, f) => {
-    const sibling = f.previousSibling
+  const changeLabel = (e) => {
+    const sibling = e.previousSibling
     sibling.classList.add('label-active')
 
+  }
+  const close = e => {
+    setError(null)
   }
 
   return (<div className={classy.myBG + ' login-container'}>
@@ -106,7 +109,7 @@ function LoginForm() {
           <input
             id="loginemail"
             name='email'
-            onFocus={e => changeLabel(e.target.name, e.target)}
+            onFocus={e => changeLabel( e.target)}
             onChange={updateFields} />
 
         </label>
@@ -118,7 +121,7 @@ function LoginForm() {
             className="loginpasswordOne"
             defaultValue={val.username}
             onChange={updateFields}
-            onFocus={e => changeLabel(e.target.name, e.target)}
+            onFocus={e => changeLabel(e.target)}
             name='password'
             type="password" />
         </label>
@@ -132,16 +135,16 @@ function LoginForm() {
               <li><a href="/student-login">Student Login</a></li>
               <li><a href="/register">Register</a></li>
               {/* TODO create reset password */}
-              <li><a href="/">Reset password</a></li>
+              {/* <li><a href="/">Reset password</a></li> */}
             </ul>
           </div>
         </div>
 
         <button className="login-button" type='submit'>Login</button>
       </form>
-      <hr />
+
       {error && (
-      <div className="error-area">
+      <div className="error-area"> <span onClick={close} className="close">×</span>
         {error === 1 && (<p className="error">The email: <b>{val.email}</b> is not in our system. Please check and try again.</p>) ||
         error === 2 && (<p className="error">Incorrect password. Please try again.</p>) }
       </div>
