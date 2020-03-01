@@ -44,7 +44,7 @@ module.exports = pgPool => {
       });
     },
     removeUser(id) {
-      return pgPool.query(`delete from users where id=${id} returning *`)
+      return pgPool.query(`delete from users where id = $1 returning *`, [id])
       .then(res => {
         return res.rows
       }).catch(e => console.log(e))
@@ -96,7 +96,7 @@ module.exports = pgPool => {
     getAllPosts(limit) {
       //get posts with a limit or all if limit isn't supplied
       limit = (limit) ? `limit ${limit}` : '';
-      return pgPool.query(`select * from posts ${limit}`)
+      return pgPool.query(`select * from posts $1`, [limit])
         .then(res => {
           return res.rows;
         });
@@ -113,8 +113,8 @@ module.exports = pgPool => {
     login(email, password) {
 
       return pgPool.query(`
-        select * from users where email = '${email}'
-      `, )
+        select * from users where email = $1
+      `,[email] )
         .then(async res => {
           if (res.rows.length > 0) {
             let hashedPassword = await bcrypt.compare(password, res.rows[0].password);
