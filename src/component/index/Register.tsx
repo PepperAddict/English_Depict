@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { ADD_REGISTRATION } from '../../mutation/mutation';
 import Login from './Login';
-import '../../styles/register.styl';
+import '../../styles/login.styl';
 
 /*
 Errors: 
@@ -12,22 +12,19 @@ Errors:
 */
 
 interface CheckEmailProps {
-  setError: any, 
   setRegistered: any,
   registered: boolean,
-  error: any,
-  updateParent: any
 }
 
 function CheckEmail(props: CheckEmailProps) {
   const [account, setValue] = useState({
-    email: 'example@example.com',
+    email: 'email',
     user: '',
     passwordOne: '',
     passwordTwo: '',
     loading: true,
   });
-
+  const [terror, setError] = useState(null); // 1 = email is taken, 2 = password doesnt match
   const [addRegistration] = useMutation(ADD_REGISTRATION);
 
   const handleRegister = e => {
@@ -43,29 +40,31 @@ function CheckEmail(props: CheckEmailProps) {
 
     // handle if email doesn't have an @ symbol
     if (!account.email.includes('@')) {
-      props.setError(2);
+      setError(2);
       shouldGo = false;
     } else {
-      props.setError(null);
+      setError(null);
       shouldGo = true;
     }
     // handle password mismatch
     if (!passwordMatch) {
-      props.setError(3);
+      setError(3);
       shouldGo = false;
     } else {
-      props.setError(null);
+      setError(null);
       shouldGo = true;
     }
 
     // no errors mean we can carry on with the registration
     if (shouldGo) {
-      addRegistration({ variables: { input: newAccount } }).then((() => {
-        props.setRegistered(true);
-        props.setError(null);
-      })).catch((err) => {
+      addRegistration({ variables: { input: newAccount } }).then(((e) => {
+        setError(null);
+        console.log(e)
+      })).then(() => {
+        props.setRegistered(true)
+      }).catch((err) => {
         console.log(err);
-        props.setError(1);
+        setError(1);
       });
     }
   };
@@ -75,66 +74,105 @@ function CheckEmail(props: CheckEmailProps) {
       ...account, [e.target.name]: e.target.value || ''
     });
   };
+  const changeLabel = (e) => {
+    const sibling = e.previousSibling
+    sibling.classList.add('label-active')
+  }
+  const close = e => {
+    setError(null)
+  }
 
   return (
 
-    <div className="register-form">
-      <h1>Register for an account</h1>
-      <form onSubmit={handleRegister}>
+    <div className="login-container">
+      <div className="login-content">
+        <a href="/" className="logo-container-link"><img className="logo-center" src="/images/logo-192.png" alt="logo" /></a>
+        <h1>Register for an account</h1>
+        <form onSubmit={handleRegister}>
 
-        <label htmlFor="login-username">Name</label>
-        <input id="login-username" defaultValue={account.user} onChange={updateFields} name='user' placeholder={(account.user) ? account.user : 'username'} />
+          <label htmlFor="login-username">
+            <p className="real-label">Name</p>
+            <input id="login-username"
+              defaultValue={account.user}
+              onChange={updateFields} name='user'
+              onFocus={e => changeLabel(e.target)} />
+          </label>
 
-        <label htmlFor="login-email">E-mail Address</label>
-        <input id="login-email" name='email' onChange={updateFields} placeholder={account.email} required/>
+          <label htmlFor="login-email">
+            <p className="real-label">Email Address</p>
+            <input id="login-email" name='email'
+              onChange={updateFields}
+              onFocus={e => changeLabel(e.target)}
+              required />
+          </label>
 
-        <label htmlFor="login-passwordOne">Password</label>
-        <input id="login-passwordOne" defaultValue={account.passwordOne} onChange={updateFields} name='passwordOne' type="password" placeholder={(account.passwordOne) ? account.passwordOne : 'password'} minLength="6" maxLength="15" required />
+          <label htmlFor="login-passwordOne">
+            <p className="real-label">Password</p>
+            <input id="login-passwordOne"
+              defaultValue={account.passwordOne}
+              onChange={updateFields}
+              name='passwordOne'
+              type="password"
+              minLength="6"
+              maxLength="15"
+              onFocus={e => changeLabel(e.target)}
+              required />
+          </label>
 
-        <label htmlFor="login-passwordTwo">Verify Password</label>
-        <input id="login-passwordTwo" defaultValue={account.passwordTwo} onChange={updateFields} name='passwordTwo' type="password" placeholder={(account.passwordTwo) ? account.passwordTwo : 'Verify your Password'} required/>
-        
-        <button className="login-button" type='submit'>Submit Registration</button>
+          <label htmlFor="login-passwordTwo">
+            <p className="real-label">Verify Password</p>
+            <input id="login-passwordTwo"
+              defaultValue={account.passwordTwo}
+              onChange={updateFields}
+              name='passwordTwo'
+              type="password"
+              onFocus={e => changeLabel(e.target)}
+              required />
+          </label>
 
-      </form>
+          <div className="below-registration">
+            <ul>
+              <li>
+                <a href="/login">Login</a>
+              </li>
+            </ul>
+          </div>
+
+          <button className="login-button" type='submit'>Register</button>
+
+        </form>
+        {terror && (
+            <div className="error-area"><span onClick={close} className="close">×</span>
+              {terror === 1 ? <p className="error">Email is taken</p> :
+                terror === 2 ? <p className="error">Please enter a valid email address</p> :
+                  terror === 3 && <p className="error">Your passwords do not match. Please try again</p>}
+            </div>
+          )}
+
+      </div>
+      <div className="bottom"></div>
     </div>
   );
 }
 
 export default function Regi() {
-  const [variable, setVariable] = useState({
-    registered: false,
-    forError: {
-      status: false,
-      text: ''
-    }
-  });
+
   const [registered, setRegistered] = useState(false);
-  const [error, setError] = useState(null);
 
-  const fromChild = (update) => {
-    const newUpdate = update;
-    setVariable(newUpdate);
-  };
-
-  useEffect(() => {
-    setVariable(variable);
-  }, [variable]);
 
   return (
     <Fragment>
-      {registered ? 
-      <Fragment>
-        <p className="regSticky">Thank you for registerring, please sign in with your new account</p>
-        <Login /> </Fragment>
-      : 
-      <div className="register-container">
-        
-        <CheckEmail registered={registered} error={error} updateParent={fromChild} setRegistered={setRegistered} setError={setError} />
-        {error === 1 ? <p className="error">Email is taken</p> :
-          error === 2 ? <p className="error">Please enter a valid email address</p> :
-            error === 3 && <p className="error">Your passwords do not match. Please try again</p>}
-      </div>}
+      {registered ?
+        <Fragment>
+          <p className="regSticky">Thank you for registering! Please sign in with your new account</p>
+          <Login />
+        </Fragment> :
+        <Fragment>
+          <CheckEmail
+            registered={registered}
+            setRegistered={setRegistered}
+/>
+        </Fragment>}
     </Fragment>
   );
 }

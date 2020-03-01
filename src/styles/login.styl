@@ -55,6 +55,16 @@
     form 
       display: grid;
       position: relative;
+      .below-registration
+        display: grid;
+        width: 100%;
+        align-content: end;
+        justify-content: end;
+        margin: 15px 0;
+        li
+          border-bottom: 1px solid white;
+          &:hover 
+            border-bottom: 1px solid #ccc;
       label
         font-family: roboto;
       .real-label 
@@ -101,6 +111,7 @@
           top: 0px;
           left: 3px;
           color: link-orange;
+
         div
           text-align: right;
           ul
@@ -110,6 +121,9 @@
               padding: 5px 0;
               text-transform: uppercase;
               letter-spacing: .1rem;
+              border-bottom: 1px solid white;
+              &:hover 
+                border-bottom: 1px solid #ccc;
       
 
   .bottom
@@ -165,3 +179,15 @@
       color: link-orange;
     .error 
       max-width: 400px;
+.regSticky 
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  display: flex;
+  align-content: center;
+  test-align: center;
+  justify-content: center;
+  background: white;
+  padding: 10px;
+
+  z-index: 9;

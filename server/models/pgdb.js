@@ -11,12 +11,14 @@ module.exports = pgPool => {
     }) {
       //first let's check if the email exists in the database, 
       //if it does and password matches, sign in. if none then register
-      return pgPool.query(`select * from users where email = '${email}'`).then(async res => {
+      return pgPool.query(`select * from users where email = $1`, [email]).then(async res => {
         if (res.rows.length > 0) {
           let hashedPassword = await bcrypt.compare(password, res.rows[0].password);
           if (hashedPassword) {
             res.rows[0].apiKey = res.rows[0].token;
-            return res.rows[0];
+            // TODO: Make it redirect to dashboard with message that 
+            // password matched with username upon logging them in
+            throw new Error('Your password matched!')
           } else {
             throw new Error('Email already exists!');
           }
