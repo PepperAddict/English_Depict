@@ -3,7 +3,7 @@ import { Handle_Login } from '../../query/query';
 import { useApolloClient } from '@apollo/react-hooks';
 import { encryptMe, signMe } from '../../helpers';
 import '../../styles/login.styl';
-import {createUseStyles} from 'react-jss';
+import { createUseStyles } from 'react-jss';
 
 
 function LoginForm() {
@@ -12,10 +12,10 @@ function LoginForm() {
 
   const bg = createUseStyles({
     myBG: {
-      backgroundImage: `url(${bgCrinkle.images[bgCrinkle.images.length -1].path})`
+      backgroundImage: `url(${bgCrinkle.images[bgCrinkle.images.length - 1].path})`
     },
     myBGTwo: {
-      backgroundImage: `url(${bgWave.images[bgWave.images.length -1].path})`,
+      backgroundImage: `url(${bgWave.images[bgWave.images.length - 1].path})`,
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'bottom'
@@ -33,7 +33,7 @@ function LoginForm() {
       text: ''
     }
   });
-  const [error, setError] = useState(null); // 1 is no email in database, 2 is wrong password
+  const [error, setError] = useState(1); // 1 is no email in database, 2 is wrong password
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -50,13 +50,22 @@ function LoginForm() {
       const newToken = await signMe(e.data.login.apiKey).then((api) => {
         return api;
       });
-      document.cookie = `token=${newToken}`;
       let userid = e.data.login.id;
       let newUser = await encryptMe(userid);
 
       let a = new Date();
-      a = new Date(a.getTime() +1000*60*60*24*365);
-      (rememberMe.checked === false) ? document.cookie = `userID=${newUser};samesite` : document.cookie = `userID=${newUser};samesite; expires=${a.toUTCString()}`;
+      a = new Date(a.getTime() + 1000 * 60 * 60 * 24 * 365);
+
+      //remember me section for having it session vs a year
+      if (rememberMe.checked === false) {
+        document.cookie = `userID=${newUser};samesite`;
+        document.cookie = `token=${newToken};samesite`;
+
+      } else {
+        document.cookie = `userID=${newUser};samesite; expires=${a.toUTCString()}`;
+        document.cookie = `token=${newToken};samesite; expires=${a.toUTCString()}`;
+
+      }
 
     }).then(() => {
       location.reload();
@@ -82,7 +91,7 @@ function LoginForm() {
   const changeLabel = (e, f) => {
     const sibling = f.previousSibling
     sibling.classList.add('label-active')
-    
+
   }
 
   return (<div className={classy.myBG + ' login-container'}>
@@ -93,49 +102,54 @@ function LoginForm() {
       <form onSubmit={(e) => handleLogin(e)}>
         <label
           htmlFor="loginemail" className="emaillabel">
-            <p className="real-label">E-mail Address</p>
-        <input
-          id="loginemail"
-          name='email'
-          onFocus={ e => changeLabel(e.target.name, e.target)}
-          onChange={updateFields} />
+          <p className="real-label">E-mail Address</p>
+          <input
+            id="loginemail"
+            name='email'
+            onFocus={e => changeLabel(e.target.name, e.target)}
+            onChange={updateFields} />
 
-          </label>
+        </label>
 
         <label htmlFor="loginpasswordOne" className="passwordlabel">
           <p className="real-label">Password</p>
-        <input
-          id="loginpasswordOne"
-          className="loginpasswordOne"
-          defaultValue={val.username}
-          onChange={updateFields}
-          onFocus={e => changeLabel(e.target.name, e.target)}
-          name='password'
-          type="password" />
-          </label>
-        
-        <label htmlFor="rememberMe">
-        <input type="checkbox" id="rememberMe"/>
-        Remember Me</label>
+          <input
+            id="loginpasswordOne"
+            className="loginpasswordOne"
+            defaultValue={val.username}
+            onChange={updateFields}
+            onFocus={e => changeLabel(e.target.name, e.target)}
+            name='password'
+            type="password" />
+        </label>
+        <div className="below-login">
+          <label htmlFor="rememberMe">
+            <input type="checkbox" id="rememberMe" />
+            <span></span>
+            Remember Me</label>
+          <div className="different-logins">
+            <ul>
+              <li><a href="/student-login">Student Login</a></li>
+              <li><a href="/register">Register</a></li>
+              {/* TODO create reset password */}
+              <li><a href="/">Reset password</a></li>
+            </ul>
+          </div>
+        </div>
 
         <button className="login-button" type='submit'>Login</button>
       </form>
       <hr />
-      {error === 1 ? (<p className="error">The email: <i>{val.email}</i> is not in our system. Please check and try again.<br/>
-       <a href="/register">Did you mean to register?</a></p>) :
-        error === 2 && <p className="error">Incorrect password. Please try again.</p>
-      }
-      
+      {error && (
+      <div className="error-area">
+        {error === 1 && (<p className="error">The email: <b>{val.email}</b> is not in our system. Please check and try again.</p>) ||
+        error === 2 && (<p className="error">Incorrect password. Please try again.</p>) }
+      </div>
+        ) }
+
     </div>
     <div className={classy.myBGTwo + ' bottom'}>
-      <div className="bottom-content">
-        <ul>
-          <li><a href="/register">Register For a teacher’s account</a></li>
-          <li><a href="/student_login">Student Login</a></li>
-        </ul>
-        </div>
     </div>
-
   </div>
   );
 }
