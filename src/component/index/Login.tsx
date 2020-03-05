@@ -91,8 +91,8 @@ function LoginForm() {
   const changeLabel = (e) => {
     const sibling = e.previousSibling
     sibling.classList.add('label-active')
-
   }
+  
   const close = e => {
     setError(null)
   }

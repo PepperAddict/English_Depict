@@ -87,7 +87,7 @@ function CheckEmail(props: CheckEmailProps) {
     <div className="login-container">
       <div className="login-content">
         <a href="/" className="logo-container-link"><img className="logo-center" src="/images/logo-192.png" alt="logo" /></a>
-        <h1>Register for an account</h1>
+        <h1>Register</h1>
         <form onSubmit={handleRegister}>
 
           <label htmlFor="login-username">
