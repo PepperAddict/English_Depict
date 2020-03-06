@@ -39,19 +39,10 @@ export default function StudentSettings(props) {
   const onSubmit = async e => {
     e.preventDefault();
     const formData = new FormData();
-    // const deleteMe = `https://talkingstorage.blob.core.windows.net/talkingcontainer/1581882646475.jpg`;
-    // fetch(deleteMe, {
-    //   method: 'POST',
-    //   mode: 'no-cors',
-    //   headers: {
-    //     'Authorization':
-    //   }
-    // }).then((res) => {
-    //   console.log(res)
-    // })
+    let sendOld = props.avatar ? props.avatar : filename;
 
     if (file) {
-      formData.append('depictImage', file, filename);
+      formData.append('depictImage', file, sendOld);
 
       axios.post('/upload', formData, {
         headers: {
@@ -69,10 +60,13 @@ export default function StudentSettings(props) {
           updateAvatar({ variables: { input: { student_id: props.student_id, avatar: location } } }).then((e) => {
             setUploadedFile({ image, location });
           })
+          
         } else {
           setMessage(response.data.msg)
         }
 
+      }).then(() => {
+        location.reload();
       }).catch((err) => {
         if (err.response.status === 400) {
           setMessage(err.response.data.msg)
