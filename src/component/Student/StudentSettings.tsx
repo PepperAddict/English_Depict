@@ -48,7 +48,7 @@ export default function StudentSettings(props) {
       axios.post('/upload', formData, {
         headers: {
           'accept': 'application/json',
-          'oldImage': sendOld,
+          'oldImage': (props.avatar) ? props.avatar : null,
           'username': props.username
         },
         onUploadProgress: progressEvent => {
