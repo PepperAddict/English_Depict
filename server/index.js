@@ -113,7 +113,7 @@ const profileImgUpload = multer({
       cb(null, {fieldName: file.fieldname});
     },
     key: function(req, file, cb) {
-      cb(null, path.basename(Date.now().toString() + path.extname(file.originalname))); //giving it a unique name
+      cb(null, path.basename(req.headers.username + Date.now().toString() + path.extname(file.originalname))); //giving it a unique name
     }
   }),
 
@@ -141,7 +141,6 @@ server.post('/upload', profileImgUpload.single('depictImage'), (req, res, next) 
       msg: 'No file was uploaded'
     });
   } else {
-
     const imageName = req.file.key; 
     const imageLocation = req.file.location; 
     res.json( {
@@ -151,13 +150,12 @@ server.post('/upload', profileImgUpload.single('depictImage'), (req, res, next) 
 
     //delete the old file using the originalname that was sent over. 
     //TODO find a better solution than using original name to store old name.
-    let params = { Bucket: "t-cloud-bucket", Key: req.file.originalname};
+    let params = { Bucket: "t-cloud-bucket", Key: req.headers.oldimage};
     s3.deleteObject(params, function(err, data) {
       if (err) console.log(err)
       else console.log(data)
     })
   }
-
 });
 
 

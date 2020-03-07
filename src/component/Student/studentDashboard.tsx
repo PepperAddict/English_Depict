@@ -140,7 +140,7 @@ export default function StudentDashboard() {
           ) :
             data && dashboard.options === 'addblog' ? <AddBlog student_id={id} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} /> :
               data && dashboard.options === 'blogs' ? <ViewBlogs student_id={id} addVocabulary={addVocabulary} blogs={data.getStudentByID[0].blogs} /> :
-                data && dashboard.options === 'settings' ? <StudentSettings student_id={id} avatar={data.getStudentByID[0].avatar} name={data.getStudentByID[0].name} /> :
+                data && dashboard.options === 'settings' ? <StudentSettings student_id={id} avatar={data.getStudentByID[0].avatar} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username}/> :
                   data && dashboard.options === 'edit-blog' ? <EditBlog student_id={id} /> :
                     data && dashboard.options === 'view-comments' ? <ViewComments addVocabulary={addVocabulary} student_id={id} /> : null}
         <div className="student-vocabulary">

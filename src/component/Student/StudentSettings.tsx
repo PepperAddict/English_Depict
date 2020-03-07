@@ -41,12 +41,15 @@ export default function StudentSettings(props) {
     const formData = new FormData();
     let sendOld = props.avatar ? props.avatar : filename;
 
+
     if (file) {
-      formData.append('depictImage', file, sendOld);
+      formData.append('depictImage', file, filename);
 
       axios.post('/upload', formData, {
         headers: {
-          'accept': 'application/json'
+          'accept': 'application/json',
+          'oldImage': sendOld,
+          'username': props.username
         },
         onUploadProgress: progressEvent => {
           setUploadPercentage(Math.round((progressEvent.loaded * 100) / progressEvent.total))
