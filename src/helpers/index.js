@@ -18,6 +18,7 @@ export const clearCookies = (keyName = null) => {
   }
 };
 
+
 const privateKey = process.env.TOKENPW;
 export const signMe = str => {
   return new Promise(resolve => {

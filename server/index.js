@@ -97,6 +97,41 @@ server.get(
   }
 );
 
+const nodemailer = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+  service: "Gmail",
+  secure: false,
+  port: 587,
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.EMAIL_PASS
+  }
+});
+
+server.get("/send", function(req, res) {
+  rand = Math.floor(Math.random() * 100 + 54);
+  host = req.get("host");
+  link = `http://${host}/verify?id=${rand}`;
+
+  mailOptions = {
+    to: "jenearly@gmail.com",
+    subject: "Please confirm your email account",
+    text: "clickityclick"
+  };
+
+   transporter.sendMail(mailOptions, function(err, response) {
+    if (err) {
+      console.log(err);
+      res.send('did not work')
+    } else {
+      console.log("mes sent" + response.message);
+      res.send("send");
+    }
+  });
+});
+
+
 server.get(
   ["/student/", "/student/:page?"],
   cors(),
