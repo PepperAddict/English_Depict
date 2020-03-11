@@ -19,6 +19,7 @@ const {
 } = require("./utils");
 
 const express = require("express");
+const router = express.Router();
 
 const bodyParser = require("body-parser");
 const server = express();
@@ -69,15 +70,15 @@ server.use(
   })
 );
 
-server.get(["/", "/login"], softAuthenticate, (req, res) => {
+router.get(["/", "/login"], softAuthenticate, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 });
 
-server.get(["/register", "/register/:page?"], softAuthenticate, (req, res) => {
+router.get(["/register", "/register/:page?"], softAuthenticate, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 });
 
-server.get(
+router.get(
   ["/dashboard/", "/dashboard/:page?"],
   cors(),
   isAuthenticated,
@@ -88,7 +89,7 @@ server.get(
 
 //student corner
 
-server.get(
+router.get(
   ["/student_login/", "/student_login/:page?"],
   cors(),
   choice,
@@ -97,42 +98,13 @@ server.get(
   }
 );
 
-const nodemailer = require("nodemailer");
-
-const transporter = nodemailer.createTransport({
-  service: "Gmail",
-  secure: false,
-  port: 587,
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.EMAIL_PASS
-  }
-});
-
-server.get("/send", function(req, res) {
-  rand = Math.floor(Math.random() * 100 + 54);
-  host = req.get("host");
-  link = `http://${host}/verify?id=${rand}`;
-
-  mailOptions = {
-    to: "jenearly@gmail.com",
-    subject: "Please confirm your email account",
-    text: "clickityclick"
-  };
-
-   transporter.sendMail(mailOptions, function(err, response) {
-    if (err) {
-      console.log(err);
-      res.send('did not work')
-    } else {
-      console.log("mes sent" + response.message);
-      res.send("send");
-    }
-  });
-});
+const mailer = require('./middleware/mailer.js');
+const imageupload = require('./middleware/imageupload.js');
+router.use(mailer)
+router.use(imageupload)
 
 
-server.get(
+router.get(
   ["/student/", "/student/:page?"],
   cors(),
   studentAuthenticate,
@@ -141,7 +113,7 @@ server.get(
   }
 );
 
-server.use("/graphql", cors(), (req, res) => {
+router.use("/graphql", cors(), (req, res) => {
   graphqlHTTP({
     schema: schema,
     graphiql: isDev ? true : false,
@@ -150,83 +122,9 @@ server.use("/graphql", cors(), (req, res) => {
   })(req, res);
 });
 
-//route for images
 
-const multer = require("multer");
-const AWS = require("aws-sdk");
-const multerS3 = require("multer-s3");
-const s3 = new AWS.S3({
-  secretAccessKey: process.env.AWS_SECRET,
-  accessKeyId: process.env.AWS_KEY,
-  Bucket: "t-cloud-bucket", // bucket name
-  region: "us-east-1"
-});
 
-const profileImgUpload = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: "t-cloud-bucket",
-    acl: "public-read",
-    metadata: function(req, file, cb) {
-      cb(null, { fieldName: file.fieldname });
-    },
-    key: function(req, file, cb) {
-      cb(
-        null,
-        path.basename(
-          req.headers.username +
-            Date.now().toString() +
-            path.extname(file.originalname)
-        )
-      ); //giving it a unique name
-    }
-  }),
-
-  fileFilter: function(req, file, cb) {
-    const filetypes = /jpeg|jpg|png|svg|gif/;
-    const extname = filetypes.test(
-      path.extname(file.originalname).toLowerCase()
-    );
-    const mimetype = filetypes.test(file.mimetype);
-    if (mimetype && extname) {
-      return cb(null, true);
-    } else {
-      cb(null, false);
-    }
-  }
-});
-
-server.post(
-  "/upload",
-  profileImgUpload.single("depictImage"),
-  (req, res, next) => {
-    if (req.file === undefined) {
-      return res.status(400).json({
-        msg: "Image only"
-      });
-    } else if (req.file === null) {
-      return res.status(400).json({
-        msg: "No file was uploaded"
-      });
-    } else {
-      const imageName = req.file.key;
-      const imageLocation = req.file.location;
-      res.json({
-        image: imageName,
-        location: imageLocation
-      });
-      let oldImage = req.headers.oldimage.split("/");
-      let oldimagepath = oldImage[oldImage.length - 1];
-      if (oldImage) {
-        let params = { Bucket: "t-cloud-bucket", Key: oldimagepath };
-        s3.deleteObject(params, function(err, data) {
-          if (err) console.log(err);
-          else console.log(data);
-        });
-      }
-    }
-  }
-);
+server.use('/', router)
 
 const PORT = process.env.PORT || 8080;
 http.listen(PORT, () => {
