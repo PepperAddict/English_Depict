@@ -22,7 +22,7 @@ require('./img/logoPlain.png');
 //reload on changes
 if (isDev) {
   require('webpack-hot-middleware/client?reload=true');
-  require('react-hot-loader/patch');
+  // require('react-hot-loader/patch');
 }
 
 require('core-js/stable');

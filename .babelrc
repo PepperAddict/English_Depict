@@ -19,5 +19,5 @@
       "helpers": true,
       "regenerator": true,
       "useESModules": false
-    }],[ "@babel/plugin-proposal-class-properties"], ["react-hot-loader/babel"]]
+    }],[ "@babel/plugin-proposal-class-properties"]]
 }

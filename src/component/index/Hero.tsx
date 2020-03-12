@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as THREE from 'three';
-import GLTFLoader from 'three-gltf-loader';
+// import GLTFLoader from 'three-gltf-loader';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
@@ -16,8 +17,6 @@ export default function Hero() {
     //texture
     const imageTexture = require('../../img/3D/gradientMap.jpg');
     var texture = new THREE.TextureLoader().load(imageTexture.src);
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
 
     model.material = new THREE.MeshToonMaterial({
       gradientMap: texture,
@@ -32,7 +31,9 @@ export default function Hero() {
     action.play();
     scene.add(model);
   };
-  const onProgress = () => { };
+  const onProgress = () => {
+    // console.log( `3D model ${( xhr.loaded / xhr.total * 100 )}% loaded` );
+   };
   const onError = (err) => console.log(err);
 
   function update() {
@@ -74,17 +75,17 @@ export default function Hero() {
 
 
       //the meshes loaded and animate each child
-
       var cloudOnePath = require('../../img/3D/cloud1.glb');
+      //loader.load needs a path. check how importing sends the string. May end up being an object
 
-      loader.load(cloudOnePath, gltf => onLoad(gltf, 1), onProgress, onError);
-      loader.load(cloudOnePath, gltf => onLoad(gltf, 2), onProgress, onError);
-      loader.load(cloudOnePath, gltf => onLoad(gltf, 3), onProgress, onError);
-      loader.load(cloudOnePath, gltf => onLoad(gltf, 4), onProgress, onError);
-      loader.load(cloudOnePath, gltf => onLoad(gltf, 5), onProgress, onError);
-      loader.load(cloudOnePath, gltf => onLoad(gltf, 6), onProgress, onError);
-      loader.load(cloudOnePath, gltf => onLoad(gltf, 7), onProgress, onError);
-      loader.load(cloudOnePath, gltf => onLoad(gltf, 8), onProgress, onError);
+      loader.load(cloudOnePath.default, gltf => onLoad(gltf, 1), onProgress, onError);
+      loader.load(cloudOnePath.default, gltf => onLoad(gltf, 2), onProgress, onError);
+      loader.load(cloudOnePath.default, gltf => onLoad(gltf, 3), onProgress, onError);
+      loader.load(cloudOnePath.default, gltf => onLoad(gltf, 4), onProgress, onError);
+      loader.load(cloudOnePath.default, gltf => onLoad(gltf, 5), onProgress, onError);
+      loader.load(cloudOnePath.default, gltf => onLoad(gltf, 6), onProgress, onError);
+      loader.load(cloudOnePath.default, gltf => onLoad(gltf, 7), onProgress, onError);
+      loader.load(cloudOnePath.default, gltf => onLoad(gltf, 8), onProgress, onError);
 
       // the lighting 
       var light = new THREE.HemisphereLight(0xFFFFFF, 0x000000, 1); //sky ground intensity

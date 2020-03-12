@@ -28,6 +28,10 @@ const AddComment = require('./mutations/addComment');
 const UpdateMessage = require('./mutations/addMessage');
 const AddTask = require('./mutations/addTask');
 const RemoveUser = require('./mutations/removeUser')
+
+//for cache 
+const getTeacherID = require('./queries/getTeacherID');
+const setTeacherID = require('./mutations/setTeacherID')
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
   fields: () => ({
@@ -43,7 +47,7 @@ const RootQueryType = new GraphQLObjectType({
     getCompleteBlogs: GetCompleteBlogs,
     getVocabulary: GetVocabularyByStudentID,
     getBlogByID: GetBlogByID,
-
+    getTeacherID
   })
 });
 const RootMutationType = new GraphQLObjectType({
@@ -63,7 +67,8 @@ const RootMutationType = new GraphQLObjectType({
     AddComment,
     UpdateMessage,
     AddTask,
-    RemoveUser
+    RemoveUser,
+    setTeacherID
   })
 });
 

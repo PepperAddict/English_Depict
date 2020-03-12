@@ -6,7 +6,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const client = new ApolloClient({
   uri: '/graphql',
-  cache: new InMemoryCache()
+  cache: new InMemoryCache({
+    freezeResults: true
+  }),
+  assumeImmutableResults: true
 });
 
 // components
