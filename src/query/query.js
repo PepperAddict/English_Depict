@@ -1,5 +1,13 @@
 import gql from 'graphql-tag';
 
+export const TEACHER_ID = gql`
+query {
+  getTeacherID @client {
+    teacher_id @client
+  }
+}
+`
+
 export const Match_Email = gql `
 query GET_EMAILS ($email: String!) {
   getUserByEmail(email: $email) {

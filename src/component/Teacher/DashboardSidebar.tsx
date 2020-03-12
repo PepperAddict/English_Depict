@@ -21,13 +21,13 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
         <address>{props.email}</address>
       </div>
       <nav>
-        <a href="/dashboard" className="dashboard-link"><img src={outlineLogo} alt="logo to dashboard"/> Dashboard</a>
+        <a href="/dashboard" className="dashboard-link"><img src={outlineLogo.default} alt="logo to dashboard"/> Dashboard</a>
 
         <ul className="top-nav">
-          <li><a href="/dashboard/add_student"><img src={personIcon} alt="Go to Student" /> Student</a></li>  
-          <li><a href="/dashboard/task"><img src={taskIcon} alt="Go to Tasks" /> Tasks</a></li>
-          <li><a href="/"><img src={blogIcon} alt="Go to Blog" /> Blog</a></li>
-          <li><a href="/"><img src={activityIcon} alt="Go to Activity" /> Activity</a></li>
+          <li><a href="/dashboard/add_student"><img src={personIcon.default} alt="Go to Student" /> Student</a></li>  
+          <li><a href="/dashboard/task"><img src={taskIcon.default} alt="Go to Tasks" /> Tasks</a></li>
+          <li><a href="/"><img src={blogIcon.default} alt="Go to Blog" /> Blog</a></li>
+          <li><a href="/"><img src={activityIcon.default} alt="Go to Activity" /> Activity</a></li>
         </ul>
                 
       </nav>

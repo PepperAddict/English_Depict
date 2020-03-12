@@ -9,6 +9,12 @@ mutation AddNewUser($input: UserInput!) {
   }
 }`;
 
+export const M_TEACHER_ID = gql`
+mutation setTeacherID($id: ID!){
+  setTeacherID(teacher_id: $id) @client
+}
+`
+
 export const REMOVE_USER = gql`
 mutation RemoveUser($id: ID!) {
   RemoveUser (id: $id) {

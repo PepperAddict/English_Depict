@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { cookieParser } from '../../helpers';
 import { getUserByID } from '../../query/query';
@@ -14,12 +14,17 @@ import Settings from './Settings';
 const settingsLogo = require('../../img/settings.svg');
 const logoutLogo = require('../../img/logout.svg');
 
+import {MyContext} from '../index/Context';
+
 export default function Dashboard() {
+
+
   const userId = parseInt(cookieParser('userID', true));
   const { loading, error, data } = useQuery(getUserByID, { variables: { userId: userId } });
   const [info, setInfo] = useState('');
   const [student_id, setStudent_id] = useState(null);
-
+  const {teacherid} = useContext(MyContext);
+  console.log(teacherid)
   useEffect(() => {
     let pathname = window.location.pathname;
     switch (true) {
@@ -89,8 +94,8 @@ export default function Dashboard() {
         {data && <DashboardSidebar username={data.getUser.username} email={data.getUser.email} />}
         <nav className="bottom-nav">
 
-          <button type="button"><span><img src={settingsLogo} alt="Go to Settings" /></span><a href="/dashboard/settings">Settings</a></button>
-          <button id="logout" type="button" onClick={logout}><span><img src={logoutLogo} alt="Logout" /></span> Logout</button>
+          <button type="button"><span><img src={settingsLogo.default} alt="Go to Settings" /></span><a href="/dashboard/settings">Settings</a></button>
+          <button id="logout" type="button" onClick={logout}><span><img src={logoutLogo.default} alt="Logout" /></span> Logout</button>
 
         </nav>
  

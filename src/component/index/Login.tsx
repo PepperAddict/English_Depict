@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Handle_Login } from '../../query/query';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { encryptMe, signMe } from '../../helpers';
 import '../../styles/login.styl';
 import { createUseStyles } from 'react-jss';
 
 
 function LoginForm() {
+
   const bgCrinkle = require('../../img/crinkle.png');
   const bgWave = require('../../img/wave.png');
 
+  //jss portion
   const bg = createUseStyles({
     myBG: {
       backgroundImage: `url(${bgCrinkle.images[bgCrinkle.images.length - 1].path})`
@@ -21,7 +23,6 @@ function LoginForm() {
       backgroundPosition: 'bottom'
     }
   })
-
   const classy = bg();
 
   const client = useApolloClient();
@@ -36,6 +37,7 @@ function LoginForm() {
   const [error, setError] = useState(null); // 1 is no email in database, 2 is wrong password
 
   const handleLogin = async (e) => {
+    
     e.preventDefault();
     const rememberMe = document.getElementById('rememberMe') as HTMLInputElement;
 
@@ -56,6 +58,7 @@ function LoginForm() {
       let a = new Date();
       a = new Date(a.getTime() + 1000 * 60 * 60 * 24 * 365);
 
+    
       //remember me section for having it session vs a year
       if (rememberMe.checked === false) {
         document.cookie = `userID=${newUser};samesite`;
@@ -68,7 +71,8 @@ function LoginForm() {
       }
 
     }).then(() => {
-      location.reload();
+      // location.reload();
+
     }).catch((e) => {
       if (e.message.includes('noEmail')) {
         setError(1);
