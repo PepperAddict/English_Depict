@@ -1,16 +1,12 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
-import  ApolloClient from 'apollo-boost';
+import ApolloClient, { InMemoryCache } from 'apollo-boost';
 import { ApolloProvider, Query, withApollo } from 'react-apollo';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-const graphQLPW = process.env.GRAPHPW
 
 const client = new ApolloClient({
   uri: '/graphql',
-  headers: {
-    'entrySauce': graphQLPW,
-  },
-  credentials: 'include'
+  cache: new InMemoryCache()
 });
 
 // components
@@ -21,6 +17,8 @@ import Dashboard from '../Teacher/Dashboard';
 const RegWithClient = withApollo(Register);
 import StudentLogin from '../Student/StudentLogin';
 import StudentDashboard from '../Student/studentDashboard';
+import Verify from './Verify';
+
 
 
 const App = () => (
@@ -45,12 +43,15 @@ const App = () => (
         <Route path="/student/:page?">
           <StudentDashboard />
         </Route>
+        <Route path="/send">
+          <Verify />
+        </Route>
       </Fragment>
     </Router>
   </ApolloProvider>
 );
 ReactDOM.render(
-  <App/>,
+  <App />,
   document.getElementById('app')
 );
 
