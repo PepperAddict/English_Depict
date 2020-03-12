@@ -34,19 +34,21 @@ function IndividualBlog(props) {
         <span className="avatar">
           <img className="avatar-image" src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : 'none'} alt={data.getStudentByID[0].name + ' avatar'} />
         </span>} {data ? data.getStudentByID[0].name == null ? data.getStudentByID[0].username : data.getStudentByID[0].name : 'Unknown'}</div>
-      {props.editMe && <div className="edit"><a href={'/student/edit-blog=' + props.blog.blog_id}>Edit Blog</a></div>}
+      {props.editMe && <div className="edit">
+        <a href={'/student/edit-blog=' + props.blog.blog_id}>Edit Blog</a></div>}
       <a href={'/student/view-comments=' + props.blog.blog_id}>{props.comment.length === 0 ? '0 Comments' : props.comment.length === 1 ? '1 Comment' : props.comment.length > 0 && props.comment.length + ' Comments'}</a>
     </div>
   );
 }
 
-ShowPosts.propTypes = {
-  student_id: PropType.number,
-  addVocabulary: PropType.func,
-  blog: PropType.array
-};
+interface ShowPostsProps {
+  student_id: number, 
+  addVocabulary: any, 
+  blog: any,
+  date: string
+}
 
-function ShowPosts(props) {
+function ShowPosts(props: ShowPostsProps) {
   //All blog posts 
   const thestudent = props.student_id;
 
@@ -66,14 +68,13 @@ function ShowPosts(props) {
     </div>
   );
 }
+interface ViewBlogsProp {
+  student_id: number, 
+  blogs: any,
+  addVocabulary: any
+}
 
-ViewBlogs.propTypes = {
-  student_id: PropType.number,
-  blogs: PropType.array,
-  addVocabulary: PropType.func
-};
-
-export default function ViewBlogs(props) {
+export default function ViewBlogs(props: ViewBlogsProp) {
   // TODO Show all related students to the teacher so they can read each other's blogs
   // const [studentOnly, setStudentOnly] = useState(false);
   const [blog] = useState(props.blogs);

@@ -4,7 +4,11 @@ import { getBlogByID } from '../../query/query';
 import {EDIT_BLOG} from '../../mutation/mutation'
 import ViewBlogs from '../teacher-student-shared/ViewBlogs'
 
-export default function EditBlog(props) {
+interface EditBlogProps {
+student_id: number,
+}
+
+export default function EditBlog(props: EditBlogProps) {
 
   const [blog_id, setBlog_id] = useState(window.location.pathname.split('=')[1])
   const [owner, setOwner] = useState(false);
@@ -14,7 +18,8 @@ export default function EditBlog(props) {
   const { loading, error, data } = useQuery(getBlogByID, { variables: { blog_id: blog_id } })
   useEffect(() => {
     if (data) {
-      if (data.getBlogByID[0].student_id === props.student_id) {
+      const blog_student_id = parseInt(data.getBlogByID[0].student_id)
+      if (blog_student_id === props.student_id) {
         setOwner(true)
       }
 
@@ -56,8 +61,9 @@ export default function EditBlog(props) {
 
   return (
     <div className="blog-container">
-      <h2>You are modifying this blog entry</h2>
       {loading ? 'loading' : error ? 'error' : data && owner ? (
+        <Fragment>
+          <h2>You are modifying this blog entry</h2>
             <form onSubmit={submitChanges}>
             <button className="blog-button" type="submit">Submit Changes</button>
             <label htmlFor="subject">Subject</label>
@@ -67,7 +73,8 @@ export default function EditBlog(props) {
             <textarea id="content" defaultValue={data.getBlogByID[0].content} onChange={updateFields} name="content" placeholder="" />
       
           </form>
-      ) : <ViewBlogs student_id={props.student_id} />}
+          </Fragment>
+      ) : null}
     </div>
   )
 }

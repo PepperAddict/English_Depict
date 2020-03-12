@@ -12,27 +12,27 @@ function ImageForm({ pass, pictureSubmit, itemClick }) {
     <form className="password-selection" onSubmit={pictureSubmit}>
       <div className="row">
         <span id="icecream" className={(pass.indexOf('icecream') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/icecream.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/icecream.svg').default} />
         </span>
 
         <span id="apple" className={(pass.indexOf('apple') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/apple.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/apple.svg').default} />
         </span>
 
         <span id="bread" className={(pass.indexOf('bread') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/bread.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/bread.svg').default} />
         </span>
 
         <span id="candy" className={(pass.indexOf('candy') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/candy.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/candy.svg').default} />
         </span>
 
         <span id="cake" className={(pass.indexOf('cake') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/cake.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/cake.svg').default} />
         </span>
 
         <span id="chocolate" className={(pass.indexOf('chocolate') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/chocolate.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/chocolate.svg').default} />
         </span>
 
 
@@ -41,27 +41,27 @@ function ImageForm({ pass, pictureSubmit, itemClick }) {
       <div className="row">
 
         <span id="clock" className={(pass.indexOf('clock') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/clock.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/clock.svg').default} />
         </span>
 
         <span id="bow" className={(pass.indexOf('bow') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/bow.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/bow.svg').default} />
         </span>
 
         <span id="feather" className={(pass.indexOf('feather') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/feather.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/feather.svg').default} />
         </span>
 
         <span id="cup" className={(pass.indexOf('cup') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/cup.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/cup.svg').default} />
         </span>
 
         <span id="headphone" className={(pass.indexOf('headphone') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/headphone.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/headphone.svg').default} />
         </span>
 
         <span id="bone" className={(pass.indexOf('bone') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/bone.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/bone.svg').default} />
         </span>
 
       </div>
@@ -70,27 +70,27 @@ function ImageForm({ pass, pictureSubmit, itemClick }) {
       <div className="row">
 
         <span id="bowarrow" className={(pass.indexOf('bowarrow') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/bowarrow.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/bowarrow.svg').default} />
         </span>
 
         <span id="fireworks" className={(pass.indexOf('fireworks') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/fireworks.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/fireworks.svg').default} />
         </span>
 
         <span id="fish" className={(pass.indexOf('fish') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/fish.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/fish.svg').default} />
         </span>
 
         <span id="hydrant" className={(pass.indexOf('hydrant') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/hydrant.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/hydrant.svg').default} />
         </span>
 
         <span id="map" className={(pass.indexOf('map') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/map.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/map.svg').default} />
         </span>
 
         <span id="mic" className={(pass.indexOf('mic') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/mic.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/mic.svg').default} />
         </span>
 
       </div>
@@ -100,27 +100,27 @@ function ImageForm({ pass, pictureSubmit, itemClick }) {
       <div className="row">
 
         <span id="paintbrush" className={(pass.indexOf('paintbrush') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/paintbrush.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/paintbrush.svg').default} />
         </span>
 
         <span id="meat" className={(pass.indexOf('meat') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/meat.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/meat.svg').default} />
         </span>
 
         <span id="pen" className={(pass.indexOf('pen') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/pen.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/pen.svg').default} />
         </span>
 
         <span id="pinecone" className={(pass.indexOf('pinecone') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/pinecone.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/pinecone.svg').default} />
         </span>
 
         <span id="rocket" className={(pass.indexOf('rocket') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/rocket.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/rocket.svg').default} />
         </span>
 
         <span id="controller" className={(pass.indexOf('controller') !== -1 ? 'selected' : 'notSelected')} onClick={e => itemClick(e)} >
-          <object type="image/svg+xml" data={require('../../img/icons/controller.svg')} />
+          <object type="image/svg+xml" data={require('../../img/icons/controller.svg').default} />
         </span>
 
       </div>

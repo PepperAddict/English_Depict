@@ -24,18 +24,18 @@ export default function DashboardSidebar(props) {
     <Fragment>
       <nav className={svgIt.svg}>
         <a href="/student" className="dashboard-link">
-          <object className={svgIt.svg} type="image/svg+xml" data={outlineLogo} />
+          <object className={svgIt.svg} type="image/svg+xml" data={outlineLogo.default} />
           Dashboard
         </a>
 
         <ul className="top-nav">
           <li><a href="/dashboard/task">
 
-            <object type="image/svg+xml" data={taskIcon} /> Tasks</a></li>
+            <object type="image/svg+xml" data={taskIcon.default} /> Tasks</a></li>
           <li><a href="/student/blogs">
-            <object type="image/svg+xml" data={blogIcon} /> View Blog</a></li>
+            <object type="image/svg+xml" data={blogIcon.default} /> View Blog</a></li>
           <li><a href="/student/add_blog">
-            <object type="image/svg+xml" data={activityIcon} />
+            <object type="image/svg+xml" data={activityIcon.default} />
             Add blog</a></li>
 
             <li><a href="/student/settings">Settings</a></li>
