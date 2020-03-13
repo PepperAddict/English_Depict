@@ -19,7 +19,7 @@ const UsersType = new GraphQLObjectType({
       username: { type: GraphQLNonNull(GraphQLString) },
       created_at: {type: GraphQLNonNull(GraphQLString)},
       verified: {type: GraphQLBoolean},
-      verified_token: {type: GraphQLString},
+      verify_token: {type: GraphQLString},
       students: {
         type: new GraphQLList(StudentType),
         resolve: async (source, input, { pgPool, req }) => {

@@ -17,7 +17,7 @@ const MeType = new GraphQLObjectType({
       role: {type: GraphQLString },
       apiKey: { type: GraphQLNonNull(GraphQLString) },
       verified: {type: GraphQLBoolean},
-      verified_token: {type: GraphQLString}
+      verify_token: {type: GraphQLString}
     };
   }
 });

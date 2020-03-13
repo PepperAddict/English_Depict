@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { ADD_REGISTRATION } from '../../mutation/mutation';
 import Login from './Login';
 import '../../styles/login.styl';
+import {encryptMe} from '../../helpers';
 
 /*
 Errors: 
@@ -26,14 +27,13 @@ function CheckEmail(props: CheckEmailProps) {
   });
   const [terror, setError] = useState(null); // 1 = email is taken, 2 = password doesnt match
   const [addRegistration] = useMutation(ADD_REGISTRATION);
-
   const handleRegister = e => {
     e.preventDefault();
     const newAccount = {
       username: account.user,
       email: account.email,
       password: account.passwordOne,
-      
+      verify_token: encryptMe(account.email)
     };
     const passwordMatch = (account.passwordOne === account.passwordTwo) ? true : false;
 
@@ -61,6 +61,16 @@ function CheckEmail(props: CheckEmailProps) {
       addRegistration({ variables: { input: newAccount } }).then(((e) => {
         setError(null);
         console.log(e)
+        //send the correct info to /send route backend for email verification
+        fetch('http://localhost:8080/send', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'email': newAccount.email,
+            'token': newAccount.verify_token,
+          }
+        })
+
       })).then(() => {
         props.setRegistered(true)
       }).catch((err) => {
@@ -165,7 +175,8 @@ export default function Regi() {
     <Fragment>
       {registered ?
         <Fragment>
-          <p className="regSticky">Thank you for registering! Please sign in with your new account</p>
+          <p className="regSticky">Thank you for registering!
+          Please verify your email address and sign in with your new account</p>
           <Login />
         </Fragment> :
         <Fragment>

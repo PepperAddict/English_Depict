@@ -18,7 +18,7 @@ const UserInputType = new GraphQLInputObjectType({
     password: {
       type: GraphQLNonNull(GraphQLString)
     },
-    verified_token: {
+    verify_token: {
       type: GraphQLNonNull(GraphQLString)
     }
   }

@@ -27,7 +27,8 @@ const AddChat = require('./mutations/addChat');
 const AddComment = require('./mutations/addComment');
 const UpdateMessage = require('./mutations/addMessage');
 const AddTask = require('./mutations/addTask');
-const RemoveUser = require('./mutations/removeUser')
+const RemoveUser = require('./mutations/removeUser');
+const setVerified = require('./mutations/setVerified')
 
 //for cache 
 const getTeacherID = require('./queries/getTeacherID');
@@ -68,7 +69,8 @@ const RootMutationType = new GraphQLObjectType({
     UpdateMessage,
     AddTask,
     RemoveUser,
-    setTeacherID
+    setTeacherID,
+    setVerified
   })
 });
 

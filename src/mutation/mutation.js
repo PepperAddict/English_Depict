@@ -9,9 +9,12 @@ mutation AddNewUser($input: UserInput!) {
   }
 }`;
 
-export const M_TEACHER_ID = gql`
-mutation setTeacherID($id: ID!){
-  setTeacherID(teacher_id: $id) @client
+export const SET_VERIFIED = gql`
+mutation setVerified($email: String!){
+  setVerified(email: $email) {
+    email
+    verified
+  }
 }
 `
 

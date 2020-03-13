@@ -8,7 +8,7 @@ module.exports = pgPool => {
       username,
       email,
       password,
-      verified_token
+      verify_token
     }) {
       //first let's check if the email exists in the database, 
       //if it does and password matches, sign in. if none then register
@@ -34,15 +34,21 @@ module.exports = pgPool => {
           });
           const date_created = new Date();
           return pgPool.query(`
-        insert into users (username, email, token, password, created_at)
-        values ($1, $2, $3, $4, $5) returning *
-      `, [username, email, token, newPassword, date_created]).then(res => {
+        insert into users (username, email, token, password, created_at, verify_token)
+        values ($1, $2, $3, $4, $5, $6) returning *
+      `, [username, email, token, newPassword, date_created, verify_token]).then(res => {
             const user = res.rows[0];
             user.apiKey = user.token;
             return user;
           });
         }
       });
+    },
+    setVerified(email) {
+      return pgPool.query(`update users set verified = true where email = $1 returning *`, [email])
+      .then(res => {
+        return res.rows[0]
+      }) 
     },
     removeUser(id) {
       return pgPool.query(`delete from users where id = $1 returning *`, [id])

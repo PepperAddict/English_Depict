@@ -42,7 +42,6 @@ function App() {
             </Route>
 
             <Route path="/dashboard/:page?">
-
               <Dashboard />
             </Route>
 
@@ -56,7 +55,7 @@ function App() {
             <Route path="/student/:page?">
               <StudentDashboard />
             </Route>
-            <Route path="/send">
+            <Route path="/verify">
               <Verify />
             </Route>
           </Fragment>
