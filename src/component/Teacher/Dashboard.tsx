@@ -14,8 +14,6 @@ import Settings from './Settings';
 const settingsLogo = require('../../img/settings.svg');
 const logoutLogo = require('../../img/logout.svg');
 
-import {MyContext} from '../index/Context';
-
 export default function Dashboard() {
 
 
@@ -23,6 +21,10 @@ export default function Dashboard() {
   const { loading, error, data } = useQuery(getUserByID, { variables: { userId: userId } });
   const [info, setInfo] = useState('');
   const [student_id, setStudent_id] = useState(null);
+
+  if (data) {
+    console.log(data)
+  }
 
   useEffect(() => {
     let pathname = window.location.pathname;
@@ -99,7 +101,7 @@ export default function Dashboard() {
 
       {loading ? <p>loading</p> : error ? <p>{error.message}</p> : (
         <div className="dashboard-content">
-          {!data.verified && <div className="top-banner">Please verify your account</div>}
+          {!data.getUser.verified && <div className="top-banner">Please verify your account</div>}
           {info.buttonAdd ? (<div> {data.getUser.students.length > 0 ?
             (<div>
               <ShowCard data={data.getUser} userId={userId} setStudentID={setStudent_id} students={data.getUser.students}/>

@@ -60,7 +60,6 @@ function CheckEmail(props: CheckEmailProps) {
     if (shouldGo) {
       addRegistration({ variables: { input: newAccount } }).then(((e) => {
         setError(null);
-        console.log(e)
         //send the correct info to /send route backend for email verification
         fetch('http://localhost:8080/send', {
           method: 'GET',
@@ -173,7 +172,7 @@ export default function Regi() {
 
   return (
     <Fragment>
-      {registered ?
+      {!registered ?
         <Fragment>
           <p className="regSticky">Thank you for registering!
           Please verify your email address and sign in with your new account</p>

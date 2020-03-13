@@ -8,7 +8,6 @@ import '../../styles/verify.styl'
 export default function Verify() {
     const urlpath = window.location.search.split('=');
     const token = urlpath[1];
-    const [email, setEmail] = useState(null);
     const [error, setError] = useState(null);
 
     const [setVerified] = useMutation(SET_VERIFIED);

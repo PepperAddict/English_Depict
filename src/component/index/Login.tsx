@@ -71,7 +71,7 @@ function LoginForm() {
       }
 
     }).then(() => {
-      // location.reload();
+      location.reload();
 
     }).catch((e) => {
       if (e.message.includes('noEmail')) {
