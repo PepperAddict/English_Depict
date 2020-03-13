@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS vocabularies (
     vocab_id serial PRIMARY KEY,
     student_id integer NOT NULL,
+    teacher_id integer NOT NULL,
     vocabulary_word text NOT NULL,
     vocabulary_definition text,
     created_at text NOT NULL

@@ -10,6 +10,7 @@ const PostInputType = new GraphQLInputObjectType({
   name: 'VocabularyInput',
   fields: {
     student_id: { type: GraphQLNonNull(GraphQLID) },
+    teacher_id: {type: GraphQLNonNull(GraphQLID)},
     vocabulary_word: {type: GraphQLNonNull(GraphQLString)},
     vocabulary_definition: { type: GraphQLString }
   }

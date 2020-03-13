@@ -86,6 +86,7 @@ export default function VocabBucket(props) {
           variables: {
             input: {
               student_id: props.student_id,
+              teacher_id: props.teacher_id,
               vocabulary_word: formattedWord,
             }
           }

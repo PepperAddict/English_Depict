@@ -172,7 +172,7 @@ export default function Regi() {
 
   return (
     <Fragment>
-      {!registered ?
+      {registered ?
         <Fragment>
           <p className="regSticky">Thank you for registering!
           Please verify your email address and sign in with your new account</p>

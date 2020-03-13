@@ -46,14 +46,15 @@ module.exports = pgPool => {
     },
     addVocabulary({
       student_id,
+      teacher_id,
       vocabulary_word,
       vocabulary_definition
     }) {
       const definition = vocabulary_definition ? vocabulary_definition : 'none';
       const created_at = new Date();
       return pgPool.query(`
-      insert into vocabularies (student_id, vocabulary_word, vocabulary_definition, created_at) values ($1, $2, $3, $4) returning *
-      `, [student_id, vocabulary_word, definition, created_at])
+      insert into vocabularies (student_id, teacher_id, vocabulary_word, vocabulary_definition, created_at) values ($1, $2, $3, $4, $5) returning *
+      `, [student_id, teacher_id, vocabulary_word, definition, created_at])
         .then(res => {
           return res.rows[0];
         })
