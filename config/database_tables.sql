@@ -6,7 +6,9 @@ CREATE TABLE IF NOT EXISTS users (
     created_at text,
     role text,
     apiKey text,
-    token text
+    token text,
+    verified boolean,
+    verify_token text
 );
 
 CREATE TABLE IF NOT EXISTS vocabularies (

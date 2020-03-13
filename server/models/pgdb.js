@@ -7,7 +7,8 @@ module.exports = pgPool => {
     async addNewUser({
       username,
       email,
-      password
+      password,
+      verified_token
     }) {
       //first let's check if the email exists in the database, 
       //if it does and password matches, sign in. if none then register

@@ -23,8 +23,7 @@ export default function Dashboard() {
   const { loading, error, data } = useQuery(getUserByID, { variables: { userId: userId } });
   const [info, setInfo] = useState('');
   const [student_id, setStudent_id] = useState(null);
-  const {teacherid} = useContext(MyContext);
-  console.log(teacherid)
+
   useEffect(() => {
     let pathname = window.location.pathname;
     switch (true) {
@@ -93,16 +92,14 @@ export default function Dashboard() {
       <div className="dashboard-sidebar">
         {data && <DashboardSidebar username={data.getUser.username} email={data.getUser.email} />}
         <nav className="bottom-nav">
-
-          <button type="button"><span><img src={settingsLogo.default} alt="Go to Settings" /></span><a href="/dashboard/settings">Settings</a></button>
+          <button type="button"><span><img src={settingsLogo.default }alt="Go to Settings" /></span><a href="/dashboard/settings">Settings</a></button>
           <button id="logout" type="button" onClick={logout}><span><img src={logoutLogo.default} alt="Logout" /></span> Logout</button>
-
         </nav>
- 
       </div>
 
       {loading ? <p>loading</p> : error ? <p>{error.message}</p> : (
         <div className="dashboard-content">
+          {!data.verified && <div className="top-banner">Please verify your account</div>}
           {info.buttonAdd ? (<div> {data.getUser.students.length > 0 ?
             (<div>
               <ShowCard data={data.getUser} userId={userId} setStudentID={setStudent_id} students={data.getUser.students}/>

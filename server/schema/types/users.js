@@ -3,7 +3,8 @@ const {
   GraphQLString,
   GraphQLNonNull,
   GraphQLList,
-  GraphQLID
+  GraphQLID,
+  GraphQLBoolean
 } = require('graphql');
 
 const pgdb = require('../../models/studentDB.js');
@@ -17,6 +18,8 @@ const UsersType = new GraphQLObjectType({
       email: { type: GraphQLNonNull(GraphQLString) },
       username: { type: GraphQLNonNull(GraphQLString) },
       created_at: {type: GraphQLNonNull(GraphQLString)},
+      verified: {type: GraphQLBoolean},
+      verified_token: {type: GraphQLString},
       students: {
         type: new GraphQLList(StudentType),
         resolve: async (source, input, { pgPool, req }) => {

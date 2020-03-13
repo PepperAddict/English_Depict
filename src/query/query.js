@@ -42,6 +42,7 @@ query getUserByID($userId: ID!) {
     email
     username
     created_at
+    verified
     students {
       student_id
       name

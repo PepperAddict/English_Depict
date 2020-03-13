@@ -3,6 +3,7 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLNonNull,
+  GraphQLBoolean
 } = require('graphql');
 const MeType = new GraphQLObjectType({
   name: 'Me',
@@ -15,6 +16,8 @@ const MeType = new GraphQLObjectType({
       created_at: {type: GraphQLNonNull(GraphQLString)},
       role: {type: GraphQLString },
       apiKey: { type: GraphQLNonNull(GraphQLString) },
+      verified: {type: GraphQLBoolean},
+      verified_token: {type: GraphQLString}
     };
   }
 });

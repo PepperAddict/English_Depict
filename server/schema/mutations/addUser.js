@@ -1,7 +1,8 @@
 const {
   GraphQLInputObjectType,
   GraphQLString,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLBoolean
 } = require('graphql');
 const pgdb = require('../../models/pgdb');
 const MeType = require('../types/me');
@@ -15,6 +16,9 @@ const UserInputType = new GraphQLInputObjectType({
       type: GraphQLNonNull(GraphQLString)
     },
     password: {
+      type: GraphQLNonNull(GraphQLString)
+    },
+    verified_token: {
       type: GraphQLNonNull(GraphQLString)
     }
   }

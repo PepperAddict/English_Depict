@@ -32,7 +32,8 @@ function CheckEmail(props: CheckEmailProps) {
     const newAccount = {
       username: account.user,
       email: account.email,
-      password: account.passwordOne
+      password: account.passwordOne,
+      
     };
     const passwordMatch = (account.passwordOne === account.passwordTwo) ? true : false;
 
