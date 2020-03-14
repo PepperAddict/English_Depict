@@ -18,7 +18,7 @@ module.exports = pgPool => {
     },
     getBlogByID(blog_id) {
       return pgPool.query(`
-      select * from blogs where blog_id=${blog_id}`)
+      select * from blogs where blog_id=$1`, [blog_id])
         .then((res) => {
           return res.rows;
         }).catch((err) => console.log(err));
@@ -30,8 +30,8 @@ module.exports = pgPool => {
       updated_at
     }) {
       return pgPool.query(`
-      update blogs set subject='${subject}', content='${content}', updated_at='${updated_at}' where blog_id=${blog_id} returning *
-      `).then((res) => {
+      update blogs set subject = $1, content = $2, updated_at = $3 where blog_id = $4 returning *
+      `, [subject, content, updated_at, blog_id]).then((res) => {
         return res.rows[0];
       }).catch((e => {
         console.log(e);
@@ -39,7 +39,7 @@ module.exports = pgPool => {
     },
     getAllBlogs(student_id, limit) {
       return pgPool.query(`
-      select * from blogs where student_id=${student_id} order by created_at desc limit 10`)
+      select * from blogs where student_id = $1 order by created_at desc limit 10`, [student_id])
         .then(res => {
           return res.rows;
         }).catch((err) => console.log(err));
@@ -65,8 +65,8 @@ module.exports = pgPool => {
     getVocabularyByID(student_id) {
 
       return pgPool.query(`
-      select * from vocabularies where student_id = ${student_id}
-      `)
+      select * from vocabularies where student_id = $1
+      `, [ student_id])
         .then((res => {
           if (res.rows) {
             return res.rows;
@@ -75,8 +75,8 @@ module.exports = pgPool => {
     },
     removeVocabulary(vocab_id) {
       return pgPool.query(`
-      delete from vocabularies where vocab_id=${vocab_id} returning *
-      `).then((res) => {
+      delete from vocabularies where vocab_id = $1 returning *
+      `, [vocab_id]).then((res) => {
         return res.rows;
       }).catch(e => {
         console.log(e);
@@ -88,8 +88,8 @@ module.exports = pgPool => {
     }) {
 
       return pgPool.query(`
-      update students set avatar='${avatar}' where student_id=${student_id} returning *
-      `).then((res => {
+      update students set avatar = $1 where student_id = $2 returning *
+      `, [avatar, student_id]).then((res => {
         return res.rows[0];
       })).catch((e) => {
         console.log(e);
@@ -101,8 +101,8 @@ module.exports = pgPool => {
     }) {
 
       return pgPool.query(`
-      update students set name='${name}' where student_id=${student_id} returning *
-      `).then((res => {
+      update students set name = $1 where student_id = $2 returning *
+      `, [name, student_id]).then((res => {
         return res.rows[0];
       })).catch((e) => {
         console.log(e);
@@ -131,8 +131,8 @@ module.exports = pgPool => {
     },
     getCommentByBlogID(blog_id) {
       return pgPool.query(`
-      select * from comments where blog_id = ${blog_id}
-      `)
+      select * from comments where blog_id = $1
+      `, [blog_id])
         .then((res => {
           if (res.rows) {
             return res.rows;

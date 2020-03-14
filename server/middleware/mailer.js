@@ -6,7 +6,7 @@ require("dotenv").config();
 var rand, mailOptions, host, link, email, token;
 
 const transporter = nodemailer.createTransport({
-  service: "Gmail",
+  service: "FastMail",
   secure: true,
   port: 465,
   auth: {
@@ -27,7 +27,8 @@ router.get("/send", function(req, res) {
 
   mailOptions = {
     to: email,
-    subject: "Please confirm your email account",
+    from: '"Talking Cloud ☁️" <verify@talkingcloud.io>',
+    subject: "Talking Cloud - Please verify your email address",
     html: `Thank you for registering with TalkingCloud.io. <br>
     Please verify your email address by clicking on the link<br>
     <a href="${link}">Click here to Verify</a>`
