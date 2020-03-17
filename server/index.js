@@ -105,7 +105,7 @@ router.use(imageupload)
 
 
 router.get(
-  ["/student/", "/student/:page?"],
+  ["/student/", "/student/:page?", "/todo/:page?"],
   cors(),
   studentAuthenticate,
   (req, res) => {

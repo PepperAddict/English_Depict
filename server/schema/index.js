@@ -28,7 +28,8 @@ const AddComment = require('./mutations/addComment');
 const UpdateMessage = require('./mutations/addMessage');
 const AddTask = require('./mutations/addTask');
 const RemoveUser = require('./mutations/removeUser');
-const setVerified = require('./mutations/setVerified')
+const setVerified = require('./mutations/setVerified');
+const getTaskByID = require('./queries/getTaskByID')
 
 //for cache 
 const getTeacherID = require('./queries/getTeacherID');
@@ -48,7 +49,9 @@ const RootQueryType = new GraphQLObjectType({
     getCompleteBlogs: GetCompleteBlogs,
     getVocabulary: GetVocabularyByStudentID,
     getBlogByID: GetBlogByID,
-    getTeacherID
+    getTeacherID,
+    getTaskByID
+
   })
 });
 const RootMutationType = new GraphQLObjectType({

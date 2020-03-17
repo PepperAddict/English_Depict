@@ -1,4 +1,4 @@
-const { GraphQLID, GraphQLNonNull, GraphQLInt, GraphQLList } = require('graphql')
+const { GraphQLNonNull, GraphQLInt, GraphQLList } = require('graphql')
 const PostsType = require('../types/posts')
 const pgdb = require('../../models/pgdb')
 module.exports = {

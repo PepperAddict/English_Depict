@@ -22,6 +22,7 @@ const RegWithClient = withApollo(Register);
 import StudentLogin from '../Student/StudentLogin';
 import StudentDashboard from '../Student/studentDashboard';
 import Verify from './Verify';
+import IndividualTask from './../Student/IndividualTask';
 
 
 
@@ -57,6 +58,9 @@ function App() {
             </Route>
             <Route path="/verify">
               <Verify />
+            </Route>
+            <Route path="/todo/:page?">
+              <IndividualTask />
             </Route>
           </Fragment>
         </Router>

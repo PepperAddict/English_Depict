@@ -35,6 +35,24 @@ query Login($email: String!, $password: String!) {
 }
 `;
 
+export const getTaskByID = gql`
+query getTaskIDByID($task_id: ID!){
+  getTaskByID(task_id: $task_id) {
+    task_id
+    task_date
+    task_code
+    student_id
+    teacher_id
+    entry
+    viewed
+    message
+    created_at
+    completed_at 
+    
+  }
+}
+`
+
 export const getUserByID = gql `
 query getUserByID($userId: ID!) {
   getUser(userId: $userId) {

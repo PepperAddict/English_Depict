@@ -33,9 +33,9 @@ export default function StudentDashboard() {
 
   useEffect(() => {
     //Special Day 
-    var eventdate = moment('2020-3-17');
+    var eventdate = moment('2020-4-12', "YYYY-MM-DD");
     setSpecialDay(eventdate.diff(todaysdate, 'days'));
-    setSpecialDayMessage(" Days until St. Patrick's day. Wear green!")
+    setSpecialDayMessage(" Days until Easter!")
 
     let pathname = window.location.pathname;
     switch (true) {

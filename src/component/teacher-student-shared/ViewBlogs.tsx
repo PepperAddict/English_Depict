@@ -79,7 +79,6 @@ export default function ViewBlogs(props: ViewBlogsProp) {
   // const [studentOnly, setStudentOnly] = useState(false);
   const [blog] = useState(props.blogs);
 
-
   return (
     <ShowPosts blog={blog} date={blog.created_at} student_id={props.student_id} addVocabulary={props.addVocabulary} />
   );
