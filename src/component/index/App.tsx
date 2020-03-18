@@ -10,7 +10,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache({
     freezeResults: true
   }),
-  assumeImmutableResults: true
+  // assumeImmutableResults: true
 });
 
 // components

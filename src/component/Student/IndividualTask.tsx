@@ -4,6 +4,7 @@ import { getTaskByID } from '../../query/query';
 import { cookieParser } from '../../helpers';
 const currentStudentId = parseInt(cookieParser('student_id', true));
 import LoadingCloud from '../index/LoadingCloud';
+import TaskCIC from './task_CIC';
 
 export default function IndividualTask() {
     const taskid = window.location.href.split('=')[1];
@@ -13,7 +14,7 @@ export default function IndividualTask() {
     useEffect(() => {
         if (data) {
             console.log(data)
-            
+
             setTask(data.getTaskByID)
             const dataStudentId = parseInt(data.getTaskByID.student_id)
             if (currentStudentId === dataStudentId) {
@@ -24,13 +25,11 @@ export default function IndividualTask() {
 
     return (
         <Fragment>
-            {!loading &&
-            <LoadingCloud />
-            }
-            {!data && authorized &&
-            <div>
-                Hello
-            </div>
+            {loading ? <LoadingCloud /> : data && authorized &&
+                <Fragment>
+                    {task.task_code === "CIC" && 
+                    <TaskCIC task={task}/>}
+                </Fragment>
             }
         </Fragment>
     )
