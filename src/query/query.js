@@ -58,6 +58,7 @@ query getTaskIDByID($task_id: ID!){
 export const getAllTasksByStudentID = gql`
 query getTasksByStudentID ($student_id: ID!){
   getTasksByStudentID(student_id: $student_id) {
+    task_id
     task_code
     entry
     completed_at
@@ -90,6 +91,7 @@ query getUserByID($userId: ID!) {
       entry
       completed_at
       viewed
+      accepted
     }
     }
   }

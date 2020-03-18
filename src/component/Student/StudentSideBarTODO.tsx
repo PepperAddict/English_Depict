@@ -5,18 +5,15 @@ import '../../styles/tasks.styl'
 
 export default function SideBarTodo(props) {
     const {loading, error, data} = useQuery(getAllTasksByStudentID, {variables: {student_id: props.student_id}})
-    if (data) {
-        console.log(data)
-    }
     
     return (
         <div className="todo-sidebar">
             <h2>Tasks</h2>
             {data &&
-            data.getTasksByStudentID.map((entry, index) => {
-                if (entry.task_code === "CIC" && !entry.accepted) {
+            data.getTasksByStudentID.map((task, index) => {
+                if (task.task_code === "CIC" && !task.accepted) {
                     return (
-                    <div key={index} index={index}><img src={entry.entry.clue_image.urls.thumb} /></div>
+                    <a key={index} href={"/todo/task?="+task.task_id}><img src={task.entry.clue_image.urls.thumb} /></a>
                     )
                 }
             })}

@@ -31,21 +31,28 @@ interface TaskPropTypes {
 }
 
 function Tasks(props: TaskPropTypes) {
+  console.log(props.task)
   return (
     <Fragment>
       {props.task.map((task, key) => {
-        return <div key={key} className="individual-task">
-          <h3>{moment(new Date(task.task_date)).format('dddd, MMMM D')}</h3>
-          <p>student: {props.student_name}</p>
-          <TaskInfo what={task.task_code} entry={task.entry} />
-          <p>{task.completed_at ? task.completed_at : 'Not Completed Yet'}</p>
-        </div>
+        if (!task.accepted) {
+          return (
+            <div key={key} className="individual-task">
+              <h3>{moment(new Date(task.task_date)).format('dddd, MMMM D')}</h3>
+              <p>student: {props.student_name}</p>
+              <TaskInfo what={task.task_code} entry={task.entry} />
+              {task.completed_at && 'completed on ' + moment(new Date(task.completed_at)).format('dddd, MMMM D')}
+              <p>{!task.accepted ? 'Awaiting approval' : 'Not Completed Yet'}</p>
+            </div>
+          )
+        }
+
       })}
     </Fragment>
   )
 }
 
-interface TaskListsProp{
+interface TaskListsProp {
   students: string
 }
 
