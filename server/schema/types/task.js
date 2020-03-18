@@ -24,6 +24,7 @@ const taskType = new GraphQLObjectType({
       accepted: {type: GraphQLBoolean},
       message: {type: GraphQLString},
       viewed: {type: GraphQLBoolean},
+      submission: {type: GraphQLJSON}
     };
   }
 });

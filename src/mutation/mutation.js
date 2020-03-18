@@ -137,3 +137,12 @@ mutation AddTask($input: TaskInput!){
   }
 }
 `
+
+export const SUBMIT_TASK = gql`
+mutation SubmitTask($input: TaskSubmit! ) {
+  SubmitTask(input: $input) {
+    student_id
+  }
+}
+
+`

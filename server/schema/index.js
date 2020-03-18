@@ -2,22 +2,22 @@ const { GraphQLSchema, GraphQLObjectType } = require('graphql');
 
 const GetUser = require('./queries/getUser');
 const Login = require('./queries/login');
-const GetUserByEmail = require('./queries/getUserByEmail');
-const GetAllUsers = require('./queries/getAllUsers');
-const GetCompleteUsers = require('./queries/getCompleteUsers');
-const GetCompletePosts = require('./queries/getCompletePosts');
+const getUserByEmail = require('./queries/getUserByEmail');
+const getAllUsers = require('./queries/getAllUsers');
+const getCompleteUsers = require('./queries/getCompleteUsers');
+const getCompletePosts = require('./queries/getCompletePosts');
 const AddUser = require('./mutations/addUser');
 const AddPosts = require('./mutations/addPosts');
 const AddStudent = require('./mutations/addStudent');
-const GetAllPosts = require('./queries/getAllPosts');
+const getAllPosts = require('./queries/getAllPosts');
 const loginStudent = require('./queries/getStudentByUser');
 const UpdateStudentPassword = require('./mutations/verifiedStudent');
-const GetStudentByID = require('./queries/getStudentByID');
+const getStudentByID = require('./queries/getStudentByID');
 const AddBlog = require('./mutations/addBlog');
-const GetBlogByID = require('./queries/getSingleBlog');
-const GetCompleteBlogs = require('./queries/getCompleteBlogs');
+const getBlogByID = require('./queries/getSingleBlog');
+const getCompleteBlogs = require('./queries/getCompleteBlogs');
 const AddVocabulary = require('./mutations/addVocabulary');
-const GetVocabularyByStudentID = require('./queries/getVocabularyByID');
+const getVocabulary = require('./queries/getVocabularyByID');
 const UpdateStudentAvatar = require('./mutations/updateStudentAvatar');
 const UpdateStudentName = require('./mutations/updateStudentName');
 const RemoveVocabulary = require('./mutations/removeVocabulary');
@@ -28,29 +28,29 @@ const AddComment = require('./mutations/addComment');
 const UpdateMessage = require('./mutations/addMessage');
 const AddTask = require('./mutations/addTask');
 const RemoveUser = require('./mutations/removeUser');
-const setVerified = require('./mutations/setVerified');
-const getTaskByID = require('./queries/getTaskByID')
+const SetVerified = require('./mutations/SetVerified');
+const getTaskByID = require('./queries/getTaskByID');
+const SubmitTask = require('./mutations/SubmitTask');
+const getTasksByStudentID = require('./queries/getCompleteTasksByStudentId');
 
-//for cache 
-const getTeacherID = require('./queries/getTeacherID');
-const setTeacherID = require('./mutations/setTeacherID')
+
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
   fields: () => ({
     getUser: GetUser,
     login: Login,
-    loginStudent: loginStudent,
-    getAllUsers: GetAllUsers,
-    getUserByEmail: GetUserByEmail,
-    getAllPosts: GetAllPosts,
-    getCompleteUsers: GetCompleteUsers,
-    getCompletePosts: GetCompletePosts,
-    getStudentByID: GetStudentByID,
-    getCompleteBlogs: GetCompleteBlogs,
-    getVocabulary: GetVocabularyByStudentID,
-    getBlogByID: GetBlogByID,
-    getTeacherID,
-    getTaskByID
+    loginStudent,
+    getAllUsers,
+    getUserByEmail,
+    getAllPosts,
+    getCompleteUsers,
+    getCompletePosts,
+    getStudentByID,
+    getCompleteBlogs,
+    getVocabulary,
+    getBlogByID,
+    getTaskByID,
+    getTasksByStudentID
 
   })
 });
@@ -72,8 +72,8 @@ const RootMutationType = new GraphQLObjectType({
     UpdateMessage,
     AddTask,
     RemoveUser,
-    setTeacherID,
-    setVerified
+    SetVerified,
+    SubmitTask
   })
 });
 

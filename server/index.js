@@ -51,6 +51,7 @@ const pgPool = new pg.Pool({
   password: process.env.DB_PASS,
   database: process.env.DB,
   port: process.env.DB_PORT,
+  rejectUnauthorized: true,
   ssl: true
 });
 const schema = require("./schema/");
@@ -118,7 +119,7 @@ router.use("/graphql", cors(), (req, res) => {
     schema: schema,
     graphiql: isDev ? true : false,
     context: { pgPool, req },
-    introspection: true
+    introspection: true,
   })(req, res);
 });
 

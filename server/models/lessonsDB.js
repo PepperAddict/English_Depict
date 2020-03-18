@@ -44,6 +44,16 @@ module.exports = pgPool => {
           console.log(e);
         });
     },
+    submitTask({task_id, submission}){
+      const date = new Date();
+      return pgPool.query(`
+      update tasks set submission = $1, viewed = true, completed_at = $2 where task_id = $3 returning *
+      `, [submission, date, task_id])
+      .then(res => {
+        return res.rows[0]
+      }).catch(e => console.log(e))
+    },
+    //TODO: paginate later
     getAllBlogs(student_id, limit) {
       return pgPool
         .query(
@@ -55,6 +65,12 @@ module.exports = pgPool => {
           return res.rows;
         })
         .catch(err => console.log(err));
+    },
+    getAllTasks(student_id) {
+      return pgPool.query(`select * from tasks where student_id=$1 order by created_at desc`, [student_id])
+      .then(res => {
+        return res.rows;
+      }).catch(e => console.log(e))
     },
     addVocabulary({
       student_id,

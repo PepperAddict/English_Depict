@@ -46,9 +46,22 @@ query getTaskIDByID($task_id: ID!){
     entry
     viewed
     message
+    accepted
+    started_at
+    updated
     created_at
     completed_at 
-    
+    submission
+  }
+}
+`
+export const getAllTasksByStudentID = gql`
+query getTasksByStudentID ($student_id: ID!){
+  getTasksByStudentID(student_id: $student_id) {
+    task_code
+    entry
+    completed_at
+    accepted
   }
 }
 `

@@ -56,7 +56,8 @@ CREATE TABLE IF NOT EXISTS tasks (
     completed_at text,
     accepted boolean,
     message text,
-    viewed boolean
+    viewed boolean,
+    submission json
 );
 
 CREATE TABLE IF NOT EXISTS comments (

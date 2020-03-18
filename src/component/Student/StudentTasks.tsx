@@ -20,7 +20,7 @@ function Task(props) {
     return (
         <Fragment>
             {!tasks.accepted ? 
-            <div>
+            <div className="task-container">
                 {tasks.task_code === "CIC" &&
                 <CIC task={tasks}/>}
             </div>
