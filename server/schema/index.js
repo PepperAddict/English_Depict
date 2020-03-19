@@ -30,7 +30,7 @@ const AddTask = require('./mutations/addTask');
 const RemoveUser = require('./mutations/removeUser');
 const SetVerified = require('./mutations/setVerified');
 const getTaskByID = require('./queries/getTaskByID');
-const SubmitTask = require('./mutations/SubmitTask');
+const SubmitTask = require('./mutations/submitTask');
 const getTasksByStudentID = require('./queries/getCompleteTasksByStudentId');
 
 
