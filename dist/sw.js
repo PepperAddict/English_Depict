@@ -1,0 +1,64 @@
+let CACHE_NAME = 'SW-v0.1';
+// let staticCacheName;
+let toCache = [
+  './index.html',
+  './main-script-bundle.js',
+  './bundled-style.css'
+];
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => {
+        return cache.addAll(toCache);
+      })
+      .catch(err => {
+        console.log('no worky: ' + err);
+      })
+  );
+  if (navigator.onLine) {
+    self.skipWaiting();
+  }
+    
+
+});
+
+
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        let fetchRequest = event.request.clone();
+        return (response || fetch(fetchRequest)
+          .then(networkResponse => {
+            let network = networkResponse.clone();
+            let eventCall = event.request;
+
+            caches.open(CACHE_NAME)
+              .then(cache => {
+                return (eventCall.method == 'POST') ? false : cache.put(eventCall, network);
+              });
+            return networkResponse;
+          })
+          .catch(error => {
+            console.log('also no worky' + error);
+          })
+        );
+      })
+  );
+});
+
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      if (cacheNames.length > 0) {
+        cacheNames.forEach((name) => {
+          if (name !== CACHE_NAME) {
+            caches.delete(name);
+          }
+        });
+      }
+    })
+  );
+});
