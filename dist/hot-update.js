@@ -5,7 +5,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1584724550536
+      // 1584726111887
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -19,7 +19,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1584724550536
+      // 1584726111887
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -33,7 +33,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1584724544803
+      // 1584726111884
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -47,7 +47,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1584724550534
+      // 1584726111885
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -61,7 +61,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1584724544708
+      // 1584726111881
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -75,12 +75,98 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1584724550535
+      // 1584726111886
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
     }
   
+
+/***/ }),
+
+/***/ 734:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = __importStar(__webpack_require__(369));
+const query_1 = __webpack_require__(488);
+const IndieStudentBlog_1 = __importDefault(__webpack_require__(735));
+const react_hooks_1 = __webpack_require__(426);
+const mutation_1 = __webpack_require__(721);
+__webpack_require__(868);
+const noPic = __webpack_require__(869);
+function StudentProfile(props) {
+    const [updateMessage] = react_hooks_1.useMutation(mutation_1.UPDATE_MESSAGE);
+    const [message, setMessage] = react_1.useState(props.data.message);
+    const submitMessage = e => {
+        e.preventDefault();
+        updateMessage({ variables: { input: { student_id: props.student_id, message: message } } })
+            .then(() => {
+            location.reload();
+        }).catch((err) => console.log(err));
+    };
+    return (react_1.default.createElement("div", { className: "individual-student" },
+        react_1.default.createElement("div", { className: "avatar" },
+            react_1.default.createElement("img", { className: "avatar-image", src: props.data.avatar ? props.data.avatar : noPic, alt: "Student's avatar" })),
+        react_1.default.createElement("center", null,
+            react_1.default.createElement("h1", null, props.data.name)),
+        react_1.default.createElement("form", { onSubmit: submitMessage },
+            react_1.default.createElement("label", { htmlFor: "message" },
+                react_1.default.createElement("h2", null, "Welcome Message")),
+            react_1.default.createElement("input", { id: "message", defaultValue: message ? message : 'enter a message for ' + props.data.name, onChange: e => setMessage(e.target.value) }),
+            react_1.default.createElement("button", { type: "submit" }, "Submit Message")),
+        react_1.default.createElement("h2", null, "Vocabulary Words"),
+        react_1.default.createElement("ul", { className: "vocabulary-list" }, props.data.vocabularies.length > 0 ? props.data.vocabularies.map((words, key) => {
+            return react_1.default.createElement("li", { key: words.vocab_id, index: key }, words.vocabulary_word);
+        }) : 'No Vocabulary'),
+        react_1.default.createElement("div", { className: "containers" }, props.data.tasks.map((task, index) => {
+            if (!task.accepted) {
+                return react_1.default.createElement("div", { key: index },
+                    "Caption the image",
+                    react_1.default.createElement("img", { src: task.entry.clue_image.urls.thumb, alt: task.entry.clue_image.alt_description }),
+                    react_1.default.createElement("p", null, task.submission ? task.submission.CIC : 'not yet completed'));
+            }
+        })),
+        react_1.default.createElement("h2", null, "Blogs"),
+        props.data.blogs.length > 0 ? props.data.blogs.map((blog, key) => {
+            return react_1.default.createElement(IndieStudentBlog_1.default, { key: key, blog_id: blog.blog_id, index: key, subject: blog.subject, content: blog.content, comments: blog.comments, teacher_id: props.teacher_id });
+        }) : 'No Blog'));
+}
+function IndividualStudent(props) {
+    const pathname = window.location.pathname.split('=');
+    const student_id = pathname[pathname.length - 1];
+    const [students] = react_1.useState(props.data.students);
+    const [myStudent, setMyStudent] = react_1.useState(false);
+    const { loading, error, data } = react_hooks_1.useQuery(query_1.getStudentInfo, { variables: { student_id } });
+    if (data) {
+        console.log(data);
+    }
+    react_1.useEffect(() => {
+        //only show student information if student id is in teacher's student list 
+        for (let x of students) {
+            if (x.student_id === student_id) {
+                setMyStudent(true);
+                break;
+            }
+        }
+    }, []);
+    return (react_1.default.createElement(react_1.Fragment, null, loading ? react_1.default.createElement("p", null, "loading") : error ? react_1.default.createElement("p", null, "error") : myStudent && data ?
+        react_1.default.createElement(StudentProfile, { data: data.getStudentByID[0], teacher_id: props.teacher_id, student_id: student_id }) : null));
+}
+exports.default = IndividualStudent;
+
 
 /***/ }),
 
@@ -89,63 +175,12 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1584724544931
+      // 1584726112167
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
     }
   
-
-/***/ }),
-
-/***/ 871:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/*
-The teacher side of creating the task for the students
-so far image clue
-*/
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const react_1 = __importStar(__webpack_require__(369));
-const Teacher_Image_Clue_1 = __importDefault(__webpack_require__(872));
-const ShowTaskList_1 = __importDefault(__webpack_require__(890));
-function Tasks(props) {
-    const [students] = react_1.useState(props.students);
-    const [task, setTask] = react_1.useState('task');
-    react_1.useEffect(() => {
-        let pathname = window.location.pathname;
-        switch (true) {
-            case pathname.includes('image-clue'):
-                setTask('image-clue');
-                break;
-            case pathname.includes('WOTD'):
-                setTask('wotd');
-                break;
-        }
-    }, []);
-    return (react_1.default.createElement(react_1.Fragment, null, task === 'task' ?
-        react_1.default.createElement("div", null,
-            "Which task would you like to make?",
-            react_1.default.createElement("nav", null,
-                react_1.default.createElement("a", { href: "/dashboard/task=image-clue" }, "Image Clue")),
-            react_1.default.createElement("h2", null, "All Tasks"),
-            react_1.default.createElement(ShowTaskList_1.default, { students: props.teacher_data.students })) : task === 'image-clue' ?
-        react_1.default.createElement(Teacher_Image_Clue_1.default, { teacher_data: props.teacher_data, students: students }) : null));
-}
-exports.default = Tasks;
-
 
 /***/ }),
 
@@ -154,7 +189,7 @@ exports.default = Tasks;
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1584724544777
+      // 1584726111877
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -163,116 +198,12 @@ exports.default = Tasks;
 
 /***/ }),
 
-/***/ 890:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/*
-To show a list of tasks in the Teacher's section:
-* Image Clue / Image Caption
-Sort by date
-*/
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const react_1 = __importStar(__webpack_require__(369));
-const moment_1 = __importDefault(__webpack_require__(737));
-const react_hooks_1 = __webpack_require__(426);
-const mutation_1 = __webpack_require__(721);
-function TaskInfo(props) {
-    const [taskType] = react_1.useState(props.what);
-    return (react_1.default.createElement(react_1.Fragment, null, taskType === 'CIC' &&
-        react_1.default.createElement("img", { src: props.entry.clue_image.urls.thumb, alt: props.entry.clue_image.alt_description })));
-}
-function Tasks(props) {
-    const showCurrentTask = (e) => {
-        console.log(e);
-        props.setShowTask(e);
-    };
-    return (react_1.default.createElement(react_1.Fragment, null, props.task.map((task, key) => {
-        if (!task.accepted) {
-            return (react_1.default.createElement("div", { key: key, className: "individual-task", onClick: e => showCurrentTask(task) },
-                react_1.default.createElement("h3", null, moment_1.default(new Date(task.task_date)).format('dddd, MMMM D')),
-                react_1.default.createElement("p", null,
-                    "student: ",
-                    props.student_name),
-                react_1.default.createElement(TaskInfo, { what: task.task_code, entry: task.entry }),
-                task.completed_at && 'completed on ' + moment_1.default(new Date(task.completed_at)).format('dddd, MMMM D'),
-                react_1.default.createElement("p", null, task.completed_at !== null ? 'Awaiting approval' : 'Not Completed Yet')));
-        }
-    })));
-}
-//make sure selected view shows for specific type
-function SelectedTaskView(props) {
-    const [task] = react_1.useState(props.currentTask);
-    const [reject, setReject] = react_1.useState(false);
-    const [message, setMessage] = react_1.useState(null);
-    const [completeTask] = react_hooks_1.useMutation(mutation_1.REJECT_OR_APPROVE_TASK);
-    const disableView = e => {
-        e.preventDefault();
-        props.setShowTask(false);
-    };
-    const approveSubmission = e => {
-        e.preventDefault();
-        setReject(false);
-        completeTask({ variables: { input: { task_id: task.task_id, accepted: true } } }).then((e) => {
-            props.setShowTask(false);
-        });
-    };
-    const rejectSubmission = e => {
-        e.preventDefault();
-        setReject(true);
-    };
-    const submitRejection = e => {
-        e.preventDefault();
-        completeTask({ variables: { input: { task_id: task.task_id, message: message } } }).then((e) => {
-            props.setShowTask(false);
-        });
-    };
-    return (react_1.default.createElement("div", { className: "individual-task-modify" },
-        react_1.default.createElement("img", { src: task.entry.clue_image.urls.small }),
-        "Student Input: ",
-        task.submission ? task.submission.CIC : 'not yet completed',
-        ". ",
-        react_1.default.createElement("br", null),
-        typeof task.completed_at === 'string' && (react_1.default.createElement(react_1.Fragment, null,
-            react_1.default.createElement("button", { onClick: approveSubmission }, "Approve Submission"),
-            react_1.default.createElement("button", { onClick: rejectSubmission }, "Reject Submission"))),
-        reject &&
-            react_1.default.createElement("form", { onSubmit: submitRejection },
-                react_1.default.createElement("label", { htmlFor: "reject-message" },
-                    "Would you like to add a message as to why you're rejecting this submission?",
-                    react_1.default.createElement("input", { id: "reject-message", name: "reject-message", onChange: e => setMessage(e.target.value) })),
-                react_1.default.createElement("button", { type: "submit" }, "Submit Rejection")),
-        react_1.default.createElement("button", { onClick: disableView }, "go back")));
-}
-function TaskList(props) {
-    const [students] = react_1.useState(props.students);
-    const [showTask, setShowTask] = react_1.useState(null);
-    return (react_1.default.createElement(react_1.Fragment, null, !showTask ? react_1.default.createElement("div", { className: "task-container" }, students.map((student, key) => {
-        return react_1.default.createElement(Tasks, { key: key, setShowTask: setShowTask, task: student.tasks, student_name: student.name });
-    })) : react_1.default.createElement(SelectedTaskView, { currentTask: showTask, setShowTask: setShowTask })));
-}
-exports.default = TaskList;
-
-
-/***/ }),
-
 /***/ 895:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1584724544705
+      // 1584726111880
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -286,7 +217,7 @@ exports.default = TaskList;
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1584724544709
+      // 1584726111882
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -300,7 +231,7 @@ exports.default = TaskList;
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1584724544752
+      // 1584726111884
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -314,7 +245,7 @@ exports.default = TaskList;
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1584724544706
+      // 1584726111879
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -328,7 +259,7 @@ exports.default = TaskList;
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1584724544707
+      // 1584726111878
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;

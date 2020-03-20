@@ -110,7 +110,6 @@ function SelectedTaskView(props) {
           <button type="submit">Submit Rejection</button>
         </form>
       }
-
       <button onClick={disableView}>go back</button>
     </div>
   )

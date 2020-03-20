@@ -43,6 +43,18 @@ function StudentProfile(props: StudentProfileProps) {
         }) : 'No Vocabulary'}
       </ul>
 
+        <div className="containers">
+          {props.data.tasks.map((task, index) => {
+            if (!task.accepted) {
+              return <div key={index}>
+                Caption the image
+                <img src={task.entry.clue_image.urls.thumb} alt={task.entry.clue_image.alt_description}/>
+            <p>{task.submission ? task.submission.CIC : 'not yet completed'}</p>
+              </div>
+            }
+          })}
+
+        </div>
       <h2>Blogs</h2>
       {props.data.blogs.length > 0 ? props.data.blogs.map((blog, key) => {
 
@@ -72,6 +84,9 @@ export default function IndividualStudent(props: IndividualStudentProps) {
   const [students] = useState(props.data.students);
   const [myStudent, setMyStudent] = useState(false);
   const { loading, error, data } = useQuery(getStudentInfo, { variables: { student_id } });
+  if (data) {
+    console.log(data)
+  }
   useEffect(() => {
     //only show student information if student id is in teacher's student list 
     for (let x of students) {

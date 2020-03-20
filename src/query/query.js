@@ -156,6 +156,7 @@ query getStudentByID($student_id: ID!){
       accepted
       message
       viewed
+      submission
     }
     blogs {
       blog_id, 
