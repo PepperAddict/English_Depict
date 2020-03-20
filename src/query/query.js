@@ -85,13 +85,15 @@ query getUserByID($userId: ID!) {
       theme
       avatar
       tasks {
-      task_code
-      task_date
-      student_id
-      entry
-      completed_at
-      viewed
-      accepted
+        task_id
+        task_code
+        task_date
+        student_id
+        entry
+        completed_at
+        viewed
+        accepted
+        submission
     }
     }
   }

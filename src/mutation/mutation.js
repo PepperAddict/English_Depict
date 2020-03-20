@@ -146,3 +146,11 @@ mutation SubmitTask($input: TaskSubmit! ) {
 }
 
 `
+
+export const REJECT_OR_APPROVE_TASK = gql`
+mutation completeTask($input: CompleteTask! ) {
+  CompleteTask(input: $input) {
+    student_id
+  }
+}
+`

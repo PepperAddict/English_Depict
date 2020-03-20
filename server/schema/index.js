@@ -32,6 +32,7 @@ const SetVerified = require('./mutations/setVerified');
 const getTaskByID = require('./queries/getTaskByID');
 const SubmitTask = require('./mutations/submitTask');
 const getTasksByStudentID = require('./queries/getCompleteTasksByStudentId');
+const CompleteTask = require('./mutations/completeTask');
 
 
 const RootQueryType = new GraphQLObjectType({
@@ -73,7 +74,8 @@ const RootMutationType = new GraphQLObjectType({
     AddTask,
     RemoveUser,
     SetVerified,
-    SubmitTask
+    SubmitTask,
+    CompleteTask
   })
 });
 

@@ -53,6 +53,13 @@ module.exports = pgPool => {
         return res.rows[0]
       }).catch(e => console.log(e))
     },
+    completeTask({task_id, accepted, message}) {
+      return pgPool.query(`
+      update tasks set accepted = $1, message = $2 where task_id = $3 returning *
+      `, [accepted, message, task_id]).then(res => {
+        return res.rows[0]
+      }).catch(e => console.log(e))
+    },
     //TODO: paginate later
     getAllBlogs(student_id, limit) {
       return pgPool
