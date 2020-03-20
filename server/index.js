@@ -79,22 +79,14 @@ router.get(["/register", "/register/:page?"], softAuthenticate, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 });
 
-router.get(
-  ["/dashboard/", "/dashboard/:page?"],
-  cors(),
-  isAuthenticated,
-  (req, res) => {
+router.get(["/dashboard/", "/dashboard/:page?"], cors(),  isAuthenticated,  (req, res) => {
     res.sendFile(path.resolve(__dirname, "../dist/index.html"));
   }
 );
 
 //student corner
+router.get(["/student_login/", "/student_login/:page?"], cors(), choice,(req, res) => {
 
-router.get(
-  ["/student_login/", "/student_login/:page?"],
-  cors(),
-  choice,
-  (req, res) => {
     res.sendFile(path.resolve(__dirname, "../dist/index.html"));
   }
 );
@@ -105,11 +97,9 @@ router.use(mailer)
 router.use(imageupload)
 
 
-router.get(
-  ["/student/", "/student/:page?", "/todo/:page?"],
-  cors(),
-  studentAuthenticate,
+router.get(["/student/", "/student/:page?", "/todo/:page?"], cors(), studentAuthenticate,
   (req, res) => {
+    
     res.sendFile(path.resolve(__dirname, "../dist/index.html"));
   }
 );

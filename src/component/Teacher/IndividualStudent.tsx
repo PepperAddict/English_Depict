@@ -45,7 +45,7 @@ function StudentProfile(props: StudentProfileProps) {
 
         <div className="containers">
           {props.data.tasks.map((task, index) => {
-            if (!task.accepted) {
+            if (!task.accepted && task.task_code == "CIC") {
               return <div key={index}>
                 Caption the image
                 <img src={task.entry.clue_image.urls.thumb} alt={task.entry.clue_image.alt_description}/>

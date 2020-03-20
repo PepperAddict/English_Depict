@@ -27,10 +27,20 @@ const verifyJwt = async req => {
   });
 };
 
-
+const twoAuthKick = (req, res) => {
+  res.clearCookie('student_key')
+  res.clearCookie('student_id')
+  res.clearCookie('token')
+  res.clearCookie('userID')
+  res.redirect('/')
+}
 
 const isAuthenticated = (req, res, next) => {
+  let studentKey = ('student_key', req.cookies).student_key || false;
   let token = ('token', req.cookies).token || false;
+  if (studentKey && token){
+    twoAuthKick(req, res)
+  }
   if (token) {
     jwt.verify(token, privateKey, {
       algorithm: 'HS256'
@@ -79,7 +89,7 @@ const choice = async (req, res, next) => {
         return next();
       }
       if (user) {
-        res.redirect('/dashboard/student-mode');
+        res.redirect('/dashboard')
       }
     });
   } else if (studentKey) {
@@ -101,6 +111,10 @@ const choice = async (req, res, next) => {
 
 const studentAuthenticate = async (req, res, next) => {
   let studentKey = ('student_key', req.cookies).student_key || false;
+  let token = ('token', req.cookies).token || false;
+  if (studentKey && token){
+    twoAuthKick(req, res)
+  }
 
   if (studentKey) {
 
