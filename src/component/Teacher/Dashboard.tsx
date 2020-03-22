@@ -11,6 +11,7 @@ import IndividualStudent from './IndividualStudent';
 import ShowCard from './StudentCard';
 import Tasks from './TeacherTasks';
 import Settings from './Settings';
+import {holiday} from '../../helpers/holidayDates.js'
 
 
 export default function Dashboard() {
@@ -20,10 +21,10 @@ export default function Dashboard() {
   const { loading, error, data } = useQuery(getUserByID, { variables: { userId: userId } });
   const [info, setInfo] = useState('');
   const [student_id, setStudent_id] = useState(null);
-
-
+  holiday()
   useEffect(() => {
     let pathname = window.location.pathname;
+
     switch (true) {
     case pathname.includes('add_student'):
       setInfo({
