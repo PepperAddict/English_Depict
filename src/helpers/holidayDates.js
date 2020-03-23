@@ -1,5 +1,4 @@
-var Holidays = require('date-holidays')
-var hd = new Holidays('US');
+
 const currentDate = new Date();
 const currentYear = currentDate.getFullYear();
 // const currentMonth = currentDate.getMonth() ;
@@ -7,27 +6,30 @@ const currentYear = currentDate.getFullYear();
 import moment, {diff} from 'moment';
 
 
-export const currentHoliday = hd.getHolidays(currentYear);
-export const holiday = e => {
-    // const todaysDate = `${currentYear}-${currentMonth}-${currentDay}`;
-    let positiveDates = new Array();
+// export const currentHoliday = hd.getHolidays(currentYear);
+// export const holiday = e => {
+//     // const todaysDate = `${currentYear}-${currentMonth}-${currentDay}`;
+//     let positiveDates = new Array();
     
-    for (let x of currentHoliday) {
-        const one = moment(x.date)
-        const two = moment(new Date())
-        let newDigi = one.diff(two);
+//     for (let x of currentHoliday) {
+//         const one = moment(x.date)
+//         const two = moment(new Date())
+//         let newDigi = one.diff(two);
 
-        if (newDigi > 0) {
+//         if (newDigi > 0) {
 
-            positiveDates.push(x)
-        }
+//             positiveDates.push(x)
+//         }
         
-    }
-    console.log(positiveDates[0])
-    return 'hello'
+//     }
+//     console.log(positiveDates[0])
+//     return 'hello'
+// }
+export const holiday = e => {
+console.log(listOfHolidays)
 }
 
-const specialDay = {
+const listOfHolidays = {
     "01": {
         what: "New Year's Day",
         why: "First day of the year",

@@ -27,12 +27,25 @@ import IndividualTask from './../Student/IndividualTask';
 
 
 function App() {
-  const [teacherid, setValue] = useState('testing if this works')
-  const [studentid, setStudentID] = useState(null)
+
+  const [vocabulary, setVocabulary] = useState(null);
+  const [def, setDef] = useState(null)
+  
+
+  const vocabLookup = e => {
+    fetch(`https://www.dictionaryapi.com/api/v3/references/sd2/json/${e}?key=${process.env.REACT_APP_MERR}`)
+    .then((res) => {
+      return res.json()
+    }).then((res) => {
+      setVocabulary(e)
+      setDef(res)
+      console.log(res)
+    })
+  }
 
   return (
     <ApolloProvider client={client}>
-      <MyContext.Provider value={{teacherid, setValue: e => {setValue(e)}}}>
+      <MyContext.Provider value={{vocabulary, def, setVocabulary: e => setVocabulary(e), lookUp: e => vocabLookup(e)}}>
         <Router>
           <Fragment>
             <Route exact path="/">
