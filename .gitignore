@@ -5,3 +5,6 @@ yarn.lock
 yarn-error.log
 *.pem
 deploy_key
+hot-update.js
+hot-update.js.map
+hot-update.json
