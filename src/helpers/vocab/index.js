@@ -32,7 +32,7 @@ export const listCheck = e => {
           newarray.push(each)
         }
       }
-      return newarray
+      return newarray.slice(0, 5)
     }
   } catch {
     console.log("none");
