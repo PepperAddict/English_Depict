@@ -5,7 +5,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1585087901114
+      // 1585087948273
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -19,7 +19,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1585087901113
+      // 1585087948272
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -33,7 +33,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1585087896138
+      // 1585087948270
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -47,7 +47,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1585087901113
+      // 1585087948270
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -61,7 +61,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1585087895286
+      // 1585087948266
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -75,7 +75,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1585087901115
+      // 1585087948271
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -89,7 +89,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1585087896073
+      // 1585087948269
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -103,7 +103,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1585087895288
+      // 1585087948267
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -117,7 +117,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1585087895287
+      // 1585087948265
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -131,7 +131,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1585087900053
+      // 1585087948268
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -145,7 +145,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1585087896273
+      // 1585087948268
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -159,7 +159,7 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1585087895287
+      // 1585087948263
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
@@ -173,84 +173,12 @@ webpackHotUpdate(0,{
 
 // extracted by mini-css-extract-plugin
     if(true) {
-      // 1585087895285
+      // 1585087948261
       var cssReload = __webpack_require__(463)(module.i, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);;
     }
   
-
-/***/ }),
-
-/***/ 967:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "vocab", function() { return vocab; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listCheck", function() { return listCheck; });
-var vocab = function vocab(e) {
-  var firstLetter = e.charAt(0).toUpperCase();
-  var capVocab = e.toUpperCase();
-
-  try {
-    var path = __webpack_require__(968)("./D".concat(firstLetter, ".json")); //turn the definition into arrays
-
-
-    var definition = path[capVocab].MEANINGS;
-    var defarray = Object.values(definition);
-    return defarray;
-  } catch (_unused) {
-    return null;
-  }
-};
-var listCheck = function listCheck(e) {
-  var firstLetter = e.charAt(0).toUpperCase();
-  var capVocab = e.toUpperCase();
-
-  try {
-    var path = __webpack_require__(968)("./D".concat(firstLetter, ".json")); //turn the definition into arrays
-
-
-    var definition = path;
-    var defarray = Object.keys(definition);
-    var regex = new RegExp("^" + capVocab + ".*$");
-
-    if (capVocab.length > 2) {
-      var newarray = new Array();
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = defarray[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var each = _step.value;
-
-          if (each.match(regex)) {
-            newarray.push(each);
-          }
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return != null) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-
-      return newarray.slice(0, 5);
-    }
-  } catch (_unused2) {
-    console.log("none");
-  }
-};
 
 /***/ })
 
