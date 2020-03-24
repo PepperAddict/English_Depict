@@ -6,6 +6,7 @@ import '../../styles/vocabulary.styl';
 import { MyContext } from '../index/Context';
 
 
+
 function ListBucket(props) {
   //the individual words that are in the database
   const [removeVocab] = useMutation(REMOVE_VOCABULARY);
@@ -85,7 +86,12 @@ export default function VocabBucket(props) {
 
             <form onSubmit={e => submitVocabulary(e, context.vocabulary)}>
               <label htmlFor="vocab"><h2>Vocabulary Bucket</h2></label>
-              <input id="vocab" placeholder="Add Word to Bucket" onChange={e => context.setVocabulary(e.target.value)} />
+              <input id="vocab" list="wordlist" placeholder="Add Word to Bucket" onChange={e => context.spellCheck(e.target.value)} />
+              <datalist id="wordlist">
+              {context.listWords && context.listWords.map((word, key) => {
+                return <option key={key} index={key} value={word} />
+              })}
+              </datalist>
               <button type="submit" className="submit-word">submit {context.vocabulary ? context.vocabulary : 'word'}</button>
             </form>
 

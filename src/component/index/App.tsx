@@ -23,15 +23,14 @@ import StudentLogin from '../Student/StudentLogin';
 import StudentDashboard from '../Student/studentDashboard';
 import Verify from './Verify';
 import IndividualTask from './../Student/IndividualTask';
-import {vocab} from '../../helpers/vocab'
-
+import {vocab, listCheck} from '../../helpers/vocab';
 
 
 function App() {
 
   const [vocabulary, setVocabulary] = useState(null);
-  const [def, setDef] = useState(null)
-  
+  const [def, setDef] = useState(null);
+  const [listWords, setwords] = useState(null)
 
   const vocabLookup = e => {
     setVocabulary(e)
@@ -39,9 +38,22 @@ function App() {
     setDef(definition)
   }
 
+  const spellCheck = e => {
+    const list = listCheck(e)
+    setVocabulary(e)
+    setwords(list)
+  }
+
+
   return (
     <ApolloProvider client={client}>
-      <MyContext.Provider value={{vocabulary, def, setVocabulary: e => setVocabulary(e), lookUp: e => vocabLookup(e)}}>
+      <MyContext.Provider value={{
+        vocabulary, 
+        def, 
+        setVocabulary: e => setVocabulary(e), 
+        lookUp: e => vocabLookup(e),
+        spellCheck: e => spellCheck(e),
+        listWords}}>
         <Router>
           <Fragment>
             <Route exact path="/">
