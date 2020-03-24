@@ -102,11 +102,13 @@ export default function VocabBucket(props) {
               })}
 
 
-              {context.vocabulary && (
+              {context.def && (
                 <div>
                   <div className="x-close" onClick={e => context.setVocabulary(null)}>close</div>
+                  <h3>{context.vocabulary}</h3>
+
                   {context.def && context.def.map((indi, key) => {
-                    return <span key={key} >{indi.shortdef.map((def, key) => <p key={key}>{def}</p>)}</span>
+                    return <span key={key} >{indi[0]} <p>{indi[1]}</p></span>
                   })}
                 </div>
               )}

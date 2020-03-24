@@ -23,6 +23,7 @@ import StudentLogin from '../Student/StudentLogin';
 import StudentDashboard from '../Student/studentDashboard';
 import Verify from './Verify';
 import IndividualTask from './../Student/IndividualTask';
+import {vocab} from '../../helpers/vocab'
 
 
 
@@ -33,14 +34,9 @@ function App() {
   
 
   const vocabLookup = e => {
-    fetch(`https://www.dictionaryapi.com/api/v3/references/sd2/json/${e}?key=${process.env.REACT_APP_MERR}`)
-    .then((res) => {
-      return res.json()
-    }).then((res) => {
-      setVocabulary(e)
-      setDef(res)
-      console.log(res)
-    })
+    setVocabulary(e)
+    const definition = vocab(e);
+    setDef(definition)
   }
 
   return (
