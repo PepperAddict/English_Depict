@@ -238,22 +238,22 @@ module.exports = {
           path: path.resolve(__dirname, '../.env'),
           systemvars: true,
         }),
-        new TerserPlugin({
-          test: /\.js(\?.*)?$/i,
-          parallel: true,
-          terserOptions: {
-            mangle: true,
-          }
-        }),
-        new CompressionPlugin({
-          algorithm: 'gzip'
-        }),
-        new BrotliPlugin({
-          asset: '[path].br[query]',
-          test: /\.(js|css|html|svg)$/,
-          threshold: 10240,
-          minRatio: 0.8
-        })
+        // new TerserPlugin({
+        //   test: /\.js(\?.*)?$/i,
+        //   parallel: true,
+        //   terserOptions: {
+        //     mangle: true,
+        //   }
+        // }),
+        // new CompressionPlugin({
+        //   algorithm: 'gzip'
+        // }),
+        // new BrotliPlugin({
+        //   asset: '[path].br[query]',
+        //   test: /\.(js|css|html|svg)$/,
+        //   threshold: 10240,
+        //   minRatio: 0.8
+        // })
       );
     } else {
       plugins.push(
