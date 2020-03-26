@@ -7,10 +7,10 @@ import { MyContext } from './Context';
 
 const client = new ApolloClient({
   uri: '/graphql',
-  // cache: new InMemoryCache({
-  //   freezeResults: true
-  // }),
-  // assumeImmutableResults: true
+  cache: new InMemoryCache({
+    freezeResults: true
+  }),
+  assumeImmutableResults: true
 });
 
 // components

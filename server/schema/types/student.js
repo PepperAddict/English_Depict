@@ -7,7 +7,6 @@ const {
   GraphQLList
 } = require('graphql');
 const pgdb = require('../../models/lessonsDB');
-const lessondb = require('../../models/lessonsDB.js');
 const vocabType = require('./vocabulary');
 const blogType = require('./blog');
 const TaskType = require('./task');
@@ -46,7 +45,7 @@ const StudentType = new GraphQLObjectType({
       tasks: {
         type: new GraphQLList(TaskType),
         resolve: async (source, input, {pgPool, req}) => {
-          return lessondb(pgPool).getTasks(source.student_id);
+          return pgdb(pgPool).getTasks(source.student_id);
         }
       }
     };

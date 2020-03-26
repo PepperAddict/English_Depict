@@ -3,8 +3,11 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLNonNull,
-  GraphQLBoolean
+  GraphQLBoolean,
+  GraphQLList
 } = require('graphql');
+const vocabType = require('./vocabulary')
+const pgdb = require('../../models/lessonsDB');
 const MeType = new GraphQLObjectType({
   name: 'Me',
   fields: () => {
@@ -17,7 +20,15 @@ const MeType = new GraphQLObjectType({
       role: {type: GraphQLString },
       apiKey: { type: GraphQLNonNull(GraphQLString) },
       verified: {type: GraphQLBoolean},
-      verify_token: {type: GraphQLString}
+      verify_token: {type: GraphQLString},
+      vocabularies: {
+        type: new GraphQLList(vocabType),
+        resolve: async (source, input, {pgPool, req}) => {
+          let teacher_id = source.userId;
+          console.log(teacher_id)
+          return pgdb(pgPool).getVocabularyByTeacher(teacher_id)
+        }
+      }
     };
   }
 });

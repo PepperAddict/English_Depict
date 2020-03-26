@@ -35,7 +35,6 @@ interface ShowCardProps{
 }
 
 export default function ShowCard(props: ShowCardProps) {
-  console.log(props)
 
   return (<div className="student-card">
     <h2>Your Students:</h2>

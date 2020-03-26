@@ -6,7 +6,8 @@ const {
   GraphQLID,
   GraphQLBoolean
 } = require('graphql');
-
+const vocabType = require('./vocabulary')
+const lessondb = require('../../models/lessonsDB');
 const pgdb = require('../../models/studentDB.js');
 
 const UsersType = new GraphQLObjectType({
@@ -26,6 +27,12 @@ const UsersType = new GraphQLObjectType({
           return pgdb(pgPool).getStudent(source.id);
         }
       }, 
+      vocabularies: {
+        type: new GraphQLList(vocabType),
+        resolve: async (source, input, {pgPool, req}) => {
+          return lessondb(pgPool).getVocabularyByTeacher(source.id)
+        }
+      }
     };
   }
 });

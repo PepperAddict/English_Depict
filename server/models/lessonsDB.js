@@ -104,16 +104,21 @@ module.exports = pgPool => {
     getVocabularyByID(student_id) {
       return pgPool
         .query(
-          `
-      select * from vocabularies where student_id = $1
-      `,
-          [student_id]
-        )
+          `select * from vocabularies where student_id = $1`,[student_id])
         .then(res => {
           if (res.rows) {
             return res.rows;
           }
         });
+    },
+    getVocabularyByTeacher(teacher_id) {
+      return pgPool.query(`select * from vocabularies where teacher_id = $1`,
+        [teacher_id])
+        .then(res => {
+          if (res.rows) {
+            return res.rows;
+          }
+        }).catch(err => console.log(err));
     },
     removeVocabulary(vocab_id) {
       return pgPool
