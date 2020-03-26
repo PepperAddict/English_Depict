@@ -2,7 +2,6 @@ import React, { useState, Fragment } from 'react';
 
 function CIC(props) {
     const [tasks] = useState(props.task)
-    console.log(tasks)
     return (
     <div className="task-CIC">
         <a href={`/todo/task?=${tasks.task_id}`}>

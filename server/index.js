@@ -52,7 +52,7 @@ const pgPool = new pg.Pool({
   database: process.env.DB,
   port: process.env.DB_PORT,
   ssl: {
-    rejectUnauthorized: true
+    rejectUnauthorized: false
   }
 });
 const schema = require("./schema/");

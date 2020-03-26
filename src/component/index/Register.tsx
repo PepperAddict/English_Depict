@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { ADD_REGISTRATION } from '../../mutation/mutation';
 import Login from './Login';
 import '../../styles/login.styl';
-import {encryptMe} from '../../helpers';
+import { encryptMe } from '../../helpers';
 
 /*
 Errors: 
@@ -24,6 +24,7 @@ function CheckEmail(props: CheckEmailProps) {
     passwordOne: '',
     passwordTwo: '',
     loading: true,
+    role: 'teacher'
   });
   const [terror, setError] = useState(null); // 1 = email is taken, 2 = password doesnt match
   const [addRegistration] = useMutation(ADD_REGISTRATION);
@@ -33,7 +34,8 @@ function CheckEmail(props: CheckEmailProps) {
       username: account.user,
       email: account.email,
       password: account.passwordOne,
-      verify_token: encryptMe(account.email)
+      verify_token: encryptMe(account.email),
+      role: account.role
     };
     const passwordMatch = (account.passwordOne === account.passwordTwo) ? true : false;
 
@@ -140,6 +142,14 @@ function CheckEmail(props: CheckEmailProps) {
               required />
           </label>
 
+          <p>Are you a teacher or a parent/guardian?</p>
+          <label className="radio-button">
+            <input type="radio" name="role" value="teacher" onChange={updateFields} />Teacher
+          </label>
+          <label className="radio-button">
+            <input type="radio" name="role" value="parent" onChange={updateFields} />Parent/Guardian
+          </label>
+
           <div className="below-registration">
             <ul>
               <li>
@@ -148,16 +158,18 @@ function CheckEmail(props: CheckEmailProps) {
             </ul>
           </div>
 
+
+
           <button className="login-button" type='submit'>Register</button>
 
         </form>
         {terror && (
-            <div className="error-area"><span onClick={close} className="close">×</span>
-              {terror === 1 ? <p className="error">Email is taken</p> :
-                terror === 2 ? <p className="error">Please enter a valid email address</p> :
-                  terror === 3 && <p className="error">Your passwords do not match. Please try again</p>}
-            </div>
-          )}
+          <div className="error-area"><span onClick={close} className="close">×</span>
+            {terror === 1 ? <p className="error">Email is taken</p> :
+              terror === 2 ? <p className="error">Please enter a valid email address</p> :
+                terror === 3 && <p className="error">Your passwords do not match. Please try again</p>}
+          </div>
+        )}
 
       </div>
       <div className="bottom"></div>
@@ -182,7 +194,7 @@ export default function Regi() {
           <CheckEmail
             registered={registered}
             setRegistered={setRegistered}
-/>
+          />
         </Fragment>}
     </Fragment>
   );

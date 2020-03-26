@@ -15,6 +15,7 @@ import moment from 'moment';
 import Sidebar from './Student_DashboardSidebar';
 import StudentTasks from './StudentTasks';
 const defaultImage = require('../../img/no-pic.png');
+import SpecialDay from './SpecialDay';
 
 
 export default function StudentDashboard() {
@@ -28,14 +29,8 @@ export default function StudentDashboard() {
     newVocab: new Array()
   });
 
-  const [specialDay, setSpecialDay] = useState(null);
-  const [specialDayMessage, setSpecialDayMessage] = useState(null)
 
   useEffect(() => {
-    //Special Day 
-    var eventdate = moment('2020-4-12', "YYYY-MM-DD");
-    setSpecialDay(eventdate.diff(todaysdate, 'days'));
-    setSpecialDayMessage(" Days until Easter!")
 
     let pathname = window.location.pathname;
     switch (true) {
@@ -129,8 +124,7 @@ export default function StudentDashboard() {
             </span>
               <h1>Welcome <strong>{student.name ? student.name : student.username}</strong>!</h1>
               <h2>Today is <strong>{currentDate}</strong></h2>
-
-          <h2 className="holiday-theme">{specialDay} {specialDayMessage}</h2>
+              <SpecialDay />
 
               {data.getStudentByID[0].message &&
                 <h2 className="message">❝{data.getStudentByID[0].message}❞</h2>}

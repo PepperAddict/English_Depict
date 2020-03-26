@@ -8,7 +8,8 @@ module.exports = pgPool => {
       username,
       email,
       password,
-      verify_token
+      verify_token,
+      role
     }) {
       //first let's check if the email exists in the database, 
       //if it does and password matches, sign in. if none then register
@@ -34,9 +35,9 @@ module.exports = pgPool => {
           });
           const date_created = new Date();
           return pgPool.query(`
-        insert into users (username, email, token, password, created_at, verify_token)
-        values ($1, $2, $3, $4, $5, $6) returning *
-      `, [username, email, token, newPassword, date_created, verify_token]).then(res => {
+        insert into users (username, email, token, password, created_at, verify_token, role)
+        values ($1, $2, $3, $4, $5, $6, $7) returning *
+      `, [username, email, token, newPassword, date_created, verify_token, role]).then(res => {
             const user = res.rows[0];
             user.apiKey = user.token;
             return user;

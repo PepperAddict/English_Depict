@@ -20,6 +20,9 @@ const UserInputType = new GraphQLInputObjectType({
     },
     verify_token: {
       type: GraphQLNonNull(GraphQLString)
+    },
+    role: {
+      type: GraphQLNonNull(GraphQLString)
     }
   }
 });

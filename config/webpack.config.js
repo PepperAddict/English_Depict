@@ -130,7 +130,7 @@ module.exports = {
                 indent: 'postcss',
                 plugins: [
                   require('autoprefixer')({
-                    'browsers': ['> 1%', 'last 2 versions']
+                    'overideBrowserslist': ['> 1%', 'last 2 versions']
                   })
                 ]
               }
