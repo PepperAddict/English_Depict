@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { cookieParser } from '../../helpers';
 import { getUserByID } from '../../query/query';
@@ -11,7 +11,7 @@ import IndividualStudent from './IndividualStudent';
 import ShowCard from './StudentCard';
 import Tasks from './TeacherTasks';
 import Settings from './Settings';
-
+import VocabTask from './VocabTask';
 
 export default function Dashboard() {
 
@@ -26,31 +26,31 @@ export default function Dashboard() {
     let pathname = window.location.pathname;
 
     switch (true) {
-    case pathname.includes('add_student'):
-      setInfo({
-        buttonAdd: true
-      });
-      break;
-    case pathname.includes('student_posts'):
-      setInfo({
-        posts: true
-      });
-      break;
-    case pathname.includes('settings'):
-      setInfo({
-        settings: true
-      });
-      break;
-    case pathname.includes('student-info'):
-      setInfo({
-        student: true
-      });
-      break;
-    case pathname.includes('task'):
-      setInfo({
-        task: true
-      });
-      break;
+      case pathname.includes('add_student'):
+        setInfo({
+          buttonAdd: true
+        });
+        break;
+      case pathname.includes('student_posts'):
+        setInfo({
+          posts: true
+        });
+        break;
+      case pathname.includes('settings'):
+        setInfo({
+          settings: true
+        });
+        break;
+      case pathname.includes('student-info'):
+        setInfo({
+          student: true
+        });
+        break;
+      case pathname.includes('task'):
+        setInfo({
+          task: true
+        });
+        break;
     }
   }, []);
 
@@ -67,20 +67,24 @@ export default function Dashboard() {
 
           {info.buttonAdd ? (<div> {data.getUser.students.length > 0 ?
             (<div className="student-container">
-              <ShowCard data={data.getUser} userId={userId} setStudentID={setStudent_id} students={data.getUser.students}/>
-              test {data.getUser.vocabularies ? data.getUser.vocabularies.map((word, key) => {
-                return <p key={key}>{word.vocabulary_word}</p>
-              }) : <p>no words in student's vocabulary bucket</p>}
-              <AddStudent /></div>) : (<AddStudent />)} 
-              </div>) :
-            info.settings ? (<Settings userId={userId}/>) :
+              <ShowCard data={data.getUser} userId={userId} setStudentID={setStudent_id} students={data.getUser.students} />
+
+              <AddStudent /></div>) : (<AddStudent />)}
+          </div>) :
+            info.settings ? (<Settings userId={userId} />) :
               info.task ? <Tasks students={data.getUser.students} teacher_data={data.getUser} /> :
                 info.student ? (<IndividualStudent teacher_id={userId} student_id={student_id} data={data.getUser} />) : (
-                    <div>
-                      {data.getUser.students.length > 0 ? (<ShowCard students={data.getUser.students} data={data.getUser} userId={userId} setStudentID={setStudent_id} />) : (<AddStudent />)}
-                    </div>
-                )}
+                  <div>
+                    {data.getUser.students.length > 0 ? (
+                      <Fragment>
 
+                        <ShowCard students={data.getUser.students} data={data.getUser} userId={userId} setStudentID={setStudent_id} />
+                        
+                        {data.getUser.vocabularies ? 
+                        <VocabTask vocabs={data.getUser.vocabularies}/> : <p>no words in students' vocabulary bucket</p>}
+                      </Fragment>) : (<AddStudent />)}
+                  </div>
+                )}
         </div>
       )}
     </div>
