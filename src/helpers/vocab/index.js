@@ -28,7 +28,8 @@ export const listCheck = e => {
       let newarray = new Array();
       for (let each of defarray) {
         if (each.match(regex)) {
-          
+          each = each.toLowerCase();
+          each = each.charAt(0).toUpperCase() + each.slice(1)
           newarray.push(each)
         }
       }
