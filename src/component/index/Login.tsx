@@ -8,13 +8,15 @@ import { createUseStyles } from 'react-jss';
 
 function LoginForm() {
 
-  const bgCrinkle = require('../../img/crinkle.png');
-  const bgWave = require('../../img/wave.png');
+  const bgCrinkle = require('../../img/cloudpattern.png');
+  const bgWave = require('../../img/triangle.png');
 
   //jss portion
   const bg = createUseStyles({
     myBG: {
-      backgroundImage: `url(${bgCrinkle.images[bgCrinkle.images.length - 1].path})`
+      backgroundImage: `url(${bgCrinkle.images[bgCrinkle.images.length - 1].path})`,
+      backgroundRepeat: 'repeat',
+      backgroundSize: '40px'
     },
     myBGTwo: {
       backgroundImage: `url(${bgWave.images[bgWave.images.length - 1].path})`,
