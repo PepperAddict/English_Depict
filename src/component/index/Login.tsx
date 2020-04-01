@@ -22,7 +22,7 @@ function LoginForm() {
       backgroundImage: `url(${bgWave.images[bgWave.images.length - 1].path})`,
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'bottom'
+      backgroundPosition: 'left'
     }
   })
   const classy = bg();
