@@ -6,19 +6,23 @@ This is an open source project made with:
 * DevOps: CypressJS and Azure
 
 == Purpose 
-This project is for grade school children to practice English by completing lessons assigned by the teacher. 
+This project is for grade school children to practice reading and writing comprehension as well as a communication tool.
 
 == Env File 
-DB_HOST=//database host URL
-DB_PASS=//database password
-SALT=//random generated code for crypting
-REACT_APP_MERR=//key from dictionary merriam api
-TOKENPW=//another generated code for crypting
+
+DB_HOST= database host +
+DB_PASS= database password +
+DB_USER= database username +
+DB_PORT= database port +
+DB= database +
+SALT= random generated code for crypting +
+TOKENPW= another generated code for crypting
 
 == Issues
 The issues are sorted in this kanban project board right in github: 
 https://github.com/PepperAddict/English_Depict/projects
 
+If you want to get involved, contact me through the issues or email me at jenearly@gmail.com and we can collaborate.
 
 == Design 
 
