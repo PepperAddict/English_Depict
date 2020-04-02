@@ -1,0 +1,10 @@
+= Certification for the server 
+
+To check the current certificate:
+
+`certbot certificates`
+
+To add a new domain
+
+`certbot --webroot -w /var/www/html certonly -d talkingcloud.io -d new.domain.io`
+
