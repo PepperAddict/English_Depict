@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { REMOVE_VOCABULARY } from '../../mutation/mutation';
 import { ADD_VOCABULARY } from '../../mutation/mutation';
 import '../../styles/vocabulary.styl';
-import { MyContext } from '../index/Context';
+import { StudentContext } from '../index/Context';
 
 
 
@@ -25,14 +25,14 @@ function ListBucket(props) {
 
   return (
     <div className="section-word">
-      <MyContext.Consumer>
+      <StudentContext.Consumer>
         {context => (<Fragment>
           <p onClick={e => context.lookUp(word.word.vocabulary_word)} className={props.dupeWord === word.word.vocabulary_word || props.dupeWordt === word.word.vocabulary_word ? 'vocabulary duped' : 'vocabulary'}>{word.word.vocabulary_word}</p>
           <button className="not-button" name={word.word.vocab_id} onClick={removeWord}>×</button>
         </Fragment>
         )
         }
-      </MyContext.Consumer>
+      </StudentContext.Consumer>
 
     </div>)
 }
@@ -80,7 +80,7 @@ export default function VocabBucket(props) {
 
   return (
     <div className="vocab-bucket">
-      <MyContext.Consumer>
+      <StudentContext.Consumer>
         {context => (
           <Fragment>
 
@@ -121,7 +121,7 @@ export default function VocabBucket(props) {
 
             </div>
           </Fragment>)}
-      </MyContext.Consumer>
+      </StudentContext.Consumer>
 
     </div>
 
