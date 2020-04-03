@@ -10,7 +10,6 @@ export default function SpecialDay() {
 
         let name = fromHoliday.what
         if (Array.isArray(name)) {
-            
             setHolidayName(name[Math.floor(Math.random() * name.length)])
         } else {
             setHolidayName(fromHoliday.what)
@@ -20,7 +19,6 @@ export default function SpecialDay() {
     return (
         <div className="special-day-container">
             {holidayName} is coming in {fromHoliday.between} days.
-    <p>{fromHoliday.why}</p>
         </div>
     )
 }

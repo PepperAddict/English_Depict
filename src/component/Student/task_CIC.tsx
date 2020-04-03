@@ -9,8 +9,8 @@ import { StudentContext } from '../index/Context';
 
 interface TaskCICProps {
     task: object
-
 }
+
 export default function taskCIC(props: TaskCICProps) {
     const [task, setTask] = useState(props.task);
     const [submitTask] = useMutation(SUBMIT_TASK);
@@ -39,6 +39,7 @@ export default function taskCIC(props: TaskCICProps) {
             {context => (
                 <Fragment>
                     <div className="CIC-container">
+                        <span onClick={e => context.setTask(null)}>close</span>
                         <div className="task-CIC-fill-in">
                             <h1>Caption the image!</h1>
                             <p>Caption: {entry ? entry : currentEntry ? currentEntry : ' '}</p>
@@ -56,9 +57,7 @@ export default function taskCIC(props: TaskCICProps) {
                                 </picture>
                             </div>
                         </div>
-                        {/* <SidebarTodo student_id={currentStudentId} /> */}
-                    </div>)
-            }
+                    </div>
                 </Fragment>
             )}
         </StudentContext.Consumer>
