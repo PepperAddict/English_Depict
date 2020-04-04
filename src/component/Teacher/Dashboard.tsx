@@ -26,18 +26,20 @@ export default function Dashboard() {
       <div className="dashboard-container">
         <div className="dashboard-sidebar">
           {data && <DashboardSidebar username={data.getUser.username} email={data.getUser.email} />}
-          
+
         </div>
 
         {loading ? <p>loading</p> : error ? <p>{error.message}</p> : (
           <Fragment>
             <div className="dashboard-content">
               {!data.getUser.verified && <div className="top-banner">Please verify your account</div>}
-              <Route path="/dashboard/add_student" render={(props) => <AddStudent {...props} student={data.getUser.students} data={data.getUser} /> } />
-              <Route path="/dashboard/settings" render={(props) => <Settings {...props} userId={userId}/>} />
-              <Route path="/dashboard/task" render={(props) => <Tasks {...props} students={data.getUser.students} teacher_data={data.getUser} />} />
-              <Route path="/dashboard/student-info" render={(props) => <IndividualStudent {...props} teacher_id={userId} student_id={student_id} data={data.getUser} />} />
-              <Route path="/dashboard" exact render={(props) => < TeacherDashboard {...props} vocabs={data.getUser.vocabularies} data={data.getUser} userId={userId} students={data.getUser.students}/>} />
+              <Switch>
+                <Route path="/dashboard/add_student" render={(props) => <AddStudent {...props} student={data.getUser.students} data={data.getUser} />} />
+                <Route path="/dashboard/settings" render={(props) => <Settings {...props} userId={userId} />} />
+                <Route path="/dashboard/task" render={(props) => <Tasks {...props} students={data.getUser.students} teacher_data={data.getUser} />} />
+                <Route path="/dashboard/student-info" render={(props) => <IndividualStudent {...props} teacher_id={userId} student_id={student_id} data={data.getUser} />} />
+                <Route path="/dashboard" exact render={(props) => < TeacherDashboard {...props} vocabs={data.getUser.vocabularies} data={data.getUser} userId={userId} students={data.getUser.students} />} />
+              </Switch>
             </div>
           </Fragment>
         )
