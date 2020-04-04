@@ -78,13 +78,11 @@ export default function VocabBucket(props) {
   const [searchedWord, setSearchedWord] = useState(null)
 
 
-
   return (
     <div className="vocab-bucket">
       <StudentContext.Consumer>
         {context => (
           <Fragment>
-
             <form onSubmit={e => submitVocabulary(e, searchedWord)}>
               <label htmlFor="vocab"><h2>Vocabulary Bucket</h2></label>
               <input id="vocab" list="wordlist" placeholder="Add Word to Bucket" onChange={e => setSearchedWord(e.target.value)} />
