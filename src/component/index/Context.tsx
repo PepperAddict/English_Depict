@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 import { vocab, listCheck } from '../../helpers/vocab';
 
 export const StudentContext = createContext(null);
-export const TaskContext = createContext(null);
+export const TeacherContext = createContext(null);
 
 export function StudentProvider(props) {
     const [vocabulary, setVocabulary] = useState(null);
@@ -37,4 +37,17 @@ export function StudentProvider(props) {
             {props.children}
         </StudentContext.Provider>
     )
+}
+
+export function TeacherProvider(props) {
+    const [student_id, setStudent_id] = useState(null)
+    return (
+        <TeacherContext.Provider value={{
+            student_id,
+            setStudentID: e => setStudent_id(e)
+        }}>
+            {props.children}
+        </TeacherContext.Provider>
+    )
+
 }

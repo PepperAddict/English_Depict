@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ApolloClient, { InMemoryCache } from 'apollo-boost';
 import { ApolloProvider, Query, withApollo } from 'react-apollo';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { StudentProvider } from './Context';
+import { StudentProvider, TeacherProvider } from './Context';
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -37,10 +37,12 @@ function App() {
           <Route exact path="/login">
             <Login />
           </Route>
+          <TeacherProvider>
+            <Route path="/dashboard/:page?">
+              <Dashboard />
+            </Route>
+          </TeacherProvider>
 
-          <Route path="/dashboard/:page?">
-            <Dashboard />
-          </Route>
           <Route exact path="/register">
             <RegWithClient />
           </Route>

@@ -38,8 +38,9 @@ export default function Dashboard() {
                 <Route path="/dashboard/add_student" render={(props) => <DashboardStudent userId={userId} students={data.getUser.students}/>} />
                 <Route path="/dashboard/settings" render={(props) => <Settings {...props} userId={userId} />} />
                 <Route path="/dashboard/task" render={(props) => <Tasks {...props} students={data.getUser.students} teacher_data={data.getUser} />} />
-                <Route path="/dashboard/student-info" render={(props) => <IndividualStudent {...props} teacher_id={userId} student_id={student_id} data={data.getUser} />} />
+                <Route path="/dashboard/student-info" render={(props) => <IndividualStudent {...props} teacher_id={userId} student_id={student_id} setStudentID={setStudent_id} data={data.getUser} />} />
                 <Route path="/dashboard" exact render={(props) => < TeacherDashboard {...props} vocabs={data.getUser.vocabularies} data={data.getUser} userId={userId} students={data.getUser.students} />} />
+
               </Switch>
             </div>
           </Fragment>
