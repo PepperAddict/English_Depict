@@ -22,13 +22,9 @@ const RegWithClient = withApollo(Register);
 import StudentLogin from '../Student/StudentLogin';
 import StudentDashboard from '../Student/studentDashboard';
 import Verify from './Verify';
-import IndividualTask from './../Student/IndividualTask';
-import { vocab, listCheck } from '../../helpers/vocab';
 
 
 function App() {
-
-
 
   return (
     <ApolloProvider client={client}>
@@ -59,9 +55,6 @@ function App() {
 
           <Route path="/verify">
             <Verify />
-          </Route>
-          <Route path="/todo/:page?">
-            <IndividualTask />
           </Route>
         </Fragment>
       </Router>

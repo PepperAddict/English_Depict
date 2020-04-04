@@ -51,7 +51,7 @@ const pgPool = new pg.Pool({
   password: process.env.DB_PASS,
   database: process.env.DB,
   port: process.env.DB_PORT,
-  ssl: {
+  ssl: { 
     rejectUnauthorized: false
   }
 });
@@ -98,7 +98,7 @@ router.use(mailer)
 router.use(imageupload)
 
 
-router.get(["/student/", "/student/:page?", "/todo/:page?"], cors(), studentAuthenticate,
+router.get(["/student/", "/student/:page?"], cors(), studentAuthenticate,
   (req, res) => {
     
     res.sendFile(path.resolve(__dirname, "../dist/index.html"));

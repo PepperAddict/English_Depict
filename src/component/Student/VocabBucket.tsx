@@ -75,6 +75,7 @@ export default function VocabBucket(props) {
     }
 
   }
+  const [searchedWord, setSearchedWord] = useState(null)
 
 
 
@@ -84,15 +85,15 @@ export default function VocabBucket(props) {
         {context => (
           <Fragment>
 
-            <form onSubmit={e => submitVocabulary(e, context.vocabulary)}>
+            <form onSubmit={e => submitVocabulary(e, searchedWord)}>
               <label htmlFor="vocab"><h2>Vocabulary Bucket</h2></label>
-              <input id="vocab" list="wordlist" placeholder="Add Word to Bucket" onChange={e => context.spellCheck(e.target.value)} />
+              <input id="vocab" list="wordlist" placeholder="Add Word to Bucket" onChange={e => setSearchedWord(e.target.value)} />
               <datalist id="wordlist">
               {context.listWords && context.listWords.map((word, key) => {
                 return <option key={key} index={key} value={word} />
               })}
               </datalist>
-              <button type="submit" className="submit-word">submit {context.vocabulary ? context.vocabulary : 'word'}</button>
+              <button type="submit" className="submit-word">submit {searchedWord ? searchedWord : 'word'}</button>
             </form>
 
             <h3>Vocabularies</h3>
