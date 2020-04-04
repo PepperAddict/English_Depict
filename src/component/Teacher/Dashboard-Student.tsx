@@ -7,10 +7,10 @@ export default function DashboardStudent(props) {
         <div className="student-container">
             {props.students.length > 0 ?
                 <Fragment>
-                    <ShowCard data={props.data} userId={1} setStudentID={setStudent_id} students={props.students} />
-                    <AddStudent />
+                    <ShowCard data={props.data} userId={props.userId} setStudentID={setStudent_id} students={props.students} />
+                    <AddStudent userId={props.userId}/>
                 </Fragment>
-                : <AddStudent />
+                : <AddStudent userId={props.userId}/>
             }
         </div>
     )

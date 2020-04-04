@@ -40,7 +40,7 @@ export default function ShowCard(props: ShowCardProps) {
     <h2>Your Students:</h2>
     <h3>You have {(props.students.length > 0) ? props.students.length : '0'} students.</h3>
     <div className="individual-students">
-      {props.data.students.map((student, index) => {
+      {props.students.map((student, index) => {
         return <ShowStudent key={index} index={index} student={student} teacherID={props.userId} setStudentID={props.setStudentID} />;
       })}
     </div>

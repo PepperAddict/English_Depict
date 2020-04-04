@@ -10,7 +10,8 @@ import DashboardSidebar from './DashboardSidebar';
 import IndividualStudent from './IndividualStudent';
 import Tasks from './TeacherTasks';
 import Settings from './Settings';
-import TeacherDashboard from './TeacherDashboard'
+import TeacherDashboard from './TeacherDashboard';
+import DashboardStudent from './Dashboard-Student';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 export default function Dashboard() {
@@ -34,7 +35,7 @@ export default function Dashboard() {
             <div className="dashboard-content">
               {!data.getUser.verified && <div className="top-banner">Please verify your account</div>}
               <Switch>
-                <Route path="/dashboard/add_student" render={(props) => <AddStudent {...props} student={data.getUser.students} data={data.getUser} />} />
+                <Route path="/dashboard/add_student" render={(props) => <DashboardStudent userId={userId} students={data.getUser.students}/>} />
                 <Route path="/dashboard/settings" render={(props) => <Settings {...props} userId={userId} />} />
                 <Route path="/dashboard/task" render={(props) => <Tasks {...props} students={data.getUser.students} teacher_data={data.getUser} />} />
                 <Route path="/dashboard/student-info" render={(props) => <IndividualStudent {...props} teacher_id={userId} student_id={student_id} data={data.getUser} />} />
