@@ -15,15 +15,15 @@ interface ListOfImagesProps {
 }
 
 function ListOfImages(props: ListOfImagesProps) {
-  const [imageInfo] = useState(props.images);
-  const imageClick = e => {
+
+  const imageClick = (e, g) => {
     e.preventDefault();
-    props.setNext(imageInfo);
+    props.setNext(g);
   };
   return (
     <div className="images-selection" >
       <img src={props.images.urls.thumb} alt={props.images.alt_description} />
-      <button type="button" onClick={imageClick} >Choose {props.images.alt_description ? props.images.alt_description + '?' : 'this image?'}</button>
+      <button type="button" onClick={e => imageClick(e, props.images)} >Choose {props.images.alt_description ? props.images.alt_description + '?' : 'this image?'}</button>
     </div>
   );
 }
