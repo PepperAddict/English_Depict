@@ -14,7 +14,8 @@ import Settings from './Settings';
 import TeacherDashboard from './TeacherDashboard';
 import DashboardStudent from './Dashboard-Student';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import ImageClue from './Teacher_Image-Clue';
+import ImageClue from './Teacher_CIC';
+import TaskWOTD from './Teacher_WOTD';
 
 export default function Dashboard() {
 
@@ -44,6 +45,9 @@ export default function Dashboard() {
 
                 {/* Tasks Area */}
                 <Route path="/dashboard/task/CIC" render={(props) => <ImageClue {...props} teacher_data={data.getUser} students={data.getUser.students} />} />
+                <Route path="/dashboard/task/WOTD" render={(props) => <TaskWOTD {...props} teacher_data={data.getUser} /> } />
+              
+              
               </Switch>
             </div>
           </Fragment>

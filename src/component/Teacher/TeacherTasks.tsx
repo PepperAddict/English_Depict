@@ -4,8 +4,8 @@ so far image clue
 */
 
 import React, { useState, Fragment, useEffect } from 'react';
-import ImageClue from './Teacher_Image-Clue';
-import TaskFront from './TaskFront'
+import ImageClue from './Teacher_CIC';
+import TaskFront from './TaskFront';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 interface TaskPropTypes {

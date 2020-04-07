@@ -40,12 +40,15 @@ export function StudentProvider(props) {
 }
 
 export function TeacherProvider(props) {
-    const [student_id, setStudent_id] = useState(null)
+    const [student_id, setStudent_id] = useState(null);
+    const [wotd, setWOTD] = useState(null)
     
     return (
         <TeacherContext.Provider value={{
             student_id,
-            setStudentID: e => setStudent_id(e)
+            setStudentID: e => setStudent_id(e),
+            wotd,
+            setWOTD: e => setWOTD(e)
         }}>
             {props.children}
         </TeacherContext.Provider>

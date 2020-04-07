@@ -20,7 +20,6 @@ import Student_DashboardSidebarTwo from './Student_DashboardSidebarTwo';
 export default function StudentDashboard() {
   const todaysdate = moment();
   const currentDate = todaysdate.format('dddd, MMMM Do YYYY');
-  const [dupeWordt, setDupeWord] = useState('');
   const { loading, error, data } = useQuery(getStudentInfo, { variables: { student_id: id } });
   const student = data ? data.getStudentByID[0] : false;
   const [dashboard, setDashboard] = useState({

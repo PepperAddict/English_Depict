@@ -21,7 +21,6 @@ export default function AddStudent(props) {
   const handleAddStudent = (e) => {
     e.preventDefault();
 
-
     const newStudent = {
       teacher_id: props.userId,
       username: username.toLowerCase(), 
@@ -30,9 +29,9 @@ export default function AddStudent(props) {
       password: answer.toLowerCase()
     };
     console.log(newStudent)
-    // addRegistration({variables: {input:newStudent}}).then( () => {
-    //   location.reload();
-    // }).catch((e) => console.log(e));
+    addRegistration({variables: {input:newStudent}}).then( () => {
+      location.reload();
+    }).catch((e) => console.log(e));
   };
 
   return (

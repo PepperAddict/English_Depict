@@ -52,7 +52,6 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
 
         <ul className="top-nav">
           
-          
           <Link to="/dashboard/add_student">
           <li><img src={personIcon.default} alt="Go to Student" /> Student</li>
           </Link>

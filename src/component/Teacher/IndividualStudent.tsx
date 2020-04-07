@@ -39,7 +39,7 @@ function StudentProfile(props: StudentProfileProps) {
           <form onSubmit={submitMessage}>
         <label htmlFor="message">
           <h2>Welcome Message</h2></label>
-        <input id="message" defaultValue={message ? message : 'enter a message for ' + data.name} onChange={e => setMessage(e.target.value)} />
+        <input id="message" defaultValue={message ? message : 'enter a message for ' + data.getStudentByID[0].name} onChange={e => setMessage(e.target.value)} />
         <button type="submit">Submit Message</button>
       </form>
           <h2>Vocabulary Words</h2>

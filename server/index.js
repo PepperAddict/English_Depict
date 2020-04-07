@@ -55,6 +55,7 @@ const pgPool = new pg.Pool({
     rejectUnauthorized: false
   }
 });
+
 const schema = require("./schema/");
 
 server.use(bodyParser.json());

@@ -26,13 +26,13 @@ export default function DashboardSidebarTwo(props) {
                 allVocab={props.data.getStudentByID[0].vocabularies} 
                 definition={dashboard.definition} /> : ''}
             {props.data ? 
-            <VocabBucket 
-            teacher_id={props.data.getStudentByID[0].teacher_id} 
-            dupeWord={dupeWordt} 
-            student_id={props.student_id} 
-            showVocab={showVocab} 
-            vocab={props.data.getStudentByID[0].vocabularies} 
-            definition={dashboard.definition} 
+                <VocabBucket 
+                teacher_id={props.data.getStudentByID[0].teacher_id} 
+                dupeWord={dupeWordt} 
+                student_id={props.student_id} 
+                showVocab={showVocab} 
+                vocab={props.data.getStudentByID[0].vocabularies} 
+                definition={dashboard.definition} 
              /> : ''}
             {dashboard.newVocab && dashboard.newVocab.map((word, key) => {
                 return <p className="new-vocab" key={key}> {word} <b>New!</b></p>
