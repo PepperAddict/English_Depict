@@ -9,6 +9,7 @@ import moment from 'moment';
 import { useMutation } from '@apollo/react-hooks';
 import { REJECT_OR_APPROVE_TASK } from '../../mutation/mutation';
 
+
 interface TaskInfoProps {
   entry: any,
   what: string
@@ -43,16 +44,18 @@ function Tasks(props: TaskPropTypes) {
   return (
     <Fragment>
       {props.task.map((task, key) => {
+        console.log(task)
+        
         if (!task.accepted) {
-          return (
-            <div key={key} className="individual-task" onClick={e => showCurrentTask(task)}>
+          
+            return (<div key={key} className="individual-task" onClick={e => showCurrentTask(task)}>
               <h3>{moment(new Date(task.task_date)).format('dddd, MMMM D')}</h3>
               <p>student: {props.student_name}</p>
               <TaskInfo what={task.task_code} entry={task.entry} />
               {task.completed_at && 'completed on ' + moment(new Date(task.completed_at)).format('dddd, MMMM D')}
               <p>{task.completed_at !== null ? 'Awaiting approval' : 'Not Completed Yet'}</p>
             </div>
-          )
+            )
         }
       })}
     </Fragment>
@@ -93,6 +96,7 @@ function SelectedTaskView(props) {
 
   return (
     <div className="individual-task-modify">
+
       <img src={task.entry.clue_image.urls.small} />
       Student Input: {task.submission ? task.submission.CIC : 'not yet completed'}. <br></br>
       {typeof task.completed_at === 'string' && (<Fragment>
@@ -126,8 +130,11 @@ export default function TaskList(props: TaskListsProp) {
   const [showTask, setShowTask] = useState(null)
   return (
     <Fragment>
-      {!showTask ? <div className="task-container">
+      {!showTask ? 
+      <div className="task-container">
+        
         {students.map((student, key) => {
+
           return <Tasks key={key} setShowTask={setShowTask} task={student.tasks} student_name={student.name} />
         })}
       </div> : <SelectedTaskView currentTask={showTask} setShowTask={setShowTask} />}
