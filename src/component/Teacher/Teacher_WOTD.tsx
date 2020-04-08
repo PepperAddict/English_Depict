@@ -1,15 +1,24 @@
 import React, {useState, Fragment} from 'react';
 import { TeacherContext } from '../index/Context';
 
+
+
 export default function WOTD(props) {
     const [word, setWord] = useState(null)
     const [sentence, setSentence] = useState(null)
     const [data, setdata] = useState(props.teacher_data)
 
-    const submitWOTD = e => {
+    const submitWOTD = (e, f = null) => {
         e.preventDefault();
-        console.log(word)
-        console.log(sentence)
+
+        let newWord;
+        (f) ? newWord = f : newWord = word
+        
+        // let inputWOTD = {
+        //     task_code: 'WOTD',
+        //     task_date: null,
+        //     student_id: 
+        // }
     }
 
     return (
@@ -18,18 +27,16 @@ export default function WOTD(props) {
     
         {context => (
                <div>
-                   {console.log(data)}
         {context.wotd ? (
             <Fragment>
                 <h1>Create {context.wotd} as a Word of the Day Task</h1>
-                <form onSubmit={submitWOTD}>
+                <form onSubmit={e => submitWOTD(e, context.wotd)}>
                     <label> 
                         <p>Create an example sentence</p>
                         <input name="sentence" onChange={e => setSentence(e.target.value)} placeholder={"example sentence for " + context.wotd}/>
                         <button type="submit">Submit {context.wotd}</button>
                     </label>
                 </form>
-
             </Fragment>
         ) : 
 
@@ -46,10 +53,12 @@ export default function WOTD(props) {
             </form>
 
         }
+
         {data.vocabularies.length > 1 ? (<div>
             <h2>Vocabulary words to choose from</h2>
             {data.vocabularies.map((word, key) => {
-                return <p key={key}>{word.vocabulary_wrd}</p>
+
+                return <button key={key} onClick={e => context.setWOTD(word.vocabulary_word)}>{word.vocabulary_word}</button>
             })}
         </div>) : null}
 
