@@ -12,16 +12,22 @@ import { REJECT_OR_APPROVE_TASK } from '../../mutation/mutation';
 
 interface TaskInfoProps {
   entry: any,
-  what: string
+  task: any
 }
 
 function TaskInfo(props: TaskInfoProps) {
-  const [taskType] = useState(props.what);
+  const [task] = useState(props.task);
   return (<Fragment>
     {/* for now only capture the image */}
-    {taskType === 'CIC' &&
-      <img src={props.entry.clue_image.urls.thumb} alt={props.entry.clue_image.alt_description} />
-
+    {console.log(task)}
+    
+    {(task.task_code === 'CIC') ?
+      <img src={props.task.entry.clue_image.urls.thumb} alt={props.task.entry.clue_image.alt_description} /> :
+      (task.task_code === "WOTD") && 
+  <div>
+  <p>word: {task.entry.newWord}</p>
+  <p>example sentence: {task.entry.sentence}</p>
+  </div>
     }
   </Fragment>
   )
@@ -44,14 +50,13 @@ function Tasks(props: TaskPropTypes) {
   return (
     <Fragment>
       {props.task.map((task, key) => {
-        console.log(task)
         
         if (!task.accepted) {
           
             return (<div key={key} className="individual-task" onClick={e => showCurrentTask(task)}>
               <h3>{moment(new Date(task.task_date)).format('dddd, MMMM D')}</h3>
               <p>student: {props.student_name}</p>
-              <TaskInfo what={task.task_code} entry={task.entry} />
+              <TaskInfo task={task} entry={task.entry} />
               {task.completed_at && 'completed on ' + moment(new Date(task.completed_at)).format('dddd, MMMM D')}
               <p>{task.completed_at !== null ? 'Awaiting approval' : 'Not Completed Yet'}</p>
             </div>
