@@ -35,12 +35,12 @@ export default function WOTD(props) {
     const [selectedStudents, setSelectedStudents] = useState(new Array())
     const todaysDate = moment().format('L');
     const [addTask] = useMutation(ADD_TASK);
-    console.log(data)
+    const [error, setError] = useState(null)
 
     const submitWOTD = (e, f = null) => {
         e.preventDefault();
         let newWord = (f) ? f : word;
-        if (word && sentence && selectedStudents > 0) {
+        if (newWord && sentence && selectedStudents.length > 0) {
             selectedStudents.forEach(kid => {
                 let taskObject = {
                     task_code: "WOTD",
@@ -56,10 +56,10 @@ export default function WOTD(props) {
                     variables: {
                         input: taskObject
                     }
-                }).catch(err => console.log(err))
+                }).then((res) => {console.log(res)}).catch(err => setError('Something went wrong'))
             })
         } else {
-            console.log('dont have a value')
+            setError('Please fill out the form')
         }
 
     }
@@ -77,9 +77,10 @@ export default function WOTD(props) {
                                 <label>
                                     <p>Create an example sentence</p>
                                     <input name="sentence" minLength="5" onChange={e => setSentence(e.target.value)} placeholder={"example sentence for " + context.wotd} />
-                                    <button type="submit">Submit {context.wotd}</button>
+                                    
                                 </label>
                                 <WOTDStudentList students={data.students} setSelectedStudents={setSelectedStudents} selectedStudents={selectedStudents} />
+                                <button type="submit">Submit {context.wotd}</button>
                             </form>
                         </Fragment>
                     ) :

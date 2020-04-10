@@ -8,28 +8,28 @@ import React, { useState, Fragment } from 'react';
 import moment from 'moment';
 import { useMutation } from '@apollo/react-hooks';
 import { REJECT_OR_APPROVE_TASK } from '../../mutation/mutation';
+import { FetchType } from 'apollo-boost';
 
 
 interface TaskInfoProps {
   entry: any,
-  task: any
+  task: any,
+  onClick: any
 }
 
-function TaskInfo(props: TaskInfoProps) {
+function TaskInfoCIC(props: TaskInfoProps) {
   const [task] = useState(props.task);
-  return (<Fragment>
-    {/* for now only capture the image */}
-    {console.log(task)}
-    
-    {(task.task_code === 'CIC') ?
-      <img src={props.task.entry.clue_image.urls.thumb} alt={props.task.entry.clue_image.alt_description} /> :
-      (task.task_code === "WOTD") && 
-  <div>
-  <p>word: {task.entry.newWord}</p>
-  <p>example sentence: {task.entry.sentence}</p>
-  </div>
-    }
-  </Fragment>
+  return (
+    <img src={task.entry.clue_image.urls.thumb} alt={task.entry.clue_image.alt_description} />
+  )
+}
+function TaskInfoWOTD(props) {
+  const [task] = useState(props.task);
+  return (
+    <div>
+      word: {task.entry.word}
+      sentence: {task.entry.sentence}
+    </div>
   )
 }
 
@@ -37,7 +37,8 @@ interface TaskPropTypes {
   task: any,
   student_name: string,
   key: number,
-  setShowTask: any
+  setShowTask: any,
+  filteredTask: any
 }
 
 function Tasks(props: TaskPropTypes) {
@@ -49,18 +50,21 @@ function Tasks(props: TaskPropTypes) {
 
   return (
     <Fragment>
+
+
       {props.task.map((task, key) => {
-        
+
         if (!task.accepted) {
-          
-            return (<div key={key} className="individual-task" onClick={e => showCurrentTask(task)}>
-              <h3>{moment(new Date(task.task_date)).format('dddd, MMMM D')}</h3>
-              <p>student: {props.student_name}</p>
-              <TaskInfo task={task} entry={task.entry} />
-              {task.completed_at && 'completed on ' + moment(new Date(task.completed_at)).format('dddd, MMMM D')}
-              <p>{task.completed_at !== null ? 'Awaiting approval' : 'Not Completed Yet'}</p>
-            </div>
-            )
+
+          return (<div key={key} className="individual-task">
+            <h3>{moment(new Date(task.task_date)).format('dddd, MMMM D')}</h3>
+            <p>student: {props.student_name}</p>
+            {(task.task_code === "CIC") && <TaskInfoCIC task={task} entry={task.entry} onClick={e => showCurrentTask(task)} />}
+
+            {task.completed_at && 'completed on ' + moment(new Date(task.completed_at)).format('dddd, MMMM D')}
+            <p>{task.completed_at !== null ? 'Awaiting approval' : 'Not Completed Yet'}</p>
+          </div>
+          )
         }
       })}
     </Fragment>
@@ -126,23 +130,123 @@ function SelectedTaskView(props) {
 }
 
 interface TaskListsProp {
-  students: string
+  students: string,
+  teacher: any
 }
 
 export default function TaskList(props: TaskListsProp) {
 
   const [students] = useState(props.students);
-  const [showTask, setShowTask] = useState(null)
+  let allTasks = new Array();
+
+
+  const [showTask, setShowTask] = useState(null);
+  let filteredTask;
+
+  useState(() => {
+    const taskArray = new Array();
+
+    for (let x of students) {
+
+
+      for (let y of x.tasks) {
+        let newobj = new Object();
+        newobj = {
+          ...y,
+          student_id: x.student_id,
+          student_name: x.name
+        }
+
+        allTasks.push(newobj)
+
+        if (y.task_code == "CIC") {
+          const tasky = {
+            task: "CIC",
+            id: y.entry.clue_image.image_id,
+            date: y.task_date
+          }
+          taskArray.push(tasky)
+        } else if (y.task_code == "WOTD") {
+          const tasky = {
+            task: "WOTD",
+            id: y.entry.word,
+            date: y.task_date
+          }
+          taskArray.push(tasky)
+        }
+
+      }
+    }
+
+    filteredTask = Object.values(taskArray.reduce((x, y) => Object.assign(x, { [y.id]: y }), {}))
+
+    filteredTask.map((task, key) => {
+      let what = new Array();
+      for (let x of allTasks) {
+        task.tasks = what
+        if (x.task_code === "WOTD") {
+          if (x.entry.word === task.id && !x.accepted) {
+            what.push(x)
+          }
+        } else if (x.task_code === "CIC") {
+          if (x.entry.clue_image.image_id === task.id && !x.accepted) {
+            what.push(x)
+          }
+        }
+      }
+
+    })
+console.log(filteredTask)
+
+  }, [])
+
+
   return (
     <Fragment>
-      {!showTask ? 
-      <div className="task-container">
-        
-        {students.map((student, key) => {
+      {!showTask ?
+        <div className="task-container">
+          <div className="wotd">
 
-          return <Tasks key={key} setShowTask={setShowTask} task={student.tasks} student_name={student.name} />
-        })}
-      </div> : <SelectedTaskView currentTask={showTask} setShowTask={setShowTask} />}
+            <h2>Word of the day</h2>
+            {filteredTask.map((ft, key) => {
+              if (ft.task === "WOTD" && ft.tasks.length > 0) {
+                return <div key={key}>
+              <h3>{moment(new Date(ft.date)).format('dddd, MMMM D')}</h3>
+                  <p>word: {ft.id}</p>
+                  <p>students: {
+                    ft.tasks.map((x, key) => {
+                      return <p>{x.student_name} : {(!x.submission) ? "Not Completed Yet" : x.submission + ' waiting for review'}</p>
+                    })
+                  }</p>
+                </div>
+              }
+            })
+            } </div>
+          <div className="cic">
+
+            <h2>Image Clue (Caption the Image)</h2>
+            {filteredTask.map((ft, key) => {
+              if (ft.task === "CIC" && ft.tasks.length > 0) {
+                return <div key={key}>
+                  <p>students: {
+                    ft.tasks.map((x, key) => {
+                      if (!x.accepted) {
+                        return <p>{x.student_name} : {(!x.submission) ? "Not Completed Yet" : x.submission.CIC + ' waiting for review'}</p>
+                      }
+                      
+                    })
+                  }</p>
+                </div>
+              }
+            })
+            }
+
+          </div>
+          {/* {students.map((student, key) => {
+
+            return <Tasks key={key} filteredTask={filteredTask} setShowTask={setShowTask} task={student.tasks} student_name={student.name} />
+          })} */}
+        </div> : <SelectedTaskView currentTask={showTask} setShowTask={setShowTask} />}
 
     </Fragment>
 

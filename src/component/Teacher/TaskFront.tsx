@@ -17,10 +17,9 @@ export default function TaskFront(props) {
           </li>
         </ul>
 
-
       </nav>
       <h2>All Tasks</h2>
-      <TaskList students={props.teacher_data.students} />
+      <TaskList students={props.teacher_data.students} teacher={props.teacher_data}/>
 
     </div>
   )
