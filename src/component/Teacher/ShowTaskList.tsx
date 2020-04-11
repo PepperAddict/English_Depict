@@ -10,7 +10,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { REJECT_OR_APPROVE_TASK } from '../../mutation/mutation';
 import Doughnut from './doughnut';
 import IndividualTask from './ShowTaskIndividual';
-
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 
 //make sure selected view shows for specific type
@@ -48,9 +48,18 @@ function SelectedTaskView(props) {
 
   return (
     <div className="individual-task-modify">
+      {(task.task_code === "CIC") ? (<Fragment>
+          <img src={task.entry.clue_image.urls.small} />
+          <p>Student Input: {task.submission ? task.submission.CIC : 'not yet completed'}. </p>
 
-      {/* <img src={task.entry.clue_image.urls.small} /> */}
-      Student Input: {task.submission ? task.submission.CIC : 'not yet completed'}. <br></br>
+        </Fragment>) : (task.task_code === "WOTD") && (
+          <Fragment>
+            <p>Word: {task.entry.word}</p>
+            <p>example Sentence: {task.entry.sentence}</p>
+            <p>Student Input: {task.submission ? task.submission.WOTD : 'not yet completed'}.</p> 
+          </Fragment>
+        )}
+      
       {typeof task.completed_at === 'string' && (<Fragment>
         <button onClick={approveSubmission}>Approve Submission</button>
         <button onClick={rejectSubmission}>Reject Submission</button>
@@ -132,7 +141,7 @@ export default function TaskList(props: TaskListsProp) {
         task.tasks = what
         task.forChart = {
           not_started: (notstarted) ? notstarted.length : null,
-          pending: (pending) ? pending.length: null,
+          pending: (pending) ? pending.length : null,
           finished: (finished) ? finishedCount : null,
           inall: notstarted.length + pending.length + finished.length
         }
@@ -177,24 +186,28 @@ export default function TaskList(props: TaskListsProp) {
 
   return (
     <Fragment>
-      {!showTask ?
+
         <div className="task-container">
-          <div className="wotd-container">
+          <nav className="task-nav-container">
+            <p><a href="#wotd-task">WOTD</a></p>
+            <p><a href="#cic-task">Caption the image</a></p>
+          </nav>
+          <div className="wotd-container" id="wotd-task">
 
             <h2>Word of the day</h2>
 
-            <IndividualTask task={filteredTask} type="WOTD" setShowTask={setShowTask}/>
-            
-            </div>
-          <div className="cic-container">
+            <IndividualTask task={filteredTask} type="WOTD" setShowTask={setShowTask} />
+
+          </div>
+          <div className="cic-container" id="cic-task">
 
             <h2>Image Clue (Caption the Image)</h2>
-            <IndividualTask task={filteredTask} type="CIC" setShowTask={setShowTask}/>
-            
+            <IndividualTask task={filteredTask} type="CIC" setShowTask={setShowTask} />
 
           </div>
 
-        </div> : <SelectedTaskView currentTask={showTask} setShowTask={setShowTask} />}
+        </div> 
+        }
 
     </Fragment>
 

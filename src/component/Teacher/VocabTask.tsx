@@ -11,7 +11,6 @@ export default function VocabTask(props) {
                 <div className="dashboard-vocabulary">
                     <h3>Student Vocabulary Words</h3>
                     <ul className="dash-vocab-list">
-                        {console.log(context.wotd)}
                         {vocabs.map((word, key) => {
                             return <li key={key} onClick={e => context.setWOTD(word.vocabulary_word)} index={word.vocab_id}><Link to="/dashboard/task/WOTD">{word.vocabulary_word}</Link></li>
                         })}

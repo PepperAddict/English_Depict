@@ -81,7 +81,7 @@ router.get(["/register", "/register/:page?"], softAuthenticate, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 });
 
-router.get(["/dashboard/", "/dashboard/:page?"], cors(),  isAuthenticated,  (req, res) => {
+router.get(["/dashboard/", "/dashboard/:page?", "/dashboard/*"], cors(),  isAuthenticated,  (req, res) => {
     res.sendFile(path.resolve(__dirname, "../dist/index.html"));
   }
 );
