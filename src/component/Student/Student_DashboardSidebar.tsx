@@ -20,17 +20,39 @@ const svgColor = createUseStyles({
 
 export default function DashboardSidebar(props) {
   const svgIt = svgColor();
+  const clearCookies = (keyName = null) => {
+    let expireDate = new Date();
+    expireDate.setTime(expireDate.getTime() - 1);
+
+    if (keyName) {
+      document.cookie = `${keyName}=; expires=${expireDate.toUTCString()};Path=/;`;
+    } else {
+      const cookies = document.cookie.split(';');
+
+      cookies.forEach((value) => {
+        document.cookie = value.replace(/^ +/, '').replace(/=.*/, '=;expires=' + expireDate.toUTCString());
+      });
+    }
+  };
+
+  const logout = () => {
+    clearCookies('student_id');
+    clearCookies('student_key');
+    location.replace('/');
+
+  };
 
   return (
-    <Fragment>
+
+      <div className="sidebar">
       <nav className={svgIt.svg}>
         <Link to="/student" className="dashboard-link">
           <object className={svgIt.svg} type="image/svg+xml" data={outlineLogo.default} />
           Dashboard
         </Link>
-        <Link to="/dashboard/task">
-          <object type="image/svg+xml" data={taskIcon.default} /> Tasks
-          Task
+        <Link to="/student/tasks">
+          <object type="image/svg+xml" data={taskIcon.default} />
+          Tasks
         </Link>
 
         <Link to="/student/add-blog">
@@ -43,6 +65,9 @@ export default function DashboardSidebar(props) {
         Settings
       </Link>
       </nav>
-    </Fragment>
+
+      <button type="button" onClick={logout}>Logout</button>
+      </div>
+
   );
 }

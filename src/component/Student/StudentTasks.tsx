@@ -1,7 +1,6 @@
 import React, { useState, Fragment, useEffect } from 'react';
+import { Link } from 'react-router-dom'
 import { StudentContext } from '../index/Context';
-import IndividualTask from './IndividualTask';
-
 function CIC(props) {
     const [tasks] = useState(props.task);
 
@@ -20,34 +19,26 @@ function Task(props) {
     const [tasks] = useState(props.content);
 
     return (
-
-        <Fragment>
-            {!tasks.accepted ?
-                <div className="task-container" onClick={props.onClick}>
-                    {tasks.task_code === "CIC" &&
-                        <CIC task={tasks} />}
-                </div>
-                : null}
-        </Fragment>
-
-
+        <StudentContext.Consumer>
+            {context => (
+                <Link to="/student/tasks/task">
+                    <div className="task-container" onClick={e => context.setTask(tasks)}>
+                        {tasks.task_code === "CIC" &&
+                            <CIC task={tasks} />}
+                    </div>
+                </Link>
+            )}
+        </StudentContext.Consumer>
     )
 }
 
 export default function StudentTasks(props) {
     return (
-        <StudentContext.Consumer>
-            {context => (
-                !context.task ? (
-                    <Fragment>
-                        {props.tasks.map((content, key) => {
-                            return < Task key={key} content={content} onClick={e => context.setTask(content)} />
-                        })}
-                    </Fragment>
-                ) : <IndividualTask content={context.task} />
 
-            )}
-        </StudentContext.Consumer>
-
+        <div>
+            {props.tasks.map((content, key) => {
+                return < Task key={key} content={content} setTask={props.setTask} />
+            })}
+        </div>
     )
 }

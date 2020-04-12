@@ -15,6 +15,9 @@ import Sidebar from './Student_DashboardSidebar';
 import Student_DashboardSidebarTwo from './Student_DashboardSidebarTwo';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import WelcomeStudent from './Dashboard-Welcome';
+import { StudentContext } from '../index/Context';
+import StudentTasks from './StudentTasks';
+import StudentTask from './IndividualTask';
 
 
 export default function StudentDashboard() {
@@ -25,9 +28,6 @@ export default function StudentDashboard() {
     options: 'welcome',
     newVocab: new Array()
   });
-
-
-
 
   const addVocabulary = async word => {
     var regex = /[.,():;\s]/g;
@@ -42,28 +42,6 @@ export default function StudentDashboard() {
   };
 
 
-  const logout = () => {
-    clearCookies('student_id');
-    clearCookies('student_key');
-    location.replace('/');
-
-  };
-
-  const clearCookies = (keyName = null) => {
-    let expireDate = new Date();
-    expireDate.setTime(expireDate.getTime() - 1);
-
-    if (keyName) {
-      document.cookie = `${keyName}=; expires=${expireDate.toUTCString()};Path=/;`;
-    } else {
-      const cookies = document.cookie.split(';');
-
-      cookies.forEach((value) => {
-        document.cookie = value.replace(/^ +/, '').replace(/=.*/, '=;expires=' + expireDate.toUTCString());
-      });
-    }
-  };
-
 
   return (
     <div className="student-container">
@@ -72,22 +50,33 @@ export default function StudentDashboard() {
 
       {loading ? 'loading' : error ? 'error' :
         data && (
-          <Fragment>
-            <div className="sidebar">
-              <Sidebar />
-              <button type="button" onClick={logout}>Logout</button>
-            </div>
-            <Switch>
-              <Route path="/student" exact render={(props) => <WelcomeStudent {...props} student={student} data={data} />} />
-              <Route path="/student/add-blog" render={(props) => <AddBlog {...props} student_id={id} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} />} />
-              <Route path="/student/blog" render={(props) => <ViewBlogs {...props} student_id={id} addVocabulary={addVocabulary} blogs={data.getStudentByID[0].blogs} />} />
-              <Route path="/student/settings" render={(props) => <StudentSettings {...props} student_id={id} avatar={data.getStudentByID[0].avatar} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} />} />
-              <Route path="/student/edit-blog" render={(props) => <EditBlog {...props} student_id={id} />} />
-              <Route path="/student/view-blog" render={(props) => <ViewComments {...props} addVocabulary={addVocabulary} student_id={id} />} />
-            </Switch>
+          <StudentContext.Consumer>
+            {context => (
+              <Fragment>
 
-            <Student_DashboardSidebarTwo data={data} student_id={id} />
-          </Fragment>
+                <Sidebar />
+
+                <Switch>
+                  <Route path="/student" exact render={(props) => <WelcomeStudent {...props} student={student} data={data} />} />
+                  <Route path="/student/settings" render={(props) => <StudentSettings {...props} student_id={id} avatar={data.getStudentByID[0].avatar} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} />} />
+
+
+                  {/* Blog */}
+                  <Route path="/student/add-blog" render={(props) => <AddBlog {...props} student_id={id} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} />} />
+                  <Route path="/student/blog" render={(props) => <ViewBlogs {...props} student_id={id} addVocabulary={addVocabulary} blogs={data.getStudentByID[0].blogs} />} />
+                  <Route path="/student/edit-blog" render={(props) => <EditBlog {...props} student_id={id} />} />
+                  <Route path="/student/view-blog" render={(props) => <ViewComments {...props} addVocabulary={addVocabulary} student_id={id} />} />
+                  {console.log(data.getStudentByID[0])}
+                  {/* Tasks aka TODO List */}
+                  <Route path="/student/tasks/" exact render={(props) => <StudentTasks {...props} tasks={data.getStudentByID[0].tasks} /> } />
+                  <Route path="/student/tasks/task" render={(props) => <StudentTask {...props} content={context.task}/>} />
+                </Switch>
+
+                <Student_DashboardSidebarTwo data={data} student_id={id} />
+              </Fragment>
+            )}
+          </StudentContext.Consumer>
+
         )}
     </div>
 
