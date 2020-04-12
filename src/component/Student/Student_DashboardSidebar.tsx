@@ -5,6 +5,7 @@ const blogIcon = require('../../img/pencil.svg');
 const taskIcon = require('../../img/task.svg');
 const activityIcon = require('../../img/activity.svg');
 import { createUseStyles } from 'react-jss';
+import { Link } from 'react-router-dom';
 
 const svgColor = createUseStyles({
   svg: {
@@ -23,24 +24,24 @@ export default function DashboardSidebar(props) {
   return (
     <Fragment>
       <nav className={svgIt.svg}>
-        <a href="/student" className="dashboard-link">
+        <Link to="/student" className="dashboard-link">
           <object className={svgIt.svg} type="image/svg+xml" data={outlineLogo.default} />
           Dashboard
-        </a>
+        </Link>
+        <Link to="/dashboard/task">
+          <object type="image/svg+xml" data={taskIcon.default} /> Tasks
+          Task
+        </Link>
 
-        <ul className="top-nav">
-          <li><a href="/dashboard/task">
+        <Link to="/student/add-blog">
+          <object type="image/svg+xml" data={blogIcon.default} />
+          Add Blog
+        </Link>
 
-            <object type="image/svg+xml" data={taskIcon.default} /> Tasks</a></li>
-          <li><a href="/student/blogs">
-            <object type="image/svg+xml" data={blogIcon.default} /> View Blog</a></li>
-          <li><a href="/student/add_blog">
-            <object type="image/svg+xml" data={activityIcon.default} />
-            Add blog</a></li>
-
-            <li><a href="/student/settings">Settings</a></li>
-        </ul>
-
+        <Link to="/student/settings">
+          <object type="image/svg+xml" data={activityIcon.default} />
+        Settings
+      </Link>
       </nav>
     </Fragment>
   );
