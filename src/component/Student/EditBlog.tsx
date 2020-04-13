@@ -23,7 +23,6 @@ export default function EditBlog(props: EditBlogProps) {
       if (blog_student_id === props.student_id) {
         setOwner(true)
       }
-
     }
   }, [data])
 

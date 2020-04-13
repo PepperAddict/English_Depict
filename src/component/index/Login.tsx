@@ -4,7 +4,7 @@ import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { encryptMe, signMe } from '../../helpers';
 import '../../styles/login.styl';
 import { createUseStyles } from 'react-jss';
-
+import {Link} from 'react-router-dom'
 
 function LoginForm() {
 
@@ -105,7 +105,10 @@ function LoginForm() {
 
   return (<div className={classy.myBG + ' login-container'}>
     <div className="login-content">
-      <a href="/" className="logo-container-link"><img className="logo-center" src="/images/logo-192.png" alt="logo" /></a>
+      <Link to="/" className="logo-container-link">
+        <img className="logo-center" src="/images/logo-192.png" alt="logo" />
+      </Link>
+
       <h1>Teacher Portal</h1>
 
       <form onSubmit={(e) => handleLogin(e)}>
@@ -138,8 +141,8 @@ function LoginForm() {
             Remember Me</label>
           <div className="different-logins">
             <ul>
-              <li><a href="/student-login">Student Login</a></li>
-              <li><a href="/register">Register</a></li>
+              <li><Link to="/student_login">Student Login</Link></li>
+              <li><Link to="/register">Register</Link></li>
               {/* TODO create reset password */}
               {/* <li><a href="/">Reset password</a></li> */}
             </ul>

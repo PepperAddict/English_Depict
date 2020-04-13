@@ -4,6 +4,7 @@ import { ADD_REGISTRATION } from '../../mutation/mutation';
 import Login from './Login';
 import '../../styles/login.styl';
 import { encryptMe } from '../../helpers';
+import {Link} from 'react-router-dom';
 
 /*
 Errors: 
@@ -98,7 +99,7 @@ function CheckEmail(props: CheckEmailProps) {
 
     <div className="login-container">
       <div className="login-content">
-        <a href="/" className="logo-container-link"><img className="logo-center" src="/images/logo-192.png" alt="logo" /></a>
+        <Link to="/" className="logo-container-link"><img className="logo-center" src="/images/logo-192.png" alt="logo" /></Link>
         <h1>Register</h1>
         <form onSubmit={handleRegister}>
 
@@ -153,7 +154,7 @@ function CheckEmail(props: CheckEmailProps) {
           <div className="below-registration">
             <ul>
               <li>
-                <a href="/login">Login</a>
+                <Link to="/login">Login</Link>
               </li>
             </ul>
           </div>
