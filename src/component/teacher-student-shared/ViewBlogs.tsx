@@ -9,6 +9,8 @@ import { getStudentInfo } from '../../query/query';
 import moment from 'moment';
 import PropType from 'prop-types';
 import BlogContent from './BlogContent';
+import { Link } from 'react-router-dom';
+import { StudentContext } from '../index/Context';
 
 IndividualBlog.propTypes = {
   student_id: PropType.number,
@@ -26,24 +28,34 @@ function IndividualBlog(props) {
   const { loading, error, data } = useQuery(getStudentInfo, { variables: { student_id: parseInt(author) } });
 
   return (
-    <div className={data ? author === student ? 'blog students-blog' : 'blog' : 'blog'}>
-      <div className="date">{moment(time).format('MMMM Do YYYY, h:mm:ss a')}</div>
-      <h2>{props.blog.subject}</h2>
-      <BlogContent content={props.blog.content} addVocabulary={props.addVocabulary} />
-      <div className="author">Written by {data &&
-        <span className="avatar">
-          <img className="avatar-image" src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : 'none'} alt={data.getStudentByID[0].name + ' avatar'} />
-        </span>} {data ? data.getStudentByID[0].name == null ? data.getStudentByID[0].username : data.getStudentByID[0].name : 'Unknown'}</div>
-      {props.editMe && <div className="edit">
-        <a href={'/student/edit-blog=' + props.blog.blog_id}>Edit Blog</a></div>}
-      <a href={'/student/view-comments=' + props.blog.blog_id}>{props.comment.length === 0 ? '0 Comments' : props.comment.length === 1 ? '1 Comment' : props.comment.length > 0 && props.comment.length + ' Comments'}</a>
-    </div>
+    <StudentContext.Consumer>
+      {context => (
+        <Fragment>
+          <div className={data ? author === student ? 'blog students-blog' : 'blog' : 'blog'}>
+            <div className="date">{moment(time).format('MMMM Do YYYY, h:mm:ss a')}</div>
+            <h2>{props.blog.subject}</h2>
+            <BlogContent content={props.blog.content} addVocabulary={props.addVocabulary} />
+            <div className="author">Written by {data &&
+              <span className="avatar">
+                <img className="avatar-image" src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : 'none'} alt={data.getStudentByID[0].name + ' avatar'} />
+              </span>} {data ? data.getStudentByID[0].name == null ? data.getStudentByID[0].username : data.getStudentByID[0].name : 'Unknown'}</div>
+            {props.editMe && <div className="edit">
+              <Link to="/student/edit-blog" onClick={e => context.setBlog(props.blog)}>Edit Blog</Link>
+              
+            </div>}
+            <a href={'/student/view-comments=' + props.blog.blog_id}>{props.comment.length === 0 ? '0 Comments' : props.comment.length === 1 ? '1 Comment' : props.comment.length > 0 && props.comment.length + ' Comments'}</a>
+          </div>
+        </Fragment>
+
+      )}
+    </StudentContext.Consumer>
+
   );
 }
 
 interface ShowPostsProps {
-  student_id: number, 
-  addVocabulary: any, 
+  student_id: number,
+  addVocabulary: any,
   blog: any,
   date: string
 }
@@ -69,7 +81,7 @@ function ShowPosts(props: ShowPostsProps) {
   );
 }
 interface ViewBlogsProp {
-  student_id: number, 
+  student_id: number,
   blogs: any,
   addVocabulary: any
 }

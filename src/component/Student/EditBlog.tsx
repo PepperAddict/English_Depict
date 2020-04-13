@@ -6,11 +6,12 @@ import ViewBlogs from '../teacher-student-shared/ViewBlogs'
 
 interface EditBlogProps {
 student_id: number,
+blog: any
 }
 
 export default function EditBlog(props: EditBlogProps) {
 
-  const [blog_id, setBlog_id] = useState(window.location.pathname.split('=')[1])
+  const [blog_id, setBlog_id] = useState(props.blog.blog_id)
   const [owner, setOwner] = useState(false);
   const [blog, setBlog] = useState({})
   const [editBlog] = useMutation(EDIT_BLOG);

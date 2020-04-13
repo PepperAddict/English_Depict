@@ -8,9 +8,8 @@ export function StudentProvider(props) {
     const [vocabulary, setVocabulary] = useState(null);
     const [def, setDef] = useState(null);
     const [listWords, setwords] = useState(null);
-
     const [task, setTask] = useState(null);
-
+    const [blog, setBlog] = useState(null);
 
     const vocabLookup = e => {
         setVocabulary(e)
@@ -32,7 +31,9 @@ export function StudentProvider(props) {
             spellCheck: e => spellCheck(e),
             listWords,
             setTask: e => setTask(e),
-            task
+            task,
+            blog,
+            setBlog: e => setBlog(e)
         }}>
             {props.children}
         </StudentContext.Provider>

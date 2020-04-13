@@ -55,9 +55,9 @@ export default function DashboardSidebar(props) {
           Tasks
         </Link>
 
-        <Link to="/student/add-blog">
+        <Link to="/student/blog">
           <object type="image/svg+xml" data={blogIcon.default} />
-          Add Blog
+          Blog
         </Link>
 
         <Link to="/student/settings">
