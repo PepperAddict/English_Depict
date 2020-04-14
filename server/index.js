@@ -86,6 +86,10 @@ router.get(["/dashboard/", "/dashboard/:page?", "/dashboard/*"], cors(),  isAuth
   }
 );
 
+router.get('/contact', (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../dist/index.html"))
+})
+
 //student corner
 router.get(["/student_login/", "/student_login/:page?"], cors(), choice,(req, res) => {
 

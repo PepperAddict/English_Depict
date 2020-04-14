@@ -9,8 +9,7 @@ const client = new ApolloClient({
   uri: '/graphql',
   cache: new InMemoryCache({
     freezeResults: true
-  }),
-  assumeImmutableResults: true
+  })
 });
 
 // components
@@ -22,6 +21,7 @@ const RegWithClient = withApollo(Register);
 import StudentLogin from '../Student/StudentLogin';
 import StudentDashboard from '../Student/studentDashboard';
 import Verify from './Verify';
+import Contact from './Contact';
 
 
 function App() {
@@ -54,9 +54,11 @@ function App() {
               <StudentDashboard />
             </Route>
           </StudentProvider>
-
           <Route path="/verify">
             <Verify />
+          </Route>
+          <Route path="/contact">
+            <Contact />
           </Route>
         </Fragment>
       </Router>

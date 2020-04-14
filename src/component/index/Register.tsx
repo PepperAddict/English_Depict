@@ -5,6 +5,7 @@ import Login from './Login';
 import '../../styles/login.styl';
 import { encryptMe } from '../../helpers';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 /*
 Errors: 
@@ -61,16 +62,13 @@ function CheckEmail(props: CheckEmailProps) {
 
     // no errors mean we can carry on with the registration
     if (shouldGo) {
+      const url = (process.env.NODE_ENV==="production") ? 'https://talkingcloud.io' : 'http://localhost:8080'
       addRegistration({ variables: { input: newAccount } }).then(((e) => {
         setError(null);
         //send the correct info to /send route backend for email verification
-        fetch('http://localhost:8080/send', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'email': newAccount.email,
-            'token': newAccount.verify_token,
-          }
+        axios.post('/send', {
+          email: newAccount.email,
+          token: newAccount.verify_token
         })
 
       })).then(() => {
@@ -178,10 +176,9 @@ function CheckEmail(props: CheckEmailProps) {
   );
 }
 
-export default function Regi() {
+export default function Register() {
 
   const [registered, setRegistered] = useState(false);
-
 
   return (
     <Fragment>

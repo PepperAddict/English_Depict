@@ -15,11 +15,34 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+router.post("/contact", function(req, res) {
+  from = '"Talking Cloud ☁️" <contact@talkingcloud.io>';
+  mailOptions = {
+    to: "jenearly@gmail.com",
+    from,
+    subject: `${req.body.name} ${req.body.reason}`,
+    html: `
+    ${req.body.name}: <b> ${req.body.email} </b>
+    <p>${req.body.reason}</p>
+
+    <p>${req.body.message}</p>
+    `
+  }
+  transporter.sendMail(mailOptions, function(err, response) {
+    if (response) {
+      console.log(response)
+    } else {
+      console.log(err)
+    }
+  })
+
+})
+
 router.get("/send", function(req, res) {
   rand = Math.floor(Math.random() * 100 + 54);
   host = req.get("host");
-  email = req.headers.email;
-  token = req.headers.token;
+  email = req.body.email;
+  token = req.body.token;
   link = `http://${host}/verify?token=${token}`;
 
   mailOptions = {
