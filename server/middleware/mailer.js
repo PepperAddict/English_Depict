@@ -24,13 +24,26 @@ router.post("/contact", function(req, res) {
     html: `
     ${req.body.name}: <b> ${req.body.email} </b>
     <p>${req.body.reason}</p>
-
     <p>${req.body.message}</p>
     `
   }
+
+  const mailOptionsCopy = {
+    to: req.body.email,
+    from,
+    subject: `Contact Talking Cloud Copy`,
+    html: `
+    ${req.body.name}: <b> ${req.body.email} </b>
+    <p>${req.body.reason}</p>
+    <p style="border:1px solid black">${req.body.message}</p>
+    `
+  }
+
   transporter.sendMail(mailOptions, function(err, response) {
     if (response) {
-      console.log(response)
+      transporter.sendMail(mailOptionsCopy, function(err, res) {
+        console.log(res)
+      })
     } else {
       console.log(err)
     }
