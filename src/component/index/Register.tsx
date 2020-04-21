@@ -62,7 +62,7 @@ function CheckEmail(props: CheckEmailProps) {
 
     // no errors mean we can carry on with the registration
     if (shouldGo) {
-      const url = (process.env.NODE_ENV==="production") ? 'https://talkingcloud.io' : 'http://localhost:8080'
+
       addRegistration({ variables: { input: newAccount } }).then(((e) => {
         setError(null);
         //send the correct info to /send route backend for email verification

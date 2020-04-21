@@ -67,7 +67,6 @@ export default function StudentSettings(props) {
         } else {
           setMessage(response.data.msg)
         }
-
       }).then(() => {
         location.reload();
       }).catch((err) => {

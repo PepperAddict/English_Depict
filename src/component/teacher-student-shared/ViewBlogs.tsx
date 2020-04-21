@@ -41,7 +41,6 @@ function IndividualBlog(props) {
               </span>} {data ? data.getStudentByID[0].name == null ? data.getStudentByID[0].username : data.getStudentByID[0].name : 'Unknown'}</div>
             {props.editMe && <div className="edit">
               <Link to="/student/edit-blog" onClick={e => context.setBlog(props.blog)}>Edit Blog</Link>
-              
             </div>}
             <a href={'/student/view-comments=' + props.blog.blog_id}>{props.comment.length === 0 ? '0 Comments' : props.comment.length === 1 ? '1 Comment' : props.comment.length > 0 && props.comment.length + ' Comments'}</a>
           </div>

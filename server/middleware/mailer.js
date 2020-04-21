@@ -31,7 +31,7 @@ router.post("/contact", function(req, res) {
   const mailOptionsCopy = {
     to: req.body.email,
     from,
-    subject: `Contact Talking Cloud Copy`,
+    subject: `Talking Cloud Contact Copy`,
     html: `
     ${req.body.name}: <b> ${req.body.email} </b>
     <p>${req.body.reason}</p>
