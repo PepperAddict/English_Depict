@@ -4,6 +4,7 @@ import ApolloClient, { InMemoryCache } from 'apollo-boost';
 import { ApolloProvider, Query, withApollo } from 'react-apollo';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { StudentProvider, TeacherProvider } from './Context';
+import WelcomeNav from './WelcomeNav';
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -28,8 +29,9 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-
+      
       <Router>
+      <WelcomeNav />
         <Fragment>
           <Route exact path="/">
             <Welcome />

@@ -5,13 +5,13 @@ import '../../styles/welcome.styl';
 const logoImage = require('../../img/logo.png');
 require('../../img/bubble.jpg');
 import {Link} from 'react-router-dom';
-import WelcomeNav from './WelcomeNav';
+
 
 export default function Welcome() {
 
   return (
     <div className="welcome-container">
-            <WelcomeNav />
+
       <header className="home-nav">
         <div className="logo-info">
           <picture>

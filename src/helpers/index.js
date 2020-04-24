@@ -38,7 +38,6 @@ export const decryptMe = (e) => {
 
 export const cookieParser = (keyName, decryptMe = false) => {
   let cookieData = document.cookie.split(';').map(string => string.trim());
-  const rawCookie = document.cookie.split(/=|;/).map(string => string.trim());
   let newcookie = [] ;
   let blah = cookieData[Symbol.iterator]();
   let cookieContains;

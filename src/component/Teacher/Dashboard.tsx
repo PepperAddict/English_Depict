@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { cookieParser } from '../../helpers';
 import { getUserByID } from '../../query/query';
-import AddStudent from './AddStudent';
+
 import '../../styles/basic.styl';
 import '../../styles/teacherDashboard.styl';
 import '../../styles/teacher_sidebar.styl';
