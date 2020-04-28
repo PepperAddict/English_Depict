@@ -23,7 +23,6 @@ export default function Welcome() {
             <Link to="/student_login" className="teacherLogin">Student Login</Link>
           </nav>
           <h1>The place to practice English and track progress</h1>
-          <Link to="/register" className="registerAccount">Register for a teacher's account</Link>
         </div>
         <HeroBG />
         

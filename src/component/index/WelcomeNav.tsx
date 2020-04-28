@@ -33,6 +33,7 @@ export default function WelcomeNavigation() {
     const navStyleCreate = navStyle()
     return(
         <nav className={navStyleCreate.NavTop}>
+            <Link to="/">Home</Link>
 
                     <Link to="/contact">Contact</Link>
                     {(!teacherId && !studentId) ? 
