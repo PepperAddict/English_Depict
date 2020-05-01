@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { responsePathAsArray } from 'graphql';
+import '../../styles/contact.styl'
+
 
 export default function Contact() {
     const [msg, setMsg] = useState(null)
@@ -44,9 +45,10 @@ export default function Contact() {
         setContact({ ...contact, [e.target.name]: e.target.value })
     }
     return (
-        <div>
+        <div className="contact-container">
             {msg}
             <form onSubmit={contactMe}>
+                <h1>Contact Us</h1>
                 <label>
                     <p>name</p>
                     <input name="name" onChange={onChange} />

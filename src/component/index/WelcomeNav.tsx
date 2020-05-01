@@ -6,7 +6,6 @@ const ico = require('../../img/logoWide.svg')
 export default function WelcomeNavigation() {
     const teacherId = cookieParser('userId', false)
     const studentId = cookieParser('student_id', false)
-    console.log(ico)
 
     const navStyle = createUseStyles({
         NavTop: {

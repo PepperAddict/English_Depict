@@ -2,18 +2,25 @@ import React from 'react';
 // import ChatBox from './Chat/ChatBox.jsx';
 import HeroBG from './Hero';
 import '../../styles/welcome.styl';
-const logoImage = require('../../img/logo.png');
+const logoImage = require('../../img/cloud.svg');
 require('../../img/bubble.jpg');
 import {Link} from 'react-router-dom';
+import { createUseStyles } from 'react-jss';
 
 
 export default function Welcome() {
+  console.log(logoImage)
 
   return (
     <div className="welcome-container">
 
       <header className="home-nav">
         <div className="logo-info">
+          
+          <div className="logo-hero">
+            <img src={logoImage.default} alt="logo big"/>
+            <h1>Talking Cloud</h1>
+          </div>
 
           <nav>
             <Link to="/login" className="teacherLogin">Teacher Login</Link>
