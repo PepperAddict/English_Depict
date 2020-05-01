@@ -14,10 +14,7 @@ export default function Welcome() {
 
       <header className="home-nav">
         <div className="logo-info">
-          <picture>
-            <source srcSet={logoImage.srcSet} />
-            <img src={logoImage.src} srcSet={logoImage.srcSet} alt="Talking Cloud Logo"/>
-          </picture>
+
           <nav>
             <Link to="/login" className="teacherLogin">Teacher Login</Link>
             <Link to="/student_login" className="teacherLogin">Student Login</Link>

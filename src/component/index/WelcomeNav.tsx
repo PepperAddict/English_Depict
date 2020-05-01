@@ -2,14 +2,15 @@ import React, {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import { createUseStyles } from 'react-jss';
 import { cookieParser } from '../../helpers';
+const ico = require('../../img/logoWide.svg')
 export default function WelcomeNavigation() {
     const teacherId = cookieParser('userId', false)
     const studentId = cookieParser('student_id', false)
+    console.log(ico)
 
-    console.log(teacherId + ' ok ' + studentId)
     const navStyle = createUseStyles({
         NavTop: {
-            position: 'sticky',
+            position: 'fixed',
             top: '0px',
             background: 'white',
             width: '100%',
@@ -27,14 +28,24 @@ export default function WelcomeNavigation() {
             background: '#f25500',
             color: 'white',
             padding: '10px'
+        },
+        iconButton: {
+            position: 'absolute',
+            left: '10px',
+            height: '70px',
+            cursor: 'pointer',
+            margin: '0px !important',
+            '& img': {
+               height: '70px'
+            }
         }
     })
 
     const navStyleCreate = navStyle()
     return(
         <nav className={navStyleCreate.NavTop}>
-            <Link to="/">Home</Link>
-
+                    
+                    <Link to="/" className={navStyleCreate.iconButton}><img alt="Home" src={ico.default} /></Link>
                     <Link to="/contact">Contact</Link>
                     {(!teacherId && !studentId) ? 
                     <Link className={navStyleCreate.regiButton}  to="/register">Register</Link>                      
