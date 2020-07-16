@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS students (
     username text NOT NULL,
     teacher_id integer REFERENCES users NOT NULL,
     name text,
+    identifier text NOT NULL,
     question text NOT NULL,
     password text NOT NULL,
     theme text,

@@ -13,6 +13,7 @@ const StudentInputType = new GraphQLInputObjectType({
     teacher_id: {type: GraphQLNonNull(GraphQLID)},
     username: { type: GraphQLNonNull(GraphQLString)},
     name: {type: GraphQLString}, 
+    identifier: {type: GraphQLString},
     question: { type: GraphQLNonNull(GraphQLString)},
     password: {type: GraphQLNonNull(GraphQLString)},
     theme: {type: GraphQLString}

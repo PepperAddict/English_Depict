@@ -19,6 +19,7 @@ const StudentType = new GraphQLObjectType({
       username: {type: GraphQLNonNull(GraphQLString)},
       teacher_id: {type: GraphQLNonNull(GraphQLID)},
       name: { type: GraphQLString },
+      identifier: {type: GraphQLString},
       question: {type: GraphQLNonNull(GraphQLString)},
       password: {type: GraphQLNonNull(GraphQLString)},
       theme: {type: GraphQLString},

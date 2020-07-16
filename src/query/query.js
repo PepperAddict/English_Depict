@@ -223,3 +223,21 @@ export const getBlogByID = gql`
     }
   }
 `;
+
+export const alexaGET = gql`
+query getUserByEmail($email: String!) {
+  getUserByEmail(email: $email) {
+    id
+    students {
+      student_id
+      name
+			identifier
+      tasks {
+        task_id
+        entry
+        accepted
+    }
+    }
+  }
+}
+`

@@ -14,7 +14,8 @@ export default function AddStudent(props) {
 
   const [question, setQuestion] = useState(questionArray[Math.floor(Math.random() * questionArray.length)]);
   const [username, setUsername] = useState('username');
-  const [name, setName] = useState('name')
+  const [name, setName] = useState('name');
+  const [identifier, setIdentifier] = useState('unique identifier')
   const [answer, setAnswer] = useState('answer')
   const [addRegistration] = useMutation(ADD_STUDENT);
 
@@ -26,6 +27,7 @@ export default function AddStudent(props) {
       username: username.toLowerCase(), 
       name,
       question,
+      identifier,
       password: answer.toLowerCase()
     };
     console.log(newStudent)
@@ -47,6 +49,9 @@ export default function AddStudent(props) {
 
           <label htmlFor="studentName">Name</label><p className="tool name">?</p>
           <input id="studentName" onChange={e => setName(e.target.value)} name='name' />
+
+          <label htmlFor="identifier">Unique Student Identifier</label><p className="tool identifier">?</p>
+          <input id="identifier" onChange={e => setIdentifier(e.target.value)} name="identifier" required></input>
 
           <label htmlFor="question1">Question</label><p className="tool question">?</p>
           <input id="question1" name='question1' onChange={e => setQuestion(e.target.value) } defaultValue={question}/>

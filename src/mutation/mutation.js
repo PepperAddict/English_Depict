@@ -36,6 +36,7 @@ mutation AddStudent($input: StudentInput!) {
     question
     password
     created_at
+    identifier
   }
 }
 `;

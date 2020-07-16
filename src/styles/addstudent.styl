@@ -27,6 +27,8 @@
             border-radius: 5px;
         &:hover 
             position: relative;
+            &.identifier::before
+                content: "Identifier is a common vocabulary word to identify the student. For example: 'blue'. ";
             &.username::before
                 content: 'Username is required for student to remember when logging in.';
             &.name::before
