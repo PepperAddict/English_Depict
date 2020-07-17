@@ -1,4 +1,5 @@
 require("dotenv").config();
+const {graphql} = require('graphql');
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -120,7 +121,6 @@ router.use("/graphql", cors(), (req, res) => {
     introspection: true,
   })(req, res);
 });
-
 
 
 server.use('/', router)
