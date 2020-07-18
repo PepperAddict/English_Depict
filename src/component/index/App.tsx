@@ -35,7 +35,7 @@ function App() {
           <AlexaGet />
           </Route>
 
-      {/* <WelcomeNav /> */}
+      <WelcomeNav />
 
         <Fragment>
 

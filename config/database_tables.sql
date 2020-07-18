@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS vocabularies (
 
 CREATE TABLE IF NOT EXISTS students (
     student_id serial PRIMARY KEY,
-    username text NOT NULL,
+    username text NOT NULL UNIQUE,
     teacher_id integer REFERENCES users NOT NULL,
     name text,
     identifier text NOT NULL,

@@ -16,10 +16,11 @@ module.exports = pgPool => {
       values ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *`, 
       [teacher_id, username, name, password, theme, apiKey, date_created, question, identifier])
         .then((res => {
+          console.log(res.rows[0])
           return res.rows[0];
         }))
         .catch((e) => {
-          console.log(e);
+          throw new Error(e)
         });
     },
     verifyStudent({second_password, student_id}) {

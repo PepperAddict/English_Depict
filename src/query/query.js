@@ -79,6 +79,7 @@ export const getUserByID = gql`
       students {
         student_id
         name
+        identifier
         username
         question
         password

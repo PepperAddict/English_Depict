@@ -4,22 +4,14 @@ const path = require('path');
 require( 'cross-fetch/polyfill');
 require("dotenv").config();
 const lessons = require('../utils/example-work.js');
-const {graphql} = require('graphql');
-const schema = require('../schema');
 const Boost = require("apollo-client")
 const {HttpLink} = require("apollo-link-http")
 
 const ApolloClient = Boost.ApolloClient;
 const {InMemoryCache} = require("apollo-cache-inmemory")
-const fetch = require("node-fetch");
+
 const gql = require("graphql-tag");
-const getall = gql`
-query getAllUsers {
-  getCompleteUsers {
-    email
-  }
-}
-`
+
 
 const alexaGET = gql`
 query getUserByEmail($email: String!) {
@@ -28,9 +20,11 @@ query getUserByEmail($email: String!) {
     students {
       student_id
       name
+      message
 			identifier
       tasks {
         task_id
+        task_code
         entry
         accepted
     }
@@ -51,8 +45,33 @@ function queryCall (res, email, callback) {
 client.query({
     query: alexaGET,
     variables: {email: email}}).then(async (data) => {
-        await callback(data.data.getUserByEmail)
+      if (data) {
+        let oby = {}
         
+        for (let student of data.data.getUserByEmail.students) {
+          let forTask = new Array()
+          oby[student.identifier] = {
+            name: student.name,
+            message: student.message,
+            tasks: forTask
+          }
+          
+          for (let indi of student.tasks) {
+            if (indi.task_code === "WOTD" && indi.accepted !== true) {
+              const newObject = {
+                task_id: indi.task_id,
+                word: indi.entry.word,
+                sentence: indi.entry.sentence,
+                accepted: indi.accepted
+              }
+              forTask.push(newObject)
+            }
+          }
+        }
+
+        await callback(JSON.stringify(oby))
+      }
+
     }).catch((err) => {
         res.send(JSON.stringify({message: "Something went wrong"}))
     })
