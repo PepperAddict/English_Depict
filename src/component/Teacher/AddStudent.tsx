@@ -82,7 +82,8 @@ export default function AddStudent(props: AddStudentProps) {
           <input id="studentName" onChange={e => setName(e.target.value)} name='name' />
 
           <label htmlFor="identifier">Animal Identifier</label><p className="tool identifier">?</p>
-          <select name="identifier" id="identifier" onChange={e => setIdentifier(e.target.value)}>
+          
+          <select className="full-width" name="identifier" id="identifier" onChange={e => setIdentifier(e.target.value)}>
           {identifierList.map((item, key) => 
           <option value={item} key={item}>{item}</option>)}
           </select>

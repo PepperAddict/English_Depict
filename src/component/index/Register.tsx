@@ -95,7 +95,7 @@ function CheckEmail(props: CheckEmailProps) {
 
   return (
 
-    <div className="login-container">
+    <div className="login-container container">
       <div className="login-content">
         <Link to="/" className="logo-container-link"><img className="logo-center" src="/images/logo-192.png" alt="logo" /></Link>
         <h1>Register</h1>

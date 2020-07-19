@@ -76,6 +76,7 @@ export const getUserByID = gql`
       username
       created_at
       verified
+      share
       students {
         student_id
         name
@@ -146,6 +147,7 @@ export const getStudentInfo = gql`
       username
       teacher_id
       avatar
+      identifier
       student_key
       name
       message
@@ -225,20 +227,12 @@ export const getBlogByID = gql`
   }
 `;
 
-export const alexaGET = gql`
-query getUserByEmail($email: String!) {
-  getUserByEmail(email: $email) {
+export const getBasicByEmail = gql`
+query getUserByUnknown($search: String!) {
+  getUserByUnknown(search: $search) {
     id
-    students {
-      student_id
-      name
-			identifier
-      tasks {
-        task_id
-        entry
-        accepted
-    }
-    }
+    email
+    username
   }
 }
 `

@@ -155,3 +155,11 @@ mutation completeTask($input: CompleteTask! ) {
   }
 }
 `
+
+export const SHARE_STUDENT = gql`
+mutation ShareStudent($input: ShareStudentInput!) {
+  ShareStudent(input: $input) {
+    student_id
+  }
+}
+`

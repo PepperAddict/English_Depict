@@ -1,15 +1,67 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { getStudentInfo } from '../../query/query';
 import IndividualStudentBlog from '../teacher-student-shared/IndieStudentBlog';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { UPDATE_MESSAGE } from '../../mutation/mutation';
+import { useQuery, useMutation, useLazyQuery } from '@apollo/react-hooks';
+import { UPDATE_MESSAGE, SHARE_STUDENT } from '../../mutation/mutation';
 import '../../styles/teacher_dashboard_student.styl';
 const noPic = require('../../img/no-pic.png')
 import { TeacherContext } from '../index/Context';
+import { getBasicByEmail } from '../../query/query';
+import { ProgressPlugin } from 'webpack';
 interface StudentProfileProps {
 
   teacher_id: number,
   student_id: string
+}
+function ShareStudent(props) {
+  let [userEmail, { data }] = useLazyQuery(getBasicByEmail);
+  const [other, setOther] = useState(null)
+  const [submitShareStudent] = useMutation(SHARE_STUDENT);
+  const [teachid, setteachid] = useState(null)
+
+  const whichTeacher = async e => {
+    await userEmail({ variables: { search: e } })
+  }
+
+  useEffect(() => {
+    if (data) {
+      setOther(data.getUserByUnknown)
+    } else {
+      setOther(null)
+    }
+  }, [whichTeacher])
+
+
+  const shareStudent = e => {
+    e.preventDefault();
+    const shareToStudent = {
+      shared: [{
+        student_id: props.student_id,
+        identifier: props.student.identifier,
+        username: props.student.username,
+      }]
+    }
+
+    submitShareStudent({variables: {input: {id: parseInt(teachid), share: shareToStudent, student_id: props.student_id}}}).catch((err) => console.log(err))
+
+  }
+
+  return (
+    <form onSubmit={shareStudent}>
+      <label><p>Enter the the user you want to share this student with.</p>
+        <input id="share" onChange={e => whichTeacher(e.target.value)} />
+        {other &&
+          <select className="full-width" name="which-teacher" id="which-teacher" onChange={e => setteachid(e.target.value)}>
+            <option value=""></option>
+            {other.map((teach, key) =>
+              <option value={teach.id} key={key}>{teach.id} {teach.username} ({teach.email})</option>)}
+          </select>}
+
+        <button type="submit">Share Student</button>
+      </label>
+    </form>
+  )
+
 }
 
 function StudentProfile(props: StudentProfileProps) {
@@ -17,6 +69,9 @@ function StudentProfile(props: StudentProfileProps) {
   const { loading, error, data } = useQuery(getStudentInfo, { variables: { student_id: studentid } });
   const [updateMessage] = useMutation(UPDATE_MESSAGE);
   const [message, setMessage] = useState(null);
+  const [share, setShare] = useState(false);
+
+
 
   const submitMessage = e => {
     e.preventDefault();
@@ -25,6 +80,7 @@ function StudentProfile(props: StudentProfileProps) {
         location.reload();
       }).catch((err) => console.log(err));
   };
+
 
   return (
     <Fragment>
@@ -36,12 +92,15 @@ function StudentProfile(props: StudentProfileProps) {
             <img className="avatar-image" src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : noPic} alt="Student's avatar" />
           </div>
           <center><h1>{data.getStudentByID[0].name}</h1></center>
+
+          <button onClick={e => setShare(true)}>Share User</button>
+          {share && <ShareStudent student={data.getStudentByID[0]} student_id={props.student_id}/>}
           <form onSubmit={submitMessage}>
-        <label htmlFor="message">
-          <h2>Welcome Message</h2></label>
-        <input id="message" defaultValue={message ? message : 'enter a message for ' + data.getStudentByID[0].name} onChange={e => setMessage(e.target.value)} />
-        <button type="submit">Submit Message</button>
-      </form>
+            <label htmlFor="message">
+              <h2>Welcome Message</h2></label>
+            <input id="message" defaultValue={message ? message : 'enter a message for ' + data.getStudentByID[0].name} onChange={e => setMessage(e.target.value)} />
+            <button type="submit">Submit Message</button>
+          </form>
           <h2>Vocabulary Words</h2>
           <ul className="vocabulary-list">
             {data.getStudentByID[0].vocabularies.length > 0 ? data.getStudentByID[0].vocabularies.map((words, key) => {
@@ -61,7 +120,7 @@ function StudentProfile(props: StudentProfileProps) {
             })}
 
           </div>
-          <h2>Blogs</h2>
+          {/* <h2>Blogs</h2>
           {data.getStudentByID[0].blogs.length > 0 ? data.getStudentByID[0].blogs.map((blog, key) => {
 
             return <IndividualStudentBlog
@@ -72,7 +131,7 @@ function StudentProfile(props: StudentProfileProps) {
               content={blog.content}
               comments={blog.comments}
               teacher_id={props.teacher_id} />;
-          }) : 'No Blog'}
+          }) : 'No Blog'} */}
         </div>}
     </Fragment>
 
@@ -106,10 +165,8 @@ export default function IndividualStudent(props: IndividualStudentProps) {
     <Fragment>
       <TeacherContext.Consumer>
         {context => (
-
-          <div>{console.log(context)}
+          <div>
             <StudentProfile
-
               teacher_id={props.teacher_id}
               student_id={context.student_id} />
           </div>

@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS users (
     id serial PRIMARY KEY,
-    email text NOT NULL,
+    email text NOT NULL UNIQUE,
     username text NOT NULL,
     password text NOT NULL,
     created_at text,
@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS students (
     student_id serial PRIMARY KEY,
     username text NOT NULL UNIQUE,
     teacher_id integer REFERENCES users NOT NULL,
+    share json NULL,
     name text,
     identifier text NOT NULL,
     question text NOT NULL,

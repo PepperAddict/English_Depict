@@ -63,10 +63,21 @@ module.exports = pgPool => {
 
     updateMessage({student_id, message}) {
       return pgPool.query(`
-      update students set message='${message}' where student_id=${student_id} returning *
-      `).then((res) => {
+      update students set message=$1 where student_id=$2 returning *
+      `,[message, student_id]).then((res) => {
         return res.rows[0];
       }).catch((err) => console.log(err));
+    },
+    shareStudent({id, share, student_id}) {
+      return pgPool.query(
+        `UPDATE users SET share = $1 WHERE id = $2 RETURNING *`,[share, id])
+      .then((res) => {
+        return pgPool.query(`
+        update students set share=$1 where student_id=$2 returning *
+        `, [share, student_id])
+      }).catch((err) => {
+        console.log(err)
+      })
     }
   };
 };

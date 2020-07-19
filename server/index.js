@@ -1,5 +1,5 @@
 require("dotenv").config();
-const {graphql} = require('graphql');
+
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -87,7 +87,7 @@ router.get(["/dashboard/", "/dashboard/:page?", "/dashboard/*"], cors(),  isAuth
   }
 );
 
-router.get('/contact', (req, res) => {
+router.get(['/contact', '/privacy'], (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"))
 })
 

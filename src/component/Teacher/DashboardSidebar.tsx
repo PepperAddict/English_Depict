@@ -58,14 +58,9 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
           <Link to="/dashboard/task">
             <li><img src={taskIcon.default} alt="Go to Tasks" /> Tasks</li>
           </Link>
-          <Link to="/dashboard">
-            <li><img src={blogIcon.default} alt="Go to Blog" /> Blog</li>
-          </Link>
-          <Link to="/dashboard">
+          {/* <Link to="/dashboard">
             <li><img src={activityIcon.default} alt="Go to Activity" /> Activity</li>
-          </Link>
-          
-          
+          </Link> */}
         </ul>
 
 

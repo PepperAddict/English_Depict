@@ -28,7 +28,6 @@ export default function Welcome() {
           </nav>
           <h1>The place to practice English and track progress</h1>
         </div>
-        <HeroBG />
         
       </header>
     </div>

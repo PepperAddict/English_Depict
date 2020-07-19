@@ -51,7 +51,7 @@ router.post("/contact", function (req, res) {
     }
   });
 });
-router.get("/client", async (req, res) => {
+router.get("/send", async (req, res) => {
   var http = require("https");
 
   var options = {
@@ -78,69 +78,54 @@ router.get("/client", async (req, res) => {
       console.log(body.toString());
     });
   });
+  name = (req.body.username) ? req.body.username : "new user";
+  email = req.body.email;
+  token = req.body.token;
+  link = `http://${host}/verify?token=${token}`;
   
   req.write(JSON.stringify({ 
     personalizations: 
      [ { 
        to: [ { 
-          email: 'jenearly@gmail.com', 
-          name: 'Jenearly' } ],
+          email: email, 
+          name: name } ],
         dynamic_template_data: 
-          { name: 'Cheese', 
-            code: "hello" },
-         subject: 'Hello, World!' } ],
-      from: { email: 'contact@talkincloud.io', name: 'Talking Cloud' },
+          { name: name, 
+            code: link,
+           },
+         subject: 'Please verify your Talking Cloud account' } ],
+      from: { email: 'verify@talkincloud.io', name: 'Talking Cloud ☁️' },
     template_id: 'd-61d84cea1d174c9cb52df4a9170547a3' }));
   req.end();
 
 });
 
-// router.get("/grid", async (req, res) => {
-//   const sgMail = require("@sendgrid/mail");
-//   sgMail.setApiKey(process.env.GRIDPW);
-//   console.log(process.env.GRIDPW);
-//   const msg = {
-//     to: "jenearly@gmail.com",
-//     from: "contact@talkincloud.io",
-//     subject: "sending with Twilio Sendgrid is fun",
-//     text: "verify",
-//     html: "<strong>ok hi </strong>",
+
+// router.get("/send", function (req, res) {
+//   rand = Math.floor(Math.random() * 100 + 54);
+//   host = req.get("host");
+//   email = req.body.email;
+//   token = req.body.token;
+//   link = `http://${host}/verify?token=${token}`;
+
+//   mailOptions = {
+//     to: email,
+//     from: '"Talking Cloud ☁️" <verify@talkingcloud.io>',
+//     subject: "Talking Cloud - Please verify your email address",
+//     html: `Thank you for registering with TalkingCloud.io. <br>
+//     Please verify your email address by clicking on the link<br>
+//     <a href="${link}">Click here to Verify</a>`,
 //   };
 
-//   try {
-//     await sgMail.send(msg);
-//   } catch (error) {
-//     console.error(error);
-//   } finally {
-//     res.sendFile(path.resolve(__dirname, "../../dist/index.html"));
-//   }
+//   transporter.sendMail(mailOptions, function (err, response) {
+//     if (err) {
+//       console.log(err);
+//       res.redirect("/");
+//     } else {
+//       res.sendFile(path.resolve(__dirname, "../../dist/index.html"));
+//     }
+//   });
 // });
-
-router.get("/send", function (req, res) {
-  rand = Math.floor(Math.random() * 100 + 54);
-  host = req.get("host");
-  email = req.body.email;
-  token = req.body.token;
-  link = `http://${host}/verify?token=${token}`;
-
-  mailOptions = {
-    to: email,
-    from: '"Talking Cloud ☁️" <verify@talkingcloud.io>',
-    subject: "Talking Cloud - Please verify your email address",
-    html: `Thank you for registering with TalkingCloud.io. <br>
-    Please verify your email address by clicking on the link<br>
-    <a href="${link}">Click here to Verify</a>`,
-  };
-
-  transporter.sendMail(mailOptions, function (err, response) {
-    if (err) {
-      console.log(err);
-      res.redirect("/");
-    } else {
-      res.sendFile(path.resolve(__dirname, "../../dist/index.html"));
-    }
-  });
-});
 
 router.get("/verify", function (req, res) {
   res.sendFile(path.resolve(__dirname, "../../dist/index.html"));

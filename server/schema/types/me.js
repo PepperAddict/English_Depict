@@ -6,7 +6,8 @@ const {
   GraphQLBoolean,
   GraphQLList
 } = require('graphql');
-const vocabType = require('./vocabulary')
+const vocabType = require('./vocabulary');
+const { GraphQLJSON} = require('graphql-type-json');
 const pgdb = require('../../models/lessonsDB');
 const MeType = new GraphQLObjectType({
   name: 'Me',
@@ -17,10 +18,12 @@ const MeType = new GraphQLObjectType({
       username: { type: GraphQLNonNull(GraphQLString) },
       password: {type: GraphQLNonNull(GraphQLString)},
       created_at: {type: GraphQLNonNull(GraphQLString)},
+      share: {type: GraphQLJSON},
       role: {type: GraphQLString },
       apiKey: { type: GraphQLNonNull(GraphQLString) },
       verified: {type: GraphQLBoolean},
       verify_token: {type: GraphQLString},
+      student_id: {type: GraphQLID},
       vocabularies: {
         type: new GraphQLList(vocabType),
         resolve: async (source, input, {pgPool, req}) => {

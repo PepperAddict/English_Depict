@@ -101,6 +101,14 @@ module.exports = pgPool => {
           return res.rows;
         });
     },
+    getUserByUnknown(search) {
+      if (search)
+      return pgPool.query(`
+      select * from users where username LIKE '%${search}%' or email LIKE '%${search}%'`)
+      .then((res) => {
+      return res.rows
+      }).catch((er) =>console.log(er))
+    },
     getAllPosts(limit) {
       //get posts with a limit or all if limit isn't supplied
       limit = (limit) ? `limit ${limit}` : '';

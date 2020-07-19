@@ -103,7 +103,7 @@ function LoginForm() {
     setError(null)
   }
 
-  return (<div className={classy.myBG + ' login-container'}>
+  return (<div className={classy.myBG + ' login-container container'}>
     <div className="login-content">
       <Link to="/" className="logo-container-link">
         <img className="logo-center" src="/images/logo-192.png" alt="logo" />

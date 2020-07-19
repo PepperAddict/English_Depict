@@ -23,7 +23,7 @@ import StudentLogin from '../Student/StudentLogin';
 import StudentDashboard from '../Student/studentDashboard';
 import Verify from './Verify';
 import Contact from './Contact';
-import AlexaGet from '../API/alexa-api'
+import Privacy from './PrivacyPolicy'
 
 
 function App() {
@@ -31,9 +31,6 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router> 
-        <Route path="/api/alexa/:page?">
-          <AlexaGet />
-          </Route>
 
       <WelcomeNav />
 
@@ -44,6 +41,9 @@ function App() {
           </Route>
           <Route exact path="/login">
             <Login />
+          </Route>
+          <Route exact path="/privacy">
+            <Privacy />
           </Route>
 
           <TeacherProvider>

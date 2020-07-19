@@ -23,6 +23,7 @@ const UpdateStudentName = require('./mutations/updateStudentName');
 const RemoveVocabulary = require('./mutations/removeVocabulary');
 const EditBlog = require('./mutations/editBlog');
 const AddChat = require('./mutations/addChat');
+const getUserByUnknown = require('./queries/getUserByUnknown')
 // const WatchChat = require('./subscriptions/watchChat');
 const AddComment = require('./mutations/addComment');
 const UpdateMessage = require('./mutations/addMessage');
@@ -33,6 +34,7 @@ const getTaskByID = require('./queries/getTaskByID');
 const SubmitTask = require('./mutations/submitTask');
 const getTasksByStudentID = require('./queries/getCompleteTasksByStudentId');
 const CompleteTask = require('./mutations/completeTask');
+const ShareStudent = require('./mutations/shareStudent')
 
 
 const RootQueryType = new GraphQLObjectType({
@@ -51,7 +53,8 @@ const RootQueryType = new GraphQLObjectType({
     getVocabulary,
     getBlogByID,
     getTaskByID,
-    getTasksByStudentID
+    getTasksByStudentID,
+    getUserByUnknown
 
   })
 });
@@ -75,7 +78,8 @@ const RootMutationType = new GraphQLObjectType({
     RemoveUser,
     SetVerified,
     SubmitTask,
-    CompleteTask
+    CompleteTask,
+    ShareStudent
   })
 });
 

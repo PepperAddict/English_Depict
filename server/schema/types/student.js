@@ -6,6 +6,7 @@ const {
   GraphQLBoolean,
   GraphQLList
 } = require('graphql');
+const { GraphQLJSON} = require('graphql-type-json');
 const pgdb = require('../../models/lessonsDB');
 const vocabType = require('./vocabulary');
 const blogType = require('./blog');
@@ -13,12 +14,12 @@ const TaskType = require('./task');
 const StudentType = new GraphQLObjectType({
   name: 'Student',
   fields: () => {
-
     return {
       student_id: { type: GraphQLNonNull(GraphQLID) },
       username: {type: GraphQLNonNull(GraphQLString)},
       teacher_id: {type: GraphQLNonNull(GraphQLID)},
       name: { type: GraphQLString },
+      share: {type: GraphQLJSON},
       identifier: {type: GraphQLString},
       question: {type: GraphQLNonNull(GraphQLString)},
       password: {type: GraphQLNonNull(GraphQLString)},
