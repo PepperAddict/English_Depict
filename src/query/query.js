@@ -148,7 +148,7 @@ export const getStudentInfo = gql`
       teacher_id
       avatar
       identifier
-      student_key
+      student_id
       name
       message
       vocabularies {

@@ -1,97 +1,138 @@
 const express = require("express");
 const router = express.Router();
-const path = require('path');
-require( 'cross-fetch/polyfill');
+const path = require("path");
+require("cross-fetch/polyfill");
 require("dotenv").config();
-const lessons = require('../utils/example-work.js');
-const Boost = require("apollo-client")
-const {HttpLink} = require("apollo-link-http")
+const lessons = require("../utils/example-work.js");
+const Boost = require("apollo-client");
+const { HttpLink } = require("apollo-link-http");
 
 const ApolloClient = Boost.ApolloClient;
-const {InMemoryCache} = require("apollo-cache-inmemory")
+const { InMemoryCache } = require("apollo-cache-inmemory");
 
 const gql = require("graphql-tag");
 
-
 const alexaGET = gql`
-query getUserByEmail($email: String!) {
-  getUserByEmail(email: $email) {
-    id
-    students {
+  query getUserByEmail($email: String!) {
+    getUserByEmail(email: $email) {
+      id
+      share
+      students {
+        student_id
+        name
+        message
+        identifier
+        tasks {
+          task_id
+          task_code
+          entry
+          accepted
+          submission
+        }
+      }
+    }
+  }
+`;
+const alexaStudentTask = gql`
+  query getStudentByID($student_id: ID!) {
+    getStudentByID(student_id: $student_id) {
+      username
+      identifier
       student_id
       name
       message
-			identifier
       tasks {
         task_id
         task_code
         entry
         accepted
-    }
+        submission
+      }
     }
   }
-}
-`
+`;
 
 const client = new ApolloClient({
-    link: new HttpLink({ uri:'http://localhost:8080/graphql', credentials: 'same-origin'}),
-    cache: new InMemoryCache({
-        freezeResults: true
+  link: new HttpLink({
+    uri: "http://localhost:8080/graphql",
+    credentials: "same-origin",
+  }),
+  cache: new InMemoryCache({
+    freezeResults: true,
+  }),
+});
+
+async function queryCall(res, email, callback) {
+  await client
+    .query({
+      query: alexaGET,
+      variables: { email: email },
     })
-})
-
-
-function queryCall (res, email, callback) {
-client.query({
-    query: alexaGET,
-    variables: {email: email}}).then(async (data) => {
+    .then(async (data) => {
       if (data) {
-        let oby = {}
-        
+        let oby = {};
+
         for (let student of data.data.getUserByEmail.students) {
-          let forTask = new Array()
+          let forTask = new Array();
           oby[student.identifier] = {
             name: student.name,
             message: student.message,
-            tasks: forTask
-          }
-          
+            tasks: forTask,
+          };
+
           for (let indi of student.tasks) {
             if (indi.task_code === "WOTD" && indi.accepted !== true) {
               const newObject = {
                 task_id: indi.task_id,
                 word: indi.entry.word,
                 sentence: indi.entry.sentence,
-                accepted: indi.accepted
-              }
-              forTask.push(newObject)
+                accepted: indi.accepted,
+              };
+              forTask.push(newObject);
             }
           }
         }
 
-        await callback(JSON.stringify(oby))
-      }
+        if (data.data.getUserByEmail.share) {
 
-    }).catch((err) => {
-        res.send(JSON.stringify({message: "Something went wrong"}))
+          for (let student of data.data.getUserByEmail.share.shared) {
+
+
+          await client.query({
+                query: alexaStudentTask,
+                variables: { student_id: student.student_id },
+              })
+              .then((res) => {
+                const studentInfo = res.data.getStudentByID[0];
+                oby[studentInfo.identifier] = {
+                  name: studentInfo.name,
+                  message: studentInfo.message,
+                  tasks: studentInfo.tasks
+                };
+              });
+          }
+        }
+
+        await callback(JSON.stringify(oby));
+      }
     })
+    .catch((err) => {
+      res.send(JSON.stringify({ message: "Something went wrong" }));
+    });
 }
 
-
 router.get(["/api/2/alexa/:page?"], async (req, res) => {
-    const path = req.url.split('/')
-    const email = path[path.length - 1]
-    res.setHeader('Content-Type', 'application/json')
-    await queryCall(res, email, function(data) {
-        res.send(data)
-    })
-    
+  const path = req.url.split("/");
+  const email = path[path.length - 1];
+  res.setHeader("Content-Type", "application/json");
+  await queryCall(res, email, function (data) {
+    res.send(data);
+  });
 });
 
-router.get("/api/1/alexa/", function(req, res) {
- res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(lessons))   
-})
-
+router.get("/api/1/alexa/", function (req, res) {
+  res.setHeader("Content-Type", "application/json");
+  res.send(JSON.stringify(lessons));
+});
 
 module.exports = router;

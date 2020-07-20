@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS students (
     second_password text,
     avatar text
 );
+
 CREATE TABLE IF NOT EXISTS blogs (
     blog_id serial PRIMARY KEY,
     student_id integer REFERENCES students NOT NULL,
