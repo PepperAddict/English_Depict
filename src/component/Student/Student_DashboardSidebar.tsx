@@ -54,16 +54,15 @@ export default function DashboardSidebar(props) {
           <object type="image/svg+xml" data={taskIcon.default} />
           Tasks
         </Link>
-
-        <Link to="/student/blog">
+        {/* <Link to="/student/blog">
           <object type="image/svg+xml" data={blogIcon.default} />
           Blog
-        </Link>
+        </Link> */}
 
-        <Link to="/student/settings">
+        {/* <Link to="/student/settings">
           <object type="image/svg+xml" data={activityIcon.default} />
         Settings
-      </Link>
+      </Link> */}
       </nav>
 
       <button type="button" onClick={logout}>Logout</button>

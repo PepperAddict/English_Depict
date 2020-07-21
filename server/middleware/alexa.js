@@ -52,15 +52,37 @@ const alexaStudentTask = gql`
   }
 `;
 
+const SubmitTask = gql`
+  mutation SubmitTask($input: TaskSubmit!) {
+    SubmitTask(input: $input) {
+      student_id
+    }
+  }
+`;
+
 const client = new ApolloClient({
   link: new HttpLink({
     uri: "http://localhost:8080/graphql",
     credentials: "same-origin",
   }),
-  cache: new InMemoryCache({
-    freezeResults: true,
-  }),
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: "no-cache",
+      errorPolicy: "ignore",
+    },
+    query: {
+      fetchPolicy: "no-cache",
+      errorPolicy: "all",
+    },
+  },
 });
+async function mutationCall(res, variables, callback) {
+  await client
+    .mutate({ mutation: SubmitTask, variables: { input: variables } })
+    .then((res) => {})
+    .catch((err) => console.log(err));
+}
 
 async function queryCall(res, email, callback) {
   await client
@@ -81,7 +103,7 @@ async function queryCall(res, email, callback) {
           };
 
           for (let indi of student.tasks) {
-            if (indi.task_code === "WOTD" && indi.accepted !== true) {
+            if (indi.task_code === "WOTD" && !indi.submission) {
               const newObject = {
                 task_id: indi.task_id,
                 word: indi.entry.word,
@@ -94,21 +116,30 @@ async function queryCall(res, email, callback) {
         }
 
         if (data.data.getUserByEmail.share) {
-
           for (let student of data.data.getUserByEmail.share.shared) {
-
-
-          await client.query({
+            await client
+              .query({
                 query: alexaStudentTask,
                 variables: { student_id: student.student_id },
               })
               .then((res) => {
                 const studentInfo = res.data.getStudentByID[0];
+                let forTasks = [];
                 oby[studentInfo.identifier] = {
                   name: studentInfo.name,
                   message: studentInfo.message,
-                  tasks: studentInfo.tasks
+                  tasks: forTasks,
                 };
+
+                for (let indi of studentInfo.tasks) {
+                  let newTasks = {
+                    task_id: indi.task_id,
+                    word: indi.entry.word,
+                    sentence: indi.entry.sentence,
+                    accepted: indi.accepted,
+                  };
+                  forTasks.push(newTasks);
+                }
               });
           }
         }
@@ -117,7 +148,7 @@ async function queryCall(res, email, callback) {
       }
     })
     .catch((err) => {
-      res.send(JSON.stringify({ message: "Something went wrong" }));
+      res.send(JSON.stringify({ error: "Something went wrong" }));
     });
 }
 
@@ -125,9 +156,15 @@ router.get(["/api/2/alexa/:page?"], async (req, res) => {
   const path = req.url.split("/");
   const email = path[path.length - 1];
   res.setHeader("Content-Type", "application/json");
+
   await queryCall(res, email, function (data) {
     res.send(data);
   });
+});
+
+router.post("/api/2/alexa/update", async (req, res, next) => {
+  await mutationCall(res, req.body);
+  res.send({ message: "success" });
 });
 
 router.get("/api/1/alexa/", function (req, res) {

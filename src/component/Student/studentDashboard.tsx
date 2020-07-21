@@ -43,7 +43,7 @@ export default function StudentDashboard() {
 
 
   return (
-    <div className="student-container">
+    <div className="student-container container">
 
 
 
@@ -57,13 +57,13 @@ export default function StudentDashboard() {
 
                 <Switch>
                   <Route path="/student" exact render={(props) => <WelcomeStudent {...props} student={student} data={data} />} />
-                  <Route path="/student/settings" render={(props) => <StudentSettings {...props} student_id={id} avatar={data.getStudentByID[0].avatar} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} />} />
+                  {/* <Route path="/student/settings" render={(props) => <StudentSettings {...props} student_id={id} avatar={data.getStudentByID[0].avatar} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} />} /> */}
 
                   {/* Blog */}
-                  <Route path="/student/add-blog" render={(props) => <AddBlog {...props} student_id={id} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} />} />
+                  {/* <Route path="/student/add-blog" render={(props) => <AddBlog {...props} student_id={id} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} />} />
                   <Route path="/student/blog" render={(props) => <ViewBlogs {...props} student_id={id} addVocabulary={addVocabulary} blogs={data.getStudentByID[0].blogs} />} />
                   <Route path="/student/edit-blog" render={(props) => <EditBlog {...props} student_id={id} blog={context.blog}/>} />
-                  <Route path="/student/view-blog" render={(props) => <ViewComments {...props} addVocabulary={addVocabulary} student_id={id} />} />
+                  <Route path="/student/view-blog" render={(props) => <ViewComments {...props} addVocabulary={addVocabulary} student_id={id} />} /> */}
 
                   {/* Tasks aka TODO List */}
                   <Route path="/student/tasks/" exact render={(props) => <StudentTasks {...props} tasks={data.getStudentByID[0].tasks} /> } />

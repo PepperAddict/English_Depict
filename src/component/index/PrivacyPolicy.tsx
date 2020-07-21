@@ -2,9 +2,9 @@ import React from 'react';
 
 export default function Privacy() {
     return (
-        <div className="container">
+        <div className="container limit-width">
             <h1>Privacy Policy</h1>
-            Last Updated July 18, 2020
+            Last Updated July 20, 2020
 
             <p>This Privacy Policy explains how the information is collected and used. Each time you use our service, you consent 
             to our use and disclosure of your information as described in this Privacy Policy.</p>
@@ -13,45 +13,53 @@ export default function Privacy() {
             and send us an email. We use the information solely to provide the services and support your request.</p>
 
            <p><strong>A special note to children under 13: </strong> Your safety and privacy is important to us, so we have 
-           rules in place to protect your privacy to keep this website a safe place for your to visit. 
-           Please get permission from your parent or legal guardian before using our Services. </p>
+           rules in place to protect your privacy to keep this website a safe place for you to visit. 
+           Please get permission from your parent or legal guardian before using our Services. Never share your personal information without 
+           your parent's permission.</p>
 
            <p>
             <strong>A special note to parents.</strong> Please help us protect your children's privacy by instructing them to never 
-           volunteer their personal information online without your consent. 
+           volunteer their personal information online without your consent. Make sure you monitor your child's usage of our services. 
             </p>
            
             <h2>Information we collect and its purpose: </h2>
 
             <p><strong>Teacher Account:</strong>
             Only an adult who classifies themselves as a teacher (could also be a parent/guardian) can create 
-            a teacher's account. From there they can create a student so they can access their tasks. The data required 
+            a teacher's account. From there, teachers can create a student for accessing their tasks. The data required 
             for a teacher's account is a unique email, password, and a name. Email and password's only purpose is to pinpoint the 
-            current user. Email's purpose is for communication between our service as well as Amazon Alexa's service if the user 
-            would like that feature. Username/name is for personalization purposes. Whether you want to give your real name is 
-            entirely up to the user. </p>
-            
-            <p>Through Amazon's login, your name, email, password will be automatically collected. </p>
+            current user. Email's other purpose is for communication between our service as well as Amazon Alexa's service if the user 
+            would like that feature. Username is for personalization purposes.</p>
 
-            <p><strong>Student account:</strong> The required data for setting up a student account is a unique username, secret question, and identifier animal. 
-            Please help your student to sign in for the first time as to finalize the account would require the student's username 
-            that was supplied and an answer to the secret question. From there, the student will be required to set their own personal
-            password using images for a quicker login experience.</p>
+            <p><strong>Student account:</strong> Only the teacher can create a student account. The required data for setting up a 
+            student account is a unique username, secret question, and identifier animal. Please help your student finalize their account.
+            The student would require the student's username and an answer to their secret qusetion
+            that was supplied. From there, the student will be required to set their own personal password using images for a quicker login experience.
+            Any personal information from the student is optional and entirely up to the parent or guardian monitoring the student's usage. </p>
 
-            <p>The teacher account who created the student's account has full control of their account. The teacher can 
-                delete the student, assign tasks, set a welcome message, transfer student, and share.
+            <p>The teacher account who created the student's account has full control of the student's account and full responsibility. The teacher can 
+                delete, assign tasks, set a welcome message, transfer, and share student. Tasks submitted by student will be stored and 
+                sent to the teacher to be approved. Teachers can permanently delete tasks from the internal service which cannot be 
+                reversed.
             </p>
-            <p>Other teachers with the shared student can assign tasks, set welcome message, for student but cannot delete or transfer student.</p>
+            <p>Other teachers with the shared student can assign tasks, but cannot delete or transfer student.</p>
 
-            <p>The current purpose of the Identifier animal is for Amazon Alexa to pinpoint the correct student for your account.</p>
-
-            <h2>How we Share the Information We Collect: </h2>: 
+            <h2>How we Use the Information We Collect: </h2>: 
             
-            <p>We collect content that was submitted (ex: tasks, pictures, messages, etc). Student's 
-            name, username, password, and response to tasks.</p>
+            <p>We collect content that was submitted (ex: tasks, pictures, teacher messages, etc). 
+                <ul>
+                <li>Vocabulary: Students can submit vocabulary words to their own vocabulary bucket which will be sent to the teacher to use as a 
+                word of the day for a later time. </li>
+                <li>Tasks: Teachers are the ones that can create tasks for students. 
+                    Anything submitted by the student is sent to their teacher to approve, reject, and/or delete. </li>
+                <li>Message: Message is a personal message from teacher to student for motivation.</li>
+                <li>Cookies: Cookies is to quickly identify the correct user.</li>
 
-            <p>We will not share any information collected through our Services with third parties, except when required 
-            to do for legal reasons and if you consent to sharing.</p>
+                </ul>
+            </p>
+
+            <p><b>We will not share any information collected through our Services with third parties, except when required 
+            to do for legal reasons and if you consent to sharing.</b></p>
             
         </div>
     )

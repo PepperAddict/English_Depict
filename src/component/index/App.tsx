@@ -23,7 +23,8 @@ import StudentLogin from '../Student/StudentLogin';
 import StudentDashboard from '../Student/studentDashboard';
 import Verify from './Verify';
 import Contact from './Contact';
-import Privacy from './PrivacyPolicy'
+import Privacy from './PrivacyPolicy';
+import Terms from './Terms'
 
 
 function App() {
@@ -44,6 +45,9 @@ function App() {
           </Route>
           <Route exact path="/privacy">
             <Privacy />
+          </Route>
+          <Route exact path="/terms">
+            <Terms />
           </Route>
 
           <TeacherProvider>

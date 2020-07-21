@@ -142,7 +142,7 @@ export default function TaskList(props: TaskListsProp) {
           </div>
 
         </div> 
-        }
+        
 
     </Fragment>
 

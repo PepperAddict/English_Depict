@@ -87,7 +87,7 @@ router.get(["/dashboard/", "/dashboard/:page?", "/dashboard/*"], cors(),  isAuth
   }
 );
 
-router.get(['/contact', '/privacy'], (req, res) => {
+router.get(['/contact', '/privacy', '/terms'], (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"))
 })
 

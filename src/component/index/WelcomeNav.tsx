@@ -17,7 +17,7 @@ export default function WelcomeNavigation() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-end',
-            boxShadow: '0px 3px 6px #828282',
+            borderBottom: '1px solid #ccc',
             zIndex: '10',
             '& a': {
                 margin: '10px'
