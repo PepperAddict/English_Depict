@@ -9,7 +9,7 @@ const { HttpLink } = require("apollo-link-http");
 
 const ApolloClient = Boost.ApolloClient;
 const { InMemoryCache } = require("apollo-cache-inmemory");
-
+const isDev = process.env.NODE_ENV === "development";
 const gql = require("graphql-tag");
 
 const alexaGET = gql`
@@ -62,7 +62,7 @@ const SubmitTask = gql`
 
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: "https://talkingcloud.io/api/2/graphql",
+    uri: (isDev) ? "http://localhost:8080/api/2/graphql": "https://talkingcloud.io/api/2/graphql",
     credentials: "same-origin",
   }),
   cache: new InMemoryCache(),

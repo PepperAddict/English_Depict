@@ -1,16 +1,30 @@
 import React, { Fragment, useState, useMemo } from 'react';
 import ReactDOM from 'react-dom';
-import ApolloClient, { InMemoryCache } from 'apollo-boost';
+import ApolloClient from 'apollo-client';
+const { InMemoryCache } = require("apollo-cache-inmemory");
+const { HttpLink } = require("apollo-link-http");
 import { ApolloProvider, Query, withApollo } from 'react-apollo';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { StudentProvider, TeacherProvider } from './Context';
 import WelcomeNav from './WelcomeNav';
+const isDev = process.env.NODE_ENV === "development";
 
 const client = new ApolloClient({
-  uri: '/api/2/graphql',
-  cache: new InMemoryCache({
-    freezeResults: true
-  })
+  link: new HttpLink({
+    uri: (isDev) ? "http://localhost:8080/api/2/graphql": "https://talkingcloud.io/api/2/graphql",
+    credentials: "same-origin",
+  }),
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: "no-cache",
+      errorPolicy: "ignore",
+    },
+    query: {
+      fetchPolicy: "no-cache",
+      errorPolicy: "all",
+    },
+  },
 });
 
 // components
@@ -25,6 +39,7 @@ import Verify from './Verify';
 import Contact from './Contact';
 import Privacy from './PrivacyPolicy';
 import Terms from './Terms'
+import { ProgressPlugin } from 'webpack';
 
 
 function App() {
