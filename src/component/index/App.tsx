@@ -7,7 +7,7 @@ import { StudentProvider, TeacherProvider } from './Context';
 import WelcomeNav from './WelcomeNav';
 
 const client = new ApolloClient({
-  uri: '/graphql',
+  uri: '/api/2/graphql',
   cache: new InMemoryCache({
     freezeResults: true
   })
