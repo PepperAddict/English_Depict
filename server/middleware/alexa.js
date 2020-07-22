@@ -62,8 +62,7 @@ const SubmitTask = gql`
 
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: (isDev) ? "http://localhost:8080/api/2/graphql": "https://talkingcloud.io/api/2/graphql",
-    credentials: "same-origin",
+    uri: '/api/2/graphql'
   }),
   cache: new InMemoryCache(),
   defaultOptions: {

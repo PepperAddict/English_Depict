@@ -11,20 +11,11 @@ const isDev = process.env.NODE_ENV === "development";
 
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: (isDev) ? "http://localhost:8080/api/2/graphql": "https://talkingcloud.io/api/2/graphql",
-    credentials: "same-origin",
+    uri: '/api/2/graphql',
+    credentials: "omit"
   }),
   cache: new InMemoryCache(),
-  defaultOptions: {
-    watchQuery: {
-      fetchPolicy: "no-cache",
-      errorPolicy: "ignore",
-    },
-    query: {
-      fetchPolicy: "no-cache",
-      errorPolicy: "all",
-    },
-  },
+  
 });
 
 // components
