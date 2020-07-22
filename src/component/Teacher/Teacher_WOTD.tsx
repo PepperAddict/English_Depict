@@ -3,6 +3,7 @@ import { TeacherContext } from '../index/Context';
 import moment from 'moment';
 import { ADD_TASK } from '../../mutation/mutation';
 import { useMutation } from '@apollo/react-hooks';
+import { useHistory } from 'react-router-dom';
 
 function WOTDStudentList(props) {
     const [students] = useState(props.students);
@@ -35,7 +36,8 @@ export default function WOTD(props) {
     const [selectedStudents, setSelectedStudents] = useState(new Array())
     const todaysDate = moment().format('L');
     const [addTask] = useMutation(ADD_TASK);
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(null);
+    const history = useHistory();
 
     const submitWOTD = (e, f = null) => {
         e.preventDefault();
@@ -56,7 +58,9 @@ export default function WOTD(props) {
                     variables: {
                         input: taskObject
                     }
-                }).then((res) => {console.log(res)}).catch(err => setError('Something went wrong'))
+                }).then((res) => {
+                    history.push('/dashboard/task')
+                }).catch(err => setError('Something went wrong'))
             })
         } else {
             setError('Please fill out the form')

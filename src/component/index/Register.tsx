@@ -4,8 +4,12 @@ import { ADD_REGISTRATION } from '../../mutation/mutation';
 import Login from './Login';
 import '../../styles/login.styl';
 import { encryptMe } from '../../helpers';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+
+import { valueFromAST } from 'graphql';
+import { useLocation, useHistory } from 'react-router-dom';
+
 
 /*
 Errors: 
@@ -30,49 +34,71 @@ function CheckEmail(props: CheckEmailProps) {
   });
   const [terror, setError] = useState(null); // 1 = email is taken, 2 = password doesnt match
   const [addRegistration] = useMutation(ADD_REGISTRATION);
-  const handleRegister = e => {
-    e.preventDefault();
-    const newAccount = {
-      username: account.user,
-      email: account.email,
-      password: account.passwordOne,
-      verify_token: encryptMe(account.email),
-      role: account.role
-    };
-    const passwordMatch = (account.passwordOne === account.passwordTwo) ? true : false;
+  const location = useLocation();
+  const amazon = (window as any).amazon
 
-    let shouldGo = true;
+  const handleRegister = async (awsData = null) => {
+    event.preventDefault();
+    let newAccount;
+    let passwordMatch = false;
+    let shouldGo = false;
+    if (!awsData) {
+      newAccount = {
+        username: account.user,
+        email: account.email,
+        password: account.passwordOne,
+        verify_token: await encryptMe(account.email),
+        role: account.role
+      };
+      passwordMatch = (account.passwordOne === account.passwordTwo) ? true : false;
+      // handle if email doesn't have an @ symbol
+      if (!account.email.includes('@')) {
+        setError(2);
+        shouldGo = false;
+      } else {
+        setError(null);
+        shouldGo = true;
+      }
 
-    // handle if email doesn't have an @ symbol
-    if (!account.email.includes('@')) {
-      setError(2);
-      shouldGo = false;
+      // handle password mismatch
+      if (!passwordMatch) {
+        setError(3);
+        shouldGo = false;
+      } else {
+        setError(null);
+        shouldGo = true;
+      }
+
     } else {
-      setError(null);
-      shouldGo = true;
+      newAccount = {
+        username: awsData.name,
+        email: awsData.email,
+        password: awsData.pw,
+        verify_token: await encryptMe(awsData.email),
+        role: 'teacher'
+      }
+      shouldGo = true
     }
-    // handle password mismatch
-    if (!passwordMatch) {
-      setError(3);
-      shouldGo = false;
-    } else {
-      setError(null);
-      shouldGo = true;
-    }
+
 
     // no errors mean we can carry on with the registration
     if (shouldGo) {
 
-      addRegistration({ variables: { input: newAccount } }).then(((e) => {
+      await addRegistration({ variables: { input: newAccount } }).then((async () => {
         setError(null);
         //send the correct info to /send route backend for email verification
-        axios.post('/send', {
-          email: newAccount.email,
-          token: newAccount.verify_token
-        })
 
-      })).then(() => {
-        props.setRegistered(true)
+        // await axios.post('/send', {
+        //   username: newAccount.username,
+        //   email: newAccount.email,
+        //   token: newAccount.verify_token
+        // }).then(() => {
+        //   props.setRegistered(true)
+        // })
+
+      })).then(async () => {
+        console.log('registration success')
+        await props.setRegistered(true)
       }).catch((err) => {
         console.log(err);
         setError(1);
@@ -93,13 +119,47 @@ function CheckEmail(props: CheckEmailProps) {
     setError(null)
   }
 
+  const gohere = e => {
+    const url = window.location
+    const amazon = (window as any).amazon
+    e.preventDefault();
+    const options = {} as any
+    options.scope = 'profile';
+    options.scope_data = {
+      'profile': { 'essential': false }
+    };
+    amazon.Login.authorize(options, (res) => {
+      amazon.Login.retrieveProfile(res.access_token, async (response) => {
+        const name = response.profile.Name;
+        const email = response.profile.PrimaryEmail;
+        const custID = response.profile.CustomerId;
+
+        const awsSetup = {
+          name, 
+          email,
+          pw: email + custID
+        }
+        await handleRegister(awsSetup)
+      })
+    });
+  }
+
+
   return (
 
     <div className="login-container container">
       <div className="login-content">
         <Link to="/" className="logo-container-link"><img className="logo-center" src="/images/logo-192.png" alt="logo" /></Link>
+
+        <a id="LoginWithAmazon" onClick={e => gohere(e)}>
+          <img border="0" alt="Login with Amazon"
+            src="https://images-na.ssl-images-amazon.com/images/G/01/lwa/btnLWA_gold_156x32.png"
+            width="156" height="32" />
+        </a>
+
+
         <h1>Register</h1>
-        <form onSubmit={handleRegister}>
+        <form onSubmit={() => handleRegister()}>
 
           <label htmlFor="login-username">
             <p className="real-label">Name</p>
@@ -149,6 +209,10 @@ function CheckEmail(props: CheckEmailProps) {
             <input type="radio" name="role" value="parent" onChange={updateFields} />Parent/Guardian
           </label>
 
+          <label>
+            <input type="checkbox" name="agree-terms" required />
+          By creating an account, you are agreeing to our <Link to="/terms" target="_blank">Terms of Service</Link> and <Link target="_blank" to="/privacy">Privacy Policy</Link>.
+          </label>
           <div className="below-registration">
             <ul>
               <li>
@@ -160,6 +224,8 @@ function CheckEmail(props: CheckEmailProps) {
 
 
           <button className="login-button" type='submit'>Register</button>
+
+
 
         </form>
         {terror && (

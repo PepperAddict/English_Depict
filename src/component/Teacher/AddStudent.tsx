@@ -18,7 +18,7 @@ export default function AddStudent(props: AddStudentProps) {
     'What is your favorite computer', 'What is your favorite insect?'];
 
   let identifierList = [
-    "peacock", "lion", "dog", "toucan", "squid", "piranha", "cat", "otter", "salmon", "falcon", "eagle", "slug",
+    "peacock", "lion", "dog", "toucan", "squid", "piranha", "cat", "otter", "salmon", "falcon", "eagle", "slug", "bird",
     "cheetah", "tiger", "elephant", "giraffe", "snake", "tarantula", "bumblebee", "mantis", "grasshopper", 
     "raccoon", "butterfly", "beetle", "octopus", "hawk", "owl", "moth", "dragonfly", "worm",
     "katydid", "wasp", "caterpillar", "cicada",  "monkey", "ladybug", "lizard", "rabbit", "bunny", "kitten",
@@ -76,10 +76,10 @@ export default function AddStudent(props: AddStudentProps) {
         <form onSubmit={handleAddStudent}>
 
           <label htmlFor="studentUsername">Username</label><p className="tool username">?</p>
-          <input id="studentUsername" pattern="[A-Zz-z]{3, 15}" onChange={e => setUsername(e.target.value)} name='username' required />
+          <input id="studentUsername" pattern="[A-Za-z]{3, 15}" onChange={e => setUsername(e.target.value)} name='username' required />
 
           <label htmlFor="studentName">Name</label><p className="tool name">?</p>
-          <input id="studentName" onChange={e => setName(e.target.value)} name='name' />
+          <input id="studentName" pattern="[A-Za-z]{3, 15}" onChange={e => setName(e.target.value)} name='name' />
 
           <label htmlFor="identifier">Animal Identifier</label><p className="tool identifier">?</p>
           
@@ -93,7 +93,7 @@ export default function AddStudent(props: AddStudentProps) {
           <input id="question1" name='question1' onChange={e => setQuestion(e.target.value) } defaultValue={question}/>
 
           <label htmlFor="answer1">Answer</label>
-          <input id="answer1" pattern="[A-Zz-z]{3, 15}" maxLength="15" onChange={e => setAnswer(e.target.value)} name='answer1' />
+          <input id="answer1" pattern="[A-Za-z]{3, 15}" maxLength="15" onChange={e => setAnswer(e.target.value)} name='answer1' />
 
           <button type="submit">Add Student</button>
 

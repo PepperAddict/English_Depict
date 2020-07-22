@@ -213,6 +213,7 @@ module.exports = {
       new HTMLWebpackPlugin({
         template: path.resolve(__dirname, '../src/index.html'),
         filename: path.resolve(__dirname, '../dist/index.html'),
+        awsClient: process.env.AMACLIENT
       }),
       new CopyPlugin( [
         //send service worker and manifest over to dist folder

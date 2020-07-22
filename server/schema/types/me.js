@@ -20,6 +20,7 @@ const MeType = new GraphQLObjectType({
       created_at: {type: GraphQLNonNull(GraphQLString)},
       share: {type: GraphQLJSON},
       role: {type: GraphQLString },
+      amazon: {type: GraphQLString},
       apiKey: { type: GraphQLNonNull(GraphQLString) },
       verified: {type: GraphQLBoolean},
       verify_token: {type: GraphQLString},

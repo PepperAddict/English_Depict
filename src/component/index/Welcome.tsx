@@ -9,7 +9,6 @@ import { createUseStyles } from 'react-jss';
 
 
 export default function Welcome() {
-  console.log(logoImage)
 
   return (
     <div className="welcome-container">

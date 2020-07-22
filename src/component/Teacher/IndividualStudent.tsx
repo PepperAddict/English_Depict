@@ -1,5 +1,6 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment} from 'react';
 import { getStudentInfo } from '../../query/query';
+import { useHistory } from 'react-router-dom';
 import IndividualStudentBlog from '../teacher-student-shared/IndieStudentBlog';
 import { useQuery, useMutation, useLazyQuery } from '@apollo/react-hooks';
 import { UPDATE_MESSAGE, SHARE_STUDENT } from '../../mutation/mutation';
@@ -7,7 +8,7 @@ import '../../styles/teacher_dashboard_student.styl';
 const noPic = require('../../img/no-pic.png')
 import { TeacherContext } from '../index/Context';
 import { getBasicByEmail } from '../../query/query';
-import { ProgressPlugin } from 'webpack';
+
 interface StudentProfileProps {
 
   teacher_id: number,
@@ -70,6 +71,8 @@ function StudentProfile(props: StudentProfileProps) {
   const [updateMessage] = useMutation(UPDATE_MESSAGE);
   const [message, setMessage] = useState(null);
   const [share, setShare] = useState(false);
+  const history = useHistory();
+  
 
 
 
@@ -77,9 +80,14 @@ function StudentProfile(props: StudentProfileProps) {
     e.preventDefault();
     updateMessage({ variables: { input: { student_id: props.student_id, message: message } } })
       .then(() => {
-        location.reload();
+        history.push('/dashboard');
       }).catch((err) => console.log(err));
   };
+  useState(() => {
+    if (!props.student_id) {
+      history.push('/dashboard')
+    }
+  })
 
 
   return (
@@ -98,7 +106,7 @@ function StudentProfile(props: StudentProfileProps) {
           <form onSubmit={submitMessage}>
             <label htmlFor="message">
               <h2>Welcome Message</h2></label>
-            <input id="message" defaultValue={message ? message : 'enter a message for ' + data.getStudentByID[0].name} onChange={e => setMessage(e.target.value)} />
+            <input id="message" placeholder={message ? message : (data.getStudentByID[0].message) ? data.getStudentByID[0].message : 'enter a message for ' + data.getStudentByID[0].name} onChange={e => setMessage(e.target.value)} />
             <button type="submit">Submit Message</button>
           </form>
           <h2>Vocabulary Words</h2>
@@ -120,7 +128,7 @@ function StudentProfile(props: StudentProfileProps) {
             })}
 
           </div>
-          {/* <h2>Blogs</h2>
+          {/* <h2>Blogs</h2>  ***DISABLE BLOG UNTIL WE FIGURE OUT WHAT TO DO WITH IT***
           {data.getStudentByID[0].blogs.length > 0 ? data.getStudentByID[0].blogs.map((blog, key) => {
 
             return <IndividualStudentBlog
