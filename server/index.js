@@ -116,7 +116,7 @@ router.get(["/student/", "/student/:page?"], cors(), studentAuthenticate,
 router.use("/api/2/graphql", cors(), (req, res) => {
   graphqlHTTP({
     schema: schema,
-    graphiql: isDev ? true : false,
+    graphiql: true,
     context: { pgPool, req },
     introspection: true,
   })(req, res);
