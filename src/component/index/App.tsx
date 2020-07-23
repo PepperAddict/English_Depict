@@ -11,7 +11,7 @@ const isDev = process.env.NODE_ENV === "development";
 
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: '/api/2/graphql',
+    uri: 'https://4099ced40a91.ngrok.io/api/2/graphql',
     credentials: "omit"
   }),
   cache: new InMemoryCache(),

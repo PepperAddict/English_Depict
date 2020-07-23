@@ -9,7 +9,6 @@ const { HttpLink } = require("apollo-link-http");
 
 const ApolloClient = Boost.ApolloClient;
 const { InMemoryCache } = require("apollo-cache-inmemory");
-const isDev = process.env.NODE_ENV === "development";
 const gql = require("graphql-tag");
 
 const alexaGET = gql`
@@ -62,7 +61,7 @@ const SubmitTask = gql`
 
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: '/api/2/graphql'
+    uri: 'https://4099ced40a91.ngrok.io/api/2/graphql'
   }),
   cache: new InMemoryCache(),
   defaultOptions: {
@@ -84,6 +83,7 @@ async function mutationCall(res, variables, callback) {
 }
 
 async function queryCall(res, email, callback) {
+  console.log(email)
   await client
     .query({
       query: alexaGET,
@@ -100,6 +100,7 @@ async function queryCall(res, email, callback) {
             message: student.message,
             tasks: forTask,
           };
+
 
           for (let indi of student.tasks) {
             if (indi.task_code === "WOTD" && !indi.submission) {
@@ -143,21 +144,23 @@ async function queryCall(res, email, callback) {
           }
         }
 
+
         await callback(JSON.stringify(oby));
       }
     })
     .catch((err) => {
+      console.log(err)
       res.send(JSON.stringify({ error: "Something went wrong" }));
     });
 }
 
 router.get(["/api/2/alexa/:page?"], async (req, res) => {
+
+  res.setHeader("Content-Type", "application/json");
   const path = req.url.split("/");
   const email = path[path.length - 1];
-  res.setHeader("Content-Type", "application/json");
-
   await queryCall(res, email, function (data) {
-    res.send(data);
+    return res.send(data);
   });
 });
 
@@ -170,5 +173,6 @@ router.get("/api/1/alexa/", function (req, res) {
   res.setHeader("Content-Type", "application/json");
   res.send(JSON.stringify(lessons));
 });
+
 
 module.exports = router;

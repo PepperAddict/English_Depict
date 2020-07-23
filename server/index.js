@@ -28,6 +28,7 @@ const server = express();
 //   key: fs.readFileSync(path.join('server', 'ssl', 'server.key')),
 //   cert: fs.readFileSync(path.join('server', 'ssl', 'server.crt'))
 // };
+server.disable('etag')
 
 const http = require("http").createServer(server);
 
