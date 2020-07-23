@@ -21,7 +21,7 @@ require('./img/logoPlain.png');
 
 //reload on changes
 if (isDev) {
-  require('webpack-hot-middleware/client?reload=true');
+  // require('webpack-hot-middleware/client?reload=true');
   // require('react-hot-loader/patch');
 }
 

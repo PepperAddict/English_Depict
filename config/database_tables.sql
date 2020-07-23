@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
     token text,
     verified boolean,
     verify_token text
+    share json
 );
 
 CREATE TABLE IF NOT EXISTS vocabularies (

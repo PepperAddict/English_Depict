@@ -50,6 +50,12 @@ module.exports = {
     stats: {
       colors: true
     },
+    proxy: {
+      '/api/2/graphql': {
+        target: 'http://localhost/api/2/graphql',
+        secure: false
+      }
+    }
   },
   devtool: (function(){
     const forDevOnly = (isDev) ? 'source-map' : 'none';

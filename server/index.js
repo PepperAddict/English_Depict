@@ -28,7 +28,7 @@ const server = express();
 //   key: fs.readFileSync(path.join('server', 'ssl', 'server.key')),
 //   cert: fs.readFileSync(path.join('server', 'ssl', 'server.crt'))
 // };
-server.disable('etag')
+
 
 const http = require("http").createServer(server);
 
@@ -113,16 +113,24 @@ router.get(["/student/", "/student/:page?"], cors(), studentAuthenticate,
     res.sendFile(path.resolve(__dirname, "../dist/index.html"));
   }
 );
+var whitelist = ['https://talkingcloud.io', 'http://localhost', 'http://localhost:8080']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+ 
 
-router.use("/api/2/graphql", cors(), (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+server.use("/api/2/graphql", (req, res) => {
   graphqlHTTP({
     schema: schema,
-    graphiql: isDev ? true : false,
+    graphiql: isDev ? true : true,
     context: { pgPool, req },
     introspection: true,
-
   })(req, res);
 });
 
@@ -130,6 +138,7 @@ router.use("/api/2/graphql", cors(), (req, res) => {
 server.use('/', router)
 
 const PORT = process.env.PORT || 8080;
+const host = process.env.HOST || '0.0.0.0'
 http.listen(PORT, () => {
   console.log("the server is listening in " + PORT);
 });
