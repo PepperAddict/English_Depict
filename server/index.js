@@ -115,7 +115,8 @@ router.get(["/student/", "/student/:page?"], cors(), studentAuthenticate,
 );
 
 router.use("/api/2/graphql", cors(), (req, res) => {
-
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   graphqlHTTP({
     schema: schema,
     graphiql: isDev ? true : false,
