@@ -90,6 +90,7 @@ async function queryCall(res, email, callback) {
       variables: { email: email },
     })
     .then(async (data) => {
+      console.log(data)
       if (data) {
         let oby = {};
 

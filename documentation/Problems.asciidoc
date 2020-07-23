@@ -1,0 +1,16 @@
+* Things I've learned. 
+
+** Nginx 
+
+When it comes to rendering the reactjs pages, make sure to have `try_files $uri $uri/ /index.html;` that way you won't get 404 when refreshing the page. 
+
+Must have different location {} paths for api type endpoints. Since reactjs needs try_files, api endpoint needs it removed otherwise it'll be searching for a file or directory as discussed here: https://stackoverflow.com/questions/44668559/how-to-setup-routes-with-express-and-nginx
+
+** Nodejs 
+
+The big problem that I faced was using an unstable version of node which is version 14 at the time. Downgrade back to 12 if GraphQL hangs during queries. 
+
+** GraphQL endpoint receives 400 bad request 
+
+I received this problem with cors and without. Somehow removing mode: no-cors work as well as modifying the request in webpack, but I believe removing no-cors did the trick considering the graphql endpoint doesn't have cors enabled for it anymore. 
+Source for solution: https://github.com/apollographql/apollo-client/issues/1233

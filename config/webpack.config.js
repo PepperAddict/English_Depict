@@ -52,7 +52,7 @@ module.exports = {
     },
     proxy: {
       '/api/2/graphql': {
-        target: 'http://localhost/api/2/graphql',
+        target: 'http://localhost:8080/api/2/graphql',
         secure: false
       }
     }

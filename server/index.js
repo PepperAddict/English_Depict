@@ -128,7 +128,7 @@ var corsOptions = {
 server.use("/api/2/graphql", (req, res) => {
   graphqlHTTP({
     schema: schema,
-    graphiql: isDev ? true : true,
+    graphiql: isDev ? true : false,
     context: { pgPool, req },
     introspection: true,
   })(req, res);
@@ -138,7 +138,6 @@ server.use("/api/2/graphql", (req, res) => {
 server.use('/', router)
 
 const PORT = process.env.PORT || 8080;
-const host = process.env.HOST || '0.0.0.0'
 http.listen(PORT, () => {
   console.log("the server is listening in " + PORT);
 });
