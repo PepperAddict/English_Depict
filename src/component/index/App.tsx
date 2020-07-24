@@ -58,7 +58,7 @@ function App() {
           </Route>
 
           <TeacherProvider>
-            <Route path="/dashboard/:page?">
+            <Route path="/parent-dashboard/:page?">
               <Dashboard />
             </Route>
           </TeacherProvider>

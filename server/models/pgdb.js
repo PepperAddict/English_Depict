@@ -200,7 +200,6 @@ module.exports = pgPool => {
         select * from teachers where email = $1
       `,[email] )
         .then(async res => {
-          console.log(res)
           if (res.rows.length > 0) {
             let hashedPassword = await bcrypt.compare(password, res.rows[0].password);
             if (hashedPassword) {

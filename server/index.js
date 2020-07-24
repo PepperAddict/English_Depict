@@ -83,7 +83,7 @@ router.get(["/parent-register", "/parent-register/:page?", "/teacher-register", 
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 });
 
-router.get(["/dashboard/", "/dashboard/:page?", "/dashboard/*"], cors(),  isAuthenticated,  (req, res) => {
+router.get(["/parent-dashboard/", "/parent-dashboard/:page?", "/parent-dashboard/*", "/teacher-dashboard/", "/teacher-dashboard/:page?", "/teacher-dashboard/*"], cors(),  isAuthenticated,  (req, res) => {
     res.sendFile(path.resolve(__dirname, "../dist/index.html"));
   }
 );
@@ -107,7 +107,7 @@ router.use(imageupload)
 router.use(forAlexa)
 
 
-router.get(["/student/", "/student/:page?"], cors(), studentAuthenticate,
+router.get(["/student-dashboard/", "/student-dashboard/:page?"], cors(), studentAuthenticate,
   (req, res) => {
     
     res.sendFile(path.resolve(__dirname, "../dist/index.html"));

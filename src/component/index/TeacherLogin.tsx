@@ -153,7 +153,7 @@ function TeacherLoginForm() {
           <div className="different-logins">
             <ul>
               <li><Link to="/student_login">Student Login</Link></li>
-              <li><Link to="/register">Register</Link></li>
+              <li><Link to="/teacher-register">Register</Link></li>
               {/* TODO create reset password */}
               {/* <li><a href="/">Reset password</a></li> */}
             </ul>

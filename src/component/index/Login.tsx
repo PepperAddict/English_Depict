@@ -86,7 +86,7 @@ function LoginForm() {
       }
 
     }).then(() => {
-      return history.push('/dashboard');
+      return history.push('/parent-dashboard');
     }).catch((e) => {
       console.log(e)
       if (e.message.includes('noEmail')) {
@@ -190,7 +190,7 @@ function LoginForm() {
           <div className="different-logins">
             <ul>
               <li><Link to="/student_login">Student Login</Link></li>
-              <li><Link to="/register">Register</Link></li>
+              <li><Link to="/parent-register">Register</Link></li>
               {/* TODO create reset password */}
               {/* <li><a href="/">Reset password</a></li> */}
             </ul>
