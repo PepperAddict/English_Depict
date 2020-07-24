@@ -36,6 +36,18 @@ export const Handle_Login = gql`
   }
 `;
 
+export const Handle_Teacher_Login = gql`
+  query TeacherLogin($email: String!, $password: String!) {
+    TeacherLogin(email: $email, password: $password) {
+      teacher_id
+      email
+      apiKey
+      username
+    }
+  }
+`;
+
+
 export const getTaskByID = gql`
   query getTaskIDByID($task_id: ID!) {
     getTaskByID(task_id: $task_id) {

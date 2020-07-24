@@ -1,17 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Handle_Login } from '../../query/query';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { Handle_Teacher_Login } from '../../query/query';
+import { useApolloClient} from '@apollo/react-hooks';
 import { encryptMe, signMe } from '../../helpers';
 import '../../styles/login.styl';
 import { createUseStyles } from 'react-jss';
 import { Link } from 'react-router-dom'
 import { useLocation, useHistory } from 'react-router-dom';
 
-function LoginForm() {
+function TeacherLoginForm() {
 
   const bgCrinkle = require('../../img/cloudpattern.png');
   const bgWave = require('../../img/triangle.png');
-  const amazon = (window as any).amazon
+
   //jss portion
   const bg = createUseStyles({
     myBG: {
@@ -40,36 +40,30 @@ function LoginForm() {
   const [error, setError] = useState(null); // 1 is no email in database, 2 is wrong password
   const location = useLocation();
   const history = useHistory();
-  const handleLogin = async (awsData = null) => {
+  const handleLogin = async () => {
     event.preventDefault();
 
     const rememberMe = document.getElementById('rememberMe') as HTMLInputElement;
-    let loginData;
-
-    if (!awsData) {
-      loginData = {
+    let loginData = {
         email: val.email,
         password: val.password
-      }
-    } else {
-      loginData = {
-        email: awsData.email,
-        password: awsData.pw
-      }
     }
+    console.log(loginData)
+
 
     await client.query({
-      query: Handle_Login,
+      query: Handle_Teacher_Login,
       variables: loginData
     }).then(async (e) => {
-      console.log('login success')
 
-      const newToken = await signMe(e.data.login.apiKey).then((api) => {
+      console.log(e)
+
+      const newToken = await signMe(e.data.TeacherLogin.apiKey).then((api) => {
         return api;
       });
 
-      let userid = e.data.login.id;
-      let newUser = await encryptMe(userid);
+      let teacherid = e.data.login.teacher_id;
+      let newUser = await encryptMe(teacherid);
 
       let a = new Date();
       a = new Date(a.getTime() + 1000 * 60 * 60 * 24 * 365);
@@ -77,16 +71,16 @@ function LoginForm() {
 
       //remember me section for having it session vs a year
       if (rememberMe.checked === false) {
-        document.cookie = `userID=${newUser};samesite`;
+        document.cookie = `teacherID=${newUser};samesite`;
         document.cookie = `token=${newToken};samesite`;
 
       } else {
-        document.cookie = `userID=${newUser};samesite; expires=${a.toUTCString()}`;
+        document.cookie = `teacherID=${newUser};samesite; expires=${a.toUTCString()}`;
         document.cookie = `token=${newToken};samesite; expires=${a.toUTCString()}`;
       }
 
     }).then(() => {
-      return history.push('/dashboard');
+      return history.push('/teacher-dashboard');
     }).catch((e) => {
       console.log(e)
       if (e.message.includes('noEmail')) {
@@ -116,33 +110,7 @@ function LoginForm() {
   const close = e => {
     setError(null)
   }
-  const gohere = e => {
-    const url = window.location
-    const amazon = (window as any).amazon
-    e.preventDefault();
-    const options = {} as any
-    options.scope = 'profile';
-    options.scope_data = {
-      'profile': { 'essential': false }
-    };
-    amazon.Login.authorize(options, (res) => {
-      amazon.Login.retrieveProfile(res.access_token, async (response) => {
 
-        const name = response.profile.Name;
-        const email = response.profile.PrimaryEmail;
-        const custID = response.profile.CustomerId;
-
-        const awsSetup = {
-          name,
-          email,
-          pw: email + custID,
-        }
-        await handleLogin(awsSetup)
-      })
-    }
-
-    )
-  }
 
 
 
@@ -152,12 +120,7 @@ function LoginForm() {
         <img className="logo-center" src="/images/logo-192.png" alt="logo" />
       </Link>
 
-      <h1>Parent Portal</h1>
-      <a id="LoginWithAmazon" onClick={e => gohere(e)}>
-        <img border="0" alt="Login with Amazon"
-          src="https://images-na.ssl-images-amazon.com/images/G/01/lwa/btnLWA_gold_156x32.png"
-          width="156" height="32" />
-      </a>
+      <h1>Teacher Portal</h1>
 
       <form onSubmit={() => handleLogin()}>
         <label
@@ -214,7 +177,7 @@ function LoginForm() {
   );
 }
 
-function Login() {
+function TeacherLogin() {
   const [account, setValue] = useState({
     userid: null,
     loggedin: false
@@ -226,9 +189,9 @@ function Login() {
 
   return (
     <div>
-      <LoginForm email={account.email} password={account.password} texterror={account.texterror} updateParent={fromChild} />
+      <TeacherLoginForm email={account.email} password={account.password} texterror={account.texterror} updateParent={fromChild} />
     </div>
   );
 }
 
-export default Login;
+export default TeacherLogin;

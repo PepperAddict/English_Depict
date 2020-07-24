@@ -17,7 +17,8 @@ const StudentType = new GraphQLObjectType({
     return {
       student_id: { type: GraphQLNonNull(GraphQLID) },
       username: {type: GraphQLNonNull(GraphQLString)},
-      teacher_id: {type: GraphQLNonNull(GraphQLID)},
+      teacher_id: {type: GraphQLID},
+      parent_id: {type: GraphQLNonNull(GraphQLID)},
       name: { type: GraphQLString },
       share: {type: GraphQLJSON},
       identifier: {type: GraphQLString},

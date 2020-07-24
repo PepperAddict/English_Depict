@@ -29,8 +29,9 @@ import StudentDashboard from '../Student/studentDashboard';
 import Verify from './Verify';
 import Contact from './Contact';
 import Privacy from './PrivacyPolicy';
-import Terms from './Terms'
-import { ProgressPlugin } from 'webpack';
+import Terms from './Terms';
+import TeacherRegister from './TeacherRegister';
+import TeacherLogin from './TeacherLogin';
 
 
 function App() {
@@ -46,7 +47,7 @@ function App() {
           <Route exact path="/">
             <Welcome />
           </Route>
-          <Route exact path="/login">
+          <Route exact path="/parent-login">
             <Login />
           </Route>
           <Route exact path="/privacy">
@@ -62,11 +63,17 @@ function App() {
             </Route>
           </TeacherProvider>
 
-          <Route exact path="/register">
+          <Route exact path="/parent-register">
             <RegWithClient />
           </Route>
-          <Route path="/student_login">
+          <Route exact path="/teacher-register">
+            <TeacherRegister />
+          </Route>
+          <Route path="/student-login">
             <StudentLogin />
+          </Route>
+          <Route path="/teacher-login">
+            <TeacherLogin />
           </Route>
           <StudentProvider>
             <Route path="/student/:page?">

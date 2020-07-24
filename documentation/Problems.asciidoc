@@ -6,6 +6,8 @@ When it comes to rendering the reactjs pages, make sure to have `try_files $uri 
 
 Must have different location {} paths for api type endpoints. Since reactjs needs try_files, api endpoint needs it removed otherwise it'll be searching for a file or directory as discussed here: https://stackoverflow.com/questions/44668559/how-to-setup-routes-with-express-and-nginx
 
+When hosting nginx on windows local setup, make sure to have nginx on a path that doesn't require running as administrator as nothing will be put in logs unless you run nginx as admin everytime. 
+
 ** Nodejs 
 
 The big problem that I faced was using an unstable version of node which is version 14 at the time. Downgrade back to 12 if GraphQL hangs during queries. 
@@ -14,3 +16,10 @@ The big problem that I faced was using an unstable version of node which is vers
 
 I received this problem with cors and without. Somehow removing mode: no-cors work as well as modifying the request in webpack, but I believe removing no-cors did the trick considering the graphql endpoint doesn't have cors enabled for it anymore. 
 Source for solution: https://github.com/apollographql/apollo-client/issues/1233
+
+
+** Webpack 
+
+There was an issue with MIME type error after hosting it. I had to remove the hot reload option as discussed here:
+
+https://github.com/webpack-contrib/webpack-hot-middleware/issues/26

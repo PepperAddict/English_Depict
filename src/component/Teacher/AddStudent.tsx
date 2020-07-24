@@ -76,10 +76,10 @@ export default function AddStudent(props: AddStudentProps) {
         <form onSubmit={handleAddStudent}>
 
           <label htmlFor="studentUsername">Username</label><p className="tool username">?</p>
-          <input id="studentUsername" pattern="[A-Za-z]{3, 15}" onChange={e => setUsername(e.target.value)} name='username' required />
+          <input id="studentUsername" pattern="[A-Za-z\s]{3,15}" onChange={e => setUsername(e.target.value)} name='username' required />
 
           <label htmlFor="studentName">Name</label><p className="tool name">?</p>
-          <input id="studentName" pattern="[A-Za-z]{3, 15}" onChange={e => setName(e.target.value)} name='name' />
+          <input id="studentName" pattern="[A-Za-z\s]{3, 15}" onChange={e => setName(e.target.value)} name='name' />
 
           <label htmlFor="identifier">Animal Identifier</label><p className="tool identifier">?</p>
           

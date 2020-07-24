@@ -47,7 +47,10 @@ export default function WelcomeNavigation() {
                     <Link to="/" className={navStyleCreate.iconButton}><img alt="Home" src={ico.default} /></Link>
                     <Link to="/contact">Contact</Link>
                     {(!teacherId && !studentId) ? 
-                    <Link className={navStyleCreate.regiButton}  to="/register">Register</Link>                      
+                    <Fragment>
+                    <Link className={navStyleCreate.regiButton}  to="/parent-register">Parent Register</Link> 
+                    <Link className={navStyleCreate.regiButton}  to="/teacher-register">Teacher Register</Link>
+                    </Fragment>                      
                     : (teacherId) ? <Link to="/dashboard">Teacher Dashboard</Link>
                     : <Link to="/student">Student Dashboard</Link>}
 

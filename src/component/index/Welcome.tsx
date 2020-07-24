@@ -22,8 +22,9 @@ export default function Welcome() {
           </div>
 
           <nav>
-            <Link to="/login" className="teacherLogin">Teacher Login</Link>
-            <Link to="/student_login" className="teacherLogin">Student Login</Link>
+            <Link to="/teacher-login" className="teacherLogin">Teacher Login</Link>
+            <Link to="/student-login" className="teacherLogin">Student Login</Link>
+            <Link to="/parent-login" className="teacherLogin">Parent Login</Link>
           </nav>
           <h1>The place to practice English and track progress</h1>
         </div>

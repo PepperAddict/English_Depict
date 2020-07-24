@@ -28,7 +28,7 @@ const UserInputType = new GraphQLInputObjectType({
 });
 module.exports = {
   type: MeType,
-  description: 'This mutation will create a new user and it will return an apiKey',
+  description: 'This mutation will create a new parent and it will return an apiKey',
   args: {
     input: {
       type: new GraphQLNonNull(UserInputType)

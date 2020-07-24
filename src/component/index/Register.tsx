@@ -30,7 +30,6 @@ function CheckEmail(props: CheckEmailProps) {
     passwordOne: '',
     passwordTwo: '',
     loading: true,
-    role: 'teacher'
   });
   const [terror, setError] = useState(null); // 1 = email is taken, 2 = password doesnt match
   const [addRegistration] = useMutation(ADD_REGISTRATION);
@@ -48,7 +47,6 @@ function CheckEmail(props: CheckEmailProps) {
         email: account.email,
         password: account.passwordOne,
         verify_token: await encryptMe(account.email),
-        role: account.role
       };
       passwordMatch = (account.passwordOne === account.passwordTwo) ? true : false;
       // handle if email doesn't have an @ symbol
@@ -75,7 +73,6 @@ function CheckEmail(props: CheckEmailProps) {
         email: awsData.email,
         password: awsData.pw,
         verify_token: await encryptMe(awsData.email),
-        role: 'teacher'
       }
       shouldGo = true
     }
@@ -88,13 +85,13 @@ function CheckEmail(props: CheckEmailProps) {
         setError(null);
         //send the correct info to /send route backend for email verification
 
-        // await axios.post('/send', {
-        //   username: newAccount.username,
-        //   email: newAccount.email,
-        //   token: newAccount.verify_token
-        // }).then(() => {
-        //   props.setRegistered(true)
-        // })
+        await axios.post('/send', {
+          username: newAccount.username,
+          email: newAccount.email,
+          token: newAccount.verify_token
+        }).then(() => {
+          props.setRegistered(true)
+        })
 
       })).then(async () => {
         console.log('registration success')
@@ -158,15 +155,18 @@ function CheckEmail(props: CheckEmailProps) {
         </a>
 
 
-        <h1>Register</h1>
+        <h1>Register For a Parent Account</h1>
         <form onSubmit={() => handleRegister()}>
 
           <label htmlFor="login-username">
             <p className="real-label">Name</p>
             <input id="login-username"
               defaultValue={account.user}
+              pattern="^[A-Za-z]+([A-Za-z ][A-Za-z]+)*$"
+              title="letters are only allowed"
               onChange={updateFields} name='user'
-              onFocus={e => changeLabel(e.target)} />
+              onFocus={e => changeLabel(e.target)} 
+              required />
           </label>
 
           <label htmlFor="login-email">
@@ -199,14 +199,6 @@ function CheckEmail(props: CheckEmailProps) {
               type="password"
               onFocus={e => changeLabel(e.target)}
               required />
-          </label>
-
-          <p>Are you a teacher or a parent/guardian?</p>
-          <label className="radio-button">
-            <input type="radio" name="role" value="teacher" onChange={updateFields} />Teacher
-          </label>
-          <label className="radio-button">
-            <input type="radio" name="role" value="parent" onChange={updateFields} />Parent/Guardian
           </label>
 
           <label>

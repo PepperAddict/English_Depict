@@ -8,6 +8,14 @@ mutation AddNewUser($input: UserInput!) {
     apiKey
   }
 }`;
+export const TEACHER_REGISTRATION = gql`
+mutation AddNewTeacher($input: TeacherInput!) {
+  AddTeacher(input: $input) { 
+    email
+    username
+    apiKey
+  }
+}`;
 
 export const SET_VERIFIED = gql`
 mutation setVerified($email: String!){

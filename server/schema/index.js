@@ -2,6 +2,7 @@ const { GraphQLSchema, GraphQLObjectType } = require('graphql');
 
 const GetUser = require('./queries/getUser');
 const Login = require('./queries/login');
+const TeacherLogin = require('./queries/loginTeacher')
 const getUserByEmail = require('./queries/getUserByEmail');
 const getAllUsers = require('./queries/getAllUsers');
 const getCompleteUsers = require('./queries/getCompleteUsers');
@@ -34,7 +35,9 @@ const getTaskByID = require('./queries/getTaskByID');
 const SubmitTask = require('./mutations/submitTask');
 const getTasksByStudentID = require('./queries/getCompleteTasksByStudentId');
 const CompleteTask = require('./mutations/completeTask');
-const ShareStudent = require('./mutations/shareStudent')
+const ShareStudent = require('./mutations/shareStudent');
+const AddTeacher = require('./mutations/addTeacher');
+
 
 
 const RootQueryType = new GraphQLObjectType({
@@ -54,7 +57,8 @@ const RootQueryType = new GraphQLObjectType({
     getBlogByID,
     getTaskByID,
     getTasksByStudentID,
-    getUserByUnknown
+    getUserByUnknown,
+    TeacherLogin
 
   })
 });
@@ -62,6 +66,7 @@ const RootMutationType = new GraphQLObjectType({
   name: 'RootMutation',
   fields: () => ({
     AddUser,
+    AddTeacher,
     AddPosts,
     AddStudent,
     UpdateStudentPassword,

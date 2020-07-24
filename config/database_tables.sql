@@ -5,11 +5,24 @@ CREATE TABLE IF NOT EXISTS users (
     password text NOT NULL,
     created_at text,
     amazon text,
-    role text,
     apiKey text,
     token text,
     verified boolean,
-    verify_token text
+    verify_token text,
+    share json
+);
+
+CREATE TABLE IF NOT EXISTS teachers (
+    teacher_id serial PRIMARY KEY,
+    email text NOT NULL UNIQUE,
+    username text NOT NULL,
+    password text NOT NULL,
+    created_at text,
+    amazon text,
+    apiKey text,
+    token text,
+    verified boolean,
+    verify_token text,
     share json
 );
 
@@ -25,7 +38,8 @@ CREATE TABLE IF NOT EXISTS vocabularies (
 CREATE TABLE IF NOT EXISTS students (
     student_id serial PRIMARY KEY,
     username text NOT NULL UNIQUE,
-    teacher_id integer REFERENCES users NOT NULL,
+    teacher_id integer REFERENCES teachers NULL,
+    parent_id integer REFERENCES users NOT NULL,
     share json NULL,
     name text,
     identifier text NOT NULL,

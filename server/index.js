@@ -75,11 +75,11 @@ server.use(
   })
 );
 
-router.get(["/", "/login"], softAuthenticate, (req, res) => {
+router.get(["/", "/parent-login", "/teacher-login"], softAuthenticate, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 });
 
-router.get(["/register", "/register/:page?"], softAuthenticate, (req, res) => {
+router.get(["/parent-register", "/parent-register/:page?", "/teacher-register", "/teacher-register/:page"], softAuthenticate, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 });
 
@@ -93,7 +93,7 @@ router.get(['/contact', '/privacy', '/terms'], (req, res) => {
 })
 
 //student corner
-router.get(["/student_login/", "/student_login/:page?"], cors(), choice,(req, res) => {
+router.get(["/student-login/", "/student-login/:page?"], cors(), choice,(req, res) => {
 
     res.sendFile(path.resolve(__dirname, "../dist/index.html"));
   }
