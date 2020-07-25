@@ -40,16 +40,16 @@ export default function Dashboard() {
               <div className="dashboard-content">
                 {!data.getUser.verified && <div className="top-banner">Please verify your account</div>}
                 <Switch>
-                  <Route path="/dashboard/add_student" render={(props) => <DashboardStudent {...props} userId={userId} students={data.getUser.students} />} />
-                  <Route path="/dashboard/settings" render={(props) => <Settings {...props} userId={userId} students={data.getUser.students}/>} />
-                  <Route path="/dashboard/task" exact render={(props) => <TaskFront {...props} students={data.getUser.students} teacher_data={data.getUser} />} />
-                  <Route path="/dashboard/student-info" render={(props) => <IndividualStudent {...props} teacher_id={userId} student_id={student_id} setStudentID={setStudent_id} data={data.getUser} />} />
-                  <Route path="/dashboard" exact render={(props) => < TeacherDashboard {...props} vocabs={data.getUser.vocabularies} data={data.getUser} userId={userId} students={data.getUser.students} />} />
+                  <Route path="/teacher-dashboard/add_student" render={(props) => <DashboardStudent {...props} userId={userId} students={data.getUser.students} />} />
+                  <Route path="/teacher-dashboard/settings" render={(props) => <Settings {...props} userId={userId} students={data.getUser.students}/>} />
+                  <Route path="/teacher-dashboard/task" exact render={(props) => <TaskFront {...props} students={data.getUser.students} teacher_data={data.getUser} />} />
+                  <Route path="/teacher-dashboard/student-info" render={(props) => <IndividualStudent {...props} teacher_id={userId} student_id={student_id} setStudentID={setStudent_id} data={data.getUser} />} />
+                  <Route path="/teacher-dashboard" exact render={(props) => < TeacherDashboard {...props} vocabs={data.getUser.vocabularies} data={data.getUser} userId={userId} students={data.getUser.students} />} />
 
                   {/* Tasks Area */}
-                  <Route path="/dashboard/task/CIC" render={(props) => <ImageClue {...props} teacher_data={data.getUser} students={data.getUser.students} />} />
-                  <Route path="/dashboard/task/WOTD" render={(props) => <TaskWOTD {...props} teacher_data={data.getUser} />} />
-                  <Route path="/dashboard/task/current" render={(props) => <SelectedTaskView {...props} currentTask={context.task} setTask={context.setTask}/>} />
+                  <Route path="/teacher-dashboard/task/CIC" render={(props) => <ImageClue {...props} teacher_data={data.getUser} students={data.getUser.students} />} />
+                  <Route path="/teacher-dashboard/task/WOTD" render={(props) => <TaskWOTD {...props} teacher_data={data.getUser} />} />
+                  <Route path="/teacher-dashboard/task/current" render={(props) => <SelectedTaskView {...props} currentTask={context.task} setTask={context.setTask}/>} />
                 </Switch>
               </div>
             )}

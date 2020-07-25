@@ -22,7 +22,8 @@ const client = new ApolloClient({
 import Welcome from './Welcome';
 import Login from './Login';
 import Register from './Register';
-import Dashboard from '../Teacher/Dashboard';
+import ParentDashboard from '../Parent/Dashboard';
+import TeacherDashboard from '../Teacher/Dashboard';
 const RegWithClient = withApollo(Register);
 import StudentLogin from '../Student/StudentLogin';
 import StudentDashboard from '../Student/studentDashboard';
@@ -59,7 +60,13 @@ function App() {
 
           <TeacherProvider>
             <Route path="/parent-dashboard/:page?">
-              <Dashboard />
+              <ParentDashboard />
+            </Route>
+          </TeacherProvider>
+
+          <TeacherProvider>
+            <Route path="/teacher-dashboard/:page?">
+              <TeacherDashboard />
             </Route>
           </TeacherProvider>
 

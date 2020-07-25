@@ -198,15 +198,15 @@ module.exports = pgPool => {
           }
         });
     },
-    addTask({ task_code, student_id, teacher_id, task_date, entry }) {
+    addTask({ task_code, student_id, teacher_id, parent_id, task_date, entry }) {
       const created_at = new Date();
       return pgPool
         .query(
           `
-      insert into tasks (task_code, student_id, teacher_id, task_date, entry, created_at)
-      values ($1, $2, $3, $4, $5, $6) returning *
+      insert into tasks (task_code, student_id, teacher_id, parent_id, task_date, entry, created_at)
+      values ($1, $2, $3, $4, $5, $6, $7) returning *
       `,
-          [task_code, student_id, teacher_id, task_date, entry, created_at]
+          [task_code, student_id, teacher_id, parent_id, task_date, entry, created_at]
         )
         .then(res => {
           return res.rows[0];

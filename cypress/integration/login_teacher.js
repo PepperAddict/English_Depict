@@ -20,7 +20,7 @@ describe("Register, Login and Out, and delete", function() {
     })
 
     it("teacher dashboard", () => {
-        cy.url().should('include', "/dashboard")
+        cy.url().should('include', "/parent-dashboard")
     })
 
     it("check for cookies", () => {

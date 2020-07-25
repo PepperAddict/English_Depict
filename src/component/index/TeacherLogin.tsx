@@ -72,11 +72,11 @@ function TeacherLoginForm() {
       //remember me section for having it session vs a year
       if (rememberMe.checked === false) {
         document.cookie = `teacherID=${newUser};samesite`;
-        document.cookie = `token=${newToken};samesite`;
+        document.cookie = `tch=${newToken};samesite`;
 
       } else {
         document.cookie = `teacherID=${newUser};samesite; expires=${a.toUTCString()}`;
-        document.cookie = `token=${newToken};samesite; expires=${a.toUTCString()}`;
+        document.cookie = `tch=${newToken};samesite; expires=${a.toUTCString()}`;
       }
 
     }).then(() => {

@@ -4,7 +4,7 @@ Cypress.Cookies.defaults({
 describe("Teacher Sidebar", function() {
 
     it("teacher dashboard", () => {
-        cy.url().should('include', "/dashboard")
+        cy.url().should('include', "/parent-dashboard")
     })
 
     it("check for cookies", () => {

@@ -30,6 +30,7 @@ const verifyJwt = async req => {
 const twoAuthKick = (req, res) => {
   res.clearCookie('student_key')
   res.clearCookie('student_id')
+  res.clearCookie('tch')
   res.clearCookie('token')
   res.clearCookie('userID')
   res.redirect('/')
@@ -38,7 +39,8 @@ const twoAuthKick = (req, res) => {
 const isAuthenticated = (req, res, next) => {
   let studentKey = ('student_key', req.cookies).student_key || false;
   let token = ('token', req.cookies).token || false;
-  if (studentKey && token){
+  let teacherKey = ('tch', req.cookies).tch || false;
+  if (studentKey && token || studentKey && teacherKey || teacherKey && token){
     twoAuthKick(req, res)
   }
   if (token) {
@@ -52,34 +54,55 @@ const isAuthenticated = (req, res, next) => {
         return next();
       }
     });
+  } else if (teacherKey) {
+    jwt.verify(teacherKey, privateKey, {
+      algorithm: 'HS256'
+    }, (err, user) => {
+      if (err) {
+        res.redirect('/')
+      }
+      if (user) {
+        return next();
+      }
+    })
+  } else {
+    res.redirect('/')
   }
-  if (!token) {
-    res.redirect('/');
-  }
+
 };
 
 const softAuthenticate = async (req, res, next) => {
 
   let token = ('token', req.cookies).token || false;
+  let teacherKey = ('tch', req.cookies).tch || false;
   if (token) {
     await jwt.verify(token, privateKey, (err, user) => {
       if (err) {
         return next();
       }
       if (user) {
-        res.redirect('/dashboard');
+        res.redirect('/parent-dashboard');
       }
     });
-  }
-  if (!token) {
+  } else if (teacherKey) {
+    await jwt.verify(teacherKey, privateKey, (err, user) => {
+      if (err) {
+        return next();
+      }
+      if (user) {
+        res.redirect('/teacher-dashboard')
+      }
+    })
+  } else {
     return next();
   }
+
 };
 
 const choice = async (req, res, next) => {
   let token = ('token', req.cookies).token || false;
   let studentKey = ('student_key', req.cookies).student_key || false;
-
+  let teacherKey = ('tch', req.cookies).tch || false;
   if (token) {
 
     await jwt.verify(token, privateKey, {
@@ -89,7 +112,7 @@ const choice = async (req, res, next) => {
         return next();
       }
       if (user) {
-        res.redirect('/dashboard')
+        res.redirect('/parent-dashboard')
       }
     });
   } else if (studentKey) {
@@ -98,9 +121,20 @@ const choice = async (req, res, next) => {
       algorithm: 'HS256'
     }, (err, user) => {
       if (user) {
-        res.redirect('/student/');
+        res.redirect('/student-dashboard/');
       }
     });
+  } else if (teacherKey) {
+    await jwt.verify(teacherKey, privateKey, {
+      algorithm: 'HS256'
+    }, (err, user) => {
+      if (err) {
+        return next();
+      }
+      if (user) {
+        res.redirect('/teacher-dashboard')
+      }
+    })
   } else {
 
     return next();

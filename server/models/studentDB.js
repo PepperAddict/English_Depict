@@ -5,21 +5,21 @@ const {
 module.exports = pgPool => {
   return {
     async addNewStudent({
-      teacher_id, username, name, question, password, theme, identifier
+      parent_id, teacher_id, username, name, question, password, theme, identifier
     }) {
       const apiKey = await signToken(username + password).then((api) => {
         return api;
       });
       const date_created = new Date();
       return pgPool.query(`
-      insert into students (teacher_id, username, name, password, theme, student_key, created_at, question, identifier)
-      values ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *`, 
-      [teacher_id, username, name, password, theme, apiKey, date_created, question, identifier])
+      insert into students (parent_id, teacher_id, username, name, password, theme, student_key, created_at, question, identifier)
+      values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning *`, 
+      [parent_id, teacher_id, username, name, password, theme, apiKey, date_created, question, identifier])
         .then((res => {
-          console.log(res.rows[0])
           return res.rows[0];
         }))
         .catch((e) => {
+
           throw new Error(e)
         });
     },
@@ -54,7 +54,7 @@ module.exports = pgPool => {
 
     getStudent(userId) {
       return pgPool.query(`
-        select * from students where teacher_id = $1
+        select * from students where parent_id = $1
       `, [userId])
         .then(res => {
           return res.rows;
