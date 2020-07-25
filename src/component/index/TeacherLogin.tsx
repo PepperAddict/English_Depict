@@ -48,21 +48,18 @@ function TeacherLoginForm() {
         email: val.email,
         password: val.password
     }
-    console.log(loginData)
-
 
     await client.query({
       query: Handle_Teacher_Login,
       variables: loginData
     }).then(async (e) => {
 
-      console.log(e)
 
       const newToken = await signMe(e.data.TeacherLogin.apiKey).then((api) => {
         return api;
       });
 
-      let teacherid = e.data.login.teacher_id;
+      let teacherid = e.data.TeacherLogin.teacher_id;
       let newUser = await encryptMe(teacherid);
 
       let a = new Date();

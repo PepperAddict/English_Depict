@@ -4,8 +4,9 @@ import { createUseStyles } from 'react-jss';
 import { cookieParser } from '../../helpers';
 const ico = require('../../img/logoWide.svg')
 export default function WelcomeNavigation() {
-    const teacherId = cookieParser('userId', false)
-    const studentId = cookieParser('student_id', false)
+    const parentID = cookieParser('userID', false);
+    const studentId = cookieParser('student_id', false);
+    const teacherId = cookieParser('tch', false)
 
     const navStyle = createUseStyles({
         NavTop: {
@@ -46,13 +47,14 @@ export default function WelcomeNavigation() {
                     
                     <Link to="/" className={navStyleCreate.iconButton}><img alt="Home" src={ico.default} /></Link>
                     <Link to="/contact">Contact</Link>
-                    {(!teacherId && !studentId) ? 
+                    {(!parentID && !studentId && !teacherId) ? 
                     <Fragment>
                     <Link className={navStyleCreate.regiButton}  to="/parent-register">Parent Register</Link> 
                     <Link className={navStyleCreate.regiButton}  to="/teacher-register">Teacher Register</Link>
                     </Fragment>                      
-                    : (teacherId) ? <Link to="/dashboard">Teacher Dashboard</Link>
-                    : <Link to="/student">Student Dashboard</Link>}
+                    : (parentID) ? <Link to="/parent-dashboard">Parent Dashboard</Link>
+                    : (studentId) ? <Link to="/student-dashboard">Student Dashboard</Link> 
+                    : <Link to="/teacher-dashboard">Teacher Dashboard</Link>}
 
         </nav>
     )

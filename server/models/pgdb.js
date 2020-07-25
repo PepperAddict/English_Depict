@@ -128,6 +128,20 @@ module.exports = pgPool => {
           throw new Error(e);
         });
     },
+    getTeacherById(id) {
+      return pgPool.query(`
+        select * from teachers where teacher_id = $1
+      `, [id])
+        .then(res => {
+          if (res.rows.length === 0) {
+            throw new Error('no results found');
+          }
+          return res.rows[0];
+        })
+        .catch((e) => {
+          throw new Error(e);
+        });
+    },
     getUserByEmail(email) {
       return pgPool.query(`
         select * from users where email = $1

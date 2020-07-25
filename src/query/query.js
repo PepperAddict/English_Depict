@@ -120,6 +120,47 @@ export const getUserByID = gql`
   }
 `;
 
+export const getTeacherByID = gql`
+query getTeacherByID($teacher_id: ID!) {
+  GetTeacher(teacher_id: $teacher_id) {
+    teacher_id
+    email
+    username
+    created_at
+    verified
+    share
+    students {
+      student_id
+      name
+      identifier
+      username
+      question
+      password
+      created_at
+      theme
+      avatar
+      tasks {
+        task_id
+        task_code
+        task_date
+        student_id
+        entry
+        completed_at
+        viewed
+        accepted
+        submission
+      }
+    }
+    vocabularies {
+      vocab_id
+      vocabulary_word
+      vocabulary_definition
+    }
+  }
+}
+`
+
+
 export const getUserByIDSimple = gql`
   query getUserByID($userId: ID!) {
     getUser(userId: $userId) {

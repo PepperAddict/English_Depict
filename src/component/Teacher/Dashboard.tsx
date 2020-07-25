@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { cookieParser } from '../../helpers';
-import { getUserByID } from '../../query/query';
+import { getTeacherByID } from '../../query/query';
 
 import '../../styles/basic.styl';
 import '../../styles/teacherDashboard.styl';
@@ -21,16 +21,16 @@ import { TeacherContext } from '../index/Context'
 
 export default function Dashboard() {
 
-  const userId = parseInt(cookieParser('userID', true));
-  const { loading, error, data } = useQuery(getUserByID, { variables: { userId: userId } });
+  const userId = parseInt(cookieParser('teacherID', true));
+  const { loading, error, data } = useQuery(getTeacherByID, { variables: { teacher_id: userId } });
   const [student_id, setStudent_id] = useState(null);
-
+if (data) console.log(data)
 
   return (
     <Router>
       <div className="dashboard-container">
         <div className="dashboard-sidebar">
-          {data && <DashboardSidebar username={data.getUser.username} email={data.getUser.email} />}
+          {data && <DashboardSidebar username={data.GetTeacher.username} email={data.GetTeacher.email} />}
 
         </div>
 
@@ -38,17 +38,17 @@ export default function Dashboard() {
           <TeacherContext.Consumer>
             {context => (
               <div className="dashboard-content">
-                {!data.getUser.verified && <div className="top-banner">Please verify your account</div>}
+                {!data.GetTeacher.verified && <div className="top-banner">Please verify your account</div>}
                 <Switch>
-                  <Route path="/teacher-dashboard/add_student" render={(props) => <DashboardStudent {...props} userId={userId} students={data.getUser.students} />} />
-                  <Route path="/teacher-dashboard/settings" render={(props) => <Settings {...props} userId={userId} students={data.getUser.students}/>} />
-                  <Route path="/teacher-dashboard/task" exact render={(props) => <TaskFront {...props} students={data.getUser.students} teacher_data={data.getUser} />} />
-                  <Route path="/teacher-dashboard/student-info" render={(props) => <IndividualStudent {...props} teacher_id={userId} student_id={student_id} setStudentID={setStudent_id} data={data.getUser} />} />
-                  <Route path="/teacher-dashboard" exact render={(props) => < TeacherDashboard {...props} vocabs={data.getUser.vocabularies} data={data.getUser} userId={userId} students={data.getUser.students} />} />
+                  <Route path="/teacher-dashboard/add_student" render={(props) => <DashboardStudent {...props} userId={userId} students={data.GetTeacher.students} />} />
+                  <Route path="/teacher-dashboard/settings" render={(props) => <Settings {...props} userId={userId} students={data.GetTeacher.students}/>} />
+                  <Route path="/teacher-dashboard/task" exact render={(props) => <TaskFront {...props} students={data.GetTeacher.students} teacher_data={data.GetTeacher} />} />
+                  <Route path="/teacher-dashboard/student-info" render={(props) => <IndividualStudent {...props} teacher_id={userId} student_id={student_id} setStudentID={setStudent_id} data={data.GetTeacher} />} />
+                  <Route path="/teacher-dashboard" exact render={(props) => < TeacherDashboard {...props} vocabs={data.GetTeacher.vocabularies} data={data.GetTeacher} userId={userId} students={data.GetTeacher.students} />} />
 
                   {/* Tasks Area */}
-                  <Route path="/teacher-dashboard/task/CIC" render={(props) => <ImageClue {...props} teacher_data={data.getUser} students={data.getUser.students} />} />
-                  <Route path="/teacher-dashboard/task/WOTD" render={(props) => <TaskWOTD {...props} teacher_data={data.getUser} />} />
+                  <Route path="/teacher-dashboard/task/CIC" render={(props) => <ImageClue {...props} teacher_data={data.GetTeacher} students={data.GetTeacher.students} />} />
+                  <Route path="/teacher-dashboard/task/WOTD" render={(props) => <TaskWOTD {...props} teacher_data={data.GetTeacher} />} />
                   <Route path="/teacher-dashboard/task/current" render={(props) => <SelectedTaskView {...props} currentTask={context.task} setTask={context.setTask}/>} />
                 </Switch>
               </div>
