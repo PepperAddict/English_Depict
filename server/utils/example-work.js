@@ -677,6 +677,411 @@ const lessons = {
       },
     },
   },
+  thirdGrade: {
+    wotd: {
+      afraid: {
+        word: "afraid",
+        sentence: "I'm afraid of the dark.",
+      },
+      especially: {
+        word: "especially",
+        sentence: "I especially love chocolate ice cream",
+      },
+      loveable: {
+        word: "loveable",
+        sentence: "My dog is so loveable.",
+      },
+      almost: {
+        word: "almost",
+        sentence: "I almost didn't make it to practice today.",
+      },
+      everybody: {
+        word: "everybody",
+        sentence: "I made this cake for everybody.",
+      },
+      money: {
+        word: "money",
+        sentece: "I save my money in the piggy bank.",
+      },
+      think: {
+        word: "think",
+        sentence: "I want you to think about a flowery field.",
+      },
+      also: {
+        word: "also",
+        sentence: "I also enjoy playing with puppies.",
+      },
+      everything: {
+        word: "everything",
+        sentence: "I love everything about you.",
+      },
+      morning: {
+        word: "morning",
+        sentence: "Could you wash the dishes tomorrow morning?",
+      },
+      thought: {
+        word: "thought",
+        sentence: "I thought you were going to bring Becky with you.",
+      },
+      always: {
+        word: "always",
+        sentence: "You can always count on me to help you.",
+      },
+      except: {
+        word: "except",
+        sentence: "I love all flavors of ice cream except for mint.",
+      },
+      myself: {
+        word: "myself",
+        sentence: "I made this cake all by myself.",
+      },
+      threw: {
+        word: "threw",
+        sentence: "I accidentally threw the ball into Linda's backyard.",
+      },
+      animals: {
+        word: "animals",
+        sentence: "I love seeing animals in the zoo",
+      },
+      exciting: {
+        word: "exciting",
+        sentence: "Watching the ocean is always so exciting.",
+      },
+      never: {
+        word: "never",
+        sentence: "I have never caught a squirrel before.",
+      },
+      through: {
+        word: "through",
+        sentence: "I searched through the closet for my favorite shirt.",
+      },
+      another: {
+        word: "another",
+        sentence: "I want another cup of milk, please.",
+      },
+      night: {
+        word: "night",
+        sentence: "Nocturnal animals are awake at night.",
+      },
+      told: {
+        word: "told",
+        sentence: "Jerry told me a secret yesterday.",
+      },
+      anyone: {
+        word: "anyone",
+        sentence: "Can anyone hear me?",
+      },
+      finally: {
+        word: "finally",
+        sentence: "I finally finished my project",
+      },
+      once: {
+        word: "once",
+        sentence: "I met a bear once.",
+      },
+      too: {
+        word: "too",
+        sentence: "I can tie my shoes too",
+      },
+      asked: {
+        word: "asked",
+        sentence: "I asked Tim to join us today.",
+      },
+      friendly: {
+        word: "friendly",
+        sentence: "I hope this spider is friendly towards me.",
+      },
+      outside: {
+        word: "outside",
+        sentence: "I found this ball outside.",
+      },
+      trouble: {
+        word: "trouble",
+        sentence: "I'm having trouble finishing this task.",
+      },
+      away: {
+        word: "away",
+        sentence: "The bird flew away when it saw me.",
+      },
+      own: {
+        word: "own",
+        sentence: "I own two basketballs.",
+      },
+
+      become: {
+        word: "become",
+        sentence: "If I waved this wand at myself, what would she become?",
+      },
+      getting: {
+        word: "getting",
+        sentence: "I'm getting scared of the dark.",
+      },
+      person: {
+        word: "person",
+        sentence: "This person is very funny.",
+      },
+      united: {
+        word: "united",
+        sentence: "We must be united to make this world a better place.",
+      },
+      believe: {
+        word: "believe",
+        sentence: "I believe you can win this.",
+      },
+      goes: {
+        word: "goes",
+        sentence: "Pop goes the weasel.",
+      },
+      prettier: {
+        word: "prettier",
+        sentence: "I think cats are prettier than dogs.",
+      },
+      until: {
+        word: "until",
+        sentence: "Wait until the computer turns on to play video games.",
+      },
+      better: {
+        word: "better",
+        sentence: "Taco tastes so much better with sour cream.",
+      },
+      hard: {
+        word: "hard",
+        sentence: "I like hard candy about as much as soft ones.",
+      },
+      prettiest: {
+        word: "prettiest",
+        sentence: "Emily is the prettiest girl I've ever seen.",
+      },
+      upon: {
+        word: "upon",
+        sentence: "I stumbled upon a catterpillar today.",
+      },
+
+      build: {
+        word: "build",
+        sentence: "Let's build a sand castle together.",
+      },
+      heard: {
+        word: "heard",
+        sentence: "I heard someone walking by.",
+      },
+      probably: {
+        word: "probably",
+        sentence: "Tim probably ate the last sandwich.",
+      },
+      vacation: {
+        word: "vacation",
+        sentence: "I went to Hawaii for our vacation.",
+      },
+
+      buy: {
+        word: "buy",
+        sentence: "I want to buy a chocolate bar.",
+      },
+      high: {
+        word: "high",
+        sentence: "I can jump very high.",
+      },
+      problem: {
+        word: "problem",
+        sentence: "I have a problem with that spider there.",
+      },
+      want: {
+        word: "want",
+        sentence: "I want a pet goldfish.",
+      },
+      hidden: {
+        word: "hidden",
+        sentence: "Where have you hidden my shoes?",
+      },
+      question: {
+        word: "question",
+        sentence: "I have a question about igneous rocks.",
+      },
+      watch: {
+        word: "watch",
+        sentence: "Please watch my food while I walk away for a minute.",
+      },
+      care: {
+        word: "care",
+        sentence: "I care about my little sister deeply.",
+      },
+      hole: {
+        word: "hole",
+        sentence: "There's a hole in my shirt.",
+      },
+      ready: {
+        word: "ready",
+        sentence: "I am ready to go to school.",
+      },
+      caught: {
+        word: "caught",
+        sentence: "I caught a wasp with my net.",
+      },
+      recycle: {
+        word: "recycle",
+        sentence: "I will recycle plastic bottles.",
+      },
+      wear: {
+        word: "wear",
+        sentence: "I wear my pajamas to sleep.",
+      },
+      clothes: {
+        word: "clothes",
+        sentence: "I like to wear comfortable clothes to school.",
+      },
+      responsible: {
+        word: "responsible",
+        sentence: "I am responsible for the mistakes that I've made.",
+      },
+      weather: {
+        word: "weather",
+        sentence: "The weather outside right now is rainy.",
+      },
+      important: {
+        word: "important",
+        sentence: "Drinking water everyday is important for everyone.",
+      },
+      community: {
+        word: "community",
+        sentence: "The community is always so kind to me.",
+      },
+      impossible: {
+        word: "impossible",
+        sentence: "It's impossible for the clouds to rain cupcakes.",
+      },
+      something: {
+        word: "sentence",
+        sentence: "There is something wrong with my radio.",
+      },
+      were: {
+        word: "were",
+        sentence: "Where were you last night?",
+      },
+      confusing: {
+        word: "confusing",
+        sentence: "I thought the story was a confusing.",
+      },
+      independent: {
+        word: "independent",
+        sentence: "Let's keep the red marbles indepependent from the rest.",
+      },
+      sometimes: {
+        word: "sometimes",
+        sentence: "Sometimes I sleep later than usual.",
+      },
+      whether: {
+        word: "whether",
+        sentence: "I'm taking this cookie whether you like it or not.",
+      },
+      country: {
+        word: "country",
+        sentence: "What country do you live in?",
+      },
+      sudden: {
+        word: "sudden",
+        sentence: "All of a sudden, a cat showed up in front of me.",
+      },
+      which: {
+        word: "which",
+        sentence: "Which of you took my shoe?",
+      },
+      decided: {
+        word: "decided",
+        sentence: "I decided to watch the fireworks.",
+      },
+      sure: {
+        word: "sure",
+        sentence: "I'm sure you can finish this task with no problems.",
+      },
+      while: {
+        word: "while",
+        sentence: "I can't pat my head while rubbing my belly.",
+      },
+      different: {
+        word: "different",
+        sentence: "I look so much different than when I was a baby.",
+      },
+      journal: {
+        word: "journal",
+        sentence: "I write in my journal whenever I encounter something new.",
+      },
+      terrible: {
+        word: "terrible",
+        sentence:
+          "I hurt Mindy's feelings and now I feel terrible for doing it.",
+      },
+      whole: {
+        word: "whole",
+        sentence: "I'm so hungry I could eat the whole pizza.",
+      },
+      discover: {
+        word: "discover",
+        sentence: "I just discovered a new insect living in my backyard.",
+      },
+      knew: {
+        word: "knew",
+        sentence: "I knew the answer right away.",
+      },
+      winner: {
+        word: "winner",
+        sentence: "I was the winner of last year's spelling bee.",
+      },
+      does: {
+        word: "does",
+        sentence: "Does anyone know where I put my catching gloves?",
+      },
+      know: {
+        word: "know",
+        sentence: "I know exactly who ate Aunt Martha's last slice of pie.",
+      },
+      their: {
+        word: "their",
+        sentence: "I love visiting Susie and playing with their dogs.",
+      },
+      laughed: {
+        word: "laughed",
+        sentence: "I haven't laughed this hard in years.",
+      },
+      there: {
+        word: "there",
+        sentence: "Can you put my vase over there on the table?",
+      },
+      years: {
+        word: "years",
+        sentence: "It took me a few years to learn how to draw.",
+      },
+
+      done: {
+        word: "done",
+        sentence: "I am done with my homework for today.",
+      },
+      left: {
+        word: "left",
+        sentence: "I left my bag at home.",
+      },
+      these: {
+        word: "these",
+        sentence: "These new shoes look amazing on me.",
+      },
+      your: {
+        word: "your",
+        sentence: "I hope your dog will like me.",
+      },
+      enough: {
+        word: "enough",
+        sentence: "I've had enough of cakes for today.",
+      },
+      live: {
+        word: "live",
+        sentence: "I want this cat to live with me.",
+      },
+      they: {
+        word: "they",
+        sentence: "I hope they serve cookies in this restaurant.",
+      },
+    },
+  },
 };
 
 module.exports = lessons;
