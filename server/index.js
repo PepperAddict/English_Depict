@@ -101,10 +101,12 @@ router.get(["/student-login/", "/student-login/:page?"], cors(), choice,(req, re
 
 const mailer = require('./middleware/mailer.js');
 const imageupload = require('./middleware/imageupload.js');
-const forAlexa = require('./middleware/alexa.js')
+const forAlexa = require('./middleware/alexa.js');
+const forMath = require('./middleware/math')
 router.use(mailer)
 router.use(imageupload)
 router.use(forAlexa)
+router.use(forMath)
 
 
 router.get(["/student-dashboard/", "/student-dashboard/:page?"], cors(), studentAuthenticate,
