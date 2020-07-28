@@ -22,9 +22,10 @@ const client = new ApolloClient({
 import Welcome from './Welcome';
 import Login from './Login';
 import Register from './Register';
+import ParentRegister from './ParentRegister';
 import ParentDashboard from '../Parent/Dashboard';
 import TeacherDashboard from '../Teacher/Dashboard';
-const RegWithClient = withApollo(Register);
+const ParentRegistrationApollo = withApollo(ParentRegister);
 import StudentLogin from '../Student/StudentLogin';
 import StudentDashboard from '../Student/studentDashboard';
 import Verify from './Verify';
@@ -32,6 +33,7 @@ import Contact from './Contact';
 import Privacy from './PrivacyPolicy';
 import Terms from './Terms';
 import TeacherRegister from './TeacherRegister';
+const TeacherRegistrationApollo = withApollo(TeacherRegister);
 import TeacherLogin from './TeacherLogin';
 
 
@@ -47,6 +49,9 @@ function App() {
 
           <Route exact path="/">
             <Welcome />
+          </Route>
+          <Route exact path="/register">
+            <Register />
           </Route>
           <Route exact path="/parent-login">
             <Login />
@@ -71,10 +76,10 @@ function App() {
           </TeacherProvider>
 
           <Route exact path="/parent-register">
-            <RegWithClient />
+            <ParentRegistrationApollo />
           </Route>
           <Route exact path="/teacher-register">
-            <TeacherRegister />
+            <TeacherRegistrationApollo />
           </Route>
           <Route path="/student-login">
             <StudentLogin />

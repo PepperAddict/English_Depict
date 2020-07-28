@@ -6,7 +6,7 @@ import '../../styles/login.styl';
 import { encryptMe } from '../../helpers';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+import Agree from './SharedAgree';
 
 import { useLocation, useHistory } from 'react-router-dom';
 
@@ -115,8 +115,11 @@ function CheckEmail(props: CheckEmailProps) {
         <div className="login-container container">
             <div className="login-content">
                 <Link to="/" className="logo-container-link"><img className="logo-center" src="/images/logo-192.png" alt="logo" /></Link>
-
-                <h1>Register For a Teacher Account</h1>
+                <div className="login-register">
+                    <p><Link to="/teacher-login">Login</Link></p>
+                    <p className="active">Register</p> 
+                </div>
+                <h1>Teacher Portal</h1>
                 <form onSubmit={() => handleRegister()}>
 
                     <label htmlFor="login-username">
@@ -161,10 +164,6 @@ function CheckEmail(props: CheckEmailProps) {
                             required />
                     </label>
 
-                    <label>
-                        <input type="checkbox" name="agree-terms" required />
-          By creating an account, you are agreeing to our <Link to="/terms" target="_blank">Terms of Service</Link> and <Link target="_blank" to="/privacy">Privacy Policy</Link>.
-          </label>
                     <div className="below-registration">
                         <ul>
                             <li>
@@ -174,7 +173,7 @@ function CheckEmail(props: CheckEmailProps) {
                     </div>
 
                     <button className="login-button" type='submit'>Register</button>
-
+                <Agree />
                 </form>
                 {terror && (
                     <div className="error-area"><span onClick={close} className="close">×</span>
@@ -190,7 +189,7 @@ function CheckEmail(props: CheckEmailProps) {
     );
 }
 
-export default function Register() {
+export default function TeacherRegister() {
 
     const [registered, setRegistered] = useState(false);
 

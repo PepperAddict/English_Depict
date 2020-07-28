@@ -79,7 +79,7 @@ router.get(["/", "/parent-login", "/teacher-login"], softAuthenticate, (req, res
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 });
 
-router.get(["/parent-register", "/parent-register/:page?", "/teacher-register", "/teacher-register/:page"], softAuthenticate, (req, res) => {
+router.get(["/register","/parent-register", "/parent-register/:page?", "/teacher-register", "/teacher-register/:page"], softAuthenticate, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 });
 

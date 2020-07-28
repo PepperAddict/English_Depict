@@ -78,28 +78,35 @@
         a
           color: #FF8800;
       img
-        width: 500px;
+        width: 300px;
         @media screen and (max-width: mobile) 
           width: 150px;
       nav
         padding:10px;
         z-index: 4
         align-self: start;
-        font-size: 40px;
         display: grid;
-        grid-template-columns: auto auto;
+        grid-template-columns: 1fr;
         grid-gap: 10px;
         font-family: sophisto, sans-serif;
+        width: 100%;
+        max-width: 300px;
         @media screen and (max-width: mobile)
           display: inline-grid;
           grid-template-columns: 1fr;
         a
           text-decoration: none;
-          color: #ff5a00;
-          background: rgba(255, 255, 255, 0.5);
-          padding: 10px;
+          color: white;
+          background: #79ABE0;
+          padding: 15px 10px;
           border-radius: 10px;
           transition: .5s;
+          font-family: Open Sans;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 19px;
+          text-align: center;
           &:hover 
             background: rgba(255, 90, 0, 1);
             color: #fff;

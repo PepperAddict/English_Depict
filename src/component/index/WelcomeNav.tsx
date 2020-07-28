@@ -10,7 +10,7 @@ export default function WelcomeNavigation() {
 
     const navStyle = createUseStyles({
         NavTop: {
-            position: 'fixed',
+            position: 'sticky',
             top: '0px',
             background: 'white',
             width: '100%',
@@ -25,7 +25,7 @@ export default function WelcomeNavigation() {
             }
         },
         regiButton: {
-            background: '#f25500',
+            background: '#79ABE0',
             color: 'white',
             padding: '10px'
         },
@@ -49,8 +49,7 @@ export default function WelcomeNavigation() {
                     <Link to="/contact">Contact</Link>
                     {(!parentID && !studentId && !teacherId) ? 
                     <Fragment>
-                    <Link className={navStyleCreate.regiButton}  to="/parent-register">Parent Register</Link> 
-                    <Link className={navStyleCreate.regiButton}  to="/teacher-register">Teacher Register</Link>
+                    <Link className={navStyleCreate.regiButton}  to="/parent-register">Register</Link> 
                     </Fragment>                      
                     : (parentID) ? <Link to="/parent-dashboard">Parent Dashboard</Link>
                     : (studentId) ? <Link to="/student-dashboard">Student Dashboard</Link> 

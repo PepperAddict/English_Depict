@@ -9,6 +9,7 @@ import { createUseStyles } from 'react-jss';
 
 
 export default function Welcome() {
+  console.log(logoImage)
 
   return (
     <div className="welcome-container">
@@ -19,6 +20,7 @@ export default function Welcome() {
           <div className="logo-hero">
             <img src={logoImage.default} alt="logo big"/>
             <h1>Talking Cloud</h1>
+
           </div>
 
           <nav>
