@@ -7,7 +7,7 @@ import { encryptMe } from '../../helpers';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Agree from './SharedAgree';
-
+import LoginRegister from './LoginRegisterLinks';
 import { useLocation, useHistory } from 'react-router-dom';
 
 
@@ -114,12 +114,8 @@ function CheckEmail(props: CheckEmailProps) {
 
         <div className="login-container container">
             <div className="login-content">
-                <Link to="/" className="logo-container-link"><img className="logo-center" src="/images/logo-192.png" alt="logo" /></Link>
-                <div className="login-register">
-                    <p><Link to="/teacher-login">Login</Link></p>
-                    <p className="active">Register</p> 
-                </div>
-                <h1>Teacher Portal</h1>
+                <LoginRegister login={false} from="teacher" show="top"/>
+
                 <form onSubmit={() => handleRegister()}>
 
                     <label htmlFor="login-username">
@@ -164,16 +160,10 @@ function CheckEmail(props: CheckEmailProps) {
                             required />
                     </label>
 
-                    <div className="below-registration">
-                        <ul>
-                            <li>
-                                <Link to="/login">Login</Link>
-                            </li>
-                        </ul>
-                    </div>
+                    <LoginRegister from="teacher" show="bottom" />
 
-                    <button className="login-button" type='submit'>Register</button>
-                <Agree />
+                    <button className="login-button" type='submit'>Register Teacher Account</button>
+                    <Agree />
                 </form>
                 {terror && (
                     <div className="error-area"><span onClick={close} className="close">×</span>

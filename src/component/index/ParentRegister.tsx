@@ -6,7 +6,8 @@ import '../../styles/login.styl';
 import { encryptMe } from '../../helpers';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+import LoginRegister from './LoginRegisterLinks';
+import LoginWith from './loginWith';
 import Agree from './SharedAgree';
 import { useLocation, useHistory } from 'react-router-dom';
 
@@ -132,7 +133,7 @@ function CheckEmail(props: CheckEmailProps) {
         const custID = response.profile.CustomerId;
 
         const awsSetup = {
-          name, 
+          name,
           email,
           pw: email + custID
         }
@@ -146,16 +147,9 @@ function CheckEmail(props: CheckEmailProps) {
 
     <div className="login-container container">
       <div className="login-content">
-        <Link to="/" className="logo-container-link"><img className="logo-center" src="/images/logo-192.png" alt="logo" /></Link>
 
-        <a id="LoginWithAmazon" onClick={e => gohere(e)}>
-          <img border="0" alt="Login with Amazon"
-            src="https://images-na.ssl-images-amazon.com/images/G/01/lwa/btnLWA_gold_156x32.png"
-            width="156" height="32" />
-        </a>
+        <LoginRegister from="parent" show="top" />
 
-
-        <h1>Register For a Parent Account</h1>
         <form onSubmit={() => handleRegister()}>
 
           <label htmlFor="login-username">
@@ -165,7 +159,7 @@ function CheckEmail(props: CheckEmailProps) {
               pattern="^[A-Za-z]+([A-Za-z ][A-Za-z]+)*$"
               title="letters are only allowed"
               onChange={updateFields} name='user'
-              onFocus={e => changeLabel(e.target)} 
+              onFocus={e => changeLabel(e.target)}
               required />
           </label>
 
@@ -201,18 +195,11 @@ function CheckEmail(props: CheckEmailProps) {
               required />
           </label>
 
-          <div className="below-registration">
-            <ul>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-            </ul>
-          </div>
+          <LoginRegister from="parent" show="bottom" />
 
 
-
-          <button className="login-button" type='submit'>Register</button>
-            <Agree />
+          <button className="login-button" type='submit'>Register Parent Account</button>
+          <Agree />
 
 
         </form>
@@ -224,8 +211,9 @@ function CheckEmail(props: CheckEmailProps) {
           </div>
         )}
 
+      <LoginWith gohere={gohere} />
+      
       </div>
-      <div className="bottom"></div>
     </div>
   );
 }

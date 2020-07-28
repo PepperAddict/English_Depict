@@ -6,6 +6,7 @@ import '../../styles/login.styl';
 import { createUseStyles } from 'react-jss';
 import { Link } from 'react-router-dom'
 import { useLocation, useHistory } from 'react-router-dom';
+import LoginRegister from './LoginRegisterLinks';
 
 function TeacherLoginForm() {
 
@@ -113,12 +114,7 @@ function TeacherLoginForm() {
 
   return (<div className={classy.myBG + ' login-container container'}>
     <div className="login-content">
-      <Link to="/" className="logo-container-link">
-        <img className="logo-center" src="/images/logo-192.png" alt="logo" />
-      </Link>
-
-      <h1>Teacher Portal</h1>
-
+      <LoginRegister login={true} from="teacher" show="top"/>
       <form onSubmit={() => handleLogin()}>
         <label
           htmlFor="loginemail" className="emaillabel">
@@ -147,14 +143,7 @@ function TeacherLoginForm() {
             <input type="checkbox" id="rememberMe" />
             <span></span>
             Remember Me</label>
-          <div className="different-logins">
-            <ul>
-              <li><Link to="/student_login">Student Login</Link></li>
-              <li><Link to="/teacher-register">Register</Link></li>
-              {/* TODO create reset password */}
-              {/* <li><a href="/">Reset password</a></li> */}
-            </ul>
-          </div>
+        <LoginRegister login={true} from="teacher" show="bottom"/>
         </div>
 
         <button className="login-button" type='submit'>Login</button>

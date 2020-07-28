@@ -6,6 +6,8 @@ import '../../styles/login.styl';
 import { createUseStyles } from 'react-jss';
 import { Link } from 'react-router-dom'
 import { useLocation, useHistory } from 'react-router-dom';
+import LoginRegister from './LoginRegisterLinks';
+import LoginWith from './loginWith';
 
 function LoginForm() {
 
@@ -148,16 +150,8 @@ function LoginForm() {
 
   return (<div className={classy.myBG + ' login-container container'}>
     <div className="login-content">
-      <Link to="/" className="logo-container-link">
-        <img className="logo-center" src="/images/logo-192.png" alt="logo" />
-      </Link>
+      <LoginRegister login={true} from="parent" show="top" />
 
-      <h1>Parent Portal</h1>
-      <a id="LoginWithAmazon" onClick={e => gohere(e)}>
-        <img border="0" alt="Login with Amazon"
-          src="https://images-na.ssl-images-amazon.com/images/G/01/lwa/btnLWA_gold_156x32.png"
-          width="156" height="32" />
-      </a>
 
       <form onSubmit={() => handleLogin()}>
         <label
@@ -187,16 +181,8 @@ function LoginForm() {
             <input type="checkbox" id="rememberMe" />
             <span></span>
             Remember Me</label>
-          <div className="different-logins">
-            <ul>
-              <li><Link to="/student_login">Student Login</Link></li>
-              <li><Link to="/parent-register">Register</Link></li>
-              {/* TODO create reset password */}
-              {/* <li><a href="/">Reset password</a></li> */}
-            </ul>
-          </div>
+          <LoginRegister login={true} from="parent" show="bottom" />
         </div>
-
         <button className="login-button" type='submit'>Login</button>
       </form>
 
@@ -206,10 +192,9 @@ function LoginForm() {
             error === 2 && (<p className="error">Incorrect password. Please try again.</p>)}
         </div>
       )}
-
+      <LoginWith gohere={gohere} />
     </div>
-    {/* <div className={classy.myBGTwo + ' bottom'}>
-    </div> */}
+
   </div>
   );
 }
