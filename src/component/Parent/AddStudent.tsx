@@ -20,10 +20,10 @@ export default function AddStudent(props: AddStudentProps) {
 
   let identifierList = [
     "peacock", "lion", "dog", "toucan", "squid", "piranha", "cat", "otter", "salmon", "falcon", "eagle", "slug", "bird",
-    "cheetah", "tiger", "elephant", "giraffe", "snake", "tarantula", "bumblebee", "mantis", "grasshopper", 
+    "cheetah", "tiger", "elephant", "giraffe", "snake", "tarantula", "bumblebee", "mantis", "grasshopper",
     "raccoon", "butterfly", "beetle", "octopus", "hawk", "owl", "moth", "dragonfly", "worm",
-    "katydid", "wasp", "caterpillar", "cicada",  "monkey", "ladybug", "lizard", "rabbit", "bunny", "kitten",
-    "puppy", "cricket", "fox", "weasel", "bear", "deer", "hyena", "sheep", "wolf", "lamb", "coyote", "leopard", "ram", 
+    "katydid", "wasp", "caterpillar", "cicada", "monkey", "ladybug", "lizard", "rabbit", "bunny", "kitten",
+    "puppy", "cricket", "fox", "weasel", "bear", "deer", "hyena", "sheep", "wolf", "lamb", "coyote", "leopard", "ram",
     "pig", "duck", "parrot", "penguin", "sealion", "dolphin", "whale", "shark", "beluga", "koala", "panda", "lemur",
     "mongoose", "hamster", "mouse"
   ].sort()
@@ -33,11 +33,11 @@ export default function AddStudent(props: AddStudentProps) {
   const [name, setName] = useState('name');
   const [error, setError] = useState(false);
   const history = useHistory();
-  
+
   const [answer, setAnswer] = useState('answer');
   const [addRegistration] = useMutation(ADD_STUDENT);
   let arrayOfTakens = [];
-  
+
 
   if (props.students) {
     for (let stud of props.students) {
@@ -47,7 +47,7 @@ export default function AddStudent(props: AddStudentProps) {
 
   const [identifier, setIdentifier] = useState(identifierList[0])
   //take out the taken from list
-  identifierList = identifierList.filter( (list) => !arrayOfTakens.includes(list))
+  identifierList = identifierList.filter((list) => !arrayOfTakens.includes(list))
 
 
   const handleAddStudent = (e) => {
@@ -55,48 +55,56 @@ export default function AddStudent(props: AddStudentProps) {
 
     const newStudent = {
       parent_id: props.userId,
-      username: username.toLowerCase(), 
+      username: username.toLowerCase(),
       name,
       question,
       identifier,
       password: answer.toLowerCase()
     };
-    addRegistration({variables: {input:newStudent}}).then( () => {
+    addRegistration({ variables: { input: newStudent } }).then(() => {
       history.push('/parent-dashboard')
-    }).catch((e) => 
-    setError(true));
+    }).catch((e) =>
+      setError(true));
   };
 
   return (
     <div className="add-student">
-      <hr></hr>
 
-      <h2>Add a student!</h2>
+      <h2>Add A Student</h2>
       {error && <p>Sorry, the username is already taken. Please try again.</p>}
       <div>
         <form onSubmit={handleAddStudent}>
 
-          <label htmlFor="studentUsername">Username</label><p className="tool username">?</p>
-          <input id="studentUsername" pattern="[A-Za-z0-9]+" onChange={e => setUsername(e.target.value)} name='username' required />
+          <label htmlFor="studentUsername">
+            <h3 className="actual-label">Username</h3>
+            <input id="studentUsername" pattern="[A-Za-z0-9]+" onChange={e => setUsername(e.target.value)} name='username' required />
+            <span className="tip">Username must be unique and can contain letters and numbers.</span>
+          </label>
+          <label htmlFor="studentName">
+            <h3 className="actual-label">Name</h3>
+            <input id="studentName" pattern="^[A-Za-z]+([A-Za-z ][A-Za-z]+)*$" onChange={e => setName(e.target.value)} name='name' />
+            <span className="tip"></span>
+          </label>
+          <label htmlFor="identifier">
+            <h3 className="actual-label">Animal Identifier</h3>
 
-          <label htmlFor="studentName">Name</label><p className="tool name">?</p>
-          <input id="studentName" pattern="^[A-Za-z]+([A-Za-z ][A-Za-z]+)*$" onChange={e => setName(e.target.value)} name='name' />
-
-          <label htmlFor="identifier">Animal Identifier</label><p className="tool identifier">?</p>
-          
-          <select className="full-width" name="identifier" id="identifier" onChange={e => setIdentifier(e.target.value)}>
-          {identifierList.map((item, key) => 
-          <option value={item} key={item}>{item}</option>)}
-          </select>
-          {/* <input id="identifier" onChange={e => setIdentifier(e.target.value)} name="identifier" required></input> */}
-
-          <label htmlFor="question1">Question</label><p className="tool question">?</p>
-          <input id="question1" name='question1' onChange={e => setQuestion(e.target.value) } defaultValue={question}/>
-
-          <label htmlFor="answer1">Answer</label>
-          <input id="answer1" pattern="^[A-Za-z]+([A-Za-z ][A-Za-z]+)*$" maxLength="15" onChange={e => setAnswer(e.target.value)} name='answer1' />
-
-          <button type="submit">Add Student</button>
+            <select className="full-width" name="identifier" id="identifier" onChange={e => setIdentifier(e.target.value)}>
+              {identifierList.map((item, key) =>
+                <option value={item} key={item}>{item.charAt(0).toUpperCase() + item.slice(1)}</option>)}
+            </select>
+            {/* <input id="identifier" onChange={e => setIdentifier(e.target.value)} name="identifier" required></input> */}
+            <span className="tip">Choose an animal to identify the student.</span>
+          </label>
+          <label htmlFor="question1">
+            <h3 className="actual-label">Question</h3>
+            <input id="question1" name='question1' onChange={e => setQuestion(e.target.value)} defaultValue={question} />
+            <span className="tip">This is used to setup a student's web account.</span>
+          </label>
+          <label htmlFor="answer1">
+            <h3 className="actual-label">Answer</h3>
+            <input id="answer1" pattern="^[A-Za-z]+([A-Za-z ][A-Za-z]+)*$" maxLength="25" onChange={e => setAnswer(e.target.value)} name='answer1' />
+          </label>
+          <button className="blue-button" type="submit">Submit Student</button>
 
         </form>
       </div>

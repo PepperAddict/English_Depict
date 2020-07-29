@@ -28,7 +28,9 @@ export default function IndividualTask(props) {
     const filteredTask = props.task
 
     return (
-        <Fragment>
+
+            <div id={(props.type === "CIC") ? "cic-task" : "wotd-task"}>
+            <h2>{(props.type === "CIC") ? "Image Clue (Caption The Image)" : "Word of the Day (Sight Words)"}</h2>
             {filteredTask.map((ft, key) => {
                 if (ft.task === "WOTD" && ft.forChart.finished !== ft.forChart.inall && props.type === "WOTD") {
                     return <div key={key} >
@@ -45,8 +47,8 @@ export default function IndividualTask(props) {
                     </div>
                 }
             })
-            }
-        </Fragment>
+            }</div>
+ 
     )
 
 }

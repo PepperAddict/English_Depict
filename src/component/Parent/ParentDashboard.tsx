@@ -4,6 +4,7 @@ import ShowCard from './StudentCard';
 import SharedCard from './SharedStudentCard';
 import TaskShow from './ShowTaskList'
 export default function TeacherDashboard(props) {
+    console.log(props.data)
 
     return (
         <Fragment>

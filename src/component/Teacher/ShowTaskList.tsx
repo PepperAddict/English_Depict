@@ -31,6 +31,7 @@ export default function TaskList(props: TaskListsProp) {
   let thetask;
   const [filteredTask, setFilteredTask] = useState(null);
 
+
   useState(() => {
     const taskArray = new Array();
     for (let x of students) {
@@ -128,14 +129,10 @@ export default function TaskList(props: TaskListsProp) {
             <p><a href="#cic-task">Caption the image</a></p>
           </nav>
           <div className="wotd-container" id="wotd-task">
-
             <h2>Word of the day</h2>
-
             <IndividualTask task={filteredTask} type="WOTD" setShowTask={setShowTask} />
-
           </div>
           <div className="cic-container" id="cic-task">
-
             <h2>Image Clue (Caption the Image)</h2>
             <IndividualTask task={filteredTask} type="CIC" setShowTask={setShowTask} />
 

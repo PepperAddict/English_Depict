@@ -11,7 +11,7 @@ import { REJECT_OR_APPROVE_TASK } from '../../mutation/mutation';
 import Doughnut from './doughnut';
 import IndividualTask from './ShowTaskIndividual';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
+import {Link} from 'react-router-dom';
 
 //make sure selected view shows for specific type
 
@@ -113,6 +113,7 @@ export default function TaskList(props: TaskListsProp) {
 
     })
     setFilteredTask(thetask)
+    console.log(thetask)
 
   }, [])
 
@@ -123,23 +124,18 @@ export default function TaskList(props: TaskListsProp) {
     <Fragment>
 
         <div className="task-container">
+
+          
           <nav className="task-nav-container">
-            <p><a href="#wotd-task">WOTD</a></p>
+            <p><a href="#wotd-task">Word of the Day</a></p>
             <p><a href="#cic-task">Caption the image</a></p>
           </nav>
-          <div className="wotd-container" id="wotd-task">
 
-            <h2>Word of the day</h2>
 
             <IndividualTask task={filteredTask} type="WOTD" setShowTask={setShowTask} />
 
-          </div>
-          <div className="cic-container" id="cic-task">
-
-            <h2>Image Clue (Caption the Image)</h2>
             <IndividualTask task={filteredTask} type="CIC" setShowTask={setShowTask} />
 
-          </div>
 
         </div> 
         
