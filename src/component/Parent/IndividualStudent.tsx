@@ -8,6 +8,7 @@ import '../../styles/teacher_dashboard_student.styl';
 const noPic = require('../../img/no-pic.png')
 import { TeacherContext } from '../index/Context';
 import { getBasicByEmail } from '../../query/query';
+import Unsplash from 'unsplash-js';
 
 interface StudentProfileProps {
 
@@ -72,22 +73,42 @@ function StudentProfile(props: StudentProfileProps) {
   const [message, setMessage] = useState(null);
   const [share, setShare] = useState(false);
   const history = useHistory();
+  const [showAvatars, setShowAvatar] = useState(false);
+  const unsplash = new Unsplash({ accessKey: process.env.UNSPLASH_ACCESS });
+  const [listem, setlistem] = useState([])
+
+
   
+  const setAvatar = e => {
+    (data) &&
+    setShowAvatar(true)
+    unsplash.search.photos(`animal ${data.getStudentByID[0].identifier}`, 2, 20).then((res) => {
+      return res.json();
+    }).then((response) => {
+      console.log(response)
+      setlistem(response.results)
+    })
 
+  }
 
+  const submitAvatar = (e, data) => {
+    e.preventDefault();
+    console.log(data)
+  }
 
   const submitMessage = e => {
     e.preventDefault();
     updateMessage({ variables: { input: { student_id: props.student_id, message: message } } })
       .then(() => {
-        history.push('/dashboard');
+        history.push('/parent-dashboard');
       }).catch((err) => console.log(err));
   };
+
   useState(() => {
     if (!props.student_id) {
-      history.push('/dashboard')
+      history.push('/parent-dashboard')
     }
-  })
+  }, [data])
 
 
   return (
@@ -96,12 +117,16 @@ function StudentProfile(props: StudentProfileProps) {
 
         <div className="individual-student">
 
-          <div className="avatar">
+          <div className="avatar" onClick={e => setAvatar(e)}>
             <img className="avatar-image" src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : noPic} alt="Student's avatar" />
           </div>
+          {(showAvatars) && 
+          <div className="avatar-choose">{listem.map((imgData, key) => <img onClick={e => submitAvatar(e, imgData)} key={key} src={imgData.urls.thumb} alt={imgData.alt_description}/>)}
+          </div>}
+
           <center><h1>{data.getStudentByID[0].name}</h1></center>
 
-          <button onClick={e => setShare(true)}>Share User</button>
+          {/* <button onClick={e => setShare(true)}>Share User</button> */}
           {share && <ShareStudent student={data.getStudentByID[0]} student_id={props.student_id}/>}
           <form onSubmit={submitMessage}>
             <label htmlFor="message">

@@ -45,10 +45,10 @@ export default function AddStudent(props: AddStudentProps) {
     }
   }
 
-  const [identifier, setIdentifier] = useState(identifierList[0])
+
   //take out the taken from list
   identifierList = identifierList.filter((list) => !arrayOfTakens.includes(list))
-
+  const [identifier, setIdentifier] = useState(identifierList[0])
 
   const handleAddStudent = (e) => {
     e.preventDefault();
@@ -61,6 +61,7 @@ export default function AddStudent(props: AddStudentProps) {
       identifier,
       password: answer.toLowerCase()
     };
+
     addRegistration({ variables: { input: newStudent } }).then(() => {
       history.push('/parent-dashboard')
     }).catch((e) =>

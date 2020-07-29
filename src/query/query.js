@@ -221,18 +221,7 @@ export const getStudentInfo = gql`
         viewed
         submission
       }
-      blogs {
-        blog_id
-        subject
-        content
-        created_at
-        comments {
-          student_id
-          teacher_id
-          content
-          created_at
-        }
-      }
+
     }
   }
 `;
