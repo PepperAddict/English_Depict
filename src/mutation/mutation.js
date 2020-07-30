@@ -146,6 +146,14 @@ mutation UpdateStudentAvatar($input: UpdateStudentAvatar!){
 }
 `
 
+export const REMOVE_STUDENT = gql`
+mutation RemoveTheStudent($student_id: ID!) {
+  RemoveStudent(student_id: $student_id) {
+    message
+  }
+}
+`
+
 export const ADD_TASK = gql`
 mutation AddTask($input: TaskInput!){
   AddTask (input: $input) {

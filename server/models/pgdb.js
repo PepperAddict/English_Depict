@@ -103,6 +103,19 @@ module.exports = pgPool => {
         return res.rows
       }).catch(e => console.log(e))
     },
+    removeStudent(student_id) {
+      return pgPool.query(`delete from tasks where student_id = $1 returning *`, [student_id])
+      .then(() => {
+        return pgPool.query('delete from vocabularies where student_id = $1 returning *', [student_id])
+        .then(() => {
+          //now remove student 
+          return pgPool.query('delete from students where student_id = $1 returning *', [student_id])
+        }).then((res) => {
+          let data = {message: "success"}
+          return data
+        })
+      }).catch(e => console.log(e))
+    },
     addNewPost({
       userId,
       content

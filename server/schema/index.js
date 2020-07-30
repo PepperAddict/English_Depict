@@ -31,6 +31,7 @@ const AddComment = require('./mutations/addComment');
 const UpdateMessage = require('./mutations/addMessage');
 const AddTask = require('./mutations/addTask');
 const RemoveUser = require('./mutations/removeUser');
+const RemoveStudent = require('./mutations/removeStudent');
 const SetVerified = require('./mutations/setVerified');
 const getTaskByID = require('./queries/getTaskByID');
 const SubmitTask = require('./mutations/submitTask');
@@ -78,6 +79,7 @@ const RootMutationType = new GraphQLObjectType({
     UpdateStudentAvatar,
     UpdateStudentName,
     RemoveVocabulary,
+    RemoveStudent,
     EditBlog,
     AddChat,
     AddComment,

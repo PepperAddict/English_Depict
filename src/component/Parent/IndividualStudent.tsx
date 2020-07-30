@@ -3,7 +3,7 @@ import { getStudentInfo } from '../../query/query';
 import { useHistory, Redirect } from 'react-router-dom';
 import IndividualStudentBlog from '../teacher-student-shared/IndieStudentBlog';
 import { useQuery, useMutation, useLazyQuery } from '@apollo/react-hooks';
-import { UPDATE_MESSAGE, SHARE_STUDENT, UPDATE_IDENTIFIER, UPDATE_STUDENT_AVATAR } from '../../mutation/mutation';
+import { UPDATE_MESSAGE, SHARE_STUDENT, UPDATE_IDENTIFIER, UPDATE_STUDENT_AVATAR, REMOVE_STUDENT } from '../../mutation/mutation';
 import '../../styles/teacher_dashboard_student.styl';
 const noPic = require('../../img/no-pic.png')
 import { TeacherContext } from '../index/Context';
@@ -73,6 +73,7 @@ function StudentProfile(props: StudentProfileProps) {
   const [updateMessage] = useMutation(UPDATE_MESSAGE);
   const [updateIdentifier] = useMutation(UPDATE_IDENTIFIER);
   const [updateAvatar] = useMutation(UPDATE_STUDENT_AVATAR);
+  const [removeStudent] = useMutation(REMOVE_STUDENT)
   const [message, setMessage] = useState(null);
   const [share, setShare] = useState(false);
   const history = useHistory();
@@ -99,10 +100,10 @@ function StudentProfile(props: StudentProfileProps) {
     e.preventDefault();
     const chosenImage = data.urls.small;
     updateAvatar({ variables: { input: { student_id: props.student_id, avatar: chosenImage } } })
-    .then(() => {
-      setNewAvatar(chosenImage)
-      setShowAvatar(false)
-    }).catch((err) => console.log(err));
+      .then(() => {
+        setNewAvatar(chosenImage)
+        setShowAvatar(false)
+      }).catch((err) => console.log(err));
   }
 
   const submitMessage = e => {
@@ -117,17 +118,32 @@ function StudentProfile(props: StudentProfileProps) {
   const chosenIdentifier = (e) => {
     setIdentifierChange(e);
     updateIdentifier({ variables: { input: { student_id: props.student_id, identifier: e } } })
-    .then(() => {
-      setNewIdentifier(e)
-      setIdentifierChange(false)
-    }).catch((err) => console.log(err));
+      .then(() => {
+        setNewIdentifier(e)
+        setIdentifierChange(false)
+      }).catch((err) => console.log(err));
   }
+
+  const setRemoveStudent = e => {
+    e.preventDefault();
+    const conf = confirm('Are you sure you want to remove ' + data.getStudentByID[0].name);
+    if (conf === true) {
+      removeStudent({ variables: { student_id: props.student_id } })
+        .then(() => {
+          window.location.replace('/parent-dashboard')
+        }).catch((err) => console.log(err));
+    }
+
+
+  }
+
   return (
     <Fragment>
-      {props.student_id ? 
+      {props.student_id ?
         data &&
 
         <div className="individual-student">
+          <button onClick={e => setRemoveStudent(e)}>Remove Student</button>
           <center><h1>{data.getStudentByID[0].name}</h1></center>
           <div className="avatar" onClick={e => setAvatar(e)}>
             <img className="avatar-image" src={avatar ? avatar : data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : noPic} alt="Student's avatar" />
@@ -145,7 +161,7 @@ function StudentProfile(props: StudentProfileProps) {
             <div className="avatar-choose">{listem.map((imgData, key) => <img onClick={e => submitAvatar(e, imgData)} key={key} src={imgData.urls.thumb} alt={imgData.alt_description} />)}
             </div>}
 
-          
+
 
           {/* <button onClick={e => setShare(true)}>Share User</button> */}
           {share && <ShareStudent student={data.getStudentByID[0]} student_id={props.student_id} />}
