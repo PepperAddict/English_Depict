@@ -1,14 +1,15 @@
-import React, { useState, useEffect, Fragment} from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { getStudentInfo } from '../../query/query';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import IndividualStudentBlog from '../teacher-student-shared/IndieStudentBlog';
 import { useQuery, useMutation, useLazyQuery } from '@apollo/react-hooks';
-import { UPDATE_MESSAGE, SHARE_STUDENT } from '../../mutation/mutation';
+import { UPDATE_MESSAGE, SHARE_STUDENT, UPDATE_IDENTIFIER, UPDATE_STUDENT_AVATAR } from '../../mutation/mutation';
 import '../../styles/teacher_dashboard_student.styl';
 const noPic = require('../../img/no-pic.png')
 import { TeacherContext } from '../index/Context';
 import { getBasicByEmail } from '../../query/query';
 import Unsplash from 'unsplash-js';
+import { animalList } from '../../../server/utils/lists'
 
 interface StudentProfileProps {
 
@@ -44,7 +45,7 @@ function ShareStudent(props) {
       }]
     }
 
-    submitShareStudent({variables: {input: {id: parseInt(teachid), share: shareToStudent, student_id: props.student_id}}}).catch((err) => console.log(err))
+    submitShareStudent({ variables: { input: { id: parseInt(teachid), share: shareToStudent, student_id: props.student_id } } }).catch((err) => console.log(err))
 
   }
 
@@ -70,22 +71,25 @@ function StudentProfile(props: StudentProfileProps) {
   const studentid = parseInt(props.student_id)
   const { loading, error, data } = useQuery(getStudentInfo, { variables: { student_id: studentid } });
   const [updateMessage] = useMutation(UPDATE_MESSAGE);
+  const [updateIdentifier] = useMutation(UPDATE_IDENTIFIER);
+  const [updateAvatar] = useMutation(UPDATE_STUDENT_AVATAR);
   const [message, setMessage] = useState(null);
   const [share, setShare] = useState(false);
   const history = useHistory();
   const [showAvatars, setShowAvatar] = useState(false);
   const unsplash = new Unsplash({ accessKey: process.env.UNSPLASH_ACCESS });
   const [listem, setlistem] = useState([])
+  const [identifierChange, setIdentifierChange] = useState(false);
+  const [avatar, setNewAvatar] = useState(null);
+  const [identifier, setNewIdentifier] = useState(null)
 
 
-  
   const setAvatar = e => {
     (data) &&
-    setShowAvatar(true)
-    unsplash.search.photos(`animal ${data.getStudentByID[0].identifier}`, 2, 20).then((res) => {
+      setShowAvatar(true)
+    unsplash.search.photos(`animal ${(identifier) ? identifier : data.getStudentByID[0].identifier}`, 2, 20).then((res) => {
       return res.json();
     }).then((response) => {
-      console.log(response)
       setlistem(response.results)
     })
 
@@ -93,7 +97,12 @@ function StudentProfile(props: StudentProfileProps) {
 
   const submitAvatar = (e, data) => {
     e.preventDefault();
-    console.log(data)
+    const chosenImage = data.urls.small;
+    updateAvatar({ variables: { input: { student_id: props.student_id, avatar: chosenImage } } })
+    .then(() => {
+      setNewAvatar(chosenImage)
+      setShowAvatar(false)
+    }).catch((err) => console.log(err));
   }
 
   const submitMessage = e => {
@@ -104,35 +113,47 @@ function StudentProfile(props: StudentProfileProps) {
       }).catch((err) => console.log(err));
   };
 
-  useState(() => {
-    if (!props.student_id) {
-      history.push('/parent-dashboard')
-    }
-  }, [data])
 
-
+  const chosenIdentifier = (e) => {
+    setIdentifierChange(e);
+    updateIdentifier({ variables: { input: { student_id: props.student_id, identifier: e } } })
+    .then(() => {
+      setNewIdentifier(e)
+      setIdentifierChange(false)
+    }).catch((err) => console.log(err));
+  }
   return (
     <Fragment>
-      {data &&
+      {props.student_id ? 
+        data &&
 
         <div className="individual-student">
-
-          <div className="avatar" onClick={e => setAvatar(e)}>
-            <img className="avatar-image" src={data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : noPic} alt="Student's avatar" />
-          </div>
-          {(showAvatars) && 
-          <div className="avatar-choose">{listem.map((imgData, key) => <img onClick={e => submitAvatar(e, imgData)} key={key} src={imgData.urls.thumb} alt={imgData.alt_description}/>)}
-          </div>}
-
           <center><h1>{data.getStudentByID[0].name}</h1></center>
+          <div className="avatar" onClick={e => setAvatar(e)}>
+            <img className="avatar-image" src={avatar ? avatar : data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : noPic} alt="Student's avatar" />
+          </div>
+
+          <p>Unique Identifier: </p>
+          {(identifierChange) ? (
+            <select onChange={e => chosenIdentifier(e.target.value)}>
+              <option value={(identifier) ? identifier : data.getStudentByID[0].identifier}>{data.getStudentByID[0].identifier}</option>
+              {animalList.map((animal, key) => <option value={animal} key={key}>{animal}</option>)}
+
+            </select>
+          ) : <p onClick={() => setIdentifierChange(true)}>{identifier ? identifier : data.getStudentByID[0].identifier}</p>}
+          {(showAvatars) &&
+            <div className="avatar-choose">{listem.map((imgData, key) => <img onClick={e => submitAvatar(e, imgData)} key={key} src={imgData.urls.thumb} alt={imgData.alt_description} />)}
+            </div>}
+
+          
 
           {/* <button onClick={e => setShare(true)}>Share User</button> */}
-          {share && <ShareStudent student={data.getStudentByID[0]} student_id={props.student_id}/>}
-          <form onSubmit={submitMessage}>
+          {share && <ShareStudent student={data.getStudentByID[0]} student_id={props.student_id} />}
+          <form className="submit-message" onSubmit={submitMessage}>
             <label htmlFor="message">
-              <h2>Welcome Message</h2></label>
+              <h2>Message</h2></label>
             <input id="message" placeholder={message ? message : (data.getStudentByID[0].message) ? data.getStudentByID[0].message : 'enter a message for ' + data.getStudentByID[0].name} onChange={e => setMessage(e.target.value)} />
-            <button type="submit">Submit Message</button>
+            <button type="submit">Send Message</button>
           </form>
           <h2>Vocabulary Words</h2>
           <ul className="vocabulary-list">
@@ -145,9 +166,15 @@ function StudentProfile(props: StudentProfileProps) {
             {data.getStudentByID[0].tasks.map((task, index) => {
               if (!task.accepted && task.task_code == "CIC") {
                 return <div key={index}>
-                  Caption the image
-                <img src={task.entry.clue_image.urls.thumb} alt={task.entry.clue_image.alt_description} />
+                  <h3>Caption the image</h3>
+                  <img src={task.entry.clue_image.urls.thumb} alt={task.entry.clue_image.alt_description} />
                   <p>{task.submission ? task.submission.CIC : 'not yet completed'}</p>
+                </div>
+              } else if (!task.accepted && task.task_code == "WOTD") {
+                return <div key={index}>
+                  <h3>Word of the Day </h3>
+                  <p>WOTD: {task.entry.word} | {task.entry.sentence}</p>
+                  <p>{task.submission ? task.submission.WOTD.sentence : 'not yet completed'}</p>
                 </div>
               }
             })}
@@ -165,7 +192,7 @@ function StudentProfile(props: StudentProfileProps) {
               comments={blog.comments}
               teacher_id={props.teacher_id} />;
           }) : 'No Blog'} */}
-        </div>}
+        </div> : <Redirect to="/parent-dashboard" />}
     </Fragment>
 
   );

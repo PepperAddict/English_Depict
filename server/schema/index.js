@@ -38,6 +38,7 @@ const getTasksByStudentID = require('./queries/getCompleteTasksByStudentId');
 const CompleteTask = require('./mutations/completeTask');
 const ShareStudent = require('./mutations/shareStudent');
 const AddTeacher = require('./mutations/addTeacher');
+const UpdateIdentifier = require('./mutations/addIdentifier');
 
 
 
@@ -86,7 +87,8 @@ const RootMutationType = new GraphQLObjectType({
     SetVerified,
     SubmitTask,
     CompleteTask,
-    ShareStudent
+    ShareStudent,
+    UpdateIdentifier
   })
 });
 

@@ -92,15 +92,6 @@ mutation AddVocabulary($input: VocabularyInput!){
 }
 `;
 
-export const UPDATE_STUDENT_AVATAR = gql`
-mutation updateStudentAvatar($input: updateStudentAvatar!) {
-  UpdateStudentAvatar(input: $input) {
-    student_id
-    student_key
-    avatar
-  }
-}
-`;
 
 export const UPDATE_STUDENT_NAME = gql`
 mutation changeName($input: updateStudentName!) {
@@ -136,6 +127,24 @@ mutation UpdateMessage($input: AddMessage!){
   }
 }
 `;
+
+export const UPDATE_IDENTIFIER = gql`
+mutation UpdateIdentifier($input: AddIdentifier!){
+  UpdateIdentifier(input: $input) {
+    student_id
+    identifier
+  }
+}
+`
+
+export const UPDATE_STUDENT_AVATAR = gql`
+mutation UpdateStudentAvatar($input: UpdateStudentAvatar!){
+  UpdateStudentAvatar(input: $input) {
+    student_id
+    avatar
+  }
+}
+`
 
 export const ADD_TASK = gql`
 mutation AddTask($input: TaskInput!){

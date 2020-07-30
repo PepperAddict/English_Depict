@@ -74,6 +74,7 @@ function CheckEmail(props: CheckEmailProps) {
         email: awsData.email,
         password: awsData.pw,
         verify_token: await encryptMe(awsData.email),
+        amazon: awsData.email
       }
       shouldGo = true
     }

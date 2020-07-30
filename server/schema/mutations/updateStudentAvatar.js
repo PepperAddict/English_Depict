@@ -4,7 +4,7 @@ const {
 const pgdb = require('../../models/lessonsDB')
 const StudentType = require('../types/student')
 const updateStudentAvatarType = new GraphQLInputObjectType({
-  name: 'updateStudentAvatar',
+  name: 'UpdateStudentAvatar',
   fields: {
     student_id: {type: GraphQLNonNull(GraphQLID)},
     avatar: {type: GraphQLNonNull(GraphQLString)}
