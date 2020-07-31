@@ -61,7 +61,7 @@ export default function SelectedTaskView(props) {
                             <button type="submit">Submit Rejection</button>
                         </form>
                     }
-                    <Link to="/dashboard/task"><button>go back</button></Link>
+                    <Link to="/parent-dashboard/task"><button>go back</button></Link>
 
                 </Fragment>
 

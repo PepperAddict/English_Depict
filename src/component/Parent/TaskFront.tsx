@@ -1,16 +1,16 @@
 import React, { useState, Fragment, useEffect } from 'react';
-
+import '../../styles/taskpage.styl'
 import TaskList from './ShowTaskList';
 import { Link } from 'react-router-dom';
 
 export default function TaskFront(props) {
   return (
-    <div>
+    <div className="dashboard-task-select-container">
       Which task would you like to make?
       <nav>
-        <ul>
+        <ul className="task-select">
           <li>
-            <Link to="/parent-dashboard/task/CIC">Caption the Image</Link>
+            <Link to="/parent-dashboard/task/CIC">Caption this Image</Link>
           </li>
           <li>
             <Link to="/parent-dashboard/task/WOTD">Word of the Day</Link>
@@ -18,7 +18,6 @@ export default function TaskFront(props) {
         </ul>
 
       </nav>
-      <h2>All Tasks</h2>
       <TaskList students={props.teacher_data.students} teacher={props.teacher_data}/>
 
     </div>

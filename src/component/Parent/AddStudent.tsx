@@ -52,7 +52,7 @@ export default function AddStudent(props: AddStudentProps) {
     };
 
     addRegistration({ variables: { input: newStudent } }).then(() => {
-      history.push('/parent-dashboard')
+      window.location.href = '/parent-dashboard'
     }).catch((e) =>
       setError(true));
   };

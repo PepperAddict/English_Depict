@@ -79,6 +79,7 @@ export default function TaskList(props: TaskListsProp) {
             inall: notstarted.length + pending.length + finished.length
           }
 
+
           if (x.task_code === "WOTD") {
             if (x.entry.word === task.id) {
               if (x.completed_at) {
@@ -113,10 +114,9 @@ export default function TaskList(props: TaskListsProp) {
       let tasky = new Array()
       tasky.push(thetask)
       setFilteredTask(tasky[0])
-      
+
     }
   }, [])
-if (filteredTask) console.log(filteredTask)
 
 
 
@@ -124,7 +124,7 @@ if (filteredTask) console.log(filteredTask)
     <Fragment>
       {filteredTask ?
         <div className="task-container">
-
+          <h2>Tasks</h2>
           <nav className="task-nav-container">
             <p><a href="#wotd-task">Word of the Day</a></p>
             <p><a href="#cic-task">Caption the image</a></p>
@@ -132,11 +132,11 @@ if (filteredTask) console.log(filteredTask)
           <IndividualTask task={filteredTask} setShowTask={setShowTask} />
         </div>
         : <div className="task-container">
-
+          <h2>Tasks</h2>
           <div className="show-when-empty">
-          <p>You do not have any tasks pending in your dashboard. Get started and set up tasks for your students. </p>
-          <Link to="/parent-dashboard/task"><button className="blue-button">Add Tasks</button></Link></div>
-          </div>}
+            <p>You do not have any tasks pending in your dashboard. Get started and set up tasks for your students. </p>
+            <Link to="/parent-dashboard/task"><button className="blue-button">Add Tasks</button></Link></div>
+        </div>}
     </Fragment>
 
   );

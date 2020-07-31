@@ -13,7 +13,7 @@ function TaskStudentList(props) {
                     <Doughnut chart={props.data.forChart} use={props.data.id} />
                     <span>students: {
                         props.each.map((x, key) => {
-                            return <Link to="/dashboard/task/current" key={key} onClick={e => context.setTask(x)}>{x.student_name} : {(!x.submission) ? "Not Completed Yet" : x.submission + ' | waiting for review'}</Link>
+                            return <Link to="/parent-dashboard/task/current" key={key} onClick={e => context.setTask(x)}>{x.student_name} : {(!x.submission) ? "Not Completed Yet" : x.submission + ' | waiting for review'}</Link>
                         })
                     }</span>
                 </Fragment>

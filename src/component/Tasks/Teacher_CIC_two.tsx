@@ -49,7 +49,7 @@ export default function NextStage(props: NextStageProps) {
             task_code: 'CIC', //Code is for Caption Image Clue 
             task_date: chosenDate, //To be able select a certain date
             student_id: parseInt(kid),
-            teacher_id: props.teacher_id,
+            parent_id: props.teacher_id,
             entry: {
               clue_image: {
                 alt_description: props.image_data.alt_description,
@@ -60,7 +60,7 @@ export default function NextStage(props: NextStageProps) {
             }
           };
           addTask({variables: {input: taskObject}}).then((res) => {
-            console.log(res)
+            window.location.href = "/parent-dashboard/task"
           }).catch((err) => console.log(err))
         });
 
