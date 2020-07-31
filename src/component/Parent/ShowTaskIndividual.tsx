@@ -23,32 +23,81 @@ function TaskStudentList(props) {
     )
 }
 
+function EmptyTask(props) {
+    return (
+        <div id={(props.type === "Image Clue") ? "cic-task" : "wotd-task"} className="show-when-empty">
+            <p>
+                There are no {props.type} tasks. 
+            </p>
+            <Link to="/parent-dashboard/task">
+                <button className="blue-button">Add Tasks</button>
+            </Link>
+        </div>
+    )
+}
+
 
 export default function IndividualTask(props) {
-    const filteredTask = props.task
+    const [cictasks, setcic] = useState([])
+    const [wotdtasks, setwotdtasks] = useState([])
+
+    useEffect(() => {
+        let wotd = []
+        let cic = []
+        for (let x of props.task) {
+
+            if (x.task === "WOTD") {
+                wotd.push(x)
+
+            } else if (x.task === "CIC") {
+                cic.push(x)
+            }
+
+        }
+        setcic(cic)
+        setwotdtasks(wotd)
+
+    }, [])
+
 
     return (
 
-            <div id={(props.type === "CIC") ? "cic-task" : "wotd-task"}>
-            <h2>{(props.type === "CIC") ? "Image Clue (Caption The Image)" : "Word of the Day (Sight Words)"}</h2>
-            {filteredTask.map((ft, key) => {
-                if (ft.task === "WOTD" && ft.forChart.finished !== ft.forChart.inall && props.type === "WOTD") {
-                    return <div key={key} >
-                        <TaskStudentList each={ft.tasks} data={ft} setShowTask={props.setShowTask} />
 
-                        <p>word: {ft.id}</p>
-                        <p>Example Sentence: {ft.tasks[0].entry.sentence}</p>
-                    </div>
-                } else if (ft.task === "CIC" && ft.forChart.finished !== ft.forChart.inall && props.type === "CIC") {
-                    return <div key={key} onClick={e => props.setShowTask(ft.tasks[0])}>
+        // <div id={(props.type === "CIC") ? "cic-task" : "wotd-task"}>
+        <Fragment>
+            {wotdtasks.length > 0 ? <div id="wotd-task">
+                <h2>Word of the Day (Sight Words)</h2>
+                <div className="individual-task-container">
+                {wotdtasks.map((ft, key) => {
+                    if (ft.forChart.finished !== ft.forChart.inall) {
+                        return <div className="individual-task" key={key} >
+                            <TaskStudentList each={ft.tasks} data={ft} setShowTask={props.setShowTask} />
+
+                            <p>word: {ft.id}</p>
+                            <p>Example Sentence: {ft.tasks[0].entry.sentence}</p>
+                        </div>
+                    }
+                })}
+                </div>
+
+            </div> : <EmptyTask type="Word of the Day" />}
+
+            {cictasks.length > 0 ? <div id="cic-task">
+                <h2>Image Clue (Caption The Image)</h2>
+                <div className="individual-task-container">
+                {cictasks.map((ft, key) => {
+                    if (ft.forChart.finished !== ft.forChart.inall) {
+                        return <div className="individual-task" key={key} onClick={e => props.setShowTask(ft.tasks[0])}>
                         <TaskStudentList each={ft.tasks} data={ft} setShowTask={props.setShowTask} />
 
                         <img src={ft.tasks[0].entry.clue_image.urls.thumb} alt={ft.tasks[0].entry.clue_image.alt_description} />
                     </div>
-                }
-            })
-            }</div>
- 
+                    }
+                })}
+                </div>
+            </div> : <EmptyTask type="Image Clue" />}
+        </Fragment>
+
     )
 
 }

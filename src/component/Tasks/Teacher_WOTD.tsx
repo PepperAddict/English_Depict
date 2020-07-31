@@ -59,7 +59,7 @@ export default function WOTD(props) {
                         input: taskObject
                     }
                 }).then((res) => {
-                    history.push('/parent-dashboard/task')
+                    window.location.href = '/parent-dashboard/task'
                 }).catch(err => setError('Something went wrong'))
             })
         } else {
