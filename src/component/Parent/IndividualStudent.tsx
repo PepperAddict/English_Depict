@@ -83,7 +83,6 @@ function StudentProfile(props: StudentProfileProps) {
   const [identifierChange, setIdentifierChange] = useState(false);
   const [avatar, setNewAvatar] = useState(null);
   const [identifier, setNewIdentifier] = useState(null);
-  if (error) console.log(error)
 
 
   const setAvatar = e => {
@@ -150,6 +149,7 @@ function StudentProfile(props: StudentProfileProps) {
           <div className="avatar" onClick={e => setAvatar(e)}>
             <img className="avatar-image" src={avatar ? avatar : data.getStudentByID[0].avatar ? data.getStudentByID[0].avatar : noPic} alt="Student's avatar" />
           </div>
+      <p>Grade: {data.getStudentByID[0].grade}</p>
 
           <p>Unique Identifier: </p>
           {(identifierChange) ? (

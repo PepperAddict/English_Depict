@@ -115,7 +115,7 @@ module.exports = pgPool => {
     getVocabularyByParent(id) {
       return pgPool
         .query(
-          `select * from vocabularies where teacher_id = $1`,[id])
+          `select * from vocabularies where parent_id = $1`,[id])
         .then(res => {
           if (res.rows) {
             return res.rows;

@@ -91,12 +91,12 @@ export default function AddStudent(props: AddStudentProps) {
             <label htmlFor="grade">
               <h3 className="actual-label" >Grade</h3>
               <select name="grade" id="grade" onChange={e => setGrade(e.target.value)}>
-                <option value="kindergarten">Kindergarten</option>
-                <option value="firstgrade">First Grade</option>
-                <option value="secondgrade">Second Grade</option>
-                <option value="thirdgrade">Third Grade</option>
-                <option value="fourthgrade">Fourth Grade</option>
-                <option value="fifthgrade">Fifth Grade</option>
+                <option value="Kindergarten">Kindergarten</option>
+                <option value="First Grade">First Grade</option>
+                <option value="Second Grade">Second Grade</option>
+                <option value="Third Grade">Third Grade</option>
+                <option value="Fourth Grade">Fourth Grade</option>
+                <option value="Fifth Grade">Fifth Grade</option>
               </select>
             </label>
           </div>
