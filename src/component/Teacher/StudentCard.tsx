@@ -21,7 +21,7 @@ function ShowStudent(props: ShowStudentProps) {
   return (
     <TeacherContext.Consumer>
       {context => (
-        <Link to='/dashboard/student-info/' > 
+        <Link to='/teacher-dashboard/student-info/' > 
         <button type="button" index={props.index} onClick={e => context.setStudentID(props.student_id)}>
           <div className="avatar">
             <img className="avatar-image" src={props.student.avatar ? props.student.avatar : noPic} alt={props.student.name + ' avatar'} />

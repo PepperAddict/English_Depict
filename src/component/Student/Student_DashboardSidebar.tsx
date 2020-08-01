@@ -46,11 +46,11 @@ export default function DashboardSidebar(props) {
 
       <div className="sidebar">
       <nav className={svgIt.svg}>
-        <Link to="/student" className="dashboard-link">
+        <Link to="/student-dashboard" className="dashboard-link">
           <object className={svgIt.svg} type="image/svg+xml" data={outlineLogo.default} />
           Dashboard
         </Link>
-        <Link to="/student/tasks">
+        <Link to="/student-dashboard/tasks">
           <object type="image/svg+xml" data={taskIcon.default} />
           Tasks
         </Link>

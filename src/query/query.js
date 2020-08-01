@@ -201,6 +201,7 @@ export const getStudentInfo = gql`
     getStudentByID(student_id: $student_id) {
       username
       teacher_id
+      parent_id
       avatar
       identifier
       student_id

@@ -27,6 +27,8 @@ export default function StudentDashboard() {
     options: 'welcome',
     newVocab: new Array()
   });
+  if (data) console.log(data)
+  if (error) console.log(error)
 
   const addVocabulary = async word => {
     var regex = /[.,():;\s]/g;
@@ -47,8 +49,7 @@ export default function StudentDashboard() {
 
 
 
-      {loading ? 'loading' : error ? 'error' :
-        data && (
+      {loading ? 'loading' : error ? 'error' : data && (
           <StudentContext.Consumer>
             {context => (
               <Fragment>
@@ -56,7 +57,7 @@ export default function StudentDashboard() {
                 <Sidebar />
 
                 <Switch>
-                  <Route path="/student" exact render={(props) => <WelcomeStudent {...props} student={student} data={data} />} />
+                  <Route path="/student-dashboard" exact render={(props) => <WelcomeStudent {...props} student={student} data={data} />} />
                   {/* <Route path="/student/settings" render={(props) => <StudentSettings {...props} student_id={id} avatar={data.getStudentByID[0].avatar} name={data.getStudentByID[0].name} username={data.getStudentByID[0].username} />} /> */}
 
                   {/* Blog */}
@@ -66,8 +67,8 @@ export default function StudentDashboard() {
                   <Route path="/student/view-blog" render={(props) => <ViewComments {...props} addVocabulary={addVocabulary} student_id={id} />} /> */}
 
                   {/* Tasks aka TODO List */}
-                  <Route path="/student/tasks/" exact render={(props) => <StudentTasks {...props} tasks={data.getStudentByID[0].tasks} /> } />
-                  <Route path="/student/tasks/task" render={(props) => <StudentTask {...props} content={context.task}/>} />
+                  <Route path="/student-dashboard/tasks/" exact render={(props) => <StudentTasks {...props} tasks={data.getStudentByID[0].tasks} /> } />
+                  <Route path="/student-dashboard/tasks/task" render={(props) => <StudentTask {...props} content={context.task}/>} />
                 </Switch>
 
                 <Student_DashboardSidebarTwo data={data} student_id={id} />

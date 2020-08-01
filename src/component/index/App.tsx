@@ -14,8 +14,6 @@ const client = new ApolloClient({
     uri: '/api/2/graphql',
   }),
   cache: new InMemoryCache(),
-  
-  
 });
 
 // components
@@ -88,7 +86,7 @@ function App() {
             <TeacherLogin />
           </Route>
           <StudentProvider>
-            <Route path="/student/:page?">
+            <Route path="/student-dashboard/:page?">
               <StudentDashboard />
             </Route>
           </StudentProvider>

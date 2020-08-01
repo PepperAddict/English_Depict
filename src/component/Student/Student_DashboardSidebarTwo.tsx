@@ -28,6 +28,7 @@ export default function DashboardSidebarTwo(props) {
             {props.data ? 
                 <VocabBucket 
                 teacher_id={props.data.getStudentByID[0].teacher_id} 
+                parent_id={props.data.getStudentByID[0].parent_id}
                 dupeWord={dupeWordt} 
                 student_id={props.student_id} 
                 showVocab={showVocab} 

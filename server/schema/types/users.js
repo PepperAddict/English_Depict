@@ -30,12 +30,12 @@ const UsersType = new GraphQLObjectType({
           return pgdb(pgPool).getStudent(source.id);
         }
       }, 
-      vocabularies: {
-        type: new GraphQLList(vocabType),
-        resolve: async (source, input, {pgPool, req}) => {
-          return lessondb(pgPool).getVocabularyByParent(source.id)
-        }
-      }
+      // vocabularies: {
+      //   type: new GraphQLList(vocabType),
+      //   resolve: async (source, input, {pgPool, req}) => {
+      //     return lessondb(pgPool).getVocabularyByParent(source.id)
+      //   }
+      // }
     };
   }
 });

@@ -8,6 +8,6 @@ module.exports = {
     student_id: { type: new GraphQLNonNull(GraphQLID) }
   },
   resolve (obj, { student_id }, { pgPool, req }) {
-    return pgdb(pgPool).getVocabularyByParent(student_id)
+    return pgdb(pgPool).getVocabularyByStudent(student_id)
   }
 }

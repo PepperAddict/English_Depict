@@ -36,7 +36,7 @@ const StudentType = new GraphQLObjectType({
         type: new GraphQLList(vocabType),
         resolve: async (source, input, { pgPool, req }) => {
           let student_id = source.student_id;
-          return pgdb(pgPool).getVocabularyByParent(student_id);
+          return pgdb(pgPool).getVocabularyByStudent(student_id);
         }
       },
       blogs: {
