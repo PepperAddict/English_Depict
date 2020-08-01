@@ -29,7 +29,7 @@ function EmptyTask(props) {
             <p>
                 There are no {props.type} tasks. 
             </p>
-            <Link to="/parent-dashboard/task">
+            <Link to={(props.type === "Image Clue") ? "/parent-dashboard/task/CIC" : "/parent-dashboard/task/WOTD"}>
                 <button className="blue-button">Add Tasks</button>
             </Link>
         </div>

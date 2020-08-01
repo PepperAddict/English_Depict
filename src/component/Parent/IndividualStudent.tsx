@@ -69,7 +69,7 @@ function ShareStudent(props) {
 
 function StudentProfile(props: StudentProfileProps) {
   const studentid = parseInt(props.student_id)
-  const { loading, error, data } = useQuery(getStudentInfo, { variables: { student_id: studentid } });
+  const { loading, error, data } = useQuery(getStudentInfo, { variables: { student_id: props.student_id } });
   const [updateMessage] = useMutation(UPDATE_MESSAGE);
   const [updateIdentifier] = useMutation(UPDATE_IDENTIFIER);
   const [updateAvatar] = useMutation(UPDATE_STUDENT_AVATAR);
@@ -82,7 +82,8 @@ function StudentProfile(props: StudentProfileProps) {
   const [listem, setlistem] = useState([])
   const [identifierChange, setIdentifierChange] = useState(false);
   const [avatar, setNewAvatar] = useState(null);
-  const [identifier, setNewIdentifier] = useState(null)
+  const [identifier, setNewIdentifier] = useState(null);
+  if (error) console.log(error)
 
 
   const setAvatar = e => {
@@ -223,20 +224,8 @@ interface IndividualStudentProps {
 
 export default function IndividualStudent(props: IndividualStudentProps) {
   const pathname = window.location.pathname.split('=');
-  const student_id = pathname[pathname.length - 1];
 
-  const [students] = useState(props.data.students);
-  const [myStudent, setMyStudent] = useState(false);
 
-  useEffect(() => {
-    //only show student information if student id is in teacher's student list 
-    for (let x of students) {
-      if (x.student_id === student_id) {
-        setMyStudent(true);
-        break;
-      }
-    }
-  }, []);
 
   return (
     <Fragment>

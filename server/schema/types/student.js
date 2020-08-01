@@ -19,6 +19,7 @@ const StudentType = new GraphQLObjectType({
       username: {type: GraphQLNonNull(GraphQLString)},
       teacher_id: {type: GraphQLID},
       parent_id: {type: GraphQLNonNull(GraphQLID)},
+      grade: {type: GraphQLNonNull(GraphQLString)},
       name: { type: GraphQLString },
       share: {type: GraphQLJSON},
       identifier: {type: GraphQLString},
@@ -35,7 +36,7 @@ const StudentType = new GraphQLObjectType({
         type: new GraphQLList(vocabType),
         resolve: async (source, input, { pgPool, req }) => {
           let student_id = source.student_id;
-          return pgdb(pgPool).getVocabularyByID(student_id);
+          return pgdb(pgPool).getVocabularyByParent(student_id);
         }
       },
       blogs: {

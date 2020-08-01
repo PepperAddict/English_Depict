@@ -22,6 +22,7 @@ const TeacherType = new GraphQLObjectType({
       created_at: { type: GraphQLNonNull(GraphQLString) },
       share: { type: GraphQLJSON },
       amazon: { type: GraphQLString },
+      auto_task: {type: GraphQLBoolean},
       apiKey: { type: GraphQLNonNull(GraphQLString) },
       verified: { type: GraphQLBoolean },
       verify_token: { type: GraphQLString },

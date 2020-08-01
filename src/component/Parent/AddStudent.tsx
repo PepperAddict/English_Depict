@@ -5,7 +5,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { ADD_STUDENT } from '../../mutation/mutation';
 import '../../styles/addstudent.styl';
 
-import {animalList, questionArray} from '../../../server/utils/lists'
+import { animalList, questionArray } from '../../../server/utils/lists'
 
 interface AddStudentProps {
   userId: number,
@@ -37,7 +37,8 @@ export default function AddStudent(props: AddStudentProps) {
 
   //take out the taken from list
   identifierList = identifierList.filter((list) => !arrayOfTakens.includes(list))
-  const [identifier, setIdentifier] = useState(identifierList[0])
+  const [identifier, setIdentifier] = useState(identifierList[0]);
+  const [grade, setGrade] = useState('kindergarten')
 
   const handleAddStudent = (e) => {
     e.preventDefault();
@@ -46,6 +47,7 @@ export default function AddStudent(props: AddStudentProps) {
       parent_id: props.userId,
       username: username.toLowerCase(),
       name,
+      grade,
       question,
       identifier,
       password: answer.toLowerCase()
@@ -75,16 +77,30 @@ export default function AddStudent(props: AddStudentProps) {
             <input id="studentName" pattern="^[A-Za-z]+([A-Za-z ][A-Za-z]+)*$" onChange={e => setName(e.target.value)} name='name' />
             <span className="tip"></span>
           </label>
-          <label htmlFor="identifier">
-            <h3 className="actual-label">Animal Identifier</h3>
 
-            <select className="full-width" name="identifier" id="identifier" onChange={e => setIdentifier(e.target.value)}>
-              {identifierList.map((item, key) =>
-                <option value={item} key={item}>{item.charAt(0).toUpperCase() + item.slice(1)}</option>)}
-            </select>
-            {/* <input id="identifier" onChange={e => setIdentifier(e.target.value)} name="identifier" required></input> */}
-            <span className="tip">Choose an animal to identify the student.</span>
-          </label>
+          <div className="share-space">
+            <label htmlFor="identifier">
+              <h3 className="actual-label">Animal Identifier</h3>
+
+              <select className="full-width" name="identifier" id="identifier" onChange={e => setIdentifier(e.target.value)}>
+                {identifierList.map((item, key) =>
+                  <option value={item} key={item}>{item.charAt(0).toUpperCase() + item.slice(1)}</option>)}
+              </select>
+              <span className="tip">Choose an animal to identify the student.</span>
+            </label>
+            <label htmlFor="grade">
+              <h3 className="actual-label" >Grade</h3>
+              <select name="grade" id="grade" onChange={e => setGrade(e.target.value)}>
+                <option value="kindergarten">Kindergarten</option>
+                <option value="firstgrade">First Grade</option>
+                <option value="secondgrade">Second Grade</option>
+                <option value="thirdgrade">Third Grade</option>
+                <option value="fourthgrade">Fourth Grade</option>
+                <option value="fifthgrade">Fifth Grade</option>
+              </select>
+            </label>
+          </div>
+
           <label htmlFor="question1">
             <h3 className="actual-label">Question</h3>
             <input id="question1" name='question1' onChange={e => setQuestion(e.target.value)} defaultValue={question} />

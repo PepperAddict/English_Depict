@@ -101,7 +101,7 @@ module.exports = pgPool => {
           console.log(err);
         });
     },
-    getVocabularyByID(student_id) {
+    getVocabularyByParent(student_id) {
       return pgPool
         .query(
           `select * from vocabularies where student_id = $1`,[student_id])

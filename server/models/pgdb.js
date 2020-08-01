@@ -139,6 +139,7 @@ module.exports = pgPool => {
           return res.rows[0];
         })
         .catch((e) => {
+          console.log(e)
           throw new Error(e);
         });
     },

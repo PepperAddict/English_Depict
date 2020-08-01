@@ -10,10 +10,11 @@ export default function TaskFront(props) {
       <nav>
         <ul className="task-select">
           <li>
-            <Link to="/parent-dashboard/task/CIC">Caption this Image</Link>
+            <Link to="/parent-dashboard/task/CIC">
+              <p><strong>Image Clue</strong></p>Caption the Image</Link>
           </li>
           <li>
-            <Link to="/parent-dashboard/task/WOTD">Word of the Day</Link>
+            <Link to="/parent-dashboard/task/WOTD"><p><strong>Word of the Day</strong></p>Sight Words</Link>
           </li>
         </ul>
 

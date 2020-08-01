@@ -89,6 +89,7 @@ export const getUserByID = gql`
       created_at
       verified
       share
+      auto_task
       students {
         student_id
         name
@@ -190,6 +191,7 @@ export const getStudentInfoSimple = gql`
       teacher_id
       avatar
       name
+
     }
   }
 `;
@@ -203,6 +205,7 @@ export const getStudentInfo = gql`
       identifier
       student_id
       name
+      grade
       message
       vocabularies {
         vocab_id

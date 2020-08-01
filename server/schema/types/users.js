@@ -20,6 +20,7 @@ const UsersType = new GraphQLObjectType({
       email: { type: GraphQLNonNull(GraphQLString) },
       username: { type: GraphQLNonNull(GraphQLString) },
       created_at: {type: GraphQLNonNull(GraphQLString)},
+      auto_task: {type: GraphQLString},
       verified: {type: GraphQLBoolean},
       verify_token: {type: GraphQLString},
       share: {type: GraphQLJSON},
@@ -32,7 +33,7 @@ const UsersType = new GraphQLObjectType({
       vocabularies: {
         type: new GraphQLList(vocabType),
         resolve: async (source, input, {pgPool, req}) => {
-          return lessondb(pgPool).getVocabularyByTeacher(source.id)
+          return lessondb(pgPool).getVocabularyByParent(source.id)
         }
       }
     };

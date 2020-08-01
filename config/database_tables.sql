@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS users (
     id serial PRIMARY KEY,
     email text NOT NULL UNIQUE,
+    auto_tasks boolean,
     username text NOT NULL,
     password text NOT NULL,
     created_at text,
@@ -17,6 +18,7 @@ CREATE TABLE IF NOT EXISTS teachers (
     email text NOT NULL UNIQUE,
     username text NOT NULL,
     password text NOT NULL,
+    auto_task boolean,
     created_at text,
     amazon text,
     apiKey text,
@@ -41,6 +43,7 @@ CREATE TABLE IF NOT EXISTS students (
     teacher_id integer REFERENCES teachers NULL,
     parent_id integer REFERENCES users NOT NULL,
     share json NULL,
+    grade text NOT NULL,
     name text,
     identifier text NOT NULL,
     question text NOT NULL,

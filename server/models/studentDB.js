@@ -5,16 +5,16 @@ const {
 module.exports = pgPool => {
   return {
     async addNewStudent({
-      parent_id, teacher_id, username, name, question, password, theme, identifier
+      parent_id, teacher_id, username, name, question, password, theme, identifier, grade
     }) {
       const apiKey = await signToken(username + password).then((api) => {
         return api;
       });
       const date_created = new Date();
       return pgPool.query(`
-      insert into students (parent_id, teacher_id, username, name, password, theme, student_key, created_at, question, identifier)
-      values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning *`, 
-      [parent_id, teacher_id, username, name, password, theme, apiKey, date_created, question, identifier])
+      insert into students (parent_id, teacher_id, username, name, password, theme, student_key, created_at, question, identifier, grade)
+      values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) returning *`, 
+      [parent_id, teacher_id, username, name, password, theme, apiKey, date_created, question, identifier, grade])
         .then((res => {
           return res.rows[0];
         }))
@@ -49,6 +49,9 @@ module.exports = pgPool => {
       return pgPool.query(`select * from students where student_id=${student_id}`)
         .then((res) => {
           return res.rows;
+        })
+        .catch((err) => {
+          console.log(err)
         });
     },
 
