@@ -22,6 +22,7 @@ const StudentType = new GraphQLObjectType({
       grade: {type: GraphQLNonNull(GraphQLString)},
       name: { type: GraphQLString },
       share: {type: GraphQLJSON},
+      auto_task: {type: GraphQLJSON},
       identifier: {type: GraphQLString},
       question: {type: GraphQLNonNull(GraphQLString)},
       password: {type: GraphQLNonNull(GraphQLString)},

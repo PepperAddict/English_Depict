@@ -1,6 +1,6 @@
 const lessons = {
-  kindergarten: {
-    wotd: {
+  wotd: {
+    kindergarten: {
       am: {
         word: "am",
         sentence: "I am 5 years old",
@@ -153,10 +153,7 @@ const lessons = {
         spell: ["u", "p"],
       },
     },
-    wordProblem: {},
-  },
-  firstGrade: {
-    wotd: {
+    firstGrade: {
       about: {
         word: "about",
         sentence: "Let's talk about summer",
@@ -218,10 +215,7 @@ const lessons = {
         sentence: "I want to try all ice cream flavors.",
       },
     },
-    WordProblem: {},
-  },
-  secondGrade: {
-    wotd: {
+    secondGrade: {
       are: {
         word: "are",
         sentence: "Are you my friend?",
@@ -676,9 +670,7 @@ const lessons = {
         sentence: "I want a little bit of sour cream with my taco.",
       },
     },
-  },
-  thirdGrade: {
-    wotd: {
+    thirdGrade: {
       afraid: {
         word: "afraid",
         sentence: "I'm afraid of the dark.",

@@ -18,6 +18,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ImageClue from '../Tasks/Teacher_CIC';
 import TaskWOTD from '../Tasks/Teacher_WOTD';
 import { TeacherContext } from '../index/Context'
+import AutoTask from '../Tasks/AutoTask'
 
 export default function Dashboard() {
 
@@ -49,6 +50,7 @@ export default function Dashboard() {
                   <Route path="/parent-dashboard/task/CIC" render={(props) => <ImageClue {...props} teacher_data={data.getUser} students={data.getUser.students} />} />
                   <Route path="/parent-dashboard/task/WOTD" render={(props) => <TaskWOTD {...props} teacher_data={data.getUser} />} />
                   <Route path="/parent-dashboard/task/current" render={(props) => <SelectedTaskView {...props} currentTask={context.task} setTask={context.setTask}/>} />
+                  <Route path="/parent-dashboard/task/auto-task" render={(props) => <AutoTask {...props} teacher_data={data.getUser} students={data.getUser.students}/>} />
                 </Switch>
               </div>
             )}

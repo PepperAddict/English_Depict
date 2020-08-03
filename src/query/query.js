@@ -208,6 +208,7 @@ export const getStudentInfo = gql`
       name
       grade
       message
+      auto_task
       vocabularies {
         vocab_id
         vocabulary_word

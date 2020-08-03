@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS students (
     share json NULL,
     grade text NOT NULL,
     name text,
+    auto_task json,
     identifier text NOT NULL,
     question text NOT NULL,
     password text NOT NULL,
