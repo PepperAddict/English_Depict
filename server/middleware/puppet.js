@@ -16,14 +16,13 @@ router.get(['/api/1/puppeteer/', '/api/1/puppeteer/:page?'], cors(), async (req,
         //allow all origin and limit when there are problems
         res.header('Access-Control-Allow-Origin', '*');        
         const browser = await puppeteer.launch({
-            headless: true,
             args: ['--no-sandbox', '--disable-web-security']
         });
         
         const page = await browser.newPage();
         await page.setRequestInterception(true);
         page.on('request', async request => {
-            await useProxy(request, null);
+            await useProxy(request, 'http://127.0.0.1:8080/');
         });
         await page.goto(req.query.url);
         const image = await page.screenshot({type: "jpeg", quality: 50});
