@@ -108,6 +108,10 @@ router.use(imageupload)
 router.use(forAlexa)
 router.use(forMath)
 
+//puppeteer
+
+const puppet = require('./middleware/puppet.js')
+router.use(puppet)
 
 router.get(["/student-dashboard/", "/student-dashboard/:page?"], cors(), studentAuthenticate,
   (req, res) => {
@@ -135,6 +139,7 @@ server.use("/api/2/graphql", (req, res) => {
     introspection: true,
   })(req, res);
 });
+
 
 
 server.use('/', router)
