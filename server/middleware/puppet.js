@@ -10,6 +10,7 @@ const { response } = require("express");
 
 
 router.get(['/api/1/puppeteer/', '/api/1/puppeteer/:page?'], async (req, res) => {
+
     try {
         //allow all origin and limit when there are problems
         res.header('Access-Control-Allow-Origin', '*');        
