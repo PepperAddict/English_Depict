@@ -23,7 +23,17 @@ router.get(['/api/1/puppeteer/:page?'], cors(corsOptionsDelegate), async (req, r
     const path = req.url.split("/");
     try {
         const browser = await puppeteer.launch({
-            args: ['--no-sandbox']
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-accelerated-2d-canvas',
+                '--no-first-run',
+                '--no-zygote',
+                '--single-process',
+                '--disable-gpu'
+              ],
+              headless: true
         });
         const page = await browser.newPage();
         await page.goto(req.query.url);
