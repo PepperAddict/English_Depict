@@ -19,7 +19,7 @@ var corsOptionsDelegate = function (req, callback) {
   callback(null, corsOptions) // callback expects two parameters: error and options
 }
 
-router.get(['/api/1/puppeteer/:page?'], cors(corsOptionsDelegate), async (req, res) => {
+router.get(['/api/1/puppeteer/:page?'], async (req, res) => {
     const path = req.url.split("/");
     try {
         const browser = await puppeteer.launch({
