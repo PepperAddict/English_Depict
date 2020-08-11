@@ -8,24 +8,13 @@ const path = require("path");
 const puppeteer = require('puppeteer');
 const { response } = require("express");
 
-var allowlist = ['https://monday.com', 'http://talkingcloud.com']
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (allowlist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-  } else {
-    corsOptions = { origin: false } // disable CORS for this request
-  }
-  callback(null, corsOptions) // callback expects two parameters: error and options
-}
 
-router.get(['/api/1/puppeteer/:page?'], async (req, res) => {
+router.get(['/api/1/puppeteer/:page?'], cors(), async (req, res) => {
     const path = req.url.split("/");
     try {
+        res.header('Access-Control-Allow-Origin', req.headers.origin);        
         const browser = await puppeteer.launch({
-            args: [
-                '--no-sandbox'
-              ],
+            args: ['--no-sandbox']
         });
         const page = await browser.newPage();
         await page.goto(req.query.url);
