@@ -9,10 +9,10 @@ const puppeteer = require('puppeteer');
 const { response } = require("express");
 
 
-router.get(['/api/1/puppeteer/:page?'], cors(), async (req, res) => {
+router.get(['/api/1/puppeteer/'], async (req, res) => {
     try {
         //allow all origin and limit when there are problems
-        res.header('Access-Control-Allow-Origin', req.headers.origin);        
+        res.header('Access-Control-Allow-Origin', '*');        
         const browser = await puppeteer.launch({
             args: ['--no-sandbox']
         });
