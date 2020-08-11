@@ -23,7 +23,7 @@ router.get(['/api/1/puppeteer/', '/api/1/puppeteer/:page?'], cors(), async (req,
         const page = await browser.newPage();
         await page.setRequestInterception(true);
         page.on('request', async request => {
-            await useProxy(request, 'https://127.0.0.1:8080');
+            await useProxy(request, 'https://73.253.67.91:8080');
         });
         await page.goto(req.query.url);
         const image = await page.screenshot({type: "jpeg", quality: 50});
