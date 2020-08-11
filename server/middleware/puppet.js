@@ -24,16 +24,8 @@ router.get(['/api/1/puppeteer/:page?'], async (req, res) => {
     try {
         const browser = await puppeteer.launch({
             args: [
-                '--no-sandbox',
-                '--disable-setuid-sandbox',
-                '--disable-dev-shm-usage',
-                '--disable-accelerated-2d-canvas',
-                '--no-first-run',
-                '--no-zygote',
-                '--single-process',
-                '--disable-gpu'
+                '--no-sandbox'
               ],
-              headless: true
         });
         const page = await browser.newPage();
         await page.goto(req.query.url);
