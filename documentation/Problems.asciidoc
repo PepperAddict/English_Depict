@@ -23,3 +23,14 @@ Source for solution: https://github.com/apollographql/apollo-client/issues/1233
 There was an issue with MIME type error after hosting it. I had to remove the hot reload option as discussed here:
 
 https://github.com/webpack-contrib/webpack-hot-middleware/issues/26
+
+** Puppeteer 
+
+I had an issue where puppeteer would just hang in the production server until I got a 502 error. 
+The error in nginx from digital ocean says: 
+```
+2020/08/12 00:21:32 [error] 8446#8446: *146 upstream timed out (110: Connection timed out) while reading response header from upstream, client: myip, server: 138.197.229.105, request: "GET /api/1/puppeteer/?url=https://www.google.com HTTP/1.1", upstream: "http://127.0.0.1:8080/api/1/puppeteer/?url=https://www.google.com", host: "138.197.229.105"
+```
+
+Which was not helpful whatsoever. Luckily I found a solution. All I needed was chrome installed in the ubuntu server! 
+https://stackoverflow.com/questions/46134231/running-google-chrome-puppeteer-on-vultr-digital-ocean-heroku-or-gae
