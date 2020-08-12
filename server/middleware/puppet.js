@@ -15,7 +15,7 @@ router.get(
     //allow all origin and limit when there are problems
     res.header("Access-Control-Allow-Origin", "*");
     const browser = await puppeteer.launch({
-      args: ["--disable-web-security"],
+      args: ["--disable-web-security", "--no-sandbox", "--disable-setuid-sandbox"],
     });
     const page = await browser.newPage();
     // await page.setRequestInterception(true);
