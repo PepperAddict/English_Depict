@@ -18,14 +18,14 @@ router.get(
       args: ["--disable-web-security"],
     });
     const page = await browser.newPage();
-    await page.setRequestInterception(true);
-    page.on('request', async (request) => {
-        await proxyRequest({
-          page,
-          proxyUrl: 'http://127.0.0.1:8080',
-          request,
-        });
-      });
+    // await page.setRequestInterception(true);
+    // page.on('request', async (request) => {
+    //     await proxyRequest({
+    //       page,
+    //       proxyUrl: 'http://127.0.0.1:8080',
+    //       request,
+    //     });
+    //   });
     try {
 
       await page.goto(req.query.url, {waitUntil: 'load'});
