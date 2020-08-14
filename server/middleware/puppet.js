@@ -34,7 +34,6 @@ router.get(
 
     if (req.headers.origin.endsWith('ngrok.io') || req.headers.origin.endsWith('monday.com')) {
         res.setHeader('Access-Control-Allow-Origin', req.headers.origin)
-        console.log(req.query)
     
     const browser = await puppeteer.launch();
     

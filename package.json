@@ -58,6 +58,7 @@
     "express-jwt": "^5.3.1",
     "express-static-gzip": "^2.0.6",
     "file-loader": "^5.1.0",
+    "formidable": "^1.2.2",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
     "graphql-type-json": "^0.3.1",
