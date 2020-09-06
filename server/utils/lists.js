@@ -17,4 +17,5 @@ let animalList = [
   'What is your favorite pet\'s name?', 'What is your favorite toy?', 'Who is your current teacher?',
   'What color is your chair?', 'How many pets do you have?', 'What is your favorite animal?', 'What is your hair color?', 'What is your favorite game?', 'What is your favorite store?', 'What color are your eyes?',
   'What is your favorite computer', 'What is your favorite insect?'];
-module.exports = {names, animalList, questionArray}
+
+  module.exports = {names, animalList, questionArray}
