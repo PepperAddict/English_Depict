@@ -85,9 +85,14 @@ const sayProblem = (mode = true) => {
   const randomName = names[Math.floor(Math.random() * names.length)]
   const cashier = `The cashier says: "Your total is ${cost_dollars} dollars and ${cost_cents} cents."`;
   const customer = `${randomName} pays with a ${customer_dollars} dollar bill.`;
-  const changeQuestion = `How much change should the cashier give back to ${randomName}?`;
-  const problem = `${cashier} ${customer} ${changeQuestion}`;
-  const alexaSay = `Say repeat if you want me to repeat, Say solution if you have the answer, or say Exit to come back later.`;
+  const changeQuestion = `How much change should the cashier give back to ${randomName}?`; 
+  const totalDollars = parseFloat(cost_dollars + '.' + cost_cents);
+  const convertCustomerToCents = parseFloat(customer_dollars);
+  const answer = convertCustomerToCents - totalDollars;
+  const problem = {question: `${cashier} ${customer} ${changeQuestion}`,
+  numbers: `${convertCustomerToCents.toFixed(2)} - ${totalDollars} = ${answer}`,
+  answer: answer.toFixed( 2 )};
+
   return problem;
 }
 

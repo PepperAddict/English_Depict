@@ -108,13 +108,6 @@ router.use(imageupload)
 router.use(forAlexa)
 router.use(forMath)
 
-//puppeteer
-
-const puppet = require('./middleware/puppet.js')
-router.use(puppet)
-
-const mupload = require('./middleware/mondayUpload.js')
-router.use(mupload)
 
 router.get(["/student-dashboard/", "/student-dashboard/:page?"], cors(), studentAuthenticate,
   (req, res) => {
