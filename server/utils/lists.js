@@ -1,7 +1,11 @@
 const names = ["Jake", "Sally", "Neomi", "Randy", "Emily", "James", 
 "Ethan", "Ellie", "Candace", "Phillip", "Terry", "Nina", "Amy"]
 
-const objects = ["candies", "flowers", "pencils", "pens", "cups"]
+const things = ["candies", "flowers", "pencils", "pens", "cups", "tables", "shirts", 
+"crystals", "cupcakes", "cakes", "ice creams", "toys", "computers", "monitors", "laptops", "tablets",
+"doors", "cooking pots", "printers", "scissors", "staplers", "tweezers", "stars", "rocks", "grass", 
+"chairs", "curtains", "chocolates", "shells", "eggs", "socks", "leashes", "harnesses", "towels", "bottles", 
+"tennis balls", "basket balls", "shoes", "stools", "drawers", "cans"]
 
 let animalList = [
     "peacock", "lion", "dog", "toucan", "squid", "piranha", "cat", "otter", "salmon", "falcon", "eagle", "slug", "bird",
@@ -18,4 +22,4 @@ let animalList = [
   'What color is your chair?', 'How many pets do you have?', 'What is your favorite animal?', 'What is your hair color?', 'What is your favorite game?', 'What is your favorite store?', 'What color are your eyes?',
   'What is your favorite computer', 'What is your favorite insect?'];
 
-  module.exports = {names, animalList, questionArray}
+  module.exports = {names, animalList, questionArray, things}

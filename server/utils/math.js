@@ -5,7 +5,7 @@ const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
-const {names} = require('./lists')
+const {names, things} = require('./lists')
 
 
 const checkAnswer = (num) => {
@@ -81,8 +81,16 @@ const setupProblem = (mode = true) => {
 }
 
 const sayProblem = (mode = true) => {
+  // const randomName = names[Math.floor(Math.random() * names.length)];
+  const randomName2 = names[Math.floor(Math.random() * names.length)];
+  const easyFirst = Math.floor((Math.random()*50) + 1);
+  const theObject = things[Math.floor(Math.random() * things.length)];
+  const easySecond = Math.floor((Math.random() * 10) + 1)
+
+
   setupProblem(mode);
-  const randomName = names[Math.floor(Math.random() * names.length)]
+  const randomName = names[Math.floor(Math.random() * names.length)];
+
   const cashier = `The cashier says: "Your total is ${cost_dollars} dollars and ${cost_cents} cents."`;
   const customer = `${randomName} pays with a ${customer_dollars} dollar bill.`;
   const changeQuestion = `How much change should the cashier give back to ${randomName}?`; 
@@ -90,11 +98,20 @@ const sayProblem = (mode = true) => {
   const convertCustomerToCents = parseFloat(customer_dollars);
   const answer = convertCustomerToCents - totalDollars;
   const problem = {question: `${cashier} ${customer} ${changeQuestion}`,
-  numbers: `${convertCustomerToCents.toFixed(2)} - ${totalDollars} = ${answer}`,
-  answer: answer.toFixed( 2 )};
+                  numbers: `${convertCustomerToCents.toFixed(2)} - ${totalDollars} = ${answer.toFixed(2)}`,
+                  answer: answer.toFixed( 2 ),
+                
+                  simpleSubtraction: `${randomName} has ${easyFirst} ${theObject}. ${randomName} sells ${easySecond}. How many ${theObject} does she have left?`,
+                  simpleSubtractionNumber: `${easyFirst} - ${easySecond} = ${parseInt(easyFirst - easySecond)}`,
+                  simpleSubtractionAnswer: parseInt(easyFirst - easySecond),
+
+                  simpleAddition: `${randomName} has ${easyFirst} ${theObject}. ${randomName2} gives ${randomName} ${easySecond} ${theObject}. How many ${theObject} does ${randomName} have in all?`
+                };
 
   return problem;
 }
+
+
 
 module.exports = {
   sayProblem,
