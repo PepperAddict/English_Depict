@@ -13,8 +13,8 @@ function mathy(res, mode, callback) {
 
   schedule.scheduleJob("*/1 * * * *", (fireDate) => {
       sayProb = {
-          cashierEasy : sayProblem(true),
-          cashierHard : sayProblem(false)
+          easy : sayProblem(true),
+          hard : sayProblem(false)
       }
   });
   callback(sayProb);

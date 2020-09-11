@@ -83,10 +83,10 @@ const setupProblem = (mode = true) => {
 const sayProblem = (mode = true) => {
   // const randomName = names[Math.floor(Math.random() * names.length)];
   const randomName2 = names[Math.floor(Math.random() * names.length)];
-  const easyFirst = Math.floor((Math.random()*50) + 1);
+  const easyFirst = (mode === true) ? Math.floor((Math.random()*50) + 2) : Math.floor((Math.random() * 50) + 20);
   const theObject = things[Math.floor(Math.random() * things.length)];
-  const easySecond = Math.floor((Math.random() * 10) + 1)
-
+  const easySecond = Math.floor((Math.random() * 10) + 2);
+  const easyThird = (mode === false) ? Math.floor((Math.random() * 10) + 2) : null;
 
   setupProblem(mode);
   const randomName = names[Math.floor(Math.random() * names.length)];
@@ -97,16 +97,22 @@ const sayProblem = (mode = true) => {
   const totalDollars = parseFloat(cost_dollars + '.' + cost_cents);
   const convertCustomerToCents = parseFloat(customer_dollars);
   const answer = convertCustomerToCents - totalDollars;
-  const problem = {question: `${cashier} ${customer} ${changeQuestion}`,
-                  numbers: `${convertCustomerToCents.toFixed(2)} - ${totalDollars} = ${answer.toFixed(2)}`,
-                  answer: answer.toFixed( 2 ),
-                
-                  simpleSubtraction: `${randomName} has ${easyFirst} ${theObject}. ${randomName} sells ${easySecond}. How many ${theObject} does she have left?`,
-                  simpleSubtractionNumber: `${easyFirst} - ${easySecond} = ${parseInt(easyFirst - easySecond)}`,
-                  simpleSubtractionAnswer: parseInt(easyFirst - easySecond),
+  const subWays = [`How many ${theObject} are left?`, `How many ${theObject} does ${randomName} have left?`, `How many ${theObject} remains?`, `How many remains?`, `How many ${theObject} does ${randomName} still have?`, `How many ${theObject} are left in the store?`]
+  const addWays = [`How many ${theObject} does ${randomName} have in all?`, `How many does ${randomName} have in all?`, `How many does ${randomName} have?`, `How many does ${randomName} have now?`, `How many ${theObject} is there now?`, `How many ${theObject} does ${randomName} have now?`]
 
-                  simpleAddition: `${randomName} has ${easyFirst} ${theObject}. ${randomName2} gives ${randomName} ${easySecond} ${theObject}. How many ${theObject} does ${randomName} have in all?`
-                };
+  const problem =  [ {question: `${cashier} ${customer} ${changeQuestion}`,
+                  equation: `${convertCustomerToCents.toFixed(2)} - ${totalDollars} = ${answer.toFixed(2)}`,
+                  answer: answer.toFixed( 2 ) }, 
+                  {
+                  question: `${randomName} has ${easyFirst} ${theObject} in her store. ${randomName} sells ${easySecond} ${(easyThird) && ` and the next day sells another ${easyThird} ${theObject}`}. ${subWays[Math.floor(Math.random() * subWays.length)]}`,
+                  equation: `${easyFirst} - ${easySecond} ${(easyThird) ? '- ' + easyThird : ''} = ${parseInt(easyFirst - easySecond - easyThird) }`,
+                  answer: parseInt(easyFirst - easySecond - easyThird),
+                  }, {
+                                      question: `${randomName} has ${easyFirst} ${theObject}. ${randomName2} gives ${randomName} ${easySecond} ${theObject} ${(easyThird) ? `. The next day ${randomName} buys ${easyThird} more ${theObject}`: ''}. ${addWays[Math.floor(Math.random() * addWays.length)]}`,
+                  equation: `${easyFirst} + ${easySecond} ${easyThird ? '+ ' + easyThird : ''} = ${parseInt(easyFirst + easySecond + easyThird)}`,
+                  answer: parseInt(easyFirst + easySecond + easyThird)
+                  }
+  ];
 
   return problem;
 }
