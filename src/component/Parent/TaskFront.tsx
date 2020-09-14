@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom';
 export default function TaskFront(props) {
   return (
     <div className="dashboard-task-select-container">
-      <Link to="/parent-dashboard/task/auto-task"><button className="auto-task-button">Auto Task</button></Link>
-      Which task would you like to make?
+      {/* <Link to="/parent-dashboard/task/auto-task">
+        <button className="auto-task-button">Auto Task</button>
+      </Link> */}
+      <h2>Which task would you like to make?</h2>
       <nav>
         <ul className="task-select">
           <li>
