@@ -1,13 +1,17 @@
 @import url("https://use.typekit.net/rbt3pze.css");
 
 dark-gray = #6A6A6A;
+link-gray = #ABB3BB;
 darker-gray = #292929;
 light-green = #0f5;
 button-green = #00d41e;
 link-orange = #f25500;
+link-blue = #79ABE0;
+button-blue = #79ABE0;
 font-gray = #414141;
 mobile = 530px;
-
+.app 
+  position: relative;
 .bottom-dashed {
   background-image: linear-gradient(90deg,#444 33%,hsla(0,0%,100%,0) 0);
   background-position: bottom;
@@ -61,14 +65,29 @@ input {
 }
 a {
   text-decoration: none;
-  color: link-orange;
+  color: link-blue;
 }
 p {
   display: flex;
   flex-wrap: wrap;
 }
-
-
+.show-when-empty 
+  background: #C4C4C4;
+  width: 100%;
+  padding: 30px;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 200px;
+  .blue-button 
+    background: link-blue;
+    border: 0px;
+    border-radius: 5px;
+    color: white;
+    text-transform: capitalize;
+    width: 200px;
 span {
   margin-right: 5px;
 }
@@ -78,3 +97,6 @@ span {
   padding: 10px;
   color: white;
 }
+
+.limit-width
+  max-width: 800px;

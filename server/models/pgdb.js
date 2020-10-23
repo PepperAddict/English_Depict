@@ -9,7 +9,7 @@ module.exports = pgPool => {
       email,
       password,
       verify_token,
-      role
+      amazon
     }) {
       //first let's check if the email exists in the database, 
       //if it does and password matches, sign in. if none then register
@@ -35,9 +35,49 @@ module.exports = pgPool => {
           });
           const date_created = new Date();
           return pgPool.query(`
-        insert into users (username, email, token, password, created_at, verify_token, role)
+        insert into users (username, email, token, password, created_at, verify_token, amazon)
         values ($1, $2, $3, $4, $5, $6, $7) returning *
-      `, [username, email, token, newPassword, date_created, verify_token, role]).then(res => {
+      `, [username, email, token, newPassword, date_created, verify_token, amazon]).then(res => {
+            const user = res.rows[0];
+            user.apiKey = user.token;
+            return user;
+          });
+        }
+      });
+    },
+    async addNewTeacher({
+      username,
+      email,
+      password,
+      verify_token,
+    }) {
+      //first let's check if the email exists in the database, 
+      //if it does and password matches, sign in. if none then register
+      return pgPool.query(`select * from teachers where email = $1`, [email]).then(async res => {
+        if (res.rows.length > 0) {
+          let hashedPassword = await bcrypt.compare(password, res.rows[0].password);
+          if (hashedPassword) {
+            res.rows[0].apiKey = res.rows[0].token;
+            // TODO: Make it redirect to dashboard with message that 
+            // password matched with username upon logging them in
+            throw new Error('Your password matched!')
+          } else {
+            throw new Error('Email already exists!');
+          }
+        } else {
+          //setting up for registration
+          const token = await signToken(username + email + password).then((api) => {
+            return api;
+          });
+          const saltRounds = 10;
+          const newPassword = await bcrypt.hash(password, saltRounds).then((hashed) => {
+            return hashed;
+          });
+          const date_created = new Date();
+          return pgPool.query(`
+        insert into teachers (username, email, token, password, created_at, verify_token)
+        values ($1, $2, $3, $4, $5, $6) returning *
+      `, [username, email, token, newPassword, date_created, verify_token]).then(res => {
             const user = res.rows[0];
             user.apiKey = user.token;
             return user;
@@ -51,10 +91,29 @@ module.exports = pgPool => {
         return res.rows[0]
       }) 
     },
+    setTeacherVerified(email) {
+      return pgPool.query(`update teachers set verified = true where email = $1 returning *`, [email])
+      .then(res => {
+        return res.rows[0]
+      }) 
+    },
     removeUser(id) {
       return pgPool.query(`delete from users where id = $1 returning *`, [id])
       .then(res => {
         return res.rows
+      }).catch(e => console.log(e))
+    },
+    removeStudent(student_id) {
+      return pgPool.query(`delete from tasks where student_id = $1 returning *`, [student_id])
+      .then(() => {
+        return pgPool.query('delete from vocabularies where student_id = $1 returning *', [student_id])
+        .then(() => {
+          //now remove student 
+          return pgPool.query('delete from students where student_id = $1 returning *', [student_id])
+        }).then((res) => {
+          let data = {message: "success"}
+          return data
+        })
       }).catch(e => console.log(e))
     },
     addNewPost({
@@ -73,6 +132,21 @@ module.exports = pgPool => {
       return pgPool.query(`
         select * from users where id = $1
       `, [input])
+        .then(res => {
+          if (res.rows.length === 0) {
+            throw new Error('no results found');
+          }
+          return res.rows[0];
+        })
+        .catch((e) => {
+          console.log(e)
+          throw new Error(e);
+        });
+    },
+    getTeacherById(id) {
+      return pgPool.query(`
+        select * from teachers where teacher_id = $1
+      `, [id])
         .then(res => {
           if (res.rows.length === 0) {
             throw new Error('no results found');
@@ -100,6 +174,14 @@ module.exports = pgPool => {
         .then(res => {
           return res.rows;
         });
+    },
+    getUserByUnknown(search) {
+      if (search)
+      return pgPool.query(`
+      select * from users where username LIKE '%${search}%' or email LIKE '%${search}%'`)
+      .then((res) => {
+      return res.rows
+      }).catch((er) =>console.log(er))
     },
     getAllPosts(limit) {
       //get posts with a limit or all if limit isn't supplied
@@ -140,6 +222,29 @@ module.exports = pgPool => {
           throw new Error(e);
         });
 
+    },
+    loginTeacher(email, password) {
+
+      return pgPool.query(`
+        select * from teachers where email = $1
+      `,[email] )
+        .then(async res => {
+          if (res.rows.length > 0) {
+            let hashedPassword = await bcrypt.compare(password, res.rows[0].password);
+            if (hashedPassword) {
+              res.rows[0].apiKey = res.rows[0].token;
+              return res.rows[0];
+            } else {
+              throw new Error('incorrectPassword');
+            }
+          } else {
+
+            throw new Error('noEmail');
+          }
+        }).catch((e) => {
+          console.log(e)
+          throw new Error(e);
+        });
     },
     addChat({student_id, teacher_id, content}) {
       let teacherOrstudentOne = student_id ? 'student_id' : 'teacher_id';

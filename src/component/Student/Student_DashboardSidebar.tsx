@@ -5,6 +5,7 @@ const blogIcon = require('../../img/pencil.svg');
 const taskIcon = require('../../img/task.svg');
 const activityIcon = require('../../img/activity.svg');
 import { createUseStyles } from 'react-jss';
+import { Link } from 'react-router-dom';
 
 const svgColor = createUseStyles({
   svg: {
@@ -19,29 +20,53 @@ const svgColor = createUseStyles({
 
 export default function DashboardSidebar(props) {
   const svgIt = svgColor();
+  const clearCookies = (keyName = null) => {
+    let expireDate = new Date();
+    expireDate.setTime(expireDate.getTime() - 1);
+
+    if (keyName) {
+      document.cookie = `${keyName}=; expires=${expireDate.toUTCString()};Path=/;`;
+    } else {
+      const cookies = document.cookie.split(';');
+
+      cookies.forEach((value) => {
+        document.cookie = value.replace(/^ +/, '').replace(/=.*/, '=;expires=' + expireDate.toUTCString());
+      });
+    }
+  };
+
+  const logout = () => {
+    clearCookies('student_id');
+    clearCookies('student_key');
+    location.replace('/');
+
+  };
 
   return (
-    <Fragment>
+
+      <div className="sidebar">
       <nav className={svgIt.svg}>
-        <a href="/student" className="dashboard-link">
+        <Link to="/student-dashboard" className="dashboard-link">
           <object className={svgIt.svg} type="image/svg+xml" data={outlineLogo.default} />
           Dashboard
-        </a>
+        </Link>
+        <Link to="/student-dashboard/tasks">
+          <object type="image/svg+xml" data={taskIcon.default} />
+          Tasks
+        </Link>
+        {/* <Link to="/student/blog">
+          <object type="image/svg+xml" data={blogIcon.default} />
+          Blog
+        </Link> */}
 
-        <ul className="top-nav">
-          <li><a href="/dashboard/task">
-
-            <object type="image/svg+xml" data={taskIcon.default} /> Tasks</a></li>
-          <li><a href="/student/blogs">
-            <object type="image/svg+xml" data={blogIcon.default} /> View Blog</a></li>
-          <li><a href="/student/add_blog">
-            <object type="image/svg+xml" data={activityIcon.default} />
-            Add blog</a></li>
-
-            <li><a href="/student/settings">Settings</a></li>
-        </ul>
-
+        {/* <Link to="/student/settings">
+          <object type="image/svg+xml" data={activityIcon.default} />
+        Settings
+      </Link> */}
       </nav>
-    </Fragment>
+
+      <button type="button" onClick={logout}>Logout</button>
+      </div>
+
   );
 }

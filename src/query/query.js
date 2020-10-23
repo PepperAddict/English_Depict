@@ -36,6 +36,18 @@ export const Handle_Login = gql`
   }
 `;
 
+export const Handle_Teacher_Login = gql`
+  query TeacherLogin($email: String!, $password: String!) {
+    TeacherLogin(email: $email, password: $password) {
+      teacher_id
+      email
+      apiKey
+      username
+    }
+  }
+`;
+
+
 export const getTaskByID = gql`
   query getTaskIDByID($task_id: ID!) {
     getTaskByID(task_id: $task_id) {
@@ -76,9 +88,12 @@ export const getUserByID = gql`
       username
       created_at
       verified
+      share
+      auto_task
       students {
         student_id
         name
+        identifier
         username
         question
         password
@@ -105,6 +120,47 @@ export const getUserByID = gql`
     }
   }
 `;
+
+export const getTeacherByID = gql`
+query getTeacherByID($teacher_id: ID!) {
+  GetTeacher(teacher_id: $teacher_id) {
+    teacher_id
+    email
+    username
+    created_at
+    verified
+    share
+    students {
+      student_id
+      name
+      identifier
+      username
+      question
+      password
+      created_at
+      theme
+      avatar
+      tasks {
+        task_id
+        task_code
+        task_date
+        student_id
+        entry
+        completed_at
+        viewed
+        accepted
+        submission
+      }
+    }
+    vocabularies {
+      vocab_id
+      vocabulary_word
+      vocabulary_definition
+    }
+  }
+}
+`
+
 
 export const getUserByIDSimple = gql`
   query getUserByID($userId: ID!) {
@@ -135,6 +191,7 @@ export const getStudentInfoSimple = gql`
       teacher_id
       avatar
       name
+
     }
   }
 `;
@@ -144,10 +201,14 @@ export const getStudentInfo = gql`
     getStudentByID(student_id: $student_id) {
       username
       teacher_id
+      parent_id
       avatar
-      student_key
+      identifier
+      student_id
       name
+      grade
       message
+      auto_task
       vocabularies {
         vocab_id
         vocabulary_word
@@ -165,18 +226,7 @@ export const getStudentInfo = gql`
         viewed
         submission
       }
-      blogs {
-        blog_id
-        subject
-        content
-        created_at
-        comments {
-          student_id
-          teacher_id
-          content
-          created_at
-        }
-      }
+
     }
   }
 `;
@@ -223,3 +273,13 @@ export const getBlogByID = gql`
     }
   }
 `;
+
+export const getBasicByEmail = gql`
+query getUserByUnknown($search: String!) {
+  getUserByUnknown(search: $search) {
+    id
+    email
+    username
+  }
+}
+`

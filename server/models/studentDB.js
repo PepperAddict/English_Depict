@@ -5,21 +5,22 @@ const {
 module.exports = pgPool => {
   return {
     async addNewStudent({
-      teacher_id, username, name, question, password, theme
+      parent_id, teacher_id, username, name, question, password, theme, identifier, grade
     }) {
       const apiKey = await signToken(username + password).then((api) => {
         return api;
       });
       const date_created = new Date();
       return pgPool.query(`
-      insert into students (teacher_id, username, name, password, theme, student_key, created_at, question)
-      values ($1, $2, $3, $4, $5, $6, $7, $8) returning *`, 
-      [teacher_id, username, name, password, theme, apiKey, date_created, question])
+      insert into students (parent_id, teacher_id, username, name, password, theme, student_key, created_at, question, identifier, grade)
+      values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) returning *`, 
+      [parent_id, teacher_id, username, name, password, theme, apiKey, date_created, question, identifier, grade])
         .then((res => {
           return res.rows[0];
         }))
         .catch((e) => {
-          console.log(e);
+
+          throw new Error(e)
         });
     },
     verifyStudent({second_password, student_id}) {
@@ -48,12 +49,15 @@ module.exports = pgPool => {
       return pgPool.query(`select * from students where student_id=${student_id}`)
         .then((res) => {
           return res.rows;
+        })
+        .catch((err) => {
+          console.log(err)
         });
     },
 
     getStudent(userId) {
       return pgPool.query(`
-        select * from students where teacher_id = $1
+        select * from students where parent_id = $1
       `, [userId])
         .then(res => {
           return res.rows;
@@ -62,10 +66,28 @@ module.exports = pgPool => {
 
     updateMessage({student_id, message}) {
       return pgPool.query(`
-      update students set message='${message}' where student_id=${student_id} returning *
-      `).then((res) => {
+      update students set message=$1 where student_id=$2 returning *
+      `,[message, student_id]).then((res) => {
         return res.rows[0];
       }).catch((err) => console.log(err));
+    },
+    updateIdentifier({student_id, identifier}) {
+      return pgPool.query(`
+      update students set identifier=$1 where student_id=$2 returning *
+      `,[identifier, student_id]).then((res) => {
+        return res.rows[0];
+      }).catch((err) => console.log(err));
+    },
+    shareStudent({id, share, student_id}) {
+      return pgPool.query(
+        `UPDATE users SET share = $1 WHERE id = $2 RETURNING *`,[share, id])
+      .then((res) => {
+        return pgPool.query(`
+        update students set share=$1 where student_id=$2 returning *
+        `, [share, student_id])
+      }).catch((err) => {
+        console.log(err)
+      })
     }
   };
 };

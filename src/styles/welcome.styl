@@ -30,7 +30,8 @@
         display: block;
     .logo-info
       z-index: 2;
-      position: absolute;
+      position: relative;
+      padding-top: 100px;
       top: 0px;
       width: 100%;
       height: 100%;
@@ -38,7 +39,21 @@
       justify-items: center;
       align-items: center;
       grid-template-columns: 1fr;
-      grid-template-rows: auto auto 2fr
+      align-content: center;
+      .logo-hero 
+        position: relative;
+        h1 
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          text-align: center;
+          color: white;
+          top: 0px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0px;
+          font-size: 1.5rem;
       h1 
         align-self: start;
         color: #616161;
@@ -62,28 +77,35 @@
         a
           color: #FF8800;
       img
-        width: 500px;
+        width: 300px;
         @media screen and (max-width: mobile) 
           width: 150px;
       nav
         padding:10px;
         z-index: 4
         align-self: start;
-        font-size: 40px;
         display: grid;
-        grid-template-columns: auto auto;
+        grid-template-columns: 1fr;
         grid-gap: 10px;
         font-family: sophisto, sans-serif;
+        width: 100%;
+        max-width: 300px;
         @media screen and (max-width: mobile)
           display: inline-grid;
           grid-template-columns: 1fr;
         a
           text-decoration: none;
-          color: #ff5a00;
-          background: rgba(255, 255, 255, 0.5);
-          padding: 10px;
+          color: white;
+          background: #79ABE0;
+          padding: 15px 10px;
           border-radius: 10px;
           transition: .5s;
+          font-family: Open Sans;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 19px;
+          text-align: center;
           &:hover 
             background: rgba(255, 90, 0, 1);
             color: #fff;

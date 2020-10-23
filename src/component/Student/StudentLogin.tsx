@@ -3,6 +3,7 @@ import {LoginStudent} from '../../query/query';
 import {useQuery, useApolloClient} from '@apollo/react-hooks';
 import '../../styles/student.styl';
 import StageThree from './StudentLoginStage3';
+import {Link} from 'react-router-dom';
 
 
 function StageOne(props) {
@@ -149,7 +150,7 @@ export default function StudentLogin() {
      student_key={studentLogin.student_key} /> }
     </div>
 
-    <span className="teacher-corner"><a href="/login">Teacher Login</a>.</span>
+    <span className="teacher-corner"><Link to="/login">Teacher Login</Link>.</span>
    </div>
   )
 }

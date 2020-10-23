@@ -1,7 +1,9 @@
 const { GraphQLSchema, GraphQLObjectType } = require('graphql');
 
 const GetUser = require('./queries/getUser');
+const GetTeacher = require('./queries/getTeacher')
 const Login = require('./queries/login');
+const TeacherLogin = require('./queries/loginTeacher')
 const getUserByEmail = require('./queries/getUserByEmail');
 const getAllUsers = require('./queries/getAllUsers');
 const getCompleteUsers = require('./queries/getCompleteUsers');
@@ -23,22 +25,29 @@ const UpdateStudentName = require('./mutations/updateStudentName');
 const RemoveVocabulary = require('./mutations/removeVocabulary');
 const EditBlog = require('./mutations/editBlog');
 const AddChat = require('./mutations/addChat');
+const getUserByUnknown = require('./queries/getUserByUnknown')
 // const WatchChat = require('./subscriptions/watchChat');
 const AddComment = require('./mutations/addComment');
 const UpdateMessage = require('./mutations/addMessage');
 const AddTask = require('./mutations/addTask');
 const RemoveUser = require('./mutations/removeUser');
+const RemoveStudent = require('./mutations/removeStudent');
 const SetVerified = require('./mutations/setVerified');
 const getTaskByID = require('./queries/getTaskByID');
 const SubmitTask = require('./mutations/submitTask');
 const getTasksByStudentID = require('./queries/getCompleteTasksByStudentId');
 const CompleteTask = require('./mutations/completeTask');
+const ShareStudent = require('./mutations/shareStudent');
+const AddTeacher = require('./mutations/addTeacher');
+const UpdateIdentifier = require('./mutations/addIdentifier');
+
 
 
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
   fields: () => ({
     getUser: GetUser,
+    GetTeacher,
     login: Login,
     loginStudent,
     getAllUsers,
@@ -51,7 +60,9 @@ const RootQueryType = new GraphQLObjectType({
     getVocabulary,
     getBlogByID,
     getTaskByID,
-    getTasksByStudentID
+    getTasksByStudentID,
+    getUserByUnknown,
+    TeacherLogin
 
   })
 });
@@ -59,6 +70,7 @@ const RootMutationType = new GraphQLObjectType({
   name: 'RootMutation',
   fields: () => ({
     AddUser,
+    AddTeacher,
     AddPosts,
     AddStudent,
     UpdateStudentPassword,
@@ -67,6 +79,7 @@ const RootMutationType = new GraphQLObjectType({
     UpdateStudentAvatar,
     UpdateStudentName,
     RemoveVocabulary,
+    RemoveStudent,
     EditBlog,
     AddChat,
     AddComment,
@@ -75,7 +88,9 @@ const RootMutationType = new GraphQLObjectType({
     RemoveUser,
     SetVerified,
     SubmitTask,
-    CompleteTask
+    CompleteTask,
+    ShareStudent,
+    UpdateIdentifier
   })
 });
 

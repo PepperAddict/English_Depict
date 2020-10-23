@@ -1,9 +1,32 @@
+thisgray = #6A6A6A;
+button-blue = #79ABE0;
 .add-student
     label 
         font-weight: 600;
         font-size: 1.1rem;
-    input 
-        margin: 10px 0;
+    h3 
+        margin: 20px 0 0 0;
+        text-transform: uppercase;
+        font-size: 1rem;
+        color: thisgray;
+    select, input
+        width: 100%;
+        height: 35px;
+        margin: 5px 0 0 0;
+        border: 1px solid thisgray;
+    .share-space 
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+    .tip
+        font-size: 12px;
+        color: gray;
+        margin: 0px;
+    button.blue-button 
+        background: button-blue;
+        color: white;
+        border-radius: 5px;
+        margin-top: 30px;
     .tool
         padding: 5px; 
         background: #ccc;
@@ -27,6 +50,8 @@
             border-radius: 5px;
         &:hover 
             position: relative;
+            &.identifier::before
+                content: "Identifier is a common vocabulary word to identify the student. For example: 'blue'. ";
             &.username::before
                 content: 'Username is required for student to remember when logging in.';
             &.name::before

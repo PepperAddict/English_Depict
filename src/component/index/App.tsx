@@ -1,91 +1,104 @@
 import React, { Fragment, useState, useMemo } from 'react';
 import ReactDOM from 'react-dom';
-import ApolloClient, { InMemoryCache } from 'apollo-boost';
+import ApolloClient from 'apollo-client';
+const { InMemoryCache } = require("apollo-cache-inmemory");
+const { HttpLink } = require("apollo-link-http");
 import { ApolloProvider, Query, withApollo } from 'react-apollo';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { MyContext } from './Context';
+import { StudentProvider, TeacherProvider } from './Context';
+import WelcomeNav from './WelcomeNav';
+const isDev = process.env.NODE_ENV === "development";
 
 const client = new ApolloClient({
-  uri: '/graphql',
-  cache: new InMemoryCache({
-    freezeResults: true
+  link: new HttpLink({
+    uri: '/api/2/graphql',
   }),
-  assumeImmutableResults: true
+  cache: new InMemoryCache(),
 });
 
 // components
 import Welcome from './Welcome';
 import Login from './Login';
 import Register from './Register';
-import Dashboard from '../Teacher/Dashboard';
-const RegWithClient = withApollo(Register);
+import ParentRegister from './ParentRegister';
+import ParentDashboard from '../Parent/Dashboard';
+import TeacherDashboard from '../Teacher/Dashboard';
+const ParentRegistrationApollo = withApollo(ParentRegister);
 import StudentLogin from '../Student/StudentLogin';
 import StudentDashboard from '../Student/studentDashboard';
 import Verify from './Verify';
-import IndividualTask from './../Student/IndividualTask';
-import {vocab, listCheck} from '../../helpers/vocab';
+import Contact from './Contact';
+import Privacy from './PrivacyPolicy';
+import Terms from './Terms';
+import TeacherRegister from './TeacherRegister';
+const TeacherRegistrationApollo = withApollo(TeacherRegister);
+import TeacherLogin from './TeacherLogin';
 
 
 function App() {
 
-  const [vocabulary, setVocabulary] = useState(null);
-  const [def, setDef] = useState(null);
-  const [listWords, setwords] = useState(null)
-
-  const vocabLookup = e => {
-    setVocabulary(e)
-    const definition = vocab(e);
-    setDef(definition)
-  }
-
-  const spellCheck = e => {
-    const list = listCheck(e)
-    setVocabulary(e)
-    setwords(list)
-  }
-
-
   return (
     <ApolloProvider client={client}>
-      <MyContext.Provider value={{
-        vocabulary, 
-        def, 
-        setVocabulary: e => setVocabulary(e), 
-        lookUp: e => vocabLookup(e),
-        spellCheck: e => spellCheck(e),
-        listWords}}>
-        <Router>
-          <Fragment>
-            <Route exact path="/">
-              <Welcome />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
+      <Router> 
 
-            <Route path="/dashboard/:page?">
-              <Dashboard />
-            </Route>
+      <WelcomeNav />
 
+        <Fragment>
 
-            <Route exact path="/register">
-              <RegWithClient />
+          <Route exact path="/">
+            <Welcome />
+          </Route>
+          <Route exact path="/register">
+            <Register />
+          </Route>
+          <Route exact path="/parent-login">
+            <Login />
+          </Route>
+          <Route exact path="/privacy">
+            <Privacy />
+          </Route>
+          <Route exact path="/terms">
+            <Terms />
+          </Route>
+
+          <TeacherProvider>
+            <Route path="/parent-dashboard/:page?">
+              <ParentDashboard />
             </Route>
-            <Route path="/student_login">
-              <StudentLogin />
+          </TeacherProvider>
+
+          <TeacherProvider>
+            <Route path="/teacher-dashboard/:page?">
+              <TeacherDashboard />
             </Route>
-            <Route path="/student/:page?">
+          </TeacherProvider>
+
+          <Route exact path="/parent-register">
+            <ParentRegistrationApollo />
+          </Route>
+          <Route exact path="/teacher-register">
+            <TeacherRegistrationApollo />
+          </Route>
+          <Route path="/student-login">
+            <StudentLogin />
+          </Route>
+          <Route path="/teacher-login">
+            <TeacherLogin />
+          </Route>
+          <StudentProvider>
+            <Route path="/student-dashboard/:page?">
               <StudentDashboard />
             </Route>
-            <Route path="/verify">
-              <Verify />
-            </Route>
-            <Route path="/todo/:page?">
-              <IndividualTask />
-            </Route>
-          </Fragment>
-        </Router>
-      </MyContext.Provider>
+          </StudentProvider>
+          <Route path="/verify">
+            <Verify />
+          </Route>
+          <Route path="/contact">
+            <Contact />
+          </Route>
+        </Fragment>
+      </Router>
+
     </ApolloProvider>
   )
 };
@@ -95,6 +108,6 @@ ReactDOM.render(
 );
 
 
-// if (module.hot) {
-//   module.hot.accept();
-// }
+if ((module as any).hot) {
+  (module as any).hot.accept();
+}

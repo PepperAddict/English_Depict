@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+
 const isDev = process.env.NODE_ENV === "development";
 
 const graphqlHTTP = require("express-graphql");
@@ -28,6 +29,7 @@ const server = express();
 //   cert: fs.readFileSync(path.join('server', 'ssl', 'server.crt'))
 // };
 
+
 const http = require("http").createServer(server);
 
 //socket io
@@ -51,10 +53,11 @@ const pgPool = new pg.Pool({
   password: process.env.DB_PASS,
   database: process.env.DB,
   port: process.env.DB_PORT,
-  ssl: {
+  ssl: { 
     rejectUnauthorized: false
   }
 });
+
 const schema = require("./schema/");
 
 server.use(bodyParser.json());
@@ -72,21 +75,25 @@ server.use(
   })
 );
 
-router.get(["/", "/login"], softAuthenticate, (req, res) => {
+router.get(["/", "/parent-login", "/teacher-login"], softAuthenticate, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 });
 
-router.get(["/register", "/register/:page?"], softAuthenticate, (req, res) => {
+router.get(["/register","/parent-register", "/parent-register/:page?", "/teacher-register", "/teacher-register/:page"], softAuthenticate, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 });
 
-router.get(["/dashboard/", "/dashboard/:page?"], cors(),  isAuthenticated,  (req, res) => {
+router.get(["/parent-dashboard/", "/parent-dashboard/:page?", "/parent-dashboard/*", "/teacher-dashboard/", "/teacher-dashboard/:page?", "/teacher-dashboard/*"], cors(),  isAuthenticated,  (req, res) => {
     res.sendFile(path.resolve(__dirname, "../dist/index.html"));
   }
 );
 
+router.get(['/contact', '/privacy', '/terms'], (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../dist/index.html"))
+})
+
 //student corner
-router.get(["/student_login/", "/student_login/:page?"], cors(), choice,(req, res) => {
+router.get(["/student-login/", "/student-login/:page?"], cors(), choice,(req, res) => {
 
     res.sendFile(path.resolve(__dirname, "../dist/index.html"));
   }
@@ -94,18 +101,33 @@ router.get(["/student_login/", "/student_login/:page?"], cors(), choice,(req, re
 
 const mailer = require('./middleware/mailer.js');
 const imageupload = require('./middleware/imageupload.js');
+const forAlexa = require('./middleware/alexa.js');
+const forMath = require('./middleware/math')
 router.use(mailer)
 router.use(imageupload)
+router.use(forAlexa)
+router.use(forMath)
 
 
-router.get(["/student/", "/student/:page?", "/todo/:page?"], cors(), studentAuthenticate,
+router.get(["/student-dashboard/", "/student-dashboard/:page?"], cors(), studentAuthenticate,
   (req, res) => {
     
     res.sendFile(path.resolve(__dirname, "../dist/index.html"));
   }
 );
+var whitelist = ['https://talkingcloud.io', 'http://localhost', 'http://localhost:8080']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+ 
 
-router.use("/graphql", cors(), (req, res) => {
+server.use("/api/2/graphql", (req, res) => {
   graphqlHTTP({
     schema: schema,
     graphiql: isDev ? true : false,
@@ -115,6 +137,11 @@ router.use("/graphql", cors(), (req, res) => {
 });
 
 
+const puppet = require('./middleware/puppet.js')
+router.use(puppet)
+
+const mupload = require('./middleware/monday.js')
+router.use(mupload)
 
 server.use('/', router)
 

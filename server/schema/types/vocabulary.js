@@ -12,7 +12,9 @@ const VocabularyType = new GraphQLObjectType({
       student_id: { type: GraphQLNonNull(GraphQLID)},
       vocabulary_word: {type: GraphQLNonNull(GraphQLString)},
       vocabulary_definition: { type: GraphQLString},
-      created_at: {type: GraphQLNonNull(GraphQLString)}
+      created_at: {type: GraphQLNonNull(GraphQLString)},
+      teacher_id: {type: GraphQLID},
+      parent_id: {type: GraphQLID}
     }
   }
 })

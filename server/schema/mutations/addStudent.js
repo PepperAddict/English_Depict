@@ -10,9 +10,11 @@ const StudentType = require('../types/student')
 const StudentInputType = new GraphQLInputObjectType({
   name: 'StudentInput',
   fields: {
-    teacher_id: {type: GraphQLNonNull(GraphQLID)},
+    parent_id: {type: GraphQLNonNull(GraphQLID)},
     username: { type: GraphQLNonNull(GraphQLString)},
     name: {type: GraphQLString}, 
+    grade: {type: GraphQLNonNull(GraphQLString)},
+    identifier: {type: GraphQLString},
     question: { type: GraphQLNonNull(GraphQLString)},
     password: {type: GraphQLNonNull(GraphQLString)},
     theme: {type: GraphQLString}

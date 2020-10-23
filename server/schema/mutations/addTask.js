@@ -12,7 +12,8 @@ const TaskInputType = new GraphQLInputObjectType({
   fields: {
     task_code: {type: GraphQLNonNull(GraphQLString)},
     student_id: { type: GraphQLNonNull(GraphQLID)},
-    teacher_id: {type: GraphQLNonNull(GraphQLID)},
+    teacher_id: {type: GraphQLID},
+    parent_id: {type: GraphQLID},
     task_date: {type: GraphQLNonNull(GraphQLString)},
     entry: {type: GraphQLJSON}
   }

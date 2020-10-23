@@ -2,28 +2,33 @@ import React from 'react';
 // import ChatBox from './Chat/ChatBox.jsx';
 import HeroBG from './Hero';
 import '../../styles/welcome.styl';
-const logoImage = require('../../img/logo.png');
+const logoImage = require('../../img/cloud.svg');
 require('../../img/bubble.jpg');
+import {Link} from 'react-router-dom';
+import { createUseStyles } from 'react-jss';
+
 
 export default function Welcome() {
 
   return (
     <div className="welcome-container">
-      <header className="home-nav">
 
+      <header className="home-nav">
         <div className="logo-info">
-          <picture>
-            <source srcSet={logoImage.srcSet} />
-            <img src={logoImage.src} srcSet={logoImage.srcSet} alt="Talking Cloud Logo"/>
-          </picture>
+          
+          <div className="logo-hero">
+            <img src={logoImage.default} alt="logo big"/>
+            <h1>Talking Cloud</h1>
+
+          </div>
+
           <nav>
-            <a className="teacherLogin" href="/login">Teacher Login</a> 
-            <a className="studentLogin" href="/student_login">Student Login</a>
+            <Link to="/teacher-login" className="teacherLogin">Teacher Login</Link>
+            <Link to="/student-login" className="teacherLogin">Student Login</Link>
+            <Link to="/parent-login" className="teacherLogin">Parent Login</Link>
           </nav>
           <h1>The place to practice English and track progress</h1>
-          <a className="registerAccount" href="/register">Register for a teacher's account</a>
         </div>
-        <HeroBG />
         
       </header>
     </div>

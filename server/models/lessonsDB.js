@@ -82,6 +82,7 @@ module.exports = pgPool => {
     addVocabulary({
       student_id,
       teacher_id,
+      parent_id,
       vocabulary_word,
       vocabulary_definition
     }) {
@@ -90,9 +91,9 @@ module.exports = pgPool => {
       return pgPool
         .query(
           `
-      insert into vocabularies (student_id, teacher_id, vocabulary_word, vocabulary_definition, created_at) values ($1, $2, $3, $4, $5) returning *
+      insert into vocabularies (student_id, teacher_id, vocabulary_word, vocabulary_definition, created_at, parent_id) values ($1, $2, $3, $4, $5, $6) returning *
       `,
-          [student_id, teacher_id, vocabulary_word, definition, created_at]
+          [student_id, teacher_id, vocabulary_word, definition, created_at, parent_id]
         )
         .then(res => {
           return res.rows[0];
@@ -101,10 +102,20 @@ module.exports = pgPool => {
           console.log(err);
         });
     },
-    getVocabularyByID(student_id) {
+    getVocabularyByStudent(student_id) {
       return pgPool
         .query(
           `select * from vocabularies where student_id = $1`,[student_id])
+        .then(res => {
+          if (res.rows) {
+            return res.rows;
+          }
+        });
+    },
+    getVocabularyByParent(id) {
+      return pgPool
+        .query(
+          `select * from vocabularies where parent_id = $1`,[id])
         .then(res => {
           if (res.rows) {
             return res.rows;
@@ -198,15 +209,15 @@ module.exports = pgPool => {
           }
         });
     },
-    addTask({ task_code, student_id, teacher_id, task_date, entry }) {
+    addTask({ task_code, student_id, teacher_id, parent_id, task_date, entry }) {
       const created_at = new Date();
       return pgPool
         .query(
           `
-      insert into tasks (task_code, student_id, teacher_id, task_date, entry, created_at)
-      values ($1, $2, $3, $4, $5, $6) returning *
+      insert into tasks (task_code, student_id, teacher_id, parent_id, task_date, entry, created_at)
+      values ($1, $2, $3, $4, $5, $6, $7) returning *
       `,
-          [task_code, student_id, teacher_id, task_date, entry, created_at]
+          [task_code, student_id, teacher_id, parent_id, task_date, entry, created_at]
         )
         .then(res => {
           return res.rows[0];

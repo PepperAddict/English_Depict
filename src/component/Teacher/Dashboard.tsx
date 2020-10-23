@@ -1,92 +1,63 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { cookieParser } from '../../helpers';
-import { getUserByID } from '../../query/query';
-import AddStudent from './AddStudent';
+import { getTeacherByID } from '../../query/query';
+
 import '../../styles/basic.styl';
 import '../../styles/teacherDashboard.styl';
 import '../../styles/teacher_sidebar.styl';
 import DashboardSidebar from './DashboardSidebar';
 import IndividualStudent from './IndividualStudent';
-import ShowCard from './StudentCard';
-import Tasks from './TeacherTasks';
+
+import TaskFront from './TaskFront'
 import Settings from './Settings';
-import VocabTask from './VocabTask';
+import TeacherDashboard from './TeacherDashboard';
+import DashboardStudent from './Dashboard-Student';
+import SelectedTaskView from './ShowTaskSelected';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import ImageClue from './Teacher_CIC';
+import TaskWOTD from './Teacher_WOTD';
+import { TeacherContext } from '../index/Context'
 
 export default function Dashboard() {
 
-  const userId = parseInt(cookieParser('userID', true));
-  const { loading, error, data } = useQuery(getUserByID, { variables: { userId: userId } });
-  const [info, setInfo] = useState('');
+  const userId = parseInt(cookieParser('teacherID', true));
+  const { loading, error, data } = useQuery(getTeacherByID, { variables: { teacher_id: userId } });
   const [student_id, setStudent_id] = useState(null);
-  if (data) {
-    console.log(data)
-  }
-  useEffect(() => {
-    let pathname = window.location.pathname;
-
-    switch (true) {
-      case pathname.includes('add_student'):
-        setInfo({
-          buttonAdd: true
-        });
-        break;
-      case pathname.includes('student_posts'):
-        setInfo({
-          posts: true
-        });
-        break;
-      case pathname.includes('settings'):
-        setInfo({
-          settings: true
-        });
-        break;
-      case pathname.includes('student-info'):
-        setInfo({
-          student: true
-        });
-        break;
-      case pathname.includes('task'):
-        setInfo({
-          task: true
-        });
-        break;
-    }
-  }, []);
-
+if (data) console.log(data)
 
   return (
-    <div className="dashboard-container">
-      <div className="dashboard-sidebar">
-        {data && <DashboardSidebar username={data.getUser.username} email={data.getUser.email} />}
-      </div>
+    <Router>
+      <div className="dashboard-container">
+        <div className="dashboard-sidebar">
+          {data && <DashboardSidebar username={data.GetTeacher.username} email={data.GetTeacher.email} />}
 
-      {loading ? <p>loading</p> : error ? <p>{error.message}</p> : (
-        <div className="dashboard-content">
-          {!data.getUser.verified && <div className="top-banner">Please verify your account</div>}
-
-          {info.buttonAdd ? (<div> {data.getUser.students.length > 0 ?
-            (<div className="student-container">
-              <ShowCard data={data.getUser} userId={userId} setStudentID={setStudent_id} students={data.getUser.students} />
-
-              <AddStudent /></div>) : (<AddStudent />)}
-          </div>) :
-            info.settings ? (<Settings userId={userId} />) :
-              info.task ? <Tasks students={data.getUser.students} teacher_data={data.getUser} /> :
-                info.student ? (<IndividualStudent teacher_id={userId} student_id={student_id} data={data.getUser} />) : (
-                  <div>
-                    {data.getUser.students.length > 0 ? (
-                      <Fragment>
-
-                        <ShowCard students={data.getUser.students} data={data.getUser} userId={userId} setStudentID={setStudent_id} />
-                        
-                        {data.getUser.vocabularies ? 
-                        <VocabTask vocabs={data.getUser.vocabularies}/> : <p>no words in students' vocabulary bucket</p>}
-                      </Fragment>) : (<AddStudent />)}
-                  </div>
-                )}
         </div>
-      )}
-    </div>
+
+        {loading ? <p>loading</p> : error ? <p>{error.message}</p> : (
+          <TeacherContext.Consumer>
+            {context => (
+              <div className="dashboard-content">
+                {!data.GetTeacher.verified && <div className="top-banner">Please verify your account</div>}
+                <Switch>
+                  <Route path="/teacher-dashboard/add_student" render={(props) => <DashboardStudent {...props} userId={userId} students={data.GetTeacher.students} />} />
+                  <Route path="/teacher-dashboard/settings" render={(props) => <Settings {...props} userId={userId} students={data.GetTeacher.students}/>} />
+                  <Route path="/teacher-dashboard/task" exact render={(props) => <TaskFront {...props} students={data.GetTeacher.students} teacher_data={data.GetTeacher} />} />
+                  <Route path="/teacher-dashboard/student-info" render={(props) => <IndividualStudent {...props} teacher_id={userId} student_id={student_id} setStudentID={setStudent_id} data={data.GetTeacher} />} />
+                  <Route path="/teacher-dashboard" exact render={(props) => < TeacherDashboard {...props} vocabs={data.GetTeacher.vocabularies} data={data.GetTeacher} userId={userId} students={data.GetTeacher.students} />} />
+
+                  {/* Tasks Area */}
+                  <Route path="/teacher-dashboard/task/CIC" render={(props) => <ImageClue {...props} teacher_data={data.GetTeacher} students={data.GetTeacher.students} />} />
+                  <Route path="/teacher-dashboard/task/WOTD" render={(props) => <TaskWOTD {...props} teacher_data={data.GetTeacher} />} />
+                  <Route path="/teacher-dashboard/task/current" render={(props) => <SelectedTaskView {...props} currentTask={context.task} setTask={context.setTask}/>} />
+                </Switch>
+              </div>
+            )}
+
+          </TeacherContext.Consumer>
+        )
+        }
+      </div>
+    </Router >
   );
 }

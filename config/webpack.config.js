@@ -50,6 +50,12 @@ module.exports = {
     stats: {
       colors: true
     },
+    proxy: {
+      '/api/2/graphql': {
+        target: 'http://localhost:8080/api/2/graphql',
+        secure: false
+      }
+    }
   },
   devtool: (function(){
     const forDevOnly = (isDev) ? 'source-map' : 'none';
@@ -178,23 +184,23 @@ module.exports = {
       }
     ]
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'async',
-      name: true,
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10
-        },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true
-        }
-      }
-    }
-  },
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'async',
+  //     name: true,
+  //     cacheGroups: {
+  //       vendors: {
+  //         test: /[\\/]node_modules[\\/]/,
+  //         priority: -10
+  //       },
+  //       default: {
+  //         minChunks: 2,
+  //         priority: -20,
+  //         reuseExistingChunk: true
+  //       }
+  //     }
+  //   }
+  // },
   plugins: (function() {
     let plugins = [];
 
@@ -213,16 +219,21 @@ module.exports = {
       new HTMLWebpackPlugin({
         template: path.resolve(__dirname, '../src/index.html'),
         filename: path.resolve(__dirname, '../dist/index.html'),
+        awsClient: process.env.AMACLIENT
       }),
-      new CopyPlugin( [
+      new CopyPlugin( {
+                patterns: [
         //send service worker and manifest over to dist folder
         // { from: path.resolve(__dirname, '../src/sw.js'), to: path.resolve(__dirname, '../dist/sw.js')},
-        { from: path.resolve(__dirname, '../src/manifest.json'), to: path.resolve(__dirname, '../dist/manifest.json')}
-      ])
+        { 
+        from: path.resolve(__dirname, '../src/manifest.json'), 
+        to: path.resolve(__dirname, '../dist/manifest.json')
+      }
+      ]
+      }
+)
       // new CleanWebpackPlugin(),
-      // new CopyPlugin([
-      //   { from: '../components/images', to: 'images'}
-      // ])
+
     );
 
     if (isDev) {

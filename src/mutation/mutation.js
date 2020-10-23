@@ -8,6 +8,14 @@ mutation AddNewUser($input: UserInput!) {
     apiKey
   }
 }`;
+export const TEACHER_REGISTRATION = gql`
+mutation AddNewTeacher($input: TeacherInput!) {
+  AddTeacher(input: $input) { 
+    email
+    username
+    apiKey
+  }
+}`;
 
 export const SET_VERIFIED = gql`
 mutation setVerified($email: String!){
@@ -36,6 +44,7 @@ mutation AddStudent($input: StudentInput!) {
     question
     password
     created_at
+    identifier
   }
 }
 `;
@@ -83,15 +92,6 @@ mutation AddVocabulary($input: VocabularyInput!){
 }
 `;
 
-export const UPDATE_STUDENT_AVATAR = gql`
-mutation updateStudentAvatar($input: updateStudentAvatar!) {
-  UpdateStudentAvatar(input: $input) {
-    student_id
-    student_key
-    avatar
-  }
-}
-`;
 
 export const UPDATE_STUDENT_NAME = gql`
 mutation changeName($input: updateStudentName!) {
@@ -128,6 +128,32 @@ mutation UpdateMessage($input: AddMessage!){
 }
 `;
 
+export const UPDATE_IDENTIFIER = gql`
+mutation UpdateIdentifier($input: AddIdentifier!){
+  UpdateIdentifier(input: $input) {
+    student_id
+    identifier
+  }
+}
+`
+
+export const UPDATE_STUDENT_AVATAR = gql`
+mutation UpdateStudentAvatar($input: UpdateStudentAvatar!){
+  UpdateStudentAvatar(input: $input) {
+    student_id
+    avatar
+  }
+}
+`
+
+export const REMOVE_STUDENT = gql`
+mutation RemoveTheStudent($student_id: ID!) {
+  RemoveStudent(student_id: $student_id) {
+    message
+  }
+}
+`
+
 export const ADD_TASK = gql`
 mutation AddTask($input: TaskInput!){
   AddTask (input: $input) {
@@ -150,6 +176,14 @@ mutation SubmitTask($input: TaskSubmit! ) {
 export const REJECT_OR_APPROVE_TASK = gql`
 mutation completeTask($input: CompleteTask! ) {
   CompleteTask(input: $input) {
+    student_id
+  }
+}
+`
+
+export const SHARE_STUDENT = gql`
+mutation ShareStudent($input: ShareStudentInput!) {
+  ShareStudent(input: $input) {
     student_id
   }
 }

@@ -10,3 +10,4 @@ hot-update.js.map
 hot-update.json
 content
 dist
+package-lock.json

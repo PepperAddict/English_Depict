@@ -1,0 +1,36 @@
+* Things I've learned. 
+
+** Nginx 
+
+When it comes to rendering the reactjs pages, make sure to have `try_files $uri $uri/ /index.html;` that way you won't get 404 when refreshing the page. 
+
+Must have different location {} paths for api type endpoints. Since reactjs needs try_files, api endpoint needs it removed otherwise it'll be searching for a file or directory as discussed here: https://stackoverflow.com/questions/44668559/how-to-setup-routes-with-express-and-nginx
+
+When hosting nginx on windows local setup, make sure to have nginx on a path that doesn't require running as administrator as nothing will be put in logs unless you run nginx as admin everytime. 
+
+** Nodejs 
+
+The big problem that I faced was using an unstable version of node which is version 14 at the time. Downgrade back to 12 if GraphQL hangs during queries. 
+
+** GraphQL endpoint receives 400 bad request 
+
+I received this problem with cors and without. Somehow removing mode: no-cors work as well as modifying the request in webpack, but I believe removing no-cors did the trick considering the graphql endpoint doesn't have cors enabled for it anymore. 
+Source for solution: https://github.com/apollographql/apollo-client/issues/1233
+
+
+** Webpack 
+
+There was an issue with MIME type error after hosting it. I had to remove the hot reload option as discussed here:
+
+https://github.com/webpack-contrib/webpack-hot-middleware/issues/26
+
+** Puppeteer 
+
+I had an issue where puppeteer would just hang in the production server until I got a 502 error. 
+The error in nginx from digital ocean says: 
+```
+2020/08/12 00:21:32 [error] 8446#8446: *146 upstream timed out (110: Connection timed out) while reading response header from upstream, client: myip, server: 138.197.229.105, request: "GET /api/1/puppeteer/?url=https://www.google.com HTTP/1.1", upstream: "http://127.0.0.1:8080/api/1/puppeteer/?url=https://www.google.com", host: "138.197.229.105"
+```
+
+Which was not helpful whatsoever. Luckily I found a solution. All I needed was chrome installed in the ubuntu server! 
+https://stackoverflow.com/questions/46134231/running-google-chrome-puppeteer-on-vultr-digital-ocean-heroku-or-gae
