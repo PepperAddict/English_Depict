@@ -6,6 +6,7 @@ import React, { useState, Fragment, useEffect } from 'react';
 import Unsplash from 'unsplash-js';
 import '../../styles/tasks.styl';
 const unsplash = new Unsplash({ accessKey: process.env.UNSPLASH_ACCESS });
+
 import NextStage from './Teacher_CIC_two';
 
 interface ListOfImagesProps {

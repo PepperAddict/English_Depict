@@ -22,7 +22,7 @@ function Task(props) {
         <StudentContext.Consumer>
             {context => (
                 
-                <Link to="/student/tasks/task">
+                <Link to="/student-dashboard/tasks/task">
                     <div className="task-container" onClick={e => context.setTask(tasks)}>
                         {tasks.task_code === "CIC" &&
                             <CIC task={tasks} />}
