@@ -9,7 +9,6 @@ export default function AutoTask(props) {
 
     useState(() => {
         console.log(stuff)
-
     }, [stuff])
     
     const allowDrop = e => {
