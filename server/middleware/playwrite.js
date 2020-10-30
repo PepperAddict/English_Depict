@@ -42,7 +42,8 @@ router.get(["/api/1/play/", "/api/1/play/:page?"], async (req, res) => {
   console.log(req.query.url)
   await page.setViewportSize(whichView[req.query.mode || "desktop"])
   await page.goto(req.query.url);
-  const image = await page.screenshot({type: 'jpeg'})
+  const image = await page.screenshot({type: 'jpeg', fullPage: req.query.full === "yes" ? true : false,
+})
   await browser.close();
   res.set("Content-Type", "image/jpeg");
   res.send(image);
