@@ -137,8 +137,11 @@ server.use("/api/2/graphql", (req, res) => {
 });
 
 
-const puppet = require('./middleware/puppet.js')
-router.use(puppet)
+// const puppet = require('./middleware/puppet.js')
+// router.use(puppet)
+
+const play = require('./middleware/playwrite.js')
+router.use(play)
 
 const mupload = require('./middleware/monday.js')
 router.use(mupload)
