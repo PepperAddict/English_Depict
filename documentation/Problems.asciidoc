@@ -24,7 +24,7 @@ There was an issue with MIME type error after hosting it. I had to remove the ho
 
 https://github.com/webpack-contrib/webpack-hot-middleware/issues/26
 
-** Puppeteer 
+** Puppeteer / Playwright
 
 I had an issue where puppeteer would just hang in the production server until I got a 502 error. 
 The error in nginx from digital ocean says: 
@@ -34,3 +34,6 @@ The error in nginx from digital ocean says:
 
 Which was not helpful whatsoever. Luckily I found a solution. All I needed was chrome installed in the ubuntu server! 
 https://stackoverflow.com/questions/46134231/running-google-chrome-puppeteer-on-vultr-digital-ocean-heroku-or-gae
+
+If firefox is required, the server will need to install that as well
+`sudo apt-get install firefox`
