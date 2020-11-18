@@ -74,4 +74,43 @@ router.use(
   }
 );
 
+router.use('/api/1/xd-call', async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  try {
+    fetch("https://xdce.adobe.io/v2/document/" + req.query.xdid, {headers: {
+      "x-api-key": process.env.XD_KEY
+    }})
+    .then((res) => {
+      return res.json()
+    }).then((resp) => {
+      res.json(resp)
+    })
+  } catch {
+    console.log('error')
+  }
+})
+
+
+router.use('/api/1/figma-call', async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  try {
+    fetch("https://api.figma.com/v1/files/" + req.query.figid, {headers: {
+      "X-Figma-Token": process.env.FIGMA
+    }})
+    .then((res) => {
+      return res.json()
+    }).then((resp) => {
+      res.json(resp)
+    })
+  } catch {
+    console.log('error')
+  }
+})
+
 module.exports = router;
