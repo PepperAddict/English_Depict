@@ -5,6 +5,7 @@ const formidable = require('formidable')
 var fs = require('fs');
 var fetch = require('node-fetch');
 
+
 router.use(
   ["/api/1/mupload/", "/api/1/mupload/:page?"],
   async (req, res) => {
@@ -23,7 +24,7 @@ router.use(
     var url = "https://api.monday.com/v2/file";
     var boundary = "xxxxxxxxxx";
     var data = "";
-    const query = `mutation ($file: File!){add_file_to_update (update_id: ${updateid}, file: $file) {id}}`
+    const query = `mutation ($file: File!){add_file_to_update (update_id: ${updateid}, file: $file) {id, url, url_thumbnail}}`
 
     fs.readFile(upfile =  file.path, function(err, content){
     
@@ -55,8 +56,9 @@ router.use(
     
         // make request
         fetch(url, options)
-          .then(res => res.json())
-          .then(json => console.log(json)).catch((err) => console.log('no work'));
+          .then(resp => resp.json())
+          .then(json => res.json(json))
+          .catch((err) => console.log(err));
     });
 
     })
@@ -67,9 +69,9 @@ router.use(
       console.error('Error', err)
       throw err
     })
-    .on('end', () => {
-      res.end()
-    })
+    // .on('end', () => {
+    //   res.end()
+    // })
 
   }
 );
@@ -107,6 +109,22 @@ router.use('/api/1/figma-call', async (req, res) => {
       return res.json()
     }).then((resp) => {
       res.json(resp)
+    })
+  } catch {
+    console.log('error')
+  }
+})
+
+router.use('/api/1/img-to-blob', async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  try {
+    fetch(req.query.imgurl).then((response) => response.blob()).then((resp) =>  {
+      console.log(resp)
+
     })
   } catch {
     console.log('error')
