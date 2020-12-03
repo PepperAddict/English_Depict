@@ -64,7 +64,7 @@ router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], async (req, res) => {
     fetch(
       "https://auth.monday.com/oauth2/token?code=" +
         req.query.code +
-        "&client_id=c402136ecfc3e375135e5002cb9ebaa0&client_secret=7559d1f42b861a812a4d539c75a6fee1&redirect_uri=https://15bf9f508b9a.ngrok.io/api/1/mupload",
+        "&client_id=c402136ecfc3e375135e5002cb9ebaa0&client_secret=7559d1f42b861a812a4d539c75a6fee1&redirect_uri=https://talkingcloud.io/api/1/mupload",
       {
         method: "POST",
       }
@@ -89,7 +89,7 @@ router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], async (req, res) => {
       });
   } else {
     res.redirect(
-      "https://auth.monday.com/oauth2/authorize?client_id=c402136ecfc3e375135e5002cb9ebaa0&redirect_uri=https://15bf9f508b9a.ngrok.io/api/1/mupload"
+      "https://auth.monday.com/oauth2/authorize?client_id=c402136ecfc3e375135e5002cb9ebaa0&redirect_uri=https://talkingcloud.io/api/1/mupload"
     );
   }
 });
