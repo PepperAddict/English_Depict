@@ -21,7 +21,7 @@ router.use(
     })
     .on('file', (name, file) => {
 
-    var url = "https://cors-anywhere.herokuapp.com/https://api.monday.com/v2/file";
+    var url = "https://api.monday.com/v2/file";
     var boundary = "xxxxxxxxxx";
     var data = "";
     const query = `mutation ($file: File!){add_file_to_update (update_id: ${updateid}, file: $file) {id, url, url_thumbnail}}`
