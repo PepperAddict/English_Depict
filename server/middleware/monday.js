@@ -7,13 +7,15 @@ var fetch = require("node-fetch");
 
 router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST", "OPTIONS");
+  res.setHeader("Access-Control-Allow-Methods", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin", "X-Requested-With", "Content-Type", "Accept",
     "X-Requested-With,content-type"
   );
   res.setHeader("Access-Control-Allow-Credentials", true);
+
+  
   var updateid;
   new formidable.IncomingForm()
 
@@ -60,6 +62,7 @@ router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], async (req, res) => {
       console.error("Error", err);
       throw err;
     });
+
 
   if (req.query.code) {
     fetch("https://auth.monday.com/oauth2/token?code=" +
