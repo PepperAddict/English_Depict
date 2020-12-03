@@ -148,7 +148,9 @@ router.use(mupload)
 
 server.use('/', router)
 
-const PORT = process.env.PORT || 8080;
+const changePort = (isDev) ? 8181 : 8080;
+
+const PORT = process.env.PORT || changePort;
 http.listen(PORT, () => {
   console.log("the server is listening in " + PORT);
 });

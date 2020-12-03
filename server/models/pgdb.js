@@ -215,7 +215,6 @@ module.exports = pgPool => {
               throw new Error('incorrectPassword');
             }
           } else {
-
             throw new Error('noEmail');
           }
         }).catch((e) => {
@@ -238,11 +237,9 @@ module.exports = pgPool => {
               throw new Error('incorrectPassword');
             }
           } else {
-
             throw new Error('noEmail');
           }
         }).catch((e) => {
-          console.log(e)
           throw new Error(e);
         });
     },
