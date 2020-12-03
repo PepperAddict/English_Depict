@@ -7,9 +7,10 @@ var fetch = require("node-fetch");
 
 router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST", "OPTIONS");
   res.setHeader(
     "Access-Control-Allow-Headers",
+    "Origin", "X-Requested-With", "Content-Type", "Accept",
     "X-Requested-With,content-type"
   );
   res.setHeader("Access-Control-Allow-Credentials", true);
@@ -61,8 +62,7 @@ router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], async (req, res) => {
     });
 
   if (req.query.code) {
-    fetch(
-      "https://auth.monday.com/oauth2/token?code=" +
+    fetch("https://auth.monday.com/oauth2/token?code=" +
         req.query.code +
         "&client_id=c402136ecfc3e375135e5002cb9ebaa0&client_secret=7559d1f42b861a812a4d539c75a6fee1&redirect_uri=https://talkingcloud.io/api/1/mupload",
       {
