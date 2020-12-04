@@ -1,0 +1,33 @@
+<html lang="en">
+  <head>
+    <script>
+      console.log("test");
+      window.onload = function () {
+        let urlParams = new URLSearchParams(window.location.search);
+        window.opener.postMessage(urlParams.get("token"), "*");
+      };
+    </script>
+
+    <style>
+        body {
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+        }
+        div {
+            margin-top: 300px;
+    width: 500px;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    height: 100%;
+        }
+    </style>
+  </head>
+
+  <body>
+    <div>Thank you for authenticating. Your file will be sent soon!</div>
+  </body>
+</html>
