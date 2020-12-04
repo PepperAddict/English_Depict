@@ -97,7 +97,7 @@ router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], cors(), async (req, res
       
               // construct file part
               data += "--" + boundary + "\r\n";
-              data += 'Content-Disposition: form-data; name="variables[file]"; filename="' + upfile + file.name + "." + file.path + '"\r\n';
+              data += 'Content-Disposition: form-data; name="variables[file]"; filename="' + upfile + file.name + '"\r\n';
               data += "Content-Type:application/octet-stream\r\n\r\n";
               let payload = Buffer.concat([
                 Buffer.from(data, "utf8"),
