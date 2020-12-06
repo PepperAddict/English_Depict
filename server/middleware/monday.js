@@ -55,7 +55,7 @@ router.use(['/api/1/apiformun', '/api/1/test/:page?'], (req, res) => {
 })
 
 
-router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], cors(), async (req, res) => {
+router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], async (req, res) => {
 
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "*");
