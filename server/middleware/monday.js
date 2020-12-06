@@ -76,7 +76,10 @@ router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], async (req, res) => {
     "X-Requested-With,content-type"
   );
   res.setHeader("Access-Control-Allow-Credentials", true);
-        var updateid;
+
+  try {
+
+      var updateid;
         var theKey;
         let fields = []
         new formidable.IncomingForm()
@@ -150,6 +153,10 @@ router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], async (req, res) => {
             console.error("Error", err);
             throw err;
           });
+  } catch(e) {
+    res.sendStatus(500)
+  }
+  
       
   
  
