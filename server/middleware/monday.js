@@ -5,7 +5,7 @@ const formidable = require("formidable");
 var fs = require("fs");
 var fetch = require("node-fetch");
 const thaturi = "https://talkingcloud.io";
-const cors = require('cors')
+
 const path = require("path");
 
 router.use("/api/1/munday", (req, res) => {
@@ -85,7 +85,7 @@ router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], async (req, res) => {
             fields.push({name, field})
           })
           .on("file", (name, file) => {
-            
+
             for (let x of fields) {
               if (x.name === "updateId") {
                 updateid = x.field
@@ -130,8 +130,15 @@ router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], async (req, res) => {
               // make request
               fetch('https://api.monday.com/v2/file', options)
                 .then((resp) => resp.json())
-                .then((respn) => res.json(respn))
-                .catch((err) => console.log(err));
+                .then((respn) => {
+                  updateid = null
+                  theKey = null
+                  fields = []
+                  res.json(respn) })
+                .catch((err) => {
+                  console.log(err)
+                  throw err
+                });
                 
             })
       
