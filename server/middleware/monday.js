@@ -46,6 +46,17 @@ router.use("/api/1/munday", (req, res) => {
   }
 });
 router.use(['/api/1/apiformun', '/api/1/test/:page?'], (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin",
+    "X-Requested-With",
+    "Content-Type",
+    "Accept",
+    "X-Requested-With,content-type"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", true);
 
   if (req.query.token) {
     res.sendFile(path.join(__dirname +'/monday.html'))
