@@ -5,7 +5,7 @@ const formidable = require("formidable");
 var fs = require("fs");
 var fetch = require("node-fetch");
 const thaturi = "https://talkingcloud.io";
-
+const cors = require('cors')
 const path = require("path");
 
 router.use("/api/1/munday", (req, res) => {
@@ -67,7 +67,10 @@ router.use(["/api/1/apiformun", "/api/1/test/:page?"], (req, res) => {
   }
 });
 
-router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], async (req, res) => {
+router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], cors({credentials: true, origin: true, optionsSuccessStatus: 200 }), async (req, res) => {
+  console.log(res)
+  console.log(req)
+  
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "*");
   res.setHeader(
@@ -81,6 +84,7 @@ router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], async (req, res) => {
   res.setHeader("Access-Control-Allow-Credentials", true);
 
   try {
+
     var updateid;
     var theKey;
     let fields = [];
@@ -152,6 +156,7 @@ router.use(["/api/1/mupload/", "/api/1/mupload/:page?"], async (req, res) => {
               throw err;
             });
         });
+
       })
       .on("aborted", () => {
         console.error("Request aborted by the user");

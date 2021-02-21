@@ -1,0 +1,20 @@
+.nav-container 
+    top: 0px;
+    width: 100%;
+    position: absolute;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 200px 1fr;
+    z-index: 10;
+    grid-gap: 30px;
+    @media screen and (max-width: 600px) 
+        grid-template-columns: 1fr;
+        position: relative;
+    a 
+        margin: 10px;
+        color: #FF5A00;
+        font-weight: 800
+    .login-nav
+        justify-content: flex-end
+        display: flex;
+        

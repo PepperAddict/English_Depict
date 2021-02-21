@@ -2,11 +2,56 @@
 
 .welcome-container 
   position: relative;
-  background-image: linear-gradient(to bottom, #ffe5bb, #ffe7c1, #ffe9c7, #ffecce, #ffeed4);
+  background: #FFEED4;
   height: 100vh;
+  box-sizing: border-box;
+  padding-top: 100px;
+  @media screen and (max-width: 600px) 
+    height: 100%;
+    padding-top: 20px;
+    .hide-on-mobile 
+      display: none;  
+    h1  
+      font-size: 1.5rem;
+  header 
+    max-width: 1200px;     
+    margin: auto;   
+    .header-text 
+      max-width: 800px;
+      padding: 10px;
+      box-sizing: border-box;
+
+  iframe 
+    height: 600px;
+    width: 100%;
+    border: 0px;
   .home-nav 
     width: 100%;
     position: relative;
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    grid-gap: 50px
+    overflow: hidden;
+    @media screen and (max-width: 600px)
+      grid-template-columns: 1fr;
+
+
+    .home-right 
+      height: auto;
+      width: 100%;
+      text-align: center;
+      display: grid;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      justify-items: center;
+      @media screen and (max-width: 600px)
+        grid-row: 1
+      img 
+        object-fit: cover;
+        width: 100%;
+        margin-bottom: 10px;
+
     .registerAccount 
       padding: 10px;
       width: 100%;

@@ -1,59 +1,39 @@
-import React, {Fragment} from 'react';
-import {Link} from 'react-router-dom';
-import { createUseStyles } from 'react-jss';
+import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
+
 import { cookieParser } from '../../helpers';
-const ico = require('../../img/logoWide.svg')
+const ico = require('../../img/icons/logo-top.svg')
+import '../../styles/nav.styl'
+
 export default function WelcomeNavigation() {
     const parentID = cookieParser('userID', false);
     const studentId = cookieParser('student_id', false);
     const teacherId = cookieParser('tch', false)
 
-    const navStyle = createUseStyles({
-        NavTop: {
-            position: 'sticky',
-            top: '0px',
-            background: 'white',
-            width: '100%',
-            height: '70px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            borderBottom: '1px solid #ccc',
-            zIndex: '10',
-            '& a': {
-                margin: '10px'
-            }
-        },
-        regiButton: {
-            background: '#79ABE0',
-            color: 'white',
-            padding: '10px'
-        },
-        iconButton: {
-            position: 'absolute',
-            left: '10px',
-            height: '70px',
-            cursor: 'pointer',
-            margin: '0px !important',
-            '& img': {
-               height: '70px'
-            }
-        }
-    })
+    return (
+        <nav className="nav-container">
+            <div className="icon-nav">
+                <Link to="/">
+                    <img alt="Home" src={ico.default} />
+                </Link>
+            </div>
+            <div className="login-nav">
+                <Link to="/teacher-login" className="teacherLogin">Teacher Login</Link>
+                <Link to="/student-login" className="teacherLogin">Student Login</Link>
+                <Link to="/parent-login" className="teacherLogin">Parent Login</Link>
+            {(!parentID && !studentId && !teacherId) ?
+                <Fragment>
+                    {/* <Link className={navStyleCreate.regiButton}  to="/register">Register</Link>  */}
+                </Fragment>
+                : (parentID) ? <Link to="/parent-dashboard">Parent Dashboard</Link>
+                    : (studentId) ? <Link to="/student-dashboard">Student Dashboard</Link>
+                        : <Link to="/teacher-dashboard">Teacher Dashboard</Link>}
 
-    const navStyleCreate = navStyle()
-    return(
-        <nav className={navStyleCreate.NavTop}>
-                    
-                    <Link to="/" className={navStyleCreate.iconButton}><img alt="Home" src={ico.default} /></Link>
-                    <Link to="/">Login</Link>
-                    {(!parentID && !studentId && !teacherId) ? 
-                    <Fragment>
-                    <Link className={navStyleCreate.regiButton}  to="/register">Register</Link> 
-                    </Fragment>                      
-                    : (parentID) ? <Link to="/parent-dashboard">Parent Dashboard</Link>
-                    : (studentId) ? <Link to="/student-dashboard">Student Dashboard</Link> 
-                    : <Link to="/teacher-dashboard">Teacher Dashboard</Link>}
+            </div>
+
+
+
+
 
         </nav>
     )

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as THREE from 'three';
 // import GLTFLoader from 'three-gltf-loader';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+const {GLTFLoader} = require('three/examples/jsm/loaders/GLTFLoader')
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);

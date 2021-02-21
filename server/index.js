@@ -61,15 +61,21 @@ const pgPool = new pg.Pool({
 const schema = require("./schema/");
 
 server.use(cors())
-server.use(function (req, res, next) {
+
+server.all('/*', cors({credentials: true, origin: true}),function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
+  res.setHeader("Access-Control-Allow-Headers", "Origin,Cache-Control,Accept,X-Access-Token ,X-Requested-With, Content-Type, Access-Control-Request-Method");
+  if (req.method === "OPTIONS") {
+  return res.status(200).end();
+  }
   next();
 });
 
 
-server.use(bodyParser.json());
+server.use(bodyParser.json({limit: '1000kb'}));
 server.use(
   bodyParser.urlencoded({
     extended: true
@@ -154,7 +160,7 @@ const play = require('./middleware/playwrite.js')
 router.use(play)
 
 const mupload = require('./middleware/monday.js')
-router.use(mupload)
+router.use(mupload, cors({credentials: true, origin: true}))
 
 server.use('/', router)
 
