@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { StudentProvider, TeacherProvider } from './Context';
 import WelcomeNav from './WelcomeNav';
 const isDev = process.env.NODE_ENV === "development";
+import Loadable from 'react-loadable'
 
 const client = new ApolloClient({
   link: new HttpLink({
@@ -16,10 +17,25 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+function Loading() {
+  return <div>Loading</div>
+}
+
 // components
-import Welcome from './Welcome';
-import Login from './Login';
-import Register from './Register';
+const Welcome = Loadable({
+  loader: () => import('./Welcome'),
+  loading: Loading
+})
+
+const Login = Loadable({
+  loader: () => import('./Login'),
+  loading: Loading
+})
+const Register = Loadable({
+  loader: () => import('./Register'),
+  loading: Loading
+})
+
 import ParentRegister from './ParentRegister';
 import ParentDashboard from '../Parent/Dashboard';
 import TeacherDashboard from '../Teacher/Dashboard';
