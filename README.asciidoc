@@ -30,3 +30,19 @@ The design is to help map out the features that need to be put in. Check frequen
 for changes. 
 
 https://xd.adobe.com/view/049b8746-593f-4944-4e76-b47e92c7a8d7-72aa/
+
+
+== Renewing license 
+
+`sudo systemctl stop nginx`
+`sudo certbot renew --dry-run`
+
+if this doesn't work. close nginx 
+`ps aux | grep nginx`  and kill all process
+and try `service nginx start` and `sudo certbot renew --dry-run` again
+
+`sudo systemctl restart nginx`
+
+restart the apps 
+
+`pm2 restart all`
